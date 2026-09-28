@@ -73,12 +73,12 @@
     {
       "id": 9,
       "subject": "Task 9: Cleanup, docs, final checks",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** The Carrd files, the demo and the old page are gone; the README and CLAUDE.md describe the new structure; every test passes on a clean build.\n\n**Files:**\n- Delete: `src/carrd/`, `src/pages/old.astro`, `src/pages/demo.astro`, `src/data/`\n- Modify: `README.md`, `CLAUDE.md`\n- Modify: `tests/site.test.mjs`\n- Modify: `docs/superpowers/specs/2026-09-28-site-rebuild-design.md` (one line on the form)\n\n**Acceptance Criteria:**\n- [ ] `git ls-files src/carrd src/data src/pages/old.astro src/pages/demo.astro` prints nothing.\n- [ ] `grep -rn \"contra.com/p/\" src dist` prints nothing.\n- [ ] `grep -rn \"—\\|–\" src tests scripts README.md CLAUDE.md` prints nothing (no em dash, no en dash).\n- [ ] `rm -rf dist && GITHUB_TOKEN=$(gh auth token) npm test` passes.\n- [ ] `dist/old/` does not exist.\n\n**Verify:** `rm -rf dist && GITHUB_TOKEN=$(gh auth token) npm test && test ! -d dist/old && echo clean` → tests pass, \"clean\".\n\n```json:metadata\n{\"files\": [\"src/carrd/\", \"src/pages/old.astro\", \"src/pages/demo.astro\", \"src/data/\", \"README.md\", \"CLAUDE.md\", \"tests/site.test.mjs\", \"docs/superpowers/specs/2026-09-28-site-rebuild-design.md\"], \"verifyCommand\": \"rm -rf dist && GITHUB_TOKEN=$(gh auth token) npm test && test ! -d dist/old && echo clean\", \"acceptanceCriteria\": [\"`git ls-files src/carrd src/data src/pages/old.astro src/pages/demo.astro` prints nothing.\", \"`grep -rn \\\"contra.com/p/\\\" src dist` prints nothing.\", \"`grep -rn \\\"—\\\\|–\\\" src tests scripts README.md CLAUDE.md` prints nothing (no em dash, no en dash).\", \"`rm -rf dist && GITHUB_TOKEN=$(gh auth token) npm test` passes.\", \"`dist/old/` does not exist.\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         8
       ]
     }
   ],
-  "lastUpdated": "2026-09-28T11:10:17.196961+00:00"
+  "lastUpdated": "2026-09-28T12:54:38.984205+00:00"
 }
