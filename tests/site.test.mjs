@@ -78,3 +78,26 @@ test("project page: links to its use cases exist", () => {
   const html = page("projects/fleetnova");
   assert.ok(links(html).includes("/use-cases/internal-applications/"));
 });
+
+test("use-case pages: 4 in English and 4 in French", () => {
+  for (const slug of USE_CASES) {
+    assert.ok(exists(`use-cases/${slug}`), slug);
+    assert.ok(exists(`fr/use-cases/${slug}`), `fr ${slug}`);
+  }
+});
+
+test("use-case page: draft note and project links", () => {
+  const html = page("use-cases/internal-applications");
+  assert.ok(html.includes("Draft. Waits for the client&#39;s approval."));
+  for (const slug of ["fleetnova", "eco-insight", "eco-link"]) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+});
+
+test("every internal link on every page resolves", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  for (const p of pages) {
+    for (const href of links(page(p))) {
+      if (!href.startsWith("/") || href.startsWith("/assets/") || href.startsWith("/_astro/") || href === "/") continue;
+      assert.ok(exists(href.replace(/^\/|\/$/g, "")), `${p} -> ${href}`);
+    }
+  }
+});

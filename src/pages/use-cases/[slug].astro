@@ -1,0 +1,11 @@
+---
+import UseCasePage from "../../components/UseCasePage.astro";
+import { getUseCases, slugOf } from "../../lib/content.ts";
+
+export async function getStaticPaths() {
+  const useCases = await getUseCases("en");
+  return useCases.map((useCase) => ({ params: { slug: slugOf(useCase) }, props: { useCase } }));
+}
+const { useCase } = Astro.props;
+---
+<UseCasePage useCase={useCase} lang="en" />
