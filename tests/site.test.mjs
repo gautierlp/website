@@ -151,6 +151,15 @@ test("homepage: selected work cards for the four use cases, in order", () => {
   assert.deepEqual(fr, USE_CASES.map((s) => `/fr/use-cases/${s}/`));
 });
 
+test("homepage: work cards carry an illustration, a light layer, and the carousel script, without sound or haptics", () => {
+  const html = page("");
+  assert.equal((html.match(/class="card__media"[^>]*>\s*<img /g) ?? []).length, USE_CASES.length);
+  assert.equal((html.match(/class="card__shine"/g) ?? []).length, USE_CASES.length);
+  assert.match(html, /<ul class="work__track" data-carousel/);
+  assert.match(html, /<script[^>]*>[^<]*setProperty\("--d"/);
+  assert.ok(!html.includes("data-haptic") && !html.includes("cuelume"));
+});
+
 test("homepage: a small photo of Gautier in the hero", () => {
   assert.match(page(""), /<img class="avatar" src="\/assets\/images\/avatar\.jpg" alt="Gautier Le Poher"/);
 });
