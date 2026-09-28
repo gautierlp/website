@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Design mockups from the 2026-09 brainstorm, kept locally only
+design-explorations/
