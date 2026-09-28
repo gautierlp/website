@@ -1,17 +1,10 @@
 ---
-import ArrowRight from "./icons/ArrowRight.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
 ---
-<section class="section stack featured">
-  <h2 class="t-title">{tr("section.yourProject")}</h2>
-  <p class="t-body">{tr("cta.title")}</p>
-  <div class="columns columns--start">
-    <ul class="buttons">
-      <li><a class="button" href="https://calendly.com/gautierlp/30min" target="_blank" rel="noopener">{tr("cta.button")} <ArrowRight /></a></li>
-    </ul>
-    <p class="t-small">{tr("cta.email")} <a href="mailto:gautier@lepoher.co">gautier@lepoher.co</a></p>
-  </div>
+<section class="block">
+  <h2>{tr("section.yourProject")}</h2>
+  <p>{tr("cta.title")} <a href="https://calendly.com/gautierlp/30min" target="_blank" rel="noopener">{tr("cta.button")}</a> <span class="muted">{tr("cta.email")}</span> <a href="mailto:gautier@lepoher.co">gautier@lepoher.co</a></p>
 </section>
