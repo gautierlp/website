@@ -69,7 +69,7 @@ code.fn { font-family: var(--font-code); font-weight: 400; font-size: 0.95em; co
 /* Images with the Carrd frame */
 .frame { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 0 auto; max-width: 50rem; }
 .frame img, .frame video { width: 100%; }
-.avatar { width: 7rem; height: 7rem; border-radius: 50%; object-fit: cover; }
+.avatar { width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; }
 
 /* Back to top */
 .to-top { position: fixed; right: 30px; bottom: 20px; z-index: 99; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #fff; color: var(--ink); opacity: 0.3; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-decoration: none; }
