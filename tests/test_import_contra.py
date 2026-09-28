@@ -27,6 +27,10 @@ class ConverterTest(unittest.TestCase):
         self.assertIn("### Core Challenges", md)
         self.assertIn("\n---\n", md)
 
+    def test_strong_and_em_strip_inner_whitespace(self):
+        md, assets = ic.blocks_to_markdown(self.html, "sample")
+        self.assertIn("Hello **World** and *friend* too", md)
+
     def test_media_paths_are_local(self):
         md, assets = ic.blocks_to_markdown(self.html, "sample")
         self.assertIn("![shot.png](/assets/projects/sample/img123.webp)", md)

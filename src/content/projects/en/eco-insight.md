@@ -14,7 +14,7 @@ images: [{"src": "/assets/projects/eco-insight/ne6m3zcu7egyjlzrb10m.webp", "alt"
 highlights: []
 ---
 
-# Streamlining dealership onboarding with Bubble
+## Streamlining dealership onboarding with Bubble
 
 ## Introduction
 

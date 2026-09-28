@@ -15,11 +15,11 @@ highlights: [{"text": "Folderly, a B2B email deliverability SaaS, sought to deve
 quote: {"text": "I'd like to highlight the incredible experience we've had. The intuitive interface and robust features have significantly simplified our email management.", "who": "Inna Ozymai", "role": "Sales, Belkins Data Enrich"}
 ---
 
-# Developing Folderly's Bubble app from 0 to 600+ Users
+## Developing Folderly's Bubble app from 0 to 600+ Users
 
 ![image.png](/assets/projects/folderly/r83htvwk05sopkmdu6xa.webp)
 
-**Inna Ozymai ***Account Manager *[@Belkins](https://belkins.io/?utm_term=belkins&utm_campaign=kos_brand+KW&utm_source=adwords&utm_medium=ppc&hsa_acc=5134381501&hsa_cam=15830494745&hsa_grp=162883072289&hsa_ad=694222015170&hsa_src=g&hsa_tgt=kwd-466461100216&hsa_kw=belkins&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiAxKy5BhBbEiwAYiW--8qWtJ11AU5wxZJIYFuFgIEvPzud6i-Z6tFFzgLY19UgPgy6HQU0hRoCY-sQAvD_BwE)
+**Inna Ozymai** *Account Manager* [@Belkins](https://belkins.io/?utm_term=belkins&utm_campaign=kos_brand+KW&utm_source=adwords&utm_medium=ppc&hsa_acc=5134381501&hsa_cam=15830494745&hsa_grp=162883072289&hsa_ad=694222015170&hsa_src=g&hsa_tgt=kwd-466461100216&hsa_kw=belkins&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiAxKy5BhBbEiwAYiW--8qWtJ11AU5wxZJIYFuFgIEvPzud6i-Z6tFFzgLY19UgPgy6HQU0hRoCY-sQAvD_BwE)
 
 ⭐⭐⭐⭐⭐ “*I'd like to highlight the incredible experience we've had. The intuitive interface and robust features have significantly simplified our email management.*”
 

@@ -20,7 +20,7 @@ const useCaseItems = useCases.map((u) => ({
   href: localePath(lang, `/use-cases/${slugOf(u)}/`),
 }));
 ---
-<BaseLayout lang={lang} title={tr("site.title")} description={tr("site.description")}>
+<BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
   <GitHubGraph lang={lang} />
   {featured.map((p) => <FeaturedCase project={p} lang={lang} />)}

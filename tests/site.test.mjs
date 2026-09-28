@@ -71,7 +71,9 @@ test("project page: draft note on a placeholder", () => {
 test("project page: French route falls back to English content", () => {
   const html = page("fr/projects/betc");
   assert.match(html, /<html lang="en">/);
-  assert.ok(links(html).includes("/projects/betc/"));
+  assert.ok(links(html).includes("/fr/"));
+  assert.match(html, /<meta name="robots" content="noindex">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/projects\/betc\/"/);
 });
 
 test("project page: links to its use cases exist", () => {
@@ -107,6 +109,19 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.equal((html.match(/class="gh-week"/g) ?? []).length, 53);
   assert.match(html, /contributions in the last year/);
   assert.ok(!/<script[^>]*>[^<]*github/i.test(html), "the graph adds no script");
+});
+
+test("every page has canonical, description, title and hreflang tags", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  for (const p of pages) {
+    const html = page(p);
+    assert.match(html, /<html lang="/, p);
+    assert.match(html, /<title>/, p);
+    assert.match(html, /<meta name="description"/, p);
+    assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\//, p);
+    assert.match(html, /hreflang="en"/, p);
+    assert.match(html, /hreflang="fr"/, p);
+  }
 });
 
 test("no Contra case-study link anywhere in dist", () => {

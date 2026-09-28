@@ -14,7 +14,7 @@ images: []
 highlights: []
 ---
 
-# Migrating a 1,000-user app from Code to Bubble
+## Migrating a 1,000-user app from Code to Bubble
 
 ## Introduction
 

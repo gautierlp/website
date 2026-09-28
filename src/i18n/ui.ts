@@ -29,6 +29,8 @@ const en = {
   "github.title": "last 12 months",
   "github.caption": "{n} contributions in the last year",
   "test.onlyEnglish": "only english",
+  "nav.profiles": "Profiles",
+  "nav.top": "Back to top",
 } as const;
 
 const fr: Partial<Record<keyof typeof en, string>> = {
@@ -57,6 +59,8 @@ const fr: Partial<Record<keyof typeof en, string>> = {
   "useCase.projects": "Projets",
   "github.title": "12 derniers mois",
   "github.caption": "{n} contributions sur la dernière année",
+  "nav.profiles": "Profils",
+  "nav.top": "Haut de page",
 };
 
 export type UiKey = keyof typeof en;

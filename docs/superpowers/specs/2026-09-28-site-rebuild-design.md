@@ -160,7 +160,7 @@ as an image in the Evaboot featured case, as today.
 
 ## 3. Contra import
 
-`scripts/import-contra.py`, run once by hand, kept in the repository:
+`scripts/import_contra.py`, run once by hand, kept in the repository:
 
 1. Fetch the 8 Contra pages (plain HTTPS requests, no login).
 2. Extract the title, the sections and the paragraphs into Markdown, with the section

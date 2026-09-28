@@ -15,11 +15,11 @@ highlights: [{"text": "Evaboot had reached $1M ARR but faced challenges scaling 
 quote: {"text": "Gautier expertly used Bubble.io to support our projects, delivering effective solutions and overcoming obstacles. Impressed by their precision and ability to handle project challenges, we trust in their skills and will use them again for future Bubble.io projects.", "who": "JB Jézéquel", "role": "Co-Founder, Evaboot"}
 ---
 
-# Scaling Evaboot from $1M to $2M ARR with Bubble
+## Scaling Evaboot from $1M to $2M ARR with Bubble
 
 ![image.png](/assets/projects/evaboot/uhlni7bbredzeywk7cfk.webp)
 
-**Jb Jézéquel ***Co-Founder *[@Evaboot](https://evaboot.com/)
+**Jb Jézéquel** *Co-Founder* [@Evaboot](https://evaboot.com/)
 
 ⭐⭐⭐⭐⭐ “*Gautier expertly used Bubble to support our projects, delivering effective solutions and overcoming obstacles. Impressed by their precision and ability to handle project challenges, we trust in their skills and will use them again for future Bubble projects.*”
 

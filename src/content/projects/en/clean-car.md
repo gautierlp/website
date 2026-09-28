@@ -14,7 +14,7 @@ images: []
 highlights: []
 ---
 
-# Launching a Bubble app on App Store and Google Play
+## Launching a Bubble app on App Store and Google Play
 
 ## Introduction
 

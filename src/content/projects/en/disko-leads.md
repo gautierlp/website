@@ -15,11 +15,11 @@ highlights: [{"text": "Disko Leads, founded by Johary, aimed to create an app th
 quote: {"text": "Working with Gautier on our SaaS project was an exceptional experience. His mastery of Bubble.io allowed us to quickly bring our vision to life, and the final product exceeded our expectations. Highly recommended!", "who": "Johary Randria", "role": "Founder, Disko Leads"}
 ---
 
-# Connecting Bubble with a Google Chrome extension
+## Connecting Bubble with a Google Chrome extension
 
 ![image](/assets/projects/disko-leads/eyhufmqecxshrucr74k4.webp)
 
-**Johary Randria ***Founder *@Disko Leads
+**Johary Randria** *Founder* @Disko Leads
 
 ⭐⭐⭐⭐⭐ "*Working with Gautier on our SaaS project was an exceptional experience. His mastery of Bubble allowed us to quickly bring our vision to life, and the final product exceeded our expectations. Gautier’s ability to understand our goals, communicate effectively, and provide valuable input throughout the development process made the collaboration seamless. His deep expertise in building scalable SaaS solutions truly shines, and I am confident in his ability to handle any future projects. Highly recommended!*"
 

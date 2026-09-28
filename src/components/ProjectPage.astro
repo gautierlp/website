@@ -7,7 +7,7 @@ import NumberList from "./NumberList.astro";
 import DraftNote from "./DraftNote.astro";
 import { getUseCases, langOf, slugOf, type Project } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
-import { t, localePath } from "../i18n/utils.ts";
+import { t, localePath, stripLang } from "../i18n/utils.ts";
 
 interface Props { project: Project; lang: Lang }
 const { project, lang } = Astro.props;
@@ -23,8 +23,10 @@ const items = useCases.map((u) => ({
   href: localePath(lang, `/use-cases/${slugOf(u)}/`),
 }));
 const title = d.result ? `${d.name}, ${d.result} ${d.resultLabel}` : d.name;
+const isFallback = pageLang !== lang;
+const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
 ---
-<BaseLayout lang={pageLang} title={`${title} | Gautier Le Poher`} description={d.summary} noindex={isDraft}>
+<BaseLayout lang={pageLang} routeLang={lang} title={`${title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
   <article class="section stack">
     <div class="columns">
       <h1 class="t-title">{d.name}</h1>

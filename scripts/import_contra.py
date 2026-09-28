@@ -100,8 +100,8 @@ def attr(attrs, name):
 
 def inline_to_md(fragment):
     """Keep bold, italic and links. Drop every other tag."""
-    s = re.sub(r"<strong>(.*?)</strong>", r"**\1**", fragment, flags=re.S)
-    s = re.sub(r"<em>(.*?)</em>", r"*\1*", s, flags=re.S)
+    s = re.sub(r"<strong>\s*(.*?)\s*</strong>", r"**\1**", fragment, flags=re.S)
+    s = re.sub(r"<em>\s*(.*?)\s*</em>", r"*\1*", s, flags=re.S)
     s = re.sub(r'<a [^>]*href="([^"]*)"[^>]*>(.*?)</a>', r"[\2](\1)", s, flags=re.S)
     s = re.sub(r"<br\s*/?>", " ", s)
     s = re.sub(r"<[^>]+>", "", s)
@@ -216,7 +216,7 @@ def build_entry(p):
             cover_local = f"/assets/projects/{p['slug']}/{meta['cover']}.webp"
             download([{"url": IMG.format(uid=meta["cover"]), "path": cover_local}])
             fields["images"] = [{"src": cover_local, "alt": meta["title"]}]
-        body = f"# {meta['title']}\n\n" + body
+        body = f"## {meta['title']}\n\n" + body
     else:
         fields["summary"] = p["name"]
     return frontmatter(fields) + "\n" + body

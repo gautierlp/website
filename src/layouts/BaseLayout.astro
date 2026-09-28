@@ -4,20 +4,22 @@ import LinkedIn from "../components/icons/LinkedIn.astro";
 import Contra from "../components/icons/Contra.astro";
 import Malt from "../components/icons/Malt.astro";
 import { languages, type Lang } from "../i18n/ui.ts";
-import { t, twinPath, stripLang } from "../i18n/utils.ts";
+import { t, twinPath, stripLang, getLangFromPath } from "../i18n/utils.ts";
 
 interface Props {
   lang: Lang;
   title: string;
   description: string;
   noindex?: boolean;
+  routeLang?: Lang;
+  canonical?: string;
 }
-const { lang, title, description, noindex = false } = Astro.props;
-const tr = t(lang);
+const { lang, title, description, noindex = false, routeLang = getLangFromPath(Astro.url.pathname), canonical: canonicalOverride } = Astro.props;
+const tr = t(routeLang);
 const site = "https://lepoher.co";
 const path = Astro.url.pathname;
 const twin = twinPath(path);
-const canonical = site + path;
+const canonical = canonicalOverride ?? site + path;
 const enHref = site + stripLang(path);
 const frHref = site + (path.startsWith("/fr/") ? path : "/fr" + path);
 ---
@@ -60,8 +62,8 @@ const frHref = site + (path.startsWith("/fr/") ? path : "/fr" + path);
     <div class="site">
       <div class="panel" id="top">
         <header class="header">
-          <a class="header__name" href={lang === "fr" ? "/fr/" : "/"}>{tr("nav.home")}</a>
-          <nav class="header__links" aria-label="Profiles">
+          <a class="header__name" href={routeLang === "fr" ? "/fr/" : "/"}>{tr("nav.home")}</a>
+          <nav class="header__links" aria-label={tr("nav.profiles")}>
             <a href="https://www.linkedin.com/in/gautier-le-poher/" target="_blank" rel="noopener" aria-label="LinkedIn"><LinkedIn /></a>
             <a href="https://contra.com/gautierlp" target="_blank" rel="noopener" aria-label="Contra"><Contra /></a>
             <a href="https://www.malt.fr/profile/gautierlepoher" target="_blank" rel="noopener" aria-label="Malt"><Malt /></a>
@@ -71,6 +73,6 @@ const frHref = site + (path.startsWith("/fr/") ? path : "/fr" + path);
         <slot />
       </div>
     </div>
-    <a class="to-top" href="#top" aria-label="Back to top">&#x2B06;&#xFE0E;</a>
+    <a class="to-top" href="#top" aria-label={tr("nav.top")}>&#x2B06;&#xFE0E;</a>
   </body>
 </html>

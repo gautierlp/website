@@ -14,7 +14,7 @@ images: [{"src": "/assets/projects/eco-link/lcmjv6ajvfl8c9kma4qc.webp", "alt": "
 highlights: []
 ---
 
-# Streamlining multi-actor recycling operations with Bubble
+## Streamlining multi-actor recycling operations with Bubble
 
 ## Introduction
 
