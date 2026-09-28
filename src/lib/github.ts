@@ -9,8 +9,7 @@ const QUERY = `{
   }
 }`;
 
-/** Returns null when no token is set or the request fails; the build must not break on GitHub. */
-export async function fetchCalendar(token: string | undefined): Promise<Calendar | null> {
+async function doFetch(token: string | undefined): Promise<Calendar | null> {
   if (!token) {
     console.warn("[github] GITHUB_TOKEN is not set, the contribution graph is not rendered");
     return null;
@@ -32,6 +31,15 @@ export async function fetchCalendar(token: string | undefined): Promise<Calendar
     console.warn("[github] fetch failed, the contribution graph is not rendered:", err);
     return null;
   }
+}
+
+let pending: Promise<Calendar | null> | undefined;
+
+/** Returns null when no token is set or the request fails; the build must not break on GitHub.
+ *  Memoized at module level so a build with several pages (one per locale) only hits the GitHub API,
+ *  and logs the "no token" warning, once. */
+export async function fetchCalendar(token: string | undefined): Promise<Calendar | null> {
+  return (pending ??= doFetch(token));
 }
 
 /** 0 to 4, like GitHub's five tints. */
