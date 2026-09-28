@@ -44,6 +44,7 @@ The purpose of the website:
 - French and English routes exist from day one. The French texts come later (section 8).
 - Three additions from reference sites: a number column on lists, a GitHub contribution
   graph, and a code-font verb in the headline (see sections 5 to 7).
+- The Carrd quote form posted to Carrd's own backend. It is replaced by the "Book call" button and the e-mail link in the call to action.
 
 ## 1. Routes and content
 

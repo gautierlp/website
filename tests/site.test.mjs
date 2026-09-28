@@ -108,3 +108,13 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.match(html, /contributions in the last year/);
   assert.ok(!/<script[^>]*>[^<]*github/i.test(html), "the graph adds no script");
 });
+
+test("no Contra case-study link anywhere in dist", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  for (const p of pages) assert.ok(!page(p).includes("contra.com/p/"), p);
+});
+
+test("the old Carrd page is gone", () => {
+  assert.ok(!exists("old"));
+  assert.ok(!exists("demo"));
+});

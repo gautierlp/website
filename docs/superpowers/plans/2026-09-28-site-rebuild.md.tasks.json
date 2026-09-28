@@ -4,13 +4,13 @@
     {
       "id": 1,
       "subject": "Task 1: Config, content model, i18n helpers, test harness",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** The site builds with i18n routing, two typed collections, and the i18n helpers with unit tests.\n\n**Files:**\n- Modify: `astro.config.mjs`\n- Modify: `package.json` (scripts)\n- Create: `src/content.config.ts`\n- Create: `src/content/projects/en/.gitkeep`, `src/content/projects/fr/.gitkeep`, `src/content/use-cases/en/.gitkeep`, `src/content/use-cases/fr/.gitkeep`\n- Create: `src/lib/content.ts`\n- Create: `src/i18n/ui.ts`\n- Create: `src/i18n/utils.ts`\n- Test: `tests/i18n.test.mjs`\n\n**Acceptance Criteria:**\n- [ ] `node --experimental-strip-types --test tests/i18n.test.mjs` passes 6 tests.\n- [ ] `npm run build` passes and prints no schema error.\n- [ ] `astro.config.mjs` has `site: 'https://lepoher.co'` and `i18n.locales: ['en', 'fr']`.\n\n**Verify:** `npm run test:unit && npm run build` → tests pass, build ends with \"Complete!\".\n\n```json:metadata\n{\"files\": [\"astro.config.mjs\", \"package.json\", \"src/content.config.ts\", \"src/content/projects/en/.gitkeep\", \"src/content/projects/fr/.gitkeep\", \"src/content/use-cases/en/.gitkeep\", \"src/content/use-cases/fr/.gitkeep\", \"src/lib/content.ts\", \"src/i18n/ui.ts\", \"src/i18n/utils.ts\", \"tests/i18n.test.mjs\"], \"verifyCommand\": \"npm run test:unit && npm run build\", \"acceptanceCriteria\": [\"`node --experimental-strip-types --test tests/i18n.test.mjs` passes 6 tests.\", \"`npm run build` passes and prints no schema error.\", \"`astro.config.mjs` has `site: 'https://lepoher.co'` and `i18n.locales: ['en', 'fr']`.\"], \"modelTier\": \"standard\"}\n```"
     },
     {
       "id": 2,
       "subject": "Task 2: Contra import script and the 11 project files",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** `src/content/projects/en/` holds 11 files: 8 imported from Contra with their images, 3 placeholders.\n\n**Files:**\n- Create: `scripts/import_contra.py`\n- Create: `tests/test_import_contra.py`\n- Create: `tests/fixtures/contra-sample.html`\n- Create: `src/content/projects/en/*.md` (11 files, by the script)\n- Create: `public/assets/projects/<slug>/*` (by the script)\n\n**Acceptance Criteria:**\n- [ ] `python3 -m unittest tests/test_import_contra.py` passes 4 tests.\n- [ ] `python3 scripts/import-contra.py` writes 11 files and downloads at least 1 image per Contra project.\n- [ ] `npm run build` passes with the 11 files (schema valid).\n- [ ] `grep -rl \"contra.com/p/\" src/content` prints nothing.\n\n**Verify:** `python3 -m unittest tests/test_import_contra.py && python3 scripts/import-contra.py && npm run build && ls src/content/projects/en | wc -l` → 11.\n\n```json:metadata\n{\"files\": [\"scripts/import_contra.py\", \"tests/test_import_contra.py\", \"tests/fixtures/contra-sample.html\", \"src/content/projects/en/*.md\", \"public/assets/projects/<slug>/*\"], \"verifyCommand\": \"python3 -m unittest tests/test_import_contra.py && python3 scripts/import-contra.py && npm run build && ls src/content/projects/en | wc -l\", \"acceptanceCriteria\": [\"`python3 -m unittest tests/test_import_contra.py` passes 4 tests.\", \"`python3 scripts/import-contra.py` writes 11 files and downloads at least 1 image per Contra project.\", \"`npm run build` passes with the 11 files (schema valid).\", \"`grep -rl \\\"contra.com/p/\\\" src/content` prints nothing.\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         1
@@ -19,7 +19,7 @@
     {
       "id": 3,
       "subject": "Task 3: The 4 use-case files from the freelance drafts",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** `src/content/use-cases/en/` holds the 4 drafts with a valid header, status `draft`.\n\n**Files:**\n- Create: `scripts/import_use_cases.py`\n- Create: `src/content/use-cases/en/*.md` (4 files, by the script)\n\n**Acceptance Criteria:**\n- [ ] `python3 scripts/import_use_cases.py` writes 4 files.\n- [ ] Each file body starts with `## Situation` (the draft's H1, status and client lines are dropped).\n- [ ] `npm run build` passes.\n\n**Verify:** `python3 scripts/import_use_cases.py && npm run build && ls src/content/use-cases/en` → 4 files, build passes.\n\n```json:metadata\n{\"files\": [\"scripts/import_use_cases.py\", \"src/content/use-cases/en/*.md\"], \"verifyCommand\": \"python3 scripts/import_use_cases.py && npm run build && ls src/content/use-cases/en\", \"acceptanceCriteria\": [\"`python3 scripts/import_use_cases.py` writes 4 files.\", \"Each file body starts with `## Situation` (the draft's H1, status and client lines are dropped).\", \"`npm run build` passes.\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         2
@@ -28,7 +28,7 @@
     {
       "id": 4,
       "subject": "Task 4: Global CSS and the base layout",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** A layout that reproduces the Carrd frame (dark page, white rounded panel, header with name and 3 icons, back-to-top) with the site's fonts, plus a throwaway page to compare it with `/old`.\n\n**Files:**\n- Create: `src/styles/global.css`\n- Create: `src/layouts/BaseLayout.astro`\n- Create: `src/components/icons/LinkedIn.astro`, `src/components/icons/Contra.astro`, `src/components/icons/Malt.astro`, `src/components/icons/ArrowRight.astro`\n- Create: `src/components/Media.astro`\n- Rename: `src/pages/index.astro` to `src/pages/old.astro`\n- Create: `src/pages/index.astro` (temporary: the layout with one heading)\n\n**Acceptance Criteria:**\n- [ ] `npm run build` passes; `dist/index.html` and `dist/old/index.html` exist.\n- [ ] `dist/index.html` has `<html lang=\"en\">`, a `<title>`, `<link rel=\"canonical\" href=\"https://lepoher.co/\">`, two `hreflang` links, and the Google Fonts link with Overpass, Fira Sans, Inter and JetBrains Mono.\n- [ ] A screenshot of `/` at 1280 px shows the dark `#454545` page, the white panel with rounded corners, the name top-left and 3 grey icons top-right, at the same positions as `/old`.\n\n**Verify:** `npm run build && grep -c 'hreflang' dist/index.html` → 2.\n\n```json:metadata\n{\"files\": [\"src/styles/global.css\", \"src/layouts/BaseLayout.astro\", \"src/components/icons/LinkedIn.astro\", \"src/components/icons/Contra.astro\", \"src/components/icons/Malt.astro\", \"src/components/icons/ArrowRight.astro\", \"src/components/Media.astro\", \"src/pages/index.astro\", \"src/pages/old.astro\", \"src/pages/index.astro\"], \"verifyCommand\": \"npm run build && grep -c 'hreflang' dist/index.html\", \"acceptanceCriteria\": [\"`npm run build` passes; `dist/index.html` and `dist/old/index.html` exist.\", \"`dist/index.html` has `<html lang=\\\"en\\\">`, a `<title>`, `<link rel=\\\"canonical\\\" href=\\\"https://lepoher.co/\\\">`, two `hreflang` links, and the Google Fonts link with Overpass, Fira Sans, Inter and JetBrains Mono.\", \"A screenshot of `/` at 1280 px shows the dark `#454545` page, the white panel with rounded corners, the name top-left and 3 grey icons top-right, at the same positions as `/old`.\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         3
@@ -37,7 +37,7 @@
     {
       "id": 5,
       "subject": "Task 5: Homepage components and the two homepages",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** `/` and `/fr/` show the full homepage from the collections: hero with `ship()`, 3 featured projects, use-case list with the number column, logo grid, call to action. The `dist/` test file starts here.\n\n**Files:**\n- Create: `src/components/Hero.astro`\n- Create: `src/components/FeaturedCase.astro`\n- Create: `src/components/NumberList.astro`\n- Create: `src/components/LogoGrid.astro`\n- Create: `src/components/CallToAction.astro`\n- Create: `src/components/HomePage.astro`\n- Modify: `src/pages/index.astro`\n- Create: `src/pages/fr/index.astro`\n- Modify: `src/styles/global.css` (component rules appended)\n- Test: `tests/site.test.mjs`\n\n**Acceptance Criteria:**\n- [ ] `npm test` passes (unit tests, build, site tests).\n- [ ] `dist/index.html` contains `<code class=\"fn\">ship()</code>`, the three featured names, 11 grid links to `/projects/<slug>/`, and 4 links to `/use-cases/<slug>/`.\n- [ ] `dist/fr/index.html` contains \"Réserver un appel\" and links to `/fr/projects/...`.\n- [ ] No `contra.com/p/` string in `dist/index.html`.\n- [ ] A screenshot of `/` matches `/old` section by section (hero, Evaboot block, logo grid, call to action), with the two additions (use-case list, headline verb).\n\n**Verify:** `npm test` → all tests pass.\n\n```json:metadata\n{\"files\": [\"src/components/Hero.astro\", \"src/components/FeaturedCase.astro\", \"src/components/NumberList.astro\", \"src/components/LogoGrid.astro\", \"src/components/CallToAction.astro\", \"src/components/HomePage.astro\", \"src/pages/index.astro\", \"src/pages/fr/index.astro\", \"src/styles/global.css\", \"tests/site.test.mjs\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"`npm test` passes (unit tests, build, site tests).\", \"`dist/index.html` contains `<code class=\\\"fn\\\">ship()</code>`, the three featured names, 11 grid links to `/projects/<slug>/`, and 4 links to `/use-cases/<slug>/`.\", \"`dist/fr/index.html` contains \\\"Réserver un appel\\\" and links to `/fr/projects/...`.\", \"No `contra.com/p/` string in `dist/index.html`.\", \"A screenshot of `/` matches `/old` section by section (hero, Evaboot block, logo grid, call to action), with the two additions (use-case list, headline verb).\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         4
@@ -46,7 +46,7 @@
     {
       "id": 6,
       "subject": "Task 6: Project pages",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** `/projects/<slug>/` and `/fr/projects/<slug>/` for the 11 projects, with the draft note where needed.\n\n**Files:**\n- Create: `src/components/DraftNote.astro`\n- Create: `src/components/ProjectPage.astro`\n- Create: `src/pages/projects/[slug].astro`\n- Create: `src/pages/fr/projects/[slug].astro`\n- Modify: `tests/site.test.mjs`\n- Modify: `src/styles/global.css` (prose rules)\n\n**Acceptance Criteria:**\n- [ ] `npm test` passes with the 5 new tests below.\n- [ ] 11 pages under `dist/projects/` and 11 under `dist/fr/projects/`.\n- [ ] `dist/projects/evaboot/index.html` has the story headings (\"Introduction\", \"Results\") and the quote.\n- [ ] `dist/projects/betc/index.html` has the draft note \"Text to come.\" and `<meta name=\"robots\" content=\"noindex\">`.\n- [ ] `dist/fr/projects/betc/index.html` has `<html lang=\"en\">` (fallback) and the note in English.\n\n**Verify:** `npm test` → passes; `ls dist/projects | wc -l` → 11.\n\n```json:metadata\n{\"files\": [\"src/components/DraftNote.astro\", \"src/components/ProjectPage.astro\", \"src/pages/projects/[slug].astro\", \"src/pages/fr/projects/[slug].astro\", \"tests/site.test.mjs\", \"src/styles/global.css\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"`npm test` passes with the 5 new tests below.\", \"11 pages under `dist/projects/` and 11 under `dist/fr/projects/`.\", \"`dist/projects/evaboot/index.html` has the story headings (\\\"Introduction\\\", \\\"Results\\\") and the quote.\", \"`dist/projects/betc/index.html` has the draft note \\\"Text to come.\\\" and `<meta name=\\\"robots\\\" content=\\\"noindex\\\">`.\", \"`dist/fr/projects/betc/index.html` has `<html lang=\\\"en\\\">` (fallback) and the note in English.\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         5
@@ -55,7 +55,7 @@
     {
       "id": 7,
       "subject": "Task 7: Use-case pages",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** `/use-cases/<slug>/` and `/fr/use-cases/<slug>/` for the 4 use cases, with the draft note and the project list.\n\n**Files:**\n- Create: `src/components/UseCasePage.astro`\n- Create: `src/pages/use-cases/[slug].astro`\n- Create: `src/pages/fr/use-cases/[slug].astro`\n- Modify: `tests/site.test.mjs`\n\n**Acceptance Criteria:**\n- [ ] `npm test` passes with the 3 new tests.\n- [ ] 4 pages under `dist/use-cases/` and 4 under `dist/fr/use-cases/`.\n- [ ] `dist/use-cases/internal-applications/index.html` links to the 3 group projects and shows \"Draft. Waits for the client's approval.\"\n\n**Verify:** `npm test` → passes; `ls dist/use-cases | wc -l` → 4.\n\n```json:metadata\n{\"files\": [\"src/components/UseCasePage.astro\", \"src/pages/use-cases/[slug].astro\", \"src/pages/fr/use-cases/[slug].astro\", \"tests/site.test.mjs\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"`npm test` passes with the 3 new tests.\", \"4 pages under `dist/use-cases/` and 4 under `dist/fr/use-cases/`.\", \"`dist/use-cases/internal-applications/index.html` links to the 3 group projects and shows \\\"Draft. Waits for the client's approval.\\\"\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         6
@@ -64,7 +64,7 @@
     {
       "id": 8,
       "subject": "Task 8: GitHub contribution graph",
-      "status": "pending",
+      "status": "completed",
       "description": "**Goal:** The homepage shows the last 12 months of contributions of `gautierlp`, fetched at build time with `GITHUB_TOKEN`, and builds without the token.\n\n**Files:**\n- Create: `src/lib/github.ts`\n- Create: `src/components/GitHubGraph.astro`\n- Modify: `src/components/HomePage.astro`\n- Modify: `src/styles/global.css`\n- Modify: `tests/site.test.mjs`\n- Create: `.env.example`\n\n**Acceptance Criteria:**\n- [ ] With `GITHUB_TOKEN` set, `dist/index.html` has 53 `<div class=\"gh-week\">` and the caption \"contributions in the last year\".\n- [ ] Without the token, the build passes, logs one warning, and `dist/index.html` has no `gh-week`.\n- [ ] No `<script>` is added to the page for the graph.\n- [ ] `.env` is in `.gitignore` (check; add it if missing).\n\n**Verify:** `GITHUB_TOKEN=$(gh auth token) npm test` → passes, the graph test reports 53 weeks.\n\n```json:metadata\n{\"files\": [\"src/lib/github.ts\", \"src/components/GitHubGraph.astro\", \"src/components/HomePage.astro\", \"src/styles/global.css\", \"tests/site.test.mjs\", \".env.example\"], \"verifyCommand\": \"GITHUB_TOKEN=$(gh auth token) npm test\", \"acceptanceCriteria\": [\"With `GITHUB_TOKEN` set, `dist/index.html` has 53 `<div class=\\\"gh-week\\\">` and the caption \\\"contributions in the last year\\\".\", \"Without the token, the build passes, logs one warning, and `dist/index.html` has no `gh-week`.\", \"No `<script>` is added to the page for the graph.\", \"`.env` is in `.gitignore` (check; add it if missing).\"], \"modelTier\": \"standard\"}\n```",
       "blockedBy": [
         7
@@ -80,5 +80,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-09-28T09:02:58.605673+00:00"
+  "lastUpdated": "2026-09-28T11:10:17.196961+00:00"
 }
