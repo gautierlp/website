@@ -1,124 +1,78 @@
-/* The Carrd look of lepoher.co, rewritten by hand. Values come from the Carrd export. */
+/* Text-only look after plud.net: one narrow column, one font, one grey, one accent for links. */
 :root {
-  --blue: #2300ff;
-  --page-bg: #454545;
-  --panel-bg: #ffffff;
-  --ink: #000000;
-  --ink-soft: rgba(0, 0, 0, 0.8);
-  --grey: #677084;
-  --border: #c6c6c6;
-  --radius: 1.875rem;
-  --pad-x: 6rem;
-  --pad-y: 1.5rem;
-  --font-heading: "Overpass", sans-serif;
-  --font-text: "Fira Sans", sans-serif;
-  --font-small: "Inter", sans-serif;
-  --font-code: "JetBrains Mono", "Fira Code", "Lucida Console", monospace;
+  --bg: #ffffff;
+  --ink: #111111;
+  --muted: #6b6b6b;
+  --rule: #e6e6e6;
+  --accent: #2300ff;
+  --column: 40rem;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { font-size: 18pt; -webkit-text-size-adjust: none; }
-@media (max-width: 1024px) { html { font-size: 13pt; } }
-@media (max-width: 736px) { html { font-size: 11pt; } :root { --pad-x: 2rem; } }
-body { margin: 0; min-width: 320px; background: var(--page-bg); color: var(--ink); font-family: var(--font-text); font-weight: 300; line-height: 1.5; overflow-x: hidden; word-wrap: break-word; }
-h1, h2, h3, p, ul { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 1rem; line-height: 1.65; overflow-wrap: break-word; }
+h1, h2, h3, p, ul, figure, blockquote { margin: 0; padding: 0; }
 ul { list-style: none; }
 img, video { display: block; max-width: 100%; height: auto; }
-a { color: inherit; }
-strong { font-weight: bolder; }
+strong { font-weight: 600; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.muted { color: var(--muted); }
+code.fn { font-family: var(--font-code); font-size: 0.92em; font-weight: 400; }
 
-/* Frame: dark page, white panel with rounded corners, like the Carrd #main. */
-.site { padding: 0.5rem; max-width: 100vw; }
-.panel { background: var(--panel-bg); border-radius: var(--radius); overflow: hidden; }
-.section { padding: var(--pad-y) var(--pad-x); }
-.section--tight { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-.section--flush { padding: 0; }
-.section--center { text-align: center; }
-.stack > * + * { margin-top: 1.5rem; }
-.stack--tight > * + * { margin-top: 0.125rem; }
-.columns { display: flex; align-items: center; gap: 2rem; }
-.columns > * { flex: 1 1 0; min-width: 0; }
-@media (max-width: 736px) { .columns { flex-direction: column; align-items: stretch; } }
-.spacer { height: 1.5rem; }
+/* Frame: one column, left-aligned text, centred on the page. */
+.site { max-width: var(--column); margin: 0 auto; padding: 2.5rem 1rem 3rem; }
+main > * + * { margin-top: 3rem; }
 
-/* Header */
-.header { display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.75rem; }
-.header__name { font-family: var(--font-heading); font-weight: 400; font-size: 1.25em; letter-spacing: -0.05rem; text-decoration: none; }
-.header__links { display: flex; gap: 0.75rem; font-size: 1.5em; }
-.header__links a { display: flex; width: 1em; height: 1em; color: #d0d0d0; }
-.header__links a:hover { color: var(--blue); }
-.header__links svg { width: 100%; height: 100%; fill: currentColor; }
-.header__lang { font-family: var(--font-small); font-size: 0.6em; margin-left: 1rem; text-decoration: none; color: var(--grey); align-self: center; }
+/* Header and footer */
+.header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3.5rem; }
+.header__name { color: var(--ink); font-weight: 500; }
+.header__lang { color: var(--muted); font-size: 0.875rem; }
+.footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); font-size: 0.875rem; }
+.footer nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.footer a { color: var(--muted); }
+.footer a:hover { color: var(--ink); }
 
-/* Type styles, named after the Carrd ones */
-.t-hero { font-family: var(--font-heading); font-weight: 300; font-size: 1.875em; line-height: 1.375; letter-spacing: -0.05rem; text-align: left; }
-.t-title { font-family: var(--font-text); font-weight: 400; font-size: 2.375em; line-height: 1.5; letter-spacing: -0.025rem; }
-.t-result { font-family: var(--font-text); font-weight: 300; font-size: 1.25em; line-height: 1.5; letter-spacing: 0.2rem; text-align: right; }
-.t-body { font-family: var(--font-text); font-weight: 300; font-size: 1.375em; line-height: 1.75; color: var(--ink-soft); }
-.t-caption { font-family: var(--font-text); font-weight: 300; font-size: 0.75em; line-height: 1.5; color: var(--grey); text-align: center; }
-.t-small { font-family: var(--font-heading); font-weight: 300; font-size: 1.125em; line-height: 1.5; }
-.t-label { font-family: var(--font-text); font-weight: 300; font-size: 0.875em; line-height: 1.5; text-align: center; }
-@media (max-width: 1024px) { .t-hero { font-size: 1.5em; } .t-title { font-size: 2em; } }
-code.fn { font-family: var(--font-code); font-weight: 400; font-size: 0.95em; color: var(--blue); letter-spacing: 0; }
+/* Blocks: a heading barely larger than the text, then the content. */
+h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.005em; }
+.block > * + * { margin-top: 0.75rem; }
+.hero h1 { font-size: 1.375rem; line-height: 1.35; letter-spacing: -0.015em; }
+.hero > * + * { margin-top: 1rem; }
 
-/* Buttons: pill, thin border, arrow on the right */
-.button { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; height: 2.5rem; padding: 0 1rem; border: 1px solid var(--ink); border-radius: 2.5rem; font-family: var(--font-heading); font-weight: 300; font-size: 1em; text-decoration: none; white-space: nowrap; transition: color 0.25s ease, background-color 0.25s ease; }
-.button svg { width: 1em; height: 1em; fill: currentColor; }
-.button:hover { background: var(--ink); color: #fff; }
-.buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-
-/* Images with the Carrd frame */
-.frame { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 0 auto; max-width: 50rem; }
-.frame img, .frame video { width: 100%; }
-.avatar { width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; }
-
-/* Back to top */
-.to-top { position: fixed; right: 30px; bottom: 20px; z-index: 99; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #fff; color: var(--ink); opacity: 0.3; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-decoration: none; }
-.to-top:hover { opacity: 1; }
-
-/* Draft note */
-.draft-note { background: #f3f3f3; color: var(--grey); font-family: var(--font-small); font-size: 0.75em; padding: 0.5rem 1rem; border-radius: 0.5rem; }
-
-/* Number column list (from creativeatishay.in) */
-.numlist { display: grid; gap: 1.5rem; text-align: left; }
-.numlist__item { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 1.5rem; align-items: start; }
-.numlist__num b { display: block; font-family: var(--font-heading); font-weight: 400; font-size: 1.5em; line-height: 1.1; color: var(--blue); letter-spacing: -0.03rem; }
-.numlist__num span { display: block; font-family: var(--font-small); font-size: 0.7em; color: var(--grey); margin-top: 0.25rem; }
-.numlist__text a { font-family: var(--font-heading); font-weight: 400; font-size: 1.125em; text-decoration: none; }
-.numlist__text a:hover { text-decoration: underline; }
-.numlist__text p { font-family: var(--font-text); font-weight: 300; font-size: 0.95em; color: var(--ink-soft); margin-top: 0.25rem; }
-@media (max-width: 736px) { .numlist__item { grid-template-columns: 1fr; gap: 0.25rem; } }
-
-.columns--start { justify-content: flex-start; }
-.columns--start > * { flex: 0 0 auto; }
-
-.featured { border-top: 1px solid #efefef; }
-.review { margin: 0; padding: 1rem 1.5rem; border: 1px solid var(--border); border-radius: var(--radius); }
-.review .t-caption { text-align: left; margin-top: 0.5rem; }
-
-.logogrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1rem; }
-.logogrid__item { display: grid; justify-items: center; gap: 0.5rem; text-decoration: none; }
-.logogrid__item img { width: 4.5rem; height: 4.5rem; object-fit: contain; border-radius: 50%; border: 1px solid var(--border); }
-.logogrid__text { width: 4.5rem; height: 4.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--border); font-family: var(--font-heading); font-size: 0.7em; text-align: center; padding: 0.25rem; }
-@media (max-width: 736px) { .logogrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-/* Markdown bodies */
-.prose { font-family: var(--font-text); font-weight: 300; font-size: 1.125em; line-height: 1.75; color: var(--ink-soft); text-align: left; }
-.prose > * + * { margin-top: 1rem; }
-.prose h1 { font-family: var(--font-text); font-weight: 400; font-size: 1.75em; line-height: 1.3; color: var(--ink); }
-.prose h2 { font-family: var(--font-heading); font-weight: 400; font-size: 1.375em; color: var(--ink); margin-top: 2rem; }
-.prose h3 { font-family: var(--font-heading); font-weight: 400; font-size: 1.125em; color: var(--ink); margin-top: 1.5rem; }
-.prose ul { list-style: disc; padding-left: 1.5rem; }
-.prose li + li { margin-top: 0.5rem; }
-.prose img, .prose video { border: 1px solid var(--border); border-radius: var(--radius); margin: 0 auto; max-width: 50rem; width: 100%; }
-.prose hr { border: 0; border-top: 1px solid #efefef; }
-.prose a { color: var(--blue); }
+/* Plain list: one link per line */
+.plainlist > li + li { margin-top: 0.35rem; }
+.plainlist p { font-size: 0.9375rem; line-height: 1.5; margin-bottom: 0.65rem; }
 
 /* GitHub contribution graph */
-.gh { padding-top: 0.5rem; }
-.gh-title { font-family: var(--font-heading); font-weight: 300; font-size: 1.1em; letter-spacing: -0.02rem; margin-bottom: 0.8rem; }
-.gh-grid { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; gap: 3px; overflow-x: auto; padding-bottom: 4px; }
-.gh-week { display: grid; grid-template-rows: repeat(7, 10px); gap: 3px; }
-.gh-day { display: block; width: 10px; height: 10px; border-radius: 2px; background: #ebedf0; }
-.gh-day.l1 { background: #c9c4ff; } .gh-day.l2 { background: #9a90ff; } .gh-day.l3 { background: #5d4dff; } .gh-day.l4 { background: var(--blue); }
-.gh-caption { font-family: var(--font-small); font-size: 0.7em; color: #555; margin-top: 0.8rem; }
-.gh-caption a { color: var(--blue); }
+.gh h2 { font-weight: 500; }
+.gh-grid { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; gap: 2px; overflow-x: auto; }
+.gh-week { display: grid; grid-template-rows: repeat(7, 8px); gap: 2px; }
+.gh-day { display: block; width: 8px; height: 8px; border-radius: 1px; background: #eeeeee; }
+.gh-day.l1 { background: #cfc9ff; } .gh-day.l2 { background: #9d93ff; } .gh-day.l3 { background: #5d4dff; } .gh-day.l4 { background: var(--accent); }
+.gh-caption { font-size: 0.875rem; color: var(--muted); }
+
+/* Project and use-case pages */
+.page > * + * { margin-top: 1.5rem; }
+.page__head h1 { font-size: 1.375rem; line-height: 1.35; letter-spacing: -0.015em; }
+.page__head > * + * { margin-top: 0.25rem; }
+.page .block { margin-top: 3rem; }
+.links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.media img, .media video { width: 100%; }
+figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
+.quote { padding-left: 1rem; border-left: 2px solid var(--rule); }
+.quote footer { font-size: 0.875rem; margin-top: 0.4rem; }
+.draft-note { color: var(--muted); font-size: 0.875rem; font-style: italic; }
+
+/* Markdown bodies */
+.prose > * + * { margin-top: 1rem; }
+.prose h1, .prose h2, .prose h3 { margin-top: 2rem; }
+.prose > :first-child { margin-top: 0; }
+.prose ul { list-style: disc; padding-left: 1.25rem; }
+.prose ol { padding-left: 1.25rem; }
+.prose li + li { margin-top: 0.35rem; }
+.prose img, .prose video { width: 100%; }
+/* The Contra import opens with a reviewer photo alone in a paragraph: show it small. */
+.prose > h2:first-child + p > img:only-child { width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover; }
+.prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }
+.prose blockquote { padding-left: 1rem; border-left: 2px solid var(--rule); color: var(--muted); }
