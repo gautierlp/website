@@ -101,3 +101,10 @@ test("every internal link on every page resolves", () => {
     }
   }
 });
+
+test("homepage: GitHub graph when a token was present at build", { skip: !process.env.GITHUB_TOKEN }, () => {
+  const html = page("");
+  assert.equal((html.match(/class="gh-week"/g) ?? []).length, 53);
+  assert.match(html, /contributions in the last year/);
+  assert.ok(!/<script[^>]*>[^<]*github/i.test(html), "the graph adds no script");
+});

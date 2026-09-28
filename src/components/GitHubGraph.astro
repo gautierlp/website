@@ -1,0 +1,23 @@
+---
+import { fetchCalendar, level } from "../lib/github.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const cal = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
+const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
+---
+{cal && (
+  <section class="section stack--tight gh">
+    <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
+    <div class="gh-grid" role="img" aria-label={tr("github.caption").replace("{n}", total)}>
+      {cal.weeks.map((week) => (
+        <div class="gh-week">
+          {week.map((day) => <i class={`gh-day l${level(day.count)}`} title={`${day.date}: ${day.count}`}></i>)}
+        </div>
+      ))}
+    </div>
+    <p class="gh-caption">{tr("github.caption").replace("{n}", total)} · <a href="https://github.com/gautierlp" target="_blank" rel="noopener">github.com/gautierlp</a></p>
+  </section>
+)}
