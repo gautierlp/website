@@ -7,6 +7,7 @@ const tr = t(Astro.props.lang);
 const roleWords = tr("hero.role").split(" ");
 ---
 <section class="block hero">
+  <img class="avatar" src="/assets/images/avatar.jpg" alt="Gautier Le Poher" width="56" height="56" />
   <h1>
     <span class="hero__line">{tr("hero.hi")}<span class="nowrap">{roleWords.map((w, i) => <>{i > 0 && " "}<span class={`mark mark--${(i % 3) + 1}`}>{w}</span></>)}.</span></span>
     <span class="hero__line">{tr("hero.line1.before")}<span class="nowrap"><code class="fn">{tr("hero.line1.verb")}</code>{tr("hero.line1.after")}</span></span>

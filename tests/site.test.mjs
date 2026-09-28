@@ -144,9 +144,13 @@ test("homepage hero: greeting, marked title, availability and booking button", (
   assert.ok(fr.includes("Disponible pour de nouveaux projets"));
 });
 
-test("homepage: selected work cards for the three featured projects, in order", () => {
+test("homepage: selected work cards for the four use cases, in order", () => {
   const cards = [...page("").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(cards, ["/projects/evaboot/", "/projects/disko-leads/", "/projects/folderly/"]);
+  assert.deepEqual(cards, USE_CASES.map((s) => `/use-cases/${s}/`));
   const fr = [...page("fr").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(fr, ["/fr/projects/evaboot/", "/fr/projects/disko-leads/", "/fr/projects/folderly/"]);
+  assert.deepEqual(fr, USE_CASES.map((s) => `/fr/use-cases/${s}/`));
+});
+
+test("homepage: a small photo of Gautier in the hero", () => {
+  assert.match(page(""), /<img class="avatar" src="\/assets\/images\/avatar\.jpg" alt="Gautier Le Poher"/);
 });

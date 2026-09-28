@@ -13,28 +13,19 @@ const { lang } = Astro.props;
 const tr = t(lang);
 const projects = await getProjects(lang);
 const useCases = await getUseCases(lang);
-const featured = projects.filter((p) => p.data.featured);
 const projectItems = projects.map((p) => ({
   name: p.data.name,
   note: [p.data.result, p.data.resultLabel].filter(Boolean).join(" "),
   href: localePath(lang, `/projects/${slugOf(p)}/`),
 }));
-const useCaseItems = useCases.map((u) => ({
-  name: u.data.name, summary: u.data.summary,
-  href: localePath(lang, `/use-cases/${slugOf(u)}/`),
-}));
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
-  <WorkCarousel projects={featured} lang={lang} />
+  <WorkCarousel useCases={useCases} lang={lang} />
   <section class="block">
     <h2>{tr("section.allApps")}</h2>
     <PlainList items={projectItems} />
   </section>
   <GitHubGraph lang={lang} />
-  <section class="block">
-    <h2>{tr("section.useCases")}</h2>
-    <PlainList items={useCaseItems} />
-  </section>
   <CallToAction lang={lang} />
 </BaseLayout>
