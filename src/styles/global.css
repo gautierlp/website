@@ -19,6 +19,7 @@ strong { font-weight: 600; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .muted { color: var(--muted); }
+.nowrap { white-space: nowrap; }
 code.fn { font-family: var(--font-code); font-size: 0.92em; font-weight: 400; }
 
 /* Frame: one column, left-aligned text, centred on the page. */
@@ -37,8 +38,30 @@ main > * + * { margin-top: 3rem; }
 /* Blocks: a heading barely larger than the text, then the content. */
 h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.005em; }
 .block > * + * { margin-top: 0.75rem; }
-.hero h1 { font-size: 1.375rem; line-height: 1.35; letter-spacing: -0.015em; }
-.hero > * + * { margin-top: 1rem; }
+.hero h1 { font-size: 1.625rem; line-height: 1.3; letter-spacing: -0.02em; }
+.hero__line { display: block; }
+.hero > p { color: #444444; font-size: 1.0625rem; line-height: 1.75; }
+.hero > p strong { color: var(--ink); }
+.hero > * + * { margin-top: 1.25rem; }
+.hero > h1 + p { margin-top: 1.5rem; }
+
+/* Hand-drawn strokes under the role, one colour per word, after plud.net. */
+.mark { position: relative; white-space: nowrap; }
+.mark::after { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: -0.16em; height: 0.28em; z-index: -1; background: var(--stroke);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C 20 3, 40 8, 60 5 S 90 4, 98 6' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C 20 3, 40 8, 60 5 S 90 4, 98 6' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+.hero h1 { position: relative; z-index: 0; }
+.mark--1 { --stroke: #f5e27a; }
+.mark--2 { --stroke: #f4a9c6; }
+.mark--3 { --stroke: #93e2cc; }
+
+/* Booking button and availability line */
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.75rem; }
+.pill { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.6rem 1.25rem; border-radius: 999px; background: var(--ink); color: #ffffff; font-weight: 500; }
+.pill:hover { text-decoration: none; background: #333333; }
+.pill svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
+.status { margin-left: 0.25rem; display: inline-flex; align-items: center; gap: 0.6rem; color: var(--muted); font-size: 0.9375rem; }
+.status__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #3fbf5f; box-shadow: 0 0 0 0.25rem #e3f5e8; }
 
 /* Plain list: one link per line */
 .plainlist > li + li { margin-top: 0.35rem; }

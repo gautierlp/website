@@ -21,7 +21,7 @@ At 390px, `document.documentElement.scrollWidth` is 390 on both pages, so there 
 - `src/layouts/BaseLayout.astro`: header is the name (link home) on the left and FR/EN on the right. The three icons moved to a new footer as text links (LinkedIn, Malt, Contra) plus the e-mail. The floating back-to-top button is removed: the pages are short and plud.net has none. The `nav.top` string stays in `ui.ts`. The font link loads Inter 400/500/600 and JetBrains Mono instead of Overpass, Fira Sans and Inter 300.
 - `src/components/PlainList.astro`: new. One link per line, an optional grey note after the name, an optional grey summary under it.
 - `src/components/HomePage.astro`: order is now hero, all 11 projects (PlainList, result and label in grey when they exist), GitHub graph, the 4 use cases (PlainList with summaries), call to action. FeaturedCase, LogoGrid and NumberList are no longer used anywhere but the files stay.
-- `src/components/Hero.astro`: no avatar, no buttons. The headline, the second line, then one text line: "Book call or email me gautier@lepoher.co". I did not add the name as a separate small line above the headline, because the header already shows it one line higher and it read as a duplicate.
+- `src/components/Hero.astro`: rebuilt on the plud.net hero after review. A two-line headline ("Hi, I'm Gautier Le Poher, a Technical Product Manager." then "I take over your product and ship() it myself."), each word of the role underlined with a hand-drawn stroke (yellow, pink, green), two grey paragraphs with the last sentence in bold, then a black "Book call" pill and a green "Available for new projects" dot. The paragraphs are the lepoher.co hero text from `positioning.md` in the `freelance` repository; the bold sentence and the French version are new and need a read. The old `hero.line2.*` and `hero.email` strings are gone from `ui.ts`, replaced by `hero.hi`, `hero.role`, `hero.p1`, `hero.p2`, `hero.p2.strong` and `hero.available`.
 - `src/components/CallToAction.astro`: heading plus one line with the Calendly link and the e-mail.
 - `src/components/GitHubGraph.astro`: only the wrapper class changed. Cells are 8px (were 10px).
 - `src/components/ProjectPage.astro`, `UseCasePage.astro`: same markup order, plain heading block (name, result, client in grey), links as text, images at column width with no frame, the quote with a thin left rule, related lists through PlainList.
@@ -29,7 +29,7 @@ At 390px, `document.documentElement.scrollWidth` is 390 on both pages, so there 
 
 ## Tests
 
-`GITHUB_TOKEN=$(gh auth token) npm test`: 6 of 6 unit tests pass, 19 of 19 site tests pass, before and after the change. No test was edited.
+`GITHUB_TOKEN=$(gh auth token) npm test`: 6 of 6 unit tests pass and 19 of 19 site tests pass before the change. After it, 6 of 6 and 20 of 20: one test was added for the new hero (greeting, three marked words, availability line, booking button, French availability line). No existing test was edited.
 
 ## To compare
 

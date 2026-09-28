@@ -133,3 +133,13 @@ test("the old Carrd page is gone", () => {
   assert.ok(!exists("old"));
   assert.ok(!exists("demo"));
 });
+
+test("homepage hero: greeting, marked title, availability and booking button", () => {
+  const en = page("");
+  assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
+  assert.equal((en.match(/class="mark /g) ?? []).length, 3);
+  assert.ok(en.includes("Available for new projects"));
+  assert.match(en, /class="pill"[^>]*href="https:\/\/calendly\.com\/gautierlp\/30min"|href="https:\/\/calendly\.com\/gautierlp\/30min"[^>]*class="pill"/);
+  const fr = page("fr");
+  assert.ok(fr.includes("Disponible pour de nouveaux projets"));
+});
