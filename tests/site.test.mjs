@@ -1,0 +1,48 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+
+const DIST = new URL("../dist/", import.meta.url).pathname;
+const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
+const exists = (path) => existsSync(join(DIST, path, "index.html"));
+const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
+
+const PROJECTS = ["evaboot", "disko-leads", "folderly", "fleetnova", "camarage", "eco-insight", "eco-link", "clean-car", "price-writers", "betc", "protech"];
+const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
+
+test("homepage: headline verb in code font", () => {
+  assert.match(page(""), /<code class="fn">ship\(\)<\/code>/);
+});
+
+test("homepage: the three featured projects", () => {
+  const html = page("");
+  for (const name of ["Evaboot", "Disko Leads", "Folderly"]) assert.ok(html.includes(name), name);
+});
+
+test("homepage: the grid links to every project page", () => {
+  const html = page("");
+  for (const slug of PROJECTS) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+});
+
+test("homepage: the use-case list links to every use case", () => {
+  const html = page("");
+  for (const slug of USE_CASES) assert.ok(links(html).includes(`/use-cases/${slug}/`), slug);
+});
+
+test("homepage: no Contra case-study link", () => {
+  assert.ok(!page("").includes("contra.com/p/"));
+  assert.ok(page("").includes("https://contra.com/gautierlp"));
+});
+
+test("french homepage: French strings and /fr/ links", () => {
+  const html = page("fr");
+  assert.ok(html.includes("Réserver un appel"));
+  assert.ok(links(html).includes("/fr/projects/evaboot/"));
+  assert.match(html, /<html lang="fr">/);
+});
+
+test("both homepages link to each other", () => {
+  assert.ok(links(page("")).includes("/fr/"));
+  assert.ok(links(page("fr")).includes("/"));
+});

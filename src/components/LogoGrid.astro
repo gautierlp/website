@@ -1,0 +1,18 @@
+---
+import type { Project } from "../lib/content.ts";
+import { slugOf } from "../lib/content.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { localePath } from "../i18n/utils.ts";
+interface Props { projects: Project[]; lang: Lang }
+const { projects, lang } = Astro.props;
+---
+<ul class="logogrid">
+  {projects.map((p) => (
+    <li>
+      <a href={localePath(lang, `/projects/${slugOf(p)}/`)} class="logogrid__item">
+        {p.data.logo ? <img src={p.data.logo} alt={p.data.name} loading="lazy" /> : <span class="logogrid__text">{p.data.name}</span>}
+        <span class="t-label">{p.data.name}</span>
+      </a>
+    </li>
+  ))}
+</ul>
