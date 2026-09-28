@@ -143,3 +143,10 @@ test("homepage hero: greeting, marked title, availability and booking button", (
   const fr = page("fr");
   assert.ok(fr.includes("Disponible pour de nouveaux projets"));
 });
+
+test("homepage: selected work cards for the three featured projects, in order", () => {
+  const cards = [...page("").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(cards, ["/projects/evaboot/", "/projects/disko-leads/", "/projects/folderly/"]);
+  const fr = [...page("fr").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(fr, ["/fr/projects/evaboot/", "/fr/projects/disko-leads/", "/fr/projects/folderly/"]);
+});

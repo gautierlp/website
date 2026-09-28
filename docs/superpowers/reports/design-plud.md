@@ -22,6 +22,7 @@ At 390px, `document.documentElement.scrollWidth` is 390 on both pages, so there 
 - `src/components/PlainList.astro`: new. One link per line, an optional grey note after the name, an optional grey summary under it.
 - `src/components/HomePage.astro`: order is now hero, all 11 projects (PlainList, result and label in grey when they exist), GitHub graph, the 4 use cases (PlainList with summaries), call to action. FeaturedCase, LogoGrid and NumberList are no longer used anywhere but the files stay.
 - `src/components/Hero.astro`: rebuilt on the plud.net hero after review. A two-line headline ("Hi, I'm Gautier Le Poher, a Technical Product Manager." then "I take over your product and ship() it myself."), each word of the role underlined with a hand-drawn stroke (yellow, pink, green), two grey paragraphs with the last sentence in bold, then a black "Book call" pill and a green "Available for new projects" dot. The paragraphs are the lepoher.co hero text from `positioning.md` in the `freelance` repository; the bold sentence and the French version are new and need a read. The old `hero.line2.*` and `hero.email` strings are gone from `ui.ts`, replaced by `hero.hi`, `hero.role`, `hero.p1`, `hero.p2`, `hero.p2.strong` and `hero.available`.
+- `src/components/WorkCarousel.astro`: new, after review, on the plud.net "Selected work" row. The three featured projects (Evaboot, Disko Leads, Folderly) as square cards in a row wider than the column that scrolls sideways and snaps to each card. Each card has the first still screenshot at the top, the logo on a small white tile (the PNG logos have a white background), the name, and the result as tagline. The card colour is the background colour of its screenshot, set in a small table in the component, so the image runs into the card. No script: the row scrolls with a trackpad, shift and the wheel, a finger, or the Tab key. plud.net also lets you drag it with the mouse, which needs JavaScript. The plain list of all 11 apps stays under it. New string: `section.selectedWork` ("Selected work", "Projets phares").
 - `src/components/CallToAction.astro`: heading plus one line with the Calendly link and the e-mail.
 - `src/components/GitHubGraph.astro`: only the wrapper class changed. Cells are 8px (were 10px).
 - `src/components/ProjectPage.astro`, `UseCasePage.astro`: same markup order, plain heading block (name, result, client in grey), links as text, images at column width with no frame, the quote with a thin left rule, related lists through PlainList.
@@ -29,7 +30,7 @@ At 390px, `document.documentElement.scrollWidth` is 390 on both pages, so there 
 
 ## Tests
 
-`GITHUB_TOKEN=$(gh auth token) npm test`: 6 of 6 unit tests pass and 19 of 19 site tests pass before the change. After it, 6 of 6 and 20 of 20: one test was added for the new hero (greeting, three marked words, availability line, booking button, French availability line). No existing test was edited.
+`GITHUB_TOKEN=$(gh auth token) npm test`: 6 of 6 unit tests pass and 19 of 19 site tests pass before the change. After it, 6 of 6 and 21 of 21: two tests were added, one for the new hero (greeting, three marked words, availability line, booking button, French availability line) and one for the three cards and their order, in English and French. No existing test was edited.
 
 ## To compare
 
