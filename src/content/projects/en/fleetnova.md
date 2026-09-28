@@ -10,7 +10,7 @@ useCases: ["internal-applications"]
 featured: false
 order: 4
 status: "live"
-images: []
+images: [{"src": "/assets/projects/fleetnova/wcipnwjiikjqyctuxvsx.webp", "alt": "Building a Marketplace for second-hand auto parts with Bubble"}]
 highlights: []
 ---
 

@@ -2,7 +2,7 @@
 name: "Eco'Insight"
 client: "Automotive recycling group"
 logo: ""
-summary: "Developed a Bubble app to automate workflows and enhance collaboration among dealerships, transporters, and recyclers for Indra’s battery recycling."
+summary: "Built a tailored Bubble app to automate dealership access requests, enhance admin workflows, and improve multi-level validation and communication."
 result: ""
 resultLabel: ""
 links: []
@@ -10,17 +10,17 @@ useCases: ["internal-applications"]
 featured: false
 order: 6
 status: "live"
-images: []
+images: [{"src": "/assets/projects/eco-insight/ne6m3zcu7egyjlzrb10m.webp", "alt": "Streamlining dealership onboarding with Bubble"}]
 highlights: []
 ---
 
-# Streamlining multi-actor recycling operations with Bubble
+# Streamlining dealership onboarding with Bubble
 
 ## Introduction
 
-Eco'link, a pioneer in automotive recycling, sought to enhance the process of recycling electric car batteries for its partner dealerships.
+Eco'Insight, a prominent leader in automotive recycling and sustainable initiatives, identified a need for a structured, efficient system to manage dealership access requests within their network.
 
-To achieve this, I created a tailored app using [Bubble.io](http://Bubble.io), designed to automate workflows, manage submissions, and oversee the full lifecycle of battery recycling requests. This solution replaced outdated, manual practices that had relied heavily on Excel sheets and email threads.
+To meet this need, I developed a comprehensive app on [Bubble.io](http://Bubble.io) that centralized these requests, promoting a standardized workflow, transparent steps, and streamlined oversight for administrators.
 
 ---
 
@@ -28,15 +28,15 @@ To achieve this, I created a tailored app using [Bubble.io](http://Bubble.io), d
 
 ### Core Challenges
 
-Eco'link's reliance on Excel sheets and manual processes for battery recycling requests came with significant drawbacks:
+- **Inconsistent Information**: Requests often lacked uniformity, resulting in delays and inefficiencies during processing.
 
-- **Manual inefficiencies**: Tasks such as emailing and manually creating PDFs were time-consuming.
+- **Disorganized Communication**: Without a central system, administrators had varied levels of insight into request statuses.
 
-- **Operational risks**: Without automation, the process was prone to errors and delays, affecting productivity and user experience.
+- **Manual Verification and Follow-Ups**: Admins had to manually check and follow up on incomplete or incorrect information, slowing the process significantly.
 
 ### Key Business Risks
 
-This manual system posed risks, including missed communications, inconsistent data, and processing delays. To ensure smooth operations among all parties—dealerships, Eco'link admins, transporters, and recycling centers—a streamlined, automated approach was crucial.
+The absence of automation led to inconsistencies, reduced processing speed, and difficulty tracking requests. These inefficiencies hindered Eco'Insight's ability to swiftly and reliably onboard new dealerships, leading to potential operational slowdowns.
 
 ---
 
@@ -44,21 +44,27 @@ This manual system posed risks, including missed communications, inconsistent da
 
 ### Approach
 
-I developed a comprehensive app using [Bubble.io](http://Bubble.io), focusing on automation and efficient workflow management:
+To address these challenges, I built an app on [Bubble.io](http://Bubble.io) that included:
 
-- **Automated PDF Generation**: Enabled within [Bubble.io](http://Bubble.io) itself, eliminating reliance on third-party tools and saving costs. Administrators could customize PDF outputs through a dedicated dashboard.
+- **Centralized Request Form**: Dealerships submitted initial requests through an intuitive form capturing key details and documents.
 
-- **Email Automation**: Integrated Mailjet with [Bubble.io](http://Bubble.io) for seamless, sequenced email notifications to all stakeholders, ensuring timely communication at each stage.
+- **Backend Automation**: Automated pre-validation checked submissions for completeness and compliance. Requests with issues were automatically declined, and dealerships received an email with feedback.
 
-- **Multi-Actor Coordination**: Structured communication channels ensured transparency and consistent information sharing among all involved.
+- **Role-Based Administration**: The app distinguished between two administrator roles: Assistants, who reviewed pre-validated requests and provided feedback, and Advisors, who carried out on-site validations.
+
+- **Responsive Design**: Fully optimized for desktops, tablets, and phones, allowing Advisors to conduct audits seamlessly on their tablets.
+
+- **Email Automation**: Mailjet was integrated to automate email notifications, ensuring timely updates to dealerships and administrators throughout the process.
+
+- **Secure Access**: A custom one-time code login feature was developed to secure dealership access to follow-up forms.
 
 ### Core Solution Components
 
-- **Kanban Dashboard**: A live, auto-refreshing dashboard for administrators to manage requests collaboratively in real-time.
+- **Step-by-Step Workflow**: The app incorporated a multi-step workflow that ensured requests progressed smoothly, with automatic feedback and role-specific actions.
 
-- **Dynamic Form Management**: Partner dealerships submitted detailed recycling requests through a structured form, automating processes from start to confirmation.
+- **Automated Feedback System**: Initial submissions were checked automatically, and dealerships were instantly notified of any required corrections.
 
-- **Email and PDF Automation**: Automatically generated transport orders as PDFs and sent customized emails to all stakeholders to keep processes synchronized.
+- **Responsive Form Management**: Administrators could review, edit, and audit submissions seamlessly across devices.
 
 ---
 
@@ -66,13 +72,15 @@ I developed a comprehensive app using [Bubble.io](http://Bubble.io), focusing on
 
 ### Development and Timeline
 
-The app leveraged [Bubble.io](http://Bubble.io)'s automation capabilities and real-time data management. The auto-refresh feature was particularly beneficial, supporting simultaneous administrative updates and smooth teamwork.
+This app was built from scratch using [Bubble.io](http://Bubble.io), employing custom workflows and backend automation to handle complex user interactions and validations. Mailjet integration facilitated real-time communication, keeping all stakeholders informed. Additionally, the custom one-time code authentication provided enhanced data security for dealership users.
 
 ### Technology Stack
 
-- [**Bubble.io**](http://Bubble.io): Used for app development and PDF automation.
+- [**Bubble.io**](http://Bubble.io): Used for the app's development, covering form submissions, backend workflows, and responsive design.
 
-- **Mailjet**: Employed for automated email communication, ensuring comprehensive updates throughout the recycling stages.
+- **Mailjet**: Integrated to manage automated email sequences and maintain transparent communication.
+
+- **Custom Code Integrations**: Developed for the secure, one-time code login feature.
 
 ---
 
@@ -80,12 +88,12 @@ The app leveraged [Bubble.io](http://Bubble.io)'s automation capabilities and re
 
 ### Operational Efficiency
 
-By automating manual tasks and communications, the app significantly cut down on administrative workload. This led to more efficient management of recycling requests, reduced errors, and saved time.
+The app improved processing speed and consistency in managing dealership requests. This minimized manual oversight, allowing Eco'Insight’s team to handle more requests with fewer delays.
 
 ### User Engagement
 
-Feedback from Eco'link’s partner dealerships and internal teams was positive. The real-time updates and automated workflow provided a seamless user experience, improving productivity and collaboration.
+The new system provided dealerships with a simpler, more transparent process, while administrators benefited from an automated, structured workflow that enhanced task management and collaboration.
 
 ### Future Prospects
 
-The app’s adaptable structure positions Eco'link for future enhancements, such as additional automation features and expanded functionality to support their evolving electric vehicle recycling efforts.
+The scalable design of the app positions Eco'Insight to handle larger volumes of access requests and incorporate future features, such as enhanced reporting and further automation of document verification.

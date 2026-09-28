@@ -76,10 +76,10 @@ PROJECTS = [
          contra="m26vFMLv-migrating-a-1000-user-app-from-code-to-bubble",
          logo="/assets/images/image34.png"),
     dict(slug="eco-insight", name="Eco'Insight", client="Automotive recycling group", order=6,
-         contra="eZU2FPM7-streamlining-multi-actor-recycling-operations-with-bubble",
+         contra="MmEbmmlR-streamlining-dealership-onboarding-with-bubble",
          logo="", useCases=["internal-applications"]),
     dict(slug="eco-link", name="Eco'link", client="Automotive recycling group", order=7,
-         contra="MmEbmmlR-streamlining-dealership-onboarding-with-bubble",
+         contra="eZU2FPM7-streamlining-multi-actor-recycling-operations-with-bubble",
          logo="", useCases=["internal-applications"]),
     dict(slug="clean-car", name="Clean Car", client="Clean Car", order=8,
          contra="l3XmWqBY-launching-a-bubble-app-on-app-store-and-google-play",
@@ -112,10 +112,21 @@ def heading_text(text):
     return text.capitalize() if text.isupper() else text
 
 
+def _cover_url(image):
+    """Normalize the ld+json 'image' field (string, list, or object) to one URL."""
+    if isinstance(image, list):
+        image = image[0] if image else None
+    if isinstance(image, dict):
+        image = image.get("url", "")
+    return image or ""
+
+
 def read_meta(page):
     m = re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S)
     article = json.loads(m.group(1))["@graph"][0]
-    return {"title": article.get("headline", ""), "summary": article.get("description", "")}
+    cover_url = _cover_url(article.get("image"))
+    cover = cover_url.rstrip("/").split("?")[0].split("/")[-1] if cover_url else ""
+    return {"title": article.get("headline", ""), "summary": article.get("description", ""), "cover": cover}
 
 
 def blocks_to_markdown(page, slug):
@@ -201,6 +212,10 @@ def build_entry(p):
         fields["status"] = "live"
         body, assets = blocks_to_markdown(page, p["slug"])
         download(assets)
+        if not assets and not p.get("images") and meta["cover"]:
+            cover_local = f"/assets/projects/{p['slug']}/{meta['cover']}.webp"
+            download([{"url": IMG.format(uid=meta["cover"]), "path": cover_local}])
+            fields["images"] = [{"src": cover_local, "alt": meta["title"]}]
         body = f"# {meta['title']}\n\n" + body
     else:
         fields["summary"] = p["name"]

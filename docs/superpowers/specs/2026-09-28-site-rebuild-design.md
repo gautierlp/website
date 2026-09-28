@@ -115,8 +115,8 @@ Contra stories and the project they belong to:
 | `rMAU733P` Folderly's app | Folderly |
 | `7XZENP72` Chrome extension | Disko Leads |
 | `QEkXbAbv` marketplace for auto parts | Fleetnova |
-| `eZU2FPM7` multi-actor recycling | Eco'Insight |
-| `MmEbmmlR` dealership onboarding | Eco'link |
+| `eZU2FPM7` multi-actor recycling | Eco'link |
+| `MmEbmmlR` dealership onboarding | Eco'Insight |
 | `m26vFMLv` migrating a 1000-user app to Bubble | Camarage |
 | `l3XmWqBY` app on App Store and Google Play | Clean Car |
 

@@ -15,6 +15,10 @@ class ConverterTest(unittest.TestCase):
         self.assertEqual(meta["title"], "Sample title")
         self.assertEqual(meta["summary"], "A short summary.")
 
+    def test_cover_id_comes_from_ld_json_image(self):
+        meta = ic.read_meta(self.html)
+        self.assertEqual(meta["cover"], "vfsv5mkpw30atiyquyfq")
+
     def test_blocks_become_markdown(self):
         md, assets = ic.blocks_to_markdown(self.html, "sample")
         self.assertIn("## Introduction", md)
