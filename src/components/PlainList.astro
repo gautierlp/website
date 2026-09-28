@@ -1,0 +1,15 @@
+---
+// One link per line. `note` sits in grey after the name, `summary` in grey under it.
+interface Item { name: string; href: string; note?: string; summary?: string }
+interface Props { items: Item[] }
+const { items } = Astro.props;
+---
+<ul class="plainlist">
+  {items.map((item) => (
+    <li>
+      <a href={item.href}>{item.name}</a>
+      {item.note && <span class="muted"> · {item.note}</span>}
+      {item.summary && <p class="muted">{item.summary}</p>}
+    </li>
+  ))}
+</ul>

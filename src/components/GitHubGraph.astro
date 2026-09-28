@@ -9,7 +9,7 @@ const cal = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
 ---
 {cal && (
-  <section class="section stack--tight gh">
+  <section class="block gh">
     <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
     <div class="gh-grid" role="img" aria-label={tr("github.caption").replace("{n}", total)}>
       {cal.weeks.map((week) => (

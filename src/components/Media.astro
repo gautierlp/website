@@ -3,7 +3,7 @@ interface Props { src: string; alt: string }
 const { src, alt } = Astro.props;
 const isVideo = src.endsWith(".mp4");
 ---
-<div class="frame">
+<div class="media">
   {isVideo
     ? <video src={src} muted autoplay loop playsinline preload="metadata" aria-label={alt}></video>
     : <img src={src} alt={alt} loading="lazy" />}

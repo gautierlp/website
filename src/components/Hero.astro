@@ -1,20 +1,24 @@
 ---
-import ArrowRight from "./icons/ArrowRight.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
+// Each word of the role gets its own hand-drawn stroke, in turn yellow, pink, green.
+const roleWords = tr("hero.role").split(" ");
 ---
-<section class="section stack">
-  <img class="avatar" src="/assets/images/image01.jpg" alt="Gautier Le Poher" width="252" height="252" />
-  <div class="stack--tight">
-    <h1 class="t-hero">{tr("hero.line1.before")}<code class="fn">{tr("hero.line1.verb")}</code>{tr("hero.line1.after")}</h1>
-    <h2 class="t-hero">{tr("hero.line2.before")}<strong>{tr("hero.line2.strong")}</strong>{tr("hero.line2.after")}</h2>
-  </div>
-  <div class="columns columns--start">
-    <ul class="buttons">
-      <li><a class="button" href="https://calendly.com/gautierlp/30min" target="_blank" rel="noopener">{tr("hero.book")} <ArrowRight /></a></li>
-    </ul>
-    <p class="t-small">{tr("hero.email")} <a href="mailto:gautier@lepoher.co">gautier@lepoher.co</a></p>
+<section class="block hero">
+  <img class="avatar" src="/assets/images/avatar.jpg" alt="Gautier Le Poher" width="56" height="56" />
+  <h1>
+    <span class="hero__line">{tr("hero.hi")}<span class="nowrap">{roleWords.map((w, i) => <>{i > 0 && " "}<span class={`mark mark--${(i % 3) + 1}`}>{w}</span></>)}.</span></span>
+    <span class="hero__line">{tr("hero.line1.before")}<span class="nowrap"><code class="fn">{tr("hero.line1.verb")}</code>{tr("hero.line1.after")}</span></span>
+  </h1>
+  <p>{tr("hero.p1")}</p>
+  <p>{tr("hero.p2")}<strong>{tr("hero.p2.strong")}</strong></p>
+  <div class="hero__actions">
+    <a class="pill" href="https://calendly.com/gautierlp/30min" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2" /><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" /></svg>
+      {tr("hero.book")}
+    </a>
+    <p class="status"><span class="status__dot" aria-hidden="true"></span>{tr("hero.available")}</p>
   </div>
 </section>

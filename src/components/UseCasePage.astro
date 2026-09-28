@@ -1,7 +1,7 @@
 ---
 import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import NumberList from "./NumberList.astro";
+import PlainList from "./PlainList.astro";
 import DraftNote from "./DraftNote.astro";
 import { getProjects, langOf, slugOf, type UseCase } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
@@ -17,22 +17,24 @@ const isDraft = d.status === "draft";
 const isEmpty = useCase.body === undefined || useCase.body.trim() === "";
 const projects = (await getProjects(lang)).filter((p) => d.projects.includes(slugOf(p)));
 const items = projects.map((p) => ({
-  result: p.data.result, resultLabel: p.data.resultLabel, name: p.data.name, summary: p.data.summary,
+  name: p.data.name, summary: p.data.summary,
   href: localePath(lang, `/projects/${slugOf(p)}/`),
 }));
 const isFallback = pageLang !== lang;
 const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
 ---
 <BaseLayout lang={pageLang} routeLang={lang} title={`${d.title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
-  <article class="section stack">
-    <p class="t-small">{d.name}</p>
-    <h1 class="t-title">{d.title}</h1>
+  <article class="page">
+    <header class="page__head">
+      <p class="muted">{d.name}</p>
+      <h1>{d.title}</h1>
+    </header>
     {isDraft && <DraftNote lang={lang} empty={isEmpty} />}
     <div class="prose"><Content /></div>
     {items.length > 0 && (
-      <section class="stack">
-        <h2 class="t-title">{tr("useCase.projects")}</h2>
-        <NumberList items={items} />
+      <section class="block">
+        <h2>{tr("useCase.projects")}</h2>
+        <PlainList items={items} />
       </section>
     )}
   </article>

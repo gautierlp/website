@@ -1,0 +1,40 @@
+---
+import type { UseCase } from "../lib/content.ts";
+import { slugOf } from "../lib/content.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { t, localePath } from "../i18n/utils.ts";
+interface Props { useCases: UseCase[]; lang: Lang }
+const { useCases, lang } = Astro.props;
+const tr = t(lang);
+// One tone per card, in turn. "dark" puts white text on the card.
+const tones = [
+  { bg: "#1e1e1e", dark: true },
+  { bg: "#2300ff", dark: true },
+  { bg: "#ececec", dark: false },
+  { bg: "#ff7352", dark: true },
+];
+const cards = useCases.map((u, i) => ({
+  ...tones[i % tones.length],
+  name: u.data.name, summary: u.data.summary, result: u.data.result, resultLabel: u.data.resultLabel,
+  href: localePath(lang, `/use-cases/${slugOf(u)}/`),
+}));
+---
+<section class="work" aria-labelledby="work-title">
+  <h2 id="work-title">{tr("section.selectedWork")}</h2>
+  <ul class="work__track">
+    {cards.map((c) => (
+      <li class="work__slide">
+        <a class="card" href={c.href} style={`--card-bg:${c.bg};--card-fg:${c.dark ? "#ffffff" : "#111111"}`} aria-label={`${c.name}. ${c.result} ${c.resultLabel}`}>
+          <span class="card__figure" aria-hidden="true">
+            <span class="card__number">{c.result}</span>
+            <span class="card__unit">{c.resultLabel}</span>
+          </span>
+          <span class="card__copy" aria-hidden="true">
+            <span class="card__name">{c.name}</span>
+            <span class="card__tagline">{c.summary}</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

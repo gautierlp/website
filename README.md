@@ -135,7 +135,7 @@ The offer text comes from `positioning.md` in the sibling `freelance` repository
 - [ ] Rewrite the 8 imported stories (remove the duplicated review, real alt text, lighter images)
 - [ ] Texts for the 3 projects without a story
 - [ ] Point the lepoher.co domain at Cloudflare
-- [ ] Try a text-only design (see plud.net) on a branch
+- [x] Text-only design after plud.net (the Carrd look is kept under the git tag `archive/carrd-design`)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

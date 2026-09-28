@@ -1,9 +1,8 @@
 ---
 import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ArrowRight from "./icons/ArrowRight.astro";
 import Media from "./Media.astro";
-import NumberList from "./NumberList.astro";
+import PlainList from "./PlainList.astro";
 import DraftNote from "./DraftNote.astro";
 import { getUseCases, langOf, slugOf, type Project } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
@@ -19,7 +18,7 @@ const isDraft = d.status === "draft";
 const isEmpty = project.body === undefined || project.body.trim() === "";
 const useCases = (await getUseCases(lang)).filter((u) => d.useCases.includes(slugOf(u)));
 const items = useCases.map((u) => ({
-  result: u.data.result, resultLabel: u.data.resultLabel, name: u.data.name, summary: u.data.summary,
+  name: u.data.name, summary: u.data.summary,
   href: localePath(lang, `/use-cases/${slugOf(u)}/`),
 }));
 const title = d.result ? `${d.name}, ${d.result} ${d.resultLabel}` : d.name;
@@ -27,37 +26,33 @@ const isFallback = pageLang !== lang;
 const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
 ---
 <BaseLayout lang={pageLang} routeLang={lang} title={`${title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
-  <article class="section stack">
-    <div class="columns">
-      <h1 class="t-title">{d.name}</h1>
-      {d.result && <p class="t-result">{d.result} {d.resultLabel}</p>}
-    </div>
-    <p class="t-small">{tr("project.client")}: {d.client}</p>
+  <article class="page">
+    <header class="page__head">
+      <h1>{d.name}</h1>
+      {d.result && <p class="muted">{d.result} {d.resultLabel}</p>}
+      <p class="muted">{tr("project.client")}: {d.client}</p>
+    </header>
     {isDraft && <DraftNote lang={lang} empty={isEmpty} />}
-    <ul class="buttons">
-      {d.links.map((l) => <li><a class="button" href={l.url} target="_blank" rel="noopener">{l.label} <ArrowRight /></a></li>)}
-    </ul>
-    {d.images.length > 0 && (
-      <div class="stack">
-        {d.images.map((img) => (
-          <figure class="stack--tight">
-            <Media src={img.src} alt={img.alt} />
-            <figcaption class="t-caption">{img.alt}</figcaption>
-          </figure>
-        ))}
-      </div>
+    {d.links.length > 0 && (
+      <p class="links">{d.links.map((l) => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}</p>
     )}
+    {d.images.map((img) => (
+      <figure>
+        <Media src={img.src} alt={img.alt} />
+        <figcaption class="muted">{img.alt}</figcaption>
+      </figure>
+    ))}
     <div class="prose"><Content /></div>
     {d.quote && (
-      <blockquote class="review">
-        <p class="t-body">&ldquo;{d.quote.text}&rdquo;</p>
-        <footer class="t-caption">{d.quote.who}, {d.quote.role}</footer>
+      <blockquote class="quote">
+        <p>&ldquo;{d.quote.text}&rdquo;</p>
+        <footer class="muted">{d.quote.who}, {d.quote.role}</footer>
       </blockquote>
     )}
     {items.length > 0 && (
-      <section class="stack">
-        <h2 class="t-title">{tr("project.useCases")}</h2>
-        <NumberList items={items} />
+      <section class="block">
+        <h2>{tr("project.useCases")}</h2>
+        <PlainList items={items} />
       </section>
     )}
   </article>
