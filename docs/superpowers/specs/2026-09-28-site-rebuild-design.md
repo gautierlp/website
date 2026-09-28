@@ -44,6 +44,7 @@ The purpose of the website:
 - French and English routes exist from day one. The French texts come later (section 8).
 - Three additions from reference sites: a number column on lists, a GitHub contribution
   graph, and a code-font verb in the headline (see sections 5 to 7).
+- The Carrd quote form posted to Carrd's own backend. It is replaced by the "Book call" button and the e-mail link in the call to action.
 
 ## 1. Routes and content
 
@@ -115,8 +116,8 @@ Contra stories and the project they belong to:
 | `rMAU733P` Folderly's app | Folderly |
 | `7XZENP72` Chrome extension | Disko Leads |
 | `QEkXbAbv` marketplace for auto parts | Fleetnova |
-| `eZU2FPM7` multi-actor recycling | Eco'Insight |
-| `MmEbmmlR` dealership onboarding | Eco'link |
+| `eZU2FPM7` multi-actor recycling | Eco'link |
+| `MmEbmmlR` dealership onboarding | Eco'Insight |
 | `m26vFMLv` migrating a 1000-user app to Bubble | Camarage |
 | `l3XmWqBY` app on App Store and Google Play | Clean Car |
 
@@ -159,7 +160,7 @@ as an image in the Evaboot featured case, as today.
 
 ## 3. Contra import
 
-`scripts/import-contra.py`, run once by hand, kept in the repository:
+`scripts/import_contra.py`, run once by hand, kept in the repository:
 
 1. Fetch the 8 Contra pages (plain HTTPS requests, no login).
 2. Extract the title, the sections and the paragraphs into Markdown, with the section

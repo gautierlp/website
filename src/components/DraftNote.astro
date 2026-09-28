@@ -1,0 +1,8 @@
+---
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Props { lang: Lang; empty: boolean }
+const { lang, empty } = Astro.props;
+const tr = t(lang);
+---
+<p class="draft-note">{empty ? tr("draft.empty") : tr("draft.pending")}</p>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "./Hero.astro";
+import GitHubGraph from "./GitHubGraph.astro";
+import FeaturedCase from "./FeaturedCase.astro";
+import NumberList from "./NumberList.astro";
+import LogoGrid from "./LogoGrid.astro";
+import CallToAction from "./CallToAction.astro";
+import { getProjects, getUseCases, slugOf } from "../lib/content.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { t, localePath } from "../i18n/utils.ts";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const projects = await getProjects(lang);
+const useCases = await getUseCases(lang);
+const featured = projects.filter((p) => p.data.featured);
+const useCaseItems = useCases.map((u) => ({
+  result: u.data.result, resultLabel: u.data.resultLabel, name: u.data.name, summary: u.data.summary,
+  href: localePath(lang, `/use-cases/${slugOf(u)}/`),
+}));
+---
+<BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
+  <Hero lang={lang} />
+  <GitHubGraph lang={lang} />
+  {featured.map((p) => <FeaturedCase project={p} lang={lang} />)}
+  <section class="section stack featured">
+    <h2 class="t-title">{tr("section.useCases")}</h2>
+    <NumberList items={useCaseItems} />
+  </section>
+  <section class="section stack featured section--center">
+    <h2 class="t-title">{tr("section.allApps")}</h2>
+    <LogoGrid projects={projects} lang={lang} />
+  </section>
+  <CallToAction lang={lang} />
+</BaseLayout>

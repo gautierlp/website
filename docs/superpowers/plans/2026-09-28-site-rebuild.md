@@ -56,7 +56,7 @@
 | `src/pages/use-cases/[slug].astro`, `src/pages/fr/use-cases/[slug].astro` | Use-case pages |
 | `scripts/import_contra.py` | One-off Contra import |
 | `src/components/Media.astro` | An image, or a video when the path ends with `.mp4` |
-| `scripts/import-use-cases.py` | One-off copy of the 4 drafts |
+| `scripts/import_use_cases.py` | One-off copy of the 4 drafts |
 | `tests/i18n.test.mjs` | Unit tests of the i18n helpers |
 | `tests/site.test.mjs` | Tests on `dist/` |
 | `tests/test_import_contra.py` | Unit test of the Contra HTML converter |
@@ -392,11 +392,11 @@ git commit -m "feat(site): content collections, i18n routing and helpers"
 
 **Acceptance Criteria:**
 - [ ] `python3 -m unittest tests/test_import_contra.py` passes 4 tests.
-- [ ] `python3 scripts/import-contra.py` writes 11 files and downloads at least 1 image per Contra project.
+- [ ] `python3 scripts/import_contra.py` writes 11 files and downloads at least 1 image per Contra project.
 - [ ] `npm run build` passes with the 11 files (schema valid).
 - [ ] `grep -rl "contra.com/p/" src/content` prints nothing.
 
-**Verify:** `python3 -m unittest tests/test_import_contra.py && python3 scripts/import-contra.py && npm run build && ls src/content/projects/en | wc -l` → 11.
+**Verify:** `python3 -m unittest tests/test_import_contra.py && python3 scripts/import_contra.py && npm run build && ls src/content/projects/en | wc -l` → 11.
 
 **Steps:**
 

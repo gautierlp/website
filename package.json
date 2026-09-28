@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:unit": "node --experimental-strip-types --test tests/i18n.test.mjs",
+    "test:site": "node --test tests/site.test.mjs",
+    "test": "npm run test:unit && npm run build && npm run test:site"
   },
   "dependencies": {
     "astro": "^7.3.5"

@@ -1,0 +1,48 @@
+---
+name: "The API, the CLI and the MCP server"
+title: "36 tools, 40 commands, four releases: a product's interfaces built on its new stack"
+summary: "A product gets its public interfaces on the new stack: an MCP server, a CLI, an LLM agent."
+result: "36"
+resultLabel: "MCP tools in production"
+projects: ["evaboot"]
+order: 2
+status: "draft"
+---
+
+## Situation
+
+The core was rebuilt, with a public API underneath, built mostly by the backend
+engineer. The product needed the layer users and machines touch: a way for AI agents
+to use it, a command line for power users, and an agent of its own on the data source.
+
+## Task
+
+Build and ship those interfaces on the new stack, with coding agents, without a
+second engineer.
+
+## Actions
+
+- Built an MCP server that exposes the product to AI clients: 36 tools, across reads,
+  writes, asynchronous jobs and extractions.
+- Built a CLI of 40 commands, and shipped it through a release pipeline four times in
+  one week (August 2026), each release verified end to end on a real machine.
+- Built an LLM agent on the product's data source, with streamed answers and rate
+  handling.
+- Tested the whole surface against production with a real key: 35 of 36 MCP tools
+  passed; the last one was left untested only because of its credit cost.
+- Found and filed one billing defect in the public API during that test, with measured
+  evidence, so the backend engineer could fix it before customers hit it.
+- Opened and merged pull requests on the core repository along the way, each one
+  reviewed.
+
+## Results
+
+- MCP server live in production (August 2026).
+- CLI at v0.3.1 in production, installable with one command.
+- Agent tools merged and deployed.
+
+## What this proves
+
+Shipping on a Django stack with coding agents, in production, with releases and
+reviews: the delivery half of a technical product profile, on a product I did not
+build the core of.

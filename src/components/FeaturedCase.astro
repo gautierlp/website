@@ -1,0 +1,40 @@
+---
+import ArrowRight from "./icons/ArrowRight.astro";
+import Media from "./Media.astro";
+import type { Project } from "../lib/content.ts";
+import { slugOf } from "../lib/content.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { t, localePath } from "../i18n/utils.ts";
+interface Props { project: Project; lang: Lang }
+const { project, lang } = Astro.props;
+const d = project.data;
+const tr = t(lang);
+const href = localePath(lang, `/projects/${slugOf(project)}/`);
+---
+<article class="section stack featured">
+  <div class="columns">
+    <h2 class="t-title">{d.name}</h2>
+    {d.result && <p class="t-result">{d.result} {d.resultLabel}</p>}
+  </div>
+  <ul class="buttons">
+    <li><a class="button" href={href}>{tr("case.fullStory")} <ArrowRight /></a></li>
+    {d.links.map((l) => <li><a class="button" href={l.url} target="_blank" rel="noopener">{l.label} <ArrowRight /></a></li>)}
+  </ul>
+  {d.highlights.map((h) => (
+    <div class="stack">
+      <p class="t-body">{h.text}</p>
+      {h.image && (
+        <figure class="stack--tight">
+          <Media src={h.image} alt={h.caption} />
+          <figcaption class="t-caption">{h.caption}</figcaption>
+        </figure>
+      )}
+    </div>
+  ))}
+  {d.quote && (
+    <blockquote class="review">
+      <p class="t-body">“{d.quote.text}”</p>
+      <footer class="t-caption">{d.quote.who}, {d.quote.role}</footer>
+    </blockquote>
+  )}
+</article>

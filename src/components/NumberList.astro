@@ -1,0 +1,19 @@
+---
+interface Item { result: string; resultLabel: string; name: string; summary: string; href: string }
+interface Props { items: Item[] }
+const { items } = Astro.props;
+---
+<ul class="numlist">
+  {items.map((item) => (
+    <li class="numlist__item">
+      <div class="numlist__num">
+        {item.result && <b>{item.result}</b>}
+        {item.resultLabel && <span>{item.resultLabel}</span>}
+      </div>
+      <div class="numlist__text">
+        <a href={item.href}>{item.name}</a>
+        <p>{item.summary}</p>
+      </div>
+    </li>
+  ))}
+</ul>

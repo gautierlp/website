@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+import LinkedIn from "../components/icons/LinkedIn.astro";
+import Contra from "../components/icons/Contra.astro";
+import Malt from "../components/icons/Malt.astro";
+import { languages, type Lang } from "../i18n/ui.ts";
+import { t, twinPath, stripLang, getLangFromPath } from "../i18n/utils.ts";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  noindex?: boolean;
+  routeLang?: Lang;
+  canonical?: string;
+}
+const { lang, title, description, noindex = false, routeLang = getLangFromPath(Astro.url.pathname), canonical: canonicalOverride } = Astro.props;
+const tr = t(routeLang);
+const site = "https://lepoher.co";
+const path = Astro.url.pathname;
+const twin = twinPath(path);
+const canonical = canonicalOverride ?? site + path;
+const enHref = site + stripLang(path);
+const frHref = site + (path.startsWith("/fr/") ? path : "/fr" + path);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light only" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="fr" href={frHref} />
+    <meta property="og:site_name" content="Gautier Le Poher" />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={site + "/assets/images/card.jpg"} />
+    <meta property="og:url" content={canonical} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?display=swap&family=Overpass:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Fira+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@300;400&family=JetBrains+Mono:wght@400"
+      rel="stylesheet"
+    />
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-8RLHFGPZ87"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "G-8RLHFGPZ87");
+    </script>
+  </head>
+  <body>
+    <div class="site">
+      <div class="panel" id="top">
+        <header class="header">
+          <a class="header__name" href={routeLang === "fr" ? "/fr/" : "/"}>{tr("nav.home")}</a>
+          <nav class="header__links" aria-label={tr("nav.profiles")}>
+            <a href="https://www.linkedin.com/in/gautier-le-poher/" target="_blank" rel="noopener" aria-label="LinkedIn"><LinkedIn /></a>
+            <a href="https://contra.com/gautierlp" target="_blank" rel="noopener" aria-label="Contra"><Contra /></a>
+            <a href="https://www.malt.fr/profile/gautierlepoher" target="_blank" rel="noopener" aria-label="Malt"><Malt /></a>
+            <a class="header__lang" href={twin.href} hreflang={twin.lang} lang={twin.lang}>{languages[twin.lang]}</a>
+          </nav>
+        </header>
+        <slot />
+      </div>
+    </div>
+    <a class="to-top" href="#top" aria-label={tr("nav.top")}>&#x2B06;&#xFE0E;</a>
+  </body>
+</html>
