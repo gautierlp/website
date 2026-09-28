@@ -46,3 +46,35 @@ test("both homepages link to each other", () => {
   assert.ok(links(page("")).includes("/fr/"));
   assert.ok(links(page("fr")).includes("/"));
 });
+
+test("project pages: 11 in English and 11 in French", () => {
+  for (const slug of PROJECTS) {
+    assert.ok(exists(`projects/${slug}`), slug);
+    assert.ok(exists(`fr/projects/${slug}`), `fr ${slug}`);
+  }
+});
+
+test("project page: the Contra story and the quote", () => {
+  const html = page("projects/evaboot");
+  assert.ok(html.includes("Introduction"));
+  assert.ok(html.includes("Results"));
+  assert.ok(html.includes("JB Jézéquel"));
+  assert.ok(!html.includes("contra.com/p/"));
+});
+
+test("project page: draft note on a placeholder", () => {
+  const html = page("projects/betc");
+  assert.ok(html.includes("Text to come."));
+  assert.match(html, /<meta name="robots" content="noindex">/);
+});
+
+test("project page: French route falls back to English content", () => {
+  const html = page("fr/projects/betc");
+  assert.match(html, /<html lang="en">/);
+  assert.ok(links(html).includes("/projects/betc/"));
+});
+
+test("project page: links to its use cases exist", () => {
+  const html = page("projects/fleetnova");
+  assert.ok(links(html).includes("/use-cases/internal-applications/"));
+});
