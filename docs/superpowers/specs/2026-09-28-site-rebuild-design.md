@@ -6,7 +6,7 @@ Date: 2026-09-28. Status: design agreed in conversation on 2026-09-25 and 2026-0
 
 Rebuild lepoher.co as Astro components with the same look as the current Carrd page,
 then replace every Contra case-study link with a page on the site. Two page types are
-added: one page per project (14) and one page per use case (4). All pages follow the
+added: one page per project (11) and one page per use case (4). All pages follow the
 homepage design for now. This allows a faster setup, and it can change later.
 
 The purpose of the website:
@@ -32,10 +32,10 @@ The purpose of the website:
   brainstorm stay in `design-explorations/` (ignored by git) as reference only.
 - Content lives in Astro content collections: one Markdown file per project and per use
   case, per language. One component per page type reads the files.
-- Project pages: all 14 apps from the homepage logo grid. The 8 projects with a Contra
-  story get their text from Contra, imported by a script. The 6 others get a placeholder.
-  A project has one client, and a client can have several projects (Trailforks, Ream
-  and Simplex belong to the same industrial group). A client page is not built now; the
+- Project pages: all 11 apps from the homepage logo grid. The 8 projects with a Contra
+  story get their text from Contra, imported by a script. The 3 others get a placeholder.
+  A project has one client, and a client can have several projects (Fleetnova,
+  Eco'Insight and Eco'link belong to the same industrial group). A client page is not built now; the
   `client` field on each project makes it possible later.
 - Use-case pages: the 4 drafts in the freelance repository
   (`~/projects/personal/freelance/docs/case-studies/0[1-4]-*.md`).
@@ -50,7 +50,7 @@ The purpose of the website:
 Routes:
 
 - `/` the homepage
-- `/projects/<slug>/` 14 pages, and `/fr/projects/<slug>/`
+- `/projects/<slug>/` 11 pages, and `/fr/projects/<slug>/`
 - `/use-cases/<slug>/` 4 pages, and `/fr/use-cases/<slug>/`
 - `/fr/` the homepage in French
 
@@ -63,7 +63,7 @@ header fields and their types, checked at build):
 | --- | --- | --- |
 | `name` | string | Display name of the project, for example "Disko Leads" |
 | `client` | string | The client name to show. Same string on projects of the same client |
-| `logo` | string or empty | Path under `/assets/images/`, empty for the 6 projects whose logo is an inline SVG symbol in the Carrd page; the import task copies those symbols to SVG files |
+| `logo` | string or empty | Path under `/assets/images/`. Empty for Fleetnova, Eco'Insight and Eco'link: the Carrd page shows a generic icon for them, not a logo. The grid shows the name in text instead |
 | `summary` | string | One line, shown in lists |
 | `result` | string or empty | The number, for example "$1M to $2M+" |
 | `resultLabel` | string or empty | For example "ARR" |
@@ -101,10 +101,11 @@ carry `<meta name="robots" content="noindex">`.
 The 4 use cases and their slugs: `no-code-exit`, `interfaces-on-a-new-stack`,
 `marketing-site-migration`, `internal-applications`.
 
-The 14 projects, in the order of the current logo grid: Evaboot, Disko Leads, Folderly,
-Trailforks, Fleetnova, Camarage, Ream, Eco'Insight, Simplex, Eco'link, Clean Car,
-Price Writers, BETC, Protech. Slugs are the lowercase name with hyphens and no
-apostrophe (`eco-insight`, `eco-link`).
+The 11 projects, in the order of the current logo grid: Evaboot, Disko Leads, Folderly,
+Fleetnova, Camarage, Eco'Insight, Eco'link, Clean Car, Price Writers, BETC, Protech.
+Slugs are the lowercase name with hyphens and no apostrophe (`disko-leads`,
+`eco-insight`, `eco-link`, `clean-car`, `price-writers`). The names Trailforks, Ream
+and Simplex in the Carrd markup are the names of generic icons, not projects.
 
 Contra stories and the project they belong to:
 
@@ -113,13 +114,13 @@ Contra stories and the project they belong to:
 | `sllAZU3M` scaling Evaboot | Evaboot |
 | `rMAU733P` Folderly's app | Folderly |
 | `7XZENP72` Chrome extension | Disko Leads |
-| `QEkXbAbv` marketplace for auto parts | Trailforks |
-| `eZU2FPM7` multi-actor recycling | Ream |
-| `MmEbmmlR` dealership onboarding | Simplex |
-| `m26vFMLv` migrating a 1000-user app to Bubble | To confirm from the page text (linked from the Camarage logo) |
-| `l3XmWqBY` app on App Store and Google Play | To confirm from the page text (linked from the Eco'link logo) |
+| `QEkXbAbv` marketplace for auto parts | Fleetnova |
+| `eZU2FPM7` multi-actor recycling | Eco'Insight |
+| `MmEbmmlR` dealership onboarding | Eco'link |
+| `m26vFMLv` migrating a 1000-user app to Bubble | Camarage |
+| `l3XmWqBY` app on App Store and Google Play | Clean Car |
 
-The import task reads the project name from each fetched page and fixes the last two rows.
+Source: the link on each logo of the Carrd grid, read on 2026-09-28.
 
 ## 2. Components and styles
 
@@ -136,7 +137,7 @@ Files under `src/`:
   (name, result, buttons, 4 paragraphs with screenshots, review). Props: a project entry.
 - `components/NumberList.astro`: a list with the number column (section 5). Props: a
   list of `{result, resultLabel, name, summary, href}`.
-- `components/LogoGrid.astro`: the 14 logos, each a link to its project page.
+- `components/LogoGrid.astro`: the 11 projects, each a link to its project page. A logo image when the project has one, the name in text otherwise.
 - `components/CallToAction.astro`: "Need to build an app? Ask for a quote".
 - `pages/index.astro` and `pages/fr/index.astro`: Hero, GitHubGraph, the 3 featured
   projects, a "Use cases" NumberList, LogoGrid, CallToAction.
@@ -169,7 +170,7 @@ as an image in the Evaboot featured case, as today.
    (name, summary from the introduction, images) and `status: live`. Fields that the
    page does not give (result, links, useCases, featured, order, quote) come from a
    small table inside the script, taken from the Carrd page.
-5. For the 6 projects without a story, write a file with `status: draft`, the name,
+5. For the 3 projects without a story (Price Writers, BETC, Protech), write a file with `status: draft`, the name,
    the logo, the order, and an empty body.
 
 The script is idempotent: a second run overwrites the same files.
@@ -181,10 +182,10 @@ After the import, no `contra.com/p/` link remains in `src/`. The Contra profile 
 
 - `npm run build` passes with zero warnings from the content schema.
 - A test file, `tests/site.test.mjs`, run with `node --test` on the built `dist/`:
-  - 14 project pages and 4 use-case pages exist as `index.html`, in English and under
+  - 11 project pages and 4 use-case pages exist as `index.html`, in English and under
     `/fr/`.
   - No `contra.com/p/` string in any built page.
-  - Every logo in the homepage grid links to a path that exists in `dist/`.
+  - Every item in the homepage grid (11) links to a path that exists in `dist/`.
   - Every project page links back to `/` and every use-case link on it exists.
   - Every English page links to its `/fr/` twin, and the twin links back.
   - The homepage contains the GitHub graph with 53 week columns.
@@ -248,7 +249,7 @@ The French texts of the projects and use cases are a later step.
 - A CMS.
 - Approval of the 4 use-case drafts by the clients. They ship as `draft` until
   Gautier flips the status.
-- Text for the 6 projects with no Contra story.
+- Text for the 3 projects with no Contra story.
 - The French texts of the projects and use cases.
 - A client page that lists the projects of one client.
 - A scheduled rebuild to refresh the GitHub graph between pushes.
