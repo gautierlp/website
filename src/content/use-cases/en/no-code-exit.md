@@ -1,6 +1,6 @@
 ---
 name: "The no-code exit"
-title: "From Bubble to a database the engineers could build on, with the product live the whole time"
+title: "200,000 users moved off Bubble with no downtime, and a map of the app the engineers could rebuild from"
 summary: "A B2B SaaS leaves Bubble for Django: the full map of the app, and the data moved with no downtime."
 result: "200k"
 resultLabel: "users migrated, no downtime"
@@ -12,7 +12,7 @@ status: "draft"
 ## Situation
 
 The product ran on Bubble for the front end and workflows, with a Django backend
-behind it. Growth had reached the limits of the platform: multi-second waits on
+behind it. It had about 200,000 users at the time of the migration. Growth had reached the limits of the platform: multi-second waits on
 workflow checks, plugin behaviour that changed without notice, an API connector that
 broke on silent changes, and an API rate limit that made bulk operations crawl. Bubble's
 pricing had also become expensive for what it delivered. Hiring was constrained,
@@ -54,8 +54,8 @@ without loss, and keep it in sync while both systems ran, up to the cut-over.
 - No downtime at the cut-over (May 2026).
 - One additional engineer hired after the move off Bubble.
 
-## What this proves
+## What you get
 
-The two things a founder needs before leaving a no-code platform: a map an engineer
-can build from, and a data move that loses nothing. Both delivered while the product
-stayed live.
+A map of your app that an engineer can rebuild from, and a data move that loses
+nothing while the product keeps selling. You leave the no-code platform without
+stopping the product.

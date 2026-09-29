@@ -28,7 +28,7 @@ const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathna
 <BaseLayout lang={pageLang} routeLang={lang} title={`${title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
   <article class="page">
     <header class="page__head">
-      <h1>{d.name}</h1>
+      <h1>{d.nda ? <><span class="nda">{d.name}</span> <span class="nda-label">{tr("project.nda")}</span></> : d.name}</h1>
       {d.result && <p class="muted">{d.result} {d.resultLabel}</p>}
       <p class="muted">{tr("project.client")}: {d.client}</p>
     </header>
@@ -52,7 +52,7 @@ const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathna
     {items.length > 0 && (
       <section class="block">
         <h2>{tr("project.useCases")}</h2>
-        <PlainList items={items} />
+        <PlainList items={items} lang={lang} />
       </section>
     )}
   </article>

@@ -8,7 +8,9 @@ const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
 const exists = (path) => existsSync(join(DIST, path, "index.html"));
 const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
-const PROJECTS = ["evaboot", "disko-leads", "folderly", "fleetnova", "camarage", "eco-insight", "eco-link", "clean-car", "price-writers", "betc", "protech"];
+const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech"];
+const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
+const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
 
 test("homepage: headline in plain text, no code font", () => {
@@ -22,9 +24,18 @@ test("homepage: the three featured projects", () => {
   for (const name of ["Evaboot", "Disko Leads", "Folderly"]) assert.ok(html.includes(name), name);
 });
 
-test("homepage: the grid links to every project page", () => {
+test("homepage: the record lists every live project, and no draft", () => {
   const html = page("");
-  for (const slug of PROJECTS) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+  assert.ok(html.includes("Track record"));
+  assert.ok(!html.includes("All apps"));
+  for (const slug of LISTED) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+  for (const slug of DRAFT_PROJECTS) assert.ok(!links(html).includes(`/projects/${slug}/`), slug);
+});
+
+test("homepage: no client revenue sold as a result", () => {
+  const html = page("");
+  assert.ok(!html.includes("$1.6M"));
+  assert.ok(!html.includes("From $1M to $2M+"));
 });
 
 test("homepage: the use-case list links to every use case", () => {
@@ -44,9 +55,8 @@ test("french homepage: French strings and /fr/ links", () => {
   assert.match(html, /<html lang="fr">/);
 });
 
-test("both homepages link to each other", () => {
-  assert.ok(links(page("")).includes("/fr/"));
-  assert.ok(links(page("fr")).includes("/"));
+test("no language switch until the use cases exist in French", () => {
+  for (const p of ["", "fr", "projects/evaboot", "use-cases/no-code-exit"]) assert.ok(!page(p).includes('class="header__lang"'), p);
 });
 
 test("project pages: 11 in English and 11 in French", () => {
@@ -56,9 +66,9 @@ test("project pages: 11 in English and 11 in French", () => {
   }
 });
 
-test("project page: the Contra story and the quote", () => {
+test("project page: the story and the quote", () => {
   const html = page("projects/evaboot");
-  assert.ok(html.includes("Introduction"));
+  assert.ok(html.includes("Situation"));
   assert.ok(html.includes("Results"));
   assert.ok(html.includes("JB Jézéquel"));
   assert.ok(!html.includes("contra.com/p/"));
@@ -79,7 +89,7 @@ test("project page: French route falls back to English content", () => {
 });
 
 test("project page: links to its use cases exist", () => {
-  const html = page("projects/fleetnova");
+  const html = page("projects/parts-marketplace");
   assert.ok(links(html).includes("/use-cases/internal-applications/"));
 });
 
@@ -93,7 +103,7 @@ test("use-case pages: 4 in English and 4 in French", () => {
 test("use-case page: draft note and project links", () => {
   const html = page("use-cases/internal-applications");
   assert.ok(html.includes("Draft. Waits for the client&#39;s approval."));
-  for (const slug of ["fleetnova", "eco-insight", "eco-link"]) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+  for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
 });
 
 test("every internal link on every page resolves", () => {
@@ -140,10 +150,27 @@ test("homepage hero: greeting, marked title, availability and booking button", (
   const en = page("");
   assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
   assert.equal((en.match(/class="mark /g) ?? []).length, 3);
-  assert.ok(en.includes("Available for new projects"));
+  assert.ok(en.includes("Available for day-rate work on your product."));
+  assert.ok(!en.includes("new projects"));
   assert.match(en, /<a class="pill"[^>]*data-booking/);
   const fr = page("fr");
-  assert.ok(fr.includes("Disponible pour de nouveaux projets"));
+  assert.ok(fr.includes("Disponible au TJM sur votre produit."));
+});
+
+test("homepage hero: names the client type, the problem and a number", () => {
+  const en = page("");
+  assert.ok(en.includes("B2B SaaS or an internal business app that nobody owns end to end"));
+  assert.ok(en.includes("from $1M to $2M in annual revenue"));
+  assert.ok(en.includes("about 500 features and fixes"));
+  assert.ok(en.includes("Product Owner from 2019 to 2022."));
+});
+
+test("homepage CTA: invites the owner-less product, not a buyer of development", () => {
+  const en = page("");
+  assert.ok(!en.includes("Need to build an app?"));
+  assert.ok(en.includes("A product nobody owns end to end?"));
+  assert.ok(en.includes("Book a 30-minute call"));
+  assert.ok(en.includes("mailto:gautier@lepoher.co"));
 });
 
 test("booking links open the Cal.com popup and fall back to the booking page", () => {
@@ -187,4 +214,64 @@ test("homepage: the work carousel scrolls by itself and stops under the mouse", 
 
 test("homepage: a small photo of Gautier in the hero", () => {
   assert.match(page(""), /<img class="avatar" src="\/assets\/images\/avatar\.jpg" alt="Gautier Le Poher"/);
+});
+
+test("no client internals or internal notes on any page", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const banned = [/billing defect/i, /security vulnerabilit/i, /exposed to security/i, /\bIndra\b/, /\bRenault\b/, /Open item/, /segment B/i, /Gautier is not sure/];
+  for (const p of pages) for (const re of banned) assert.doesNotMatch(page(p), re, `${p}: ${re}`);
+});
+
+test("use cases: written for the buyer, with the result number in the title", () => {
+  for (const slug of USE_CASES) {
+    const html = page(`use-cases/${slug}`);
+    assert.ok(!html.includes("What this proves"), slug);
+    assert.ok(html.includes("What you get"), slug);
+    assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /\d/, `${slug} title has a number`);
+  }
+  const exit = page("use-cases/no-code-exit");
+  assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
+  assert.match(exit, /about 200,000 users at the time of the migration/);
+});
+
+test("homepage: one founder quote, and not the JB quote still under review", () => {
+  const html = page("");
+  assert.match(html, /<blockquote class="quote">/);
+  assert.ok(html.includes("Johary Randria, Founder, Disko Leads"));
+  assert.ok(!html.includes("JB Jézéquel"));
+  assert.ok(!html.includes("future Bubble"));
+});
+
+test("homepage: says what I do not do", () => {
+  assert.ok(page("").includes("What I do not do: model training, MLOps, data engineering, RAG."));
+  assert.ok(page("fr").includes("Ce que je ne fais pas : entraîner des modèles, du MLOps, du data engineering, du RAG."));
+});
+
+test("no emoji, no em dash, no filler words, no invented product names on any page", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const banned = [/\p{Extended_Pictographic}/u, /—/, /seamless/i, /robust/i, /spearhead/i, /leverag/i, /Eco'?Insight/i, /Eco'?link/i, /Fleetnova/i, /Over the course of a year/, /I have achieved by/];
+  for (const p of pages) {
+    const text = page(p).replace(/<script[\s\S]*?<\/script>/g, "");
+    for (const re of banned) assert.doesNotMatch(text, re, `${p}: ${re}`);
+  }
+});
+
+test("NDA projects: placeholder name blurred, with an NDA label, on the list and the page", () => {
+  const home = page("");
+  assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
+  for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) {
+    const html = page(`projects/${slug}`);
+    assert.match(html, /<h1><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span><\/h1>/, slug);
+  }
+});
+
+test("Camarage: a product taken over, with the reason Bubble fit this client", () => {
+  const html = page("projects/camarage");
+  assert.match(html, /took over/);
+  assert.match(html, /without a developer/);
+  assert.ok(!html.includes("Migrating a 1,000-user app from Code to Bubble"));
+});
+
+test("Folderly: no quote from a third party about another product", () => {
+  assert.ok(!page("projects/folderly").includes("Belkins"));
 });

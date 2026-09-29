@@ -1,18 +1,18 @@
 ---
 name: "Internal applications"
-title: "Three internal applications for the same industrial group, and a client who came back three times"
-summary: "Three internal applications for the same industrial group, one a year, all still in use."
+title: "3 internal applications in 3 years for the same automotive group, all still in use"
+summary: "Three internal applications for the same automotive group, one a year, all still in use."
 result: "3"
 resultLabel: "internal apps, same client"
-projects: ["fleetnova", "eco-insight", "eco-link"]
+projects: ["parts-marketplace", "dealership-onboarding", "battery-recycling"]
 order: 4
 status: "draft"
 ---
 
 ## Situation
 
-An automotive recycling company inside a large industrial group, with a network of
-partner dealerships. Three processes ran on Excel, e-mail and PDFs, each with the same
+An automotive recycling company, a subsidiary of a large French automotive group,
+with a network of partner dealerships. Three processes ran on Excel, e-mail and PDFs, each with the same
 symptoms: non-uniform requests, manual follow-up, no shared view of status, delays and
 errors. The IT department of a group that size does not staff tools for a subsidiary's
 operations team. Each time, the operations side bought the tool directly.
@@ -49,14 +49,8 @@ transparent process.
 - Application 1 delivered in two weeks from design to tested product.
 - All three still in use in September 2026.
 
-## What this proves
+## What you get
 
-The internal-application offer, three times over: a bounded scope, a manual process
-replaced, a hand-over to the team that runs it, and a client who returns. It is the
-only proof segment B has today, and it is the oldest, so the "still in use" line is
-the one that gives it weight.
-
-## Open item
-
-Permission: whether the group, or the parent car maker, can be named. Gautier is not
-sure. Ask the client before any publication; until then the client stays described.
+A manual process replaced by an application with a bounded scope, handed to the
+team that runs it. Your IT department does not have to staff it. This client
+bought the second and the third application on the strength of the first.

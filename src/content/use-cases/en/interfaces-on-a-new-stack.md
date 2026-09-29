@@ -30,8 +30,6 @@ second engineer.
   handling.
 - Tested the whole surface against production with a real key: 35 of 36 MCP tools
   passed; the last one was left untested only because of its credit cost.
-- Found and filed one billing defect in the public API during that test, with measured
-  evidence, so the backend engineer could fix it before customers hit it.
 - Opened and merged pull requests on the core repository along the way, each one
   reviewed.
 
@@ -41,8 +39,8 @@ second engineer.
 - CLI at v0.3.1 in production, installable with one command.
 - Agent tools merged and deployed.
 
-## What this proves
+## What you get
 
-Shipping on a Django stack with coding agents, in production, with releases and
-reviews: the delivery half of a technical product profile, on a product I did not
-build the core of.
+An MCP server, a CLI and an agent on top of your API, in production, released
+through a pipeline and reviewed like the rest of your code. One person builds and
+ships that layer next to your backend engineer.

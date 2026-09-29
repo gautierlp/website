@@ -71,7 +71,7 @@ Written in 2024 for Contra: long, generic, Bubble-centred, in a voice the rest o
 - **eco-link:** the summary names "Indra", while the internal-applications use case says the client stays described until it gives permission.
 - **eco-insight, eco-link, fleetnova:** the product names (Eco'Insight, Eco'link) are Gautier's own inventions, not the client's. Replace them with random names, blurred, labelled "NDA signed". The blur is a small styling change, the one exception to copy-only scope.
 - **folderly:** "$1.6M+ ARR, backed by Google Startups" is the client's revenue, not a result of the work. The quote is from a Belkins account manager about email management, not about Gautier's work.
-- **camarage:** a move from code to Bubble. It argues the opposite of the no-code exit.
+- **camarage:** a move from code to Bubble. It looks like the opposite of the no-code exit. Decided: keep it, as proof of a product taken over, with a line on why Bubble fit that client.
 - **disko-leads, evaboot, folderly:** star emoji (copy rule 2).
 - **fleetnova:** "I have achieved by connecting their SFTP" is broken English.
 - **betc, price-writers, protech:** empty drafts. BETC is the segment B reference positioning.md names, and it has no text.
@@ -92,7 +92,7 @@ Do 1 before anything else: it is the only item that can hurt a client relationsh
    - Paragraph 3: "Product Owner from 2019 to 2022. I build with coding agents every day, and I decide what they build."
    - Every figure above is in positioning.md. Do not add a figure that is not.
 3. **Replace the CTA.** "Need to build an app?" becomes an invitation to the owner-less product, for example: "A product nobody owns end to end? Book a 30-minute call." Keep the email line.
-4. **Cut "All apps" down to proof that matches the target.** Drop Camarage (code to Bubble) and the three empty drafts. Drop Folderly's "$1.6M+ ARR" label; use "600 students in three weeks" if the page stays. Keep the internal apps and Disko Leads. Rename the section from "All apps" to something that reads as a record, not a catalogue.
+4. **Cut "All apps" down to proof that matches the target.** Drop the three empty drafts. Keep Camarage (see its finding above). Drop Folderly's "$1.6M+ ARR" label; use "600 students in three weeks" if the page stays. Keep the internal apps and Disko Leads. Rename the section from "All apps" to something that reads as a record, not a catalogue.
 5. **Finish the use cases.** Put a number in the no-code exit title. State the 200k users (confirmed) in the body. Rewrite each "What this proves" as what the buyer gets. Add the course's disclosure line if any figure was adjusted.
 6. **Move testimonials up.** JB's and Johary's quotes sit deep in project pages. Put one on the homepage, but cut "future Bubble projects" only with JB's agreement, never by editing a quote silently.
 7. **Add one "what I do not do" line** from positioning.md: agents, MCP servers, LLM calls in the product; no model training, MLOps, data engineering or RAG.

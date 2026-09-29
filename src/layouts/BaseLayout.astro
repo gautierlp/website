@@ -19,6 +19,8 @@ const twin = twinPath(path);
 const canonical = canonicalOverride ?? site + path;
 const enHref = site + stripLang(path);
 const frHref = site + (path.startsWith("/fr/") ? path : "/fr" + path);
+// Off until the use cases exist in French: today the French pages show English text under a French header.
+const showLangSwitch = false;
 ---
 
 <!doctype html>
@@ -59,7 +61,7 @@ const frHref = site + (path.startsWith("/fr/") ? path : "/fr" + path);
     <div class="site" id="top">
       <header class="header">
         <a class="header__name" href={routeLang === "fr" ? "/fr/" : "/"}>{tr("nav.home")}</a>
-        <a class="header__lang" href={twin.href} hreflang={twin.lang} lang={twin.lang}>{languages[twin.lang]}</a>
+        {showLangSwitch && <a class="header__lang" href={twin.href} hreflang={twin.lang} lang={twin.lang}>{languages[twin.lang]}</a>}
       </header>
       <main>
         <slot />

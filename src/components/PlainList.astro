@@ -1,13 +1,17 @@
 ---
 // One link per line. `note` sits in grey after the name, `summary` in grey under it.
-interface Item { name: string; href: string; note?: string; summary?: string }
-interface Props { items: Item[] }
-const { items } = Astro.props;
+// `nda` blurs the name (a placeholder) and adds the label.
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Item { name: string; href: string; note?: string; summary?: string; nda?: boolean }
+interface Props { items: Item[]; lang?: Lang }
+const { items, lang = "en" } = Astro.props;
+const tr = t(lang);
 ---
 <ul class="plainlist">
   {items.map((item) => (
     <li>
-      <a href={item.href}>{item.name}</a>
+      <a href={item.href}>{item.nda ? <><span class="nda">{item.name}</span> <span class="nda-label">{tr("project.nda")}</span></> : item.name}</a>
       {item.note && <span class="muted"> · {item.note}</span>}
       {item.summary && <p class="muted">{item.summary}</p>}
     </li>
