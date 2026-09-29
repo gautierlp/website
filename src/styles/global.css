@@ -81,7 +81,7 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 .work__track:focus-visible { outline: none; }
 @media (pointer: fine) { .work__track { cursor: grab; } }
 .work__track[data-dragging] { cursor: grabbing; user-select: none; scroll-snap-type: none; }
-.work__track[data-autoplay] { scroll-snap-type: none; }
+.work__track[data-autoplay], .work__track[data-settling] { scroll-snap-type: none; }
 .work__slide { flex: 0 0 var(--card); scroll-snap-align: center; container-type: inline-size; }
 .card { --px: 50%; --py: 50%; --shine: #ffffff29; position: relative; display: block; aspect-ratio: 1; width: 100%; overflow: clip; isolation: isolate; border-radius: calc(var(--card) * 0.05);
   background: var(--card-bg); color: #ffffff; text-decoration: none; user-select: none; -webkit-user-drag: none;
