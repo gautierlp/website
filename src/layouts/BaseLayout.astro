@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { languages, type Lang } from "../i18n/ui.ts";
-import { t, twinPath, stripLang, getLangFromPath } from "../i18n/utils.ts";
+import { mailto, t, twinPath, stripLang, getLangFromPath } from "../i18n/utils.ts";
 
 interface Props {
   lang: Lang;
@@ -71,7 +71,7 @@ const showLangSwitch = false;
           <a href="https://www.linkedin.com/in/gautier-le-poher/" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://www.malt.fr/profile/gautierlepoher" target="_blank" rel="noopener">Malt</a>
           <a href="https://contra.com/gautierlp" target="_blank" rel="noopener">Contra</a>
-          <a href="mailto:gautier@lepoher.co">gautier@lepoher.co</a>
+          <a href={mailto(routeLang)}>gautier@lepoher.co</a>
         </nav>
       </footer>
     </div>

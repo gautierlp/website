@@ -1,6 +1,6 @@
 ---
 import type { Lang } from "../i18n/ui.ts";
-import { localePath, t } from "../i18n/utils.ts";
+import { localePath, mailto, t } from "../i18n/utils.ts";
 import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
@@ -18,13 +18,12 @@ const refHref = localePath(Astro.props.lang, "/projects/evaboot/");
   </h1>
   <p>{tr("hero.p1")}</p>
   <p>{at < 0 ? p2 : <>{p2.slice(0, at)}<a class="hero__ref" href={refHref}>{REF}</a>{p2.slice(at + REF.length)}</>}</p>
-  <p>{tr("hero.clients")}</p>
-  <p>{tr("hero.p3")}<strong>{tr("hero.p3.strong")}</strong></p>
+  <p>{tr("hero.clients")} <strong>{tr("hero.agents")}</strong></p>
   <div class="hero__actions">
     <BookingLink class="pill">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2" /><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" /></svg>
       {tr("hero.book")}
     </BookingLink>
-    <p class="status"><span class="status__dot" aria-hidden="true"></span>{tr("hero.available")}</p>
+    <p class="hero__mail"><span class="muted">{tr("cta.email")}</span> <a class="hero__ref" href={mailto(Astro.props.lang)}>gautier@lepoher.co</a></p>
   </div>
 </section>

@@ -59,17 +59,44 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 .hero__ref:hover, .hero__ref:focus-visible { text-decoration: none; background-size: 100% 1.5px, 100% 1px; }
 @media (prefers-reduced-motion: reduce) { .hero__ref { transition: none; } }
 
-/* Booking button and availability line */
+/* Booking button and email line */
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.75rem; }
 .pill { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.6rem 1.25rem; border-radius: 999px; background: var(--ink); color: #ffffff; font-weight: 500; }
 .pill:hover { text-decoration: none; background: #333333; }
 .pill svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
-.status { margin-left: 0.25rem; display: inline-flex; align-items: center; gap: 0.6rem; color: var(--muted); font-size: 0.9375rem; }
-.status__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #3fbf5f; box-shadow: 0 0 0 0.25rem #e3f5e8; }
+.hero__mail { font-size: 0.9375rem; }
 
 /* Plain list: one link per line */
 .plainlist > li + li { margin-top: 0.35rem; }
 .plainlist p { font-size: 0.9375rem; line-height: 1.5; margin-bottom: 0.65rem; }
+
+/* Side projects: small tiles in one row that scrolls sideways, as wide as the screen, with the first tile on the column edge. Shadows and motion copied from plud.net. */
+.side { --edge: max(1rem, calc((100vw - var(--column)) / 2 + 1rem)); width: 100vw; margin-left: calc(50% - 50vw); }
+.side h2 { max-width: var(--column); margin: 0 auto; padding: 0 1rem; }
+.side__track { display: flex; gap: 0.75rem; margin-top: 0.5rem; padding: 0.5rem var(--edge) 1.25rem; overflow: auto hidden; scroll-padding-inline: var(--edge);
+  scroll-snap-type: x proximity; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.side__track::-webkit-scrollbar { display: none; }
+.side__track:focus-visible { outline: none; }
+.side__track:focus-visible .tile { box-shadow: 0 0 0 1.5px var(--ink); }
+@media (pointer: fine) { .side__track { cursor: grab; } }
+.side__track[data-dragging] { cursor: grabbing; user-select: none; scroll-snap-type: none; }
+.side__slide { flex: 0 0 min(17.5rem, calc(100vw - 4rem)); display: flex; scroll-snap-align: start; }
+.tile { position: relative; display: flex; align-items: center; gap: 0.875rem; width: 100%; padding: 0.875rem 1rem; border-radius: 16px; background: #ffffff; color: var(--ink); user-select: none; -webkit-user-drag: none;
+  box-shadow: 0 15px 20px -15px #0000000d, 0 1px 4px 0 #0000000d, 0 5px 20px -10px #0000000d, 0 0 0 0.5px #0000001a;
+  transition: scale 0.18s cubic-bezier(0, 0, 0.2, 1), box-shadow 0.18s cubic-bezier(0, 0, 0.2, 1); }
+a.tile { cursor: pointer; }
+a.tile:hover { text-decoration: none; box-shadow: 0 15px 20px -15px #0000000d, 0 2px 5px 0 #00000012, 0 5px 25px -10px #0000001a, 0 0 0 0.5px #00000026; }
+a.tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+a.tile:active { scale: 0.97; }
+.tile__icon { flex: none; display: block; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; object-fit: cover; -webkit-user-drag: none; box-shadow: 0 0 0 0.5px #0000001f, 0 1px 2px #0000001a, 0 4px 10px #0000000f; }
+.tile__copy { min-width: 0; display: flex; flex-direction: column; gap: 0.15rem; }
+.tile__copy strong { font-size: 0.9375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+.tile__copy > span { color: var(--muted); font-size: 0.8125rem; line-height: 1.4; text-wrap: pretty; }
+a.tile .tile__copy strong { padding-right: 1.25rem; }
+.tile__arrow { position: absolute; top: 0.875rem; right: 0.875rem; width: 0.875rem; height: 0.875rem; fill: none; stroke: currentColor; stroke-width: 1.5px; stroke-linecap: round; stroke-linejoin: round; color: var(--muted); opacity: 0.6;
+  transition: color 0.18s cubic-bezier(0, 0, 0.2, 1), opacity 0.18s cubic-bezier(0, 0, 0.2, 1), transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
+a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink); opacity: 1; transform: translate(2px, -2px); }
+@media (prefers-reduced-motion: reduce) { .tile, .tile__arrow { transition: none; } }
 
 /* Selected work: square cards in a row that scrolls sideways, wider than the column. Motion values copied from plud.net. */
 @property --px { syntax: "<percentage>"; inherits: true; initial-value: 50%; }

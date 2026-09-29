@@ -146,32 +146,60 @@ test("the old Carrd page is gone", () => {
   assert.ok(!exists("demo"));
 });
 
-test("homepage hero: greeting, role in contrast, availability and booking button", () => {
+test("homepage hero: greeting, role in contrast, booking button and email", () => {
   const en = page("");
   assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
   assert.match(en, /<span class="hero__role">Technical Product Manager<\/span>/);
   assert.ok(!en.includes('class="mark '));
-  assert.ok(en.includes("Available for day-rate work on your product."));
+  assert.ok(!en.includes("Available for day-rate work on your product."));
   assert.ok(!en.includes("new projects"));
   assert.match(en, /<a class="pill"[^>]*data-booking/);
+  assert.match(en, /<p class="hero__mail"><span class="muted">or email me<\/span> <a class="hero__ref" href="mailto:gautier@lepoher\.co\?subject=A%20product%20to%20take%20over">gautier@lepoher\.co<\/a><\/p>/);
   const fr = page("fr");
-  assert.ok(fr.includes("Disponible au TJM sur votre produit."));
+  assert.ok(!fr.includes("Disponible au TJM sur votre produit."));
+  assert.match(fr, /<p class="hero__mail"><span class="muted">ou écrivez-moi<\/span>/);
+  assert.ok(fr.includes('href="mailto:gautier@lepoher.co?subject=Un%20produit%20%C3%A0%20reprendre"'));
+  for (const [html, n] of [[en, "en"], [fr, "fr"]]) assert.ok(!html.includes('href="mailto:gautier@lepoher.co"'), `${n}: a mail link has no subject`);
 });
 
 test("homepage hero: names the client type, the problem and a number", () => {
   const en = page("");
   assert.ok(en.includes("B2B SaaS and internal business apps that nobody owns end to end"));
-  assert.ok(en.includes("then I build it, on my own or alongside your developers."));
+  assert.ok(en.includes("then I build it, alone or with your team."));
   assert.ok(!en.includes("the data, the interfaces, the code"));
   assert.ok(en.includes("from $1M to $2M in annual revenue"));
-  assert.ok(en.includes("about 500 features and fixes"));
+  assert.ok(en.includes("I shipped 500+ features and fixes"));
   assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/projects/evaboot/">Evaboot</a>, a B2B SaaS'));
   assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/projects/evaboot/">Evaboot</a>'));
-  assert.ok(en.includes("migrated its marketing site from WordPress to code"));
-  assert.ok(en.includes("three business apps in three years, all still in use"));
-  assert.ok(en.includes("an admin dashboard for the team, and forms and follow-ups for its partners"));
-  assert.ok(!en.includes("AI-first"));
-  assert.ok(en.includes("Product Owner from 2019 to 2022."));
+  assert.ok(en.includes("moved its marketing site from WordPress to code"));
+  assert.ok(en.includes("and helped migrate its app from no-code to code."));
+  assert.ok(en.includes("I also built the MCP server and the CLI, as part of its ambition to become an AI-first company."));
+  assert.ok(en.includes("I have also owned and shipped a dozen other apps over the years."));
+  assert.ok(!en.includes("Product Owner from 2019 to 2022."));
+  assert.ok(en.includes("a dozen other apps over the years. <strong>I build with coding agents every day.</strong>"));
+  assert.ok(!en.includes("and I decide what they build"));
+});
+
+test("homepage: side projects in a row that scrolls sideways, in both languages", () => {
+  const en = page("");
+  assert.match(en, /<h2 id="side-title">Side projects<\/h2>/);
+  assert.ok(!en.includes("Personal projects"));
+  assert.match(en, /<ul class="side__track" data-side-track/);
+  assert.equal((en.match(/class="tile[ "]/g) ?? []).length, 3);
+  // A public repository is a link with an arrow.
+  assert.match(en, /<a class="tile" href="https:\/\/github\.com\/gautierlp\/wikimasters-multi-discard" target="_blank" rel="noopener">/);
+  assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 1);
+  assert.ok(en.includes("A Chrome extension to discard many WikiMasters cards with one confirmation."));
+  // A private repository is a tile with no link.
+  assert.match(en, /<div class="tile tile--static">/);
+  for (const icon of ["jolt", "session-reviewer", "wikimasters"]) {
+    assert.ok(en.includes(`src="/assets/side/${icon}.svg"`), icon);
+    assert.ok(existsSync(join(DIST, "assets/side", `${icon}.svg`)), icon);
+  }
+  assert.ok(en.indexOf("Track record") < en.indexOf("Side projects"));
+  const fr = page("fr");
+  assert.match(fr, /<h2 id="side-title">Projets perso<\/h2>/);
+  assert.ok(fr.includes("Une extension Chrome pour défausser plusieurs cartes WikiMasters en une seule confirmation."));
 });
 
 test("homepage CTA: invites the owner-less product, not a buyer of development", () => {

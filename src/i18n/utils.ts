@@ -22,3 +22,8 @@ export function twinPath(pathname: string): { lang: Lang; href: string } {
 export function t(lang: Lang) {
   return (key: UiKey): string => ui[lang][key] ?? ui[defaultLang][key];
 }
+
+// The email link, with a subject in the language of the page.
+export function mailto(lang: Lang): string {
+  return `mailto:gautier@lepoher.co?subject=${encodeURIComponent(t(lang)("mail.subject"))}`;
+}

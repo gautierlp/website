@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { getLangFromPath, localePath, twinPath, t } from "../src/i18n/utils.ts";
+import { getLangFromPath, localePath, mailto, twinPath, t } from "../src/i18n/utils.ts";
 
 test("getLangFromPath: no prefix is English", () => {
   assert.equal(getLangFromPath("/"), "en");
@@ -30,4 +30,9 @@ test("t returns the French string when it exists", () => {
 
 test("t falls back to English for a missing French key", () => {
   assert.equal(t("fr")("test.onlyEnglish"), "only english");
+});
+
+test("mailto carries a subject that differs by language", () => {
+  assert.equal(mailto("en"), "mailto:gautier@lepoher.co?subject=A%20product%20to%20take%20over");
+  assert.equal(mailto("fr"), "mailto:gautier@lepoher.co?subject=Un%20produit%20%C3%A0%20reprendre");
 });
