@@ -39,8 +39,8 @@ second engineer.
 - CLI at v0.3.1 in production, installable with one command.
 - Agent tools merged and deployed.
 
-## What this proves
+## What you get
 
-Shipping on a Django stack with coding agents, in production, with releases and
-reviews: the delivery half of a technical product profile, on a product I did not
-build the core of.
+An MCP server, a CLI and an agent on top of your API, in production, released
+through a pipeline and reviewed like the rest of your code. One person builds and
+ships that layer next to your backend engineer.

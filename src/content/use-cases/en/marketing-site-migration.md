@@ -44,7 +44,7 @@ and the URLs, and leave the team able to edit without a developer.
 - Lighthouse after the move, 25 March 2026: Performance 100, Accessibility 93, Best
   Practices 100, SEO 100. The one open item was font colour contrast.
 
-## What this proves
+## What you get
 
-A bounded migration, delivered alone, on a fixed scope, with a hand-over. Small next
-to the product work, and the only one of the three done without anyone else.
+A site move with a fixed scope, done by one person and handed over. Your team
+edits the content without a developer, and the old URLs redirect to the new ones.

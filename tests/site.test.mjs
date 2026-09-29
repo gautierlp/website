@@ -224,3 +224,15 @@ test("no client internals or internal notes on any page", () => {
   const banned = [/billing defect/i, /security vulnerabilit/i, /exposed to security/i, /\bIndra\b/, /\bRenault\b/, /Open item/, /segment B/i, /Gautier is not sure/];
   for (const p of pages) for (const re of banned) assert.doesNotMatch(page(p), re, `${p}: ${re}`);
 });
+
+test("use cases: written for the buyer, with the result number in the title", () => {
+  for (const slug of USE_CASES) {
+    const html = page(`use-cases/${slug}`);
+    assert.ok(!html.includes("What this proves"), slug);
+    assert.ok(html.includes("What you get"), slug);
+    assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /\d/, `${slug} title has a number`);
+  }
+  const exit = page("use-cases/no-code-exit");
+  assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
+  assert.match(exit, /about 200,000 users at the time of the migration/);
+});
