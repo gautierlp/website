@@ -57,9 +57,8 @@ test("french homepage: French strings and /fr/ links", () => {
   assert.match(html, /<html lang="fr">/);
 });
 
-test("both homepages link to each other", () => {
-  assert.ok(links(page("")).includes("/fr/"));
-  assert.ok(links(page("fr")).includes("/"));
+test("no language switch until the use cases exist in French", () => {
+  for (const p of ["", "fr", "projects/evaboot", "use-cases/no-code-exit"]) assert.ok(!page(p).includes('class="header__lang"'), p);
 });
 
 test("project pages: 10 in English and 10 in French", () => {
