@@ -118,8 +118,11 @@ test("every internal link on every page resolves", () => {
 
 test("homepage: GitHub graph when a token was present at build", { skip: !process.env.GITHUB_TOKEN }, () => {
   const html = page("");
-  assert.equal((html.match(/class="gh-week"/g) ?? []).length, 53);
-  assert.match(html, /contributions in the last year/);
+  // 6 months is 26 or 27 weeks, by the day of the build.
+  const weeks = (html.match(/class="gh-week"/g) ?? []).length;
+  assert.ok(weeks === 26 || weeks === 27, `${weeks} weeks`);
+  assert.match(html, /<code class="fn">git log<\/code> · last 6 months/);
+  assert.ok(!html.includes("in the last year"));
   assert.ok(!html.includes("api.github.com"), "the page never calls GitHub: the graph is built with the site");
   // Each day carries its count and date for the label that shows on hover.
   assert.equal((html.match(/class="gh-day l\d" data-count="\d+" data-date="\d{4}-\d{2}-\d{2}"/g) ?? []).length, (html.match(/class="gh-day /g) ?? []).length);
@@ -127,7 +130,7 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
   // The head has the link to the profile, the foot has the total and the key of the five tints.
   assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
-  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last year<\/span>/);
+  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 6 months<\/span>/);
   assert.equal((html.match(/class="gh-key l\d"/g) ?? []).length, 5);
   assert.match(html, /<span class="gh-foot-label">Less<\/span>/);
   assert.match(html, /<span class="gh-foot-label">More<\/span>/);

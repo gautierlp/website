@@ -1,11 +1,13 @@
 ---
-import { fetchCalendar, level } from "../lib/github.ts";
+import { fetchCalendar, lastMonths, level } from "../lib/github.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const tr = t(lang);
-const cal = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
+// GitHub gives a year. The graph shows the last 6 months, in squares large enough to fill the column.
+const year = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
+const cal = year && lastMonths(year, 6);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
 ---
 {cal && (

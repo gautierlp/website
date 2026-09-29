@@ -42,6 +42,15 @@ export async function fetchCalendar(token: string | undefined): Promise<Calendar
   return (pending ??= doFetch(token));
 }
 
+/** The weeks of the last `months` months. A week stays whole when the period starts inside it,
+ *  so the grid is a full rectangle, and the total counts only the days that stay. */
+export function lastMonths(cal: Calendar, months: number, today: Date = new Date()): Calendar {
+  const from = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - months, today.getUTCDate()));
+  const cutoff = from.toISOString().slice(0, 10);
+  const weeks = cal.weeks.filter((week) => week.length > 0 && week[week.length - 1].date >= cutoff);
+  return { total: weeks.flat().reduce((sum, day) => sum + day.count, 0), weeks };
+}
+
 /** 0 to 4, like GitHub's five tints. */
 export function level(count: number): number {
   if (count >= 20) return 4;
