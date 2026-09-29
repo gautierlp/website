@@ -136,6 +136,8 @@ The offer text comes from `positioning.md` in the sibling `freelance` repository
 - [ ] Texts for the 3 projects without a story
 - [ ] Point the lepoher.co domain at Cloudflare
 - [x] Text-only design after plud.net (the Carrd look is kept under the git tag `archive/carrd-design`)
+- [x] Booking through a Cal.com popup, self-hosted at book.lepoher.co
+- [ ] A `/privacy` page, then point the Google Cloud project `calcom-jarvis` (Branding) at it instead of the homepage
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
