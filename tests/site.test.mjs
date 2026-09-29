@@ -160,6 +160,14 @@ test("homepage: work cards carry an illustration, a light layer, and the carouse
   assert.ok(!html.includes("data-haptic") && !html.includes("cuelume"));
 });
 
+test("homepage: the work carousel scrolls by itself and stops under the mouse", () => {
+  const script = [...page("").matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]).find((s) => s.includes("data-carousel")) ?? "";
+  assert.match(script, /dataset\.autoplay/);
+  assert.match(script, /pointerenter/);
+  assert.match(script, /pointerleave/);
+  assert.match(script, /prefers-reduced-motion/);
+});
+
 test("homepage: a small photo of Gautier in the hero", () => {
   assert.match(page(""), /<img class="avatar" src="\/assets\/images\/avatar\.jpg" alt="Gautier Le Poher"/);
 });
