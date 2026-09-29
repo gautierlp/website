@@ -4,7 +4,7 @@ client: "Camarage"
 logo: "/assets/images/image34.png"
 summary: "I took over Camarage's custom-coded housing platform and rebuilt it on Bubble, so its team could run the product without a developer."
 result: "1,000"
-resultLabel: "users moved to the new app"
+resultLabel: "users on the app I moved from code to Bubble"
 links: []
 useCases: []
 featured: false
@@ -36,7 +36,7 @@ A small team that edits its own listings, rules and pages needs a tool it can op
 
 ## Results
 
-- The 1,000 users moved to the new app.
+- A 1,000-user app, moved from code to Bubble.
 - The Camarage team runs the platform day to day without a developer.
 
 ![Camarage property search](/assets/projects/camarage/dfaazlthjwfykwtqvdna.webp)
