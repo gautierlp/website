@@ -8,7 +8,9 @@ const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
 const exists = (path) => existsSync(join(DIST, path, "index.html"));
 const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
-const PROJECTS = ["evaboot", "disko-leads", "folderly", "fleetnova", "camarage", "eco-insight", "eco-link", "clean-car", "price-writers", "betc", "protech"];
+const PROJECTS = ["evaboot", "disko-leads", "folderly", "fleetnova", "eco-insight", "eco-link", "clean-car", "price-writers", "betc", "protech"];
+const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
+const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
 
 test("homepage: headline in plain text, no code font", () => {
@@ -22,9 +24,20 @@ test("homepage: the three featured projects", () => {
   for (const name of ["Evaboot", "Disko Leads", "Folderly"]) assert.ok(html.includes(name), name);
 });
 
-test("homepage: the grid links to every project page", () => {
+test("homepage: the record lists every live project, and no draft", () => {
   const html = page("");
-  for (const slug of PROJECTS) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+  assert.ok(html.includes("Track record"));
+  assert.ok(!html.includes("All apps"));
+  for (const slug of LISTED) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+  for (const slug of DRAFT_PROJECTS) assert.ok(!links(html).includes(`/projects/${slug}/`), slug);
+});
+
+test("homepage: no Camarage, no client revenue sold as a result", () => {
+  const html = page("");
+  assert.ok(!html.includes("Camarage"));
+  assert.ok(!exists("projects/camarage"));
+  assert.ok(!html.includes("$1.6M"));
+  assert.ok(!html.includes("From $1M to $2M+"));
 });
 
 test("homepage: the use-case list links to every use case", () => {
@@ -49,7 +62,7 @@ test("both homepages link to each other", () => {
   assert.ok(links(page("fr")).includes("/"));
 });
 
-test("project pages: 11 in English and 11 in French", () => {
+test("project pages: 10 in English and 10 in French", () => {
   for (const slug of PROJECTS) {
     assert.ok(exists(`projects/${slug}`), slug);
     assert.ok(exists(`fr/projects/${slug}`), `fr ${slug}`);

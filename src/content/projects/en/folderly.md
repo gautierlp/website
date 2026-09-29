@@ -3,9 +3,9 @@ name: "Folderly"
 client: "Folderly"
 logo: "/assets/images/image32.png"
 summary: "A responsive platform delivering free cold email courses, featuring customizable modules, admin-managed content, certifications, and automated engagement."
-result: "$1.6M+"
-resultLabel: "ARR, backed by Google Startups"
-links: [{"label": "Product Hunt", "url": "https://www.producthunt.com/products/folderly#outreach-academy-by-folderly/"}, {"label": "Google Startups", "url": "https://blog.google/around-the-globe/google-europe/25-new-startup-recipients-of-the-ukraine-support-fund/"}]
+result: "600+"
+resultLabel: "students in the first weeks after launch"
+links: [{"label": "Product Hunt", "url": "https://www.producthunt.com/products/folderly#outreach-academy-by-folderly/"}]
 useCases: []
 featured: true
 order: 3

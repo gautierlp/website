@@ -13,7 +13,8 @@ const { lang } = Astro.props;
 const tr = t(lang);
 const projects = await getProjects(lang);
 const useCases = await getUseCases(lang);
-const projectItems = projects.map((p) => ({
+// Drafts with no text stay off the list: they build, but only a direct link reaches them.
+const projectItems = projects.filter((p) => p.data.status === "live").map((p) => ({
   name: p.data.name,
   note: [p.data.result, p.data.resultLabel].filter(Boolean).join(" "),
   href: localePath(lang, `/projects/${slugOf(p)}/`),

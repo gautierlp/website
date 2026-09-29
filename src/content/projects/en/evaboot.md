@@ -3,8 +3,8 @@ name: "Evaboot"
 client: "Evaboot"
 logo: "/assets/images/image30.png"
 summary: "Refactored Evaboot’s Bubble app, improved security, and streamlined ops, scaling from $1M to $2M ARR and freeing the founder to focus on growth."
-result: "From $1M to $2M+"
-resultLabel: "ARR"
+result: "500"
+resultLabel: "features and fixes shipped, June 2023 to February 2026"
 links: [{"label": "Website", "url": "https://evaboot.com/"}]
 useCases: ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration"]
 featured: true
