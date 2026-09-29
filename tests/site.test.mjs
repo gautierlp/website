@@ -236,3 +236,11 @@ test("use cases: written for the buyer, with the result number in the title", ()
   assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
   assert.match(exit, /about 200,000 users at the time of the migration/);
 });
+
+test("homepage: one founder quote, and not the JB quote still under review", () => {
+  const html = page("");
+  assert.match(html, /<blockquote class="quote">/);
+  assert.ok(html.includes("Johary Randria, Founder, Disko Leads"));
+  assert.ok(!html.includes("JB Jézéquel"));
+  assert.ok(!html.includes("future Bubble"));
+});
