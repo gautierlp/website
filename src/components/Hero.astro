@@ -1,9 +1,14 @@
 ---
 import type { Lang } from "../i18n/ui.ts";
-import { t } from "../i18n/utils.ts";
+import { localePath, t } from "../i18n/utils.ts";
 import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
+// The first "Evaboot" of the second paragraph links to the project page.
+const REF = "Evaboot";
+const p2 = tr("hero.p2");
+const at = p2.indexOf(REF);
+const refHref = localePath(Astro.props.lang, "/projects/evaboot/");
 ---
 <section class="block hero">
   <img class="avatar" src="/assets/images/avatar.jpg" alt="Gautier Le Poher" width="56" height="56" />
@@ -12,7 +17,8 @@ const tr = t(Astro.props.lang);
     <span class="hero__line">{tr("hero.line1")}</span>
   </h1>
   <p>{tr("hero.p1")}</p>
-  <p>{tr("hero.p2")}</p>
+  <p>{at < 0 ? p2 : <>{p2.slice(0, at)}<a class="hero__ref" href={refHref}>{REF}</a>{p2.slice(at + REF.length)}</>}</p>
+  <p>{tr("hero.clients")}</p>
   <p>{tr("hero.p3")}<strong>{tr("hero.p3.strong")}</strong></p>
   <div class="hero__actions">
     <BookingLink class="pill">

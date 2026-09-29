@@ -160,9 +160,17 @@ test("homepage hero: greeting, role in contrast, availability and booking button
 
 test("homepage hero: names the client type, the problem and a number", () => {
   const en = page("");
-  assert.ok(en.includes("B2B SaaS or an internal business app that nobody owns end to end"));
+  assert.ok(en.includes("B2B SaaS and internal business apps that nobody owns end to end"));
+  assert.ok(en.includes("then I build it, on my own or alongside your developers."));
+  assert.ok(!en.includes("the data, the interfaces, the code"));
   assert.ok(en.includes("from $1M to $2M in annual revenue"));
   assert.ok(en.includes("about 500 features and fixes"));
+  assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/projects/evaboot/">Evaboot</a>, a B2B SaaS'));
+  assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/projects/evaboot/">Evaboot</a>'));
+  assert.ok(en.includes("migrated its marketing site from WordPress to code"));
+  assert.ok(en.includes("three business apps in three years, all still in use"));
+  assert.ok(en.includes("an admin dashboard for the team, and forms and follow-ups for its partners"));
+  assert.ok(!en.includes("AI-first"));
   assert.ok(en.includes("Product Owner from 2019 to 2022."));
 });
 

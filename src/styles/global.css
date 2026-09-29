@@ -51,6 +51,14 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 .hero h1 { color: #8a8a8a; font-weight: 500; }
 .hero__role { color: var(--ink); font-weight: 600; }
 
+/* A name in the hero text that links to its project page: a thin grey line, and the accent line draws over it from the left on hover. */
+.hero__ref { color: var(--ink); padding-bottom: 0.18em; background:
+    linear-gradient(var(--accent), var(--accent)) left bottom / 0 1.5px no-repeat,
+    linear-gradient(#c4c4c4, #c4c4c4) left bottom / 100% 1px no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.2, 0, 0, 1); }
+.hero__ref:hover, .hero__ref:focus-visible { text-decoration: none; background-size: 100% 1.5px, 100% 1px; }
+@media (prefers-reduced-motion: reduce) { .hero__ref { transition: none; } }
+
 /* Booking button and availability line */
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.75rem; }
 .pill { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.6rem 1.25rem; border-radius: 999px; background: var(--ink); color: #ffffff; font-weight: 500; }
