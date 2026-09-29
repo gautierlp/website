@@ -130,7 +130,8 @@ const cards = useCases.map((u) => ({
   });
 
   // Autoplay: a slow drift that turns back at each end. The mouse over the track or the
-  // focus inside it holds it; a drag, swipe, wheel or key hands control back for a while.
+  // keyboard focus inside it holds it; a swipe, wheel or key hands control back for a while.
+  // A mouse click also focuses a card, so only :focus-visible counts, and leaving resumes at once.
   // Snap is off while it runs (data-autoplay), else the browser pulls it to a slide each frame.
   if (reduced()) return;
   const SPEED = 18; // px per second
@@ -138,15 +139,17 @@ const cards = useCases.map((u) => ({
   let dir = 1, pos = 0, last = 0, hover = false, idleUntil = 0;
   const interrupt = () => { idleUntil = performance.now() + IDLE; delete track.dataset.autoplay; };
   track.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hover = true; });
-  track.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") hover = false; });
-  track.addEventListener("pointerdown", interrupt);
+  track.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") { hover = false; idleUntil = 0; } });
+  track.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") interrupt(); });
   track.addEventListener("wheel", interrupt, { passive: true });
   track.addEventListener("keydown", interrupt);
   function tick(now) {
     const dt = Math.min(now - (last || now), 50) / 1000;
     last = now;
-    const held = hover || drag || track.contains(document.activeElement) || now < idleUntil;
-    if (!held) {
+    const held = hover || drag || track.querySelector(":focus-visible") || now < idleUntil;
+    // While held, follow the track, so a drag under the mouse is where the drift picks up.
+    if (held) pos = track.scrollLeft;
+    else {
       if (!("autoplay" in track.dataset)) { track.dataset.autoplay = ""; pos = track.scrollLeft; }
       const max = track.scrollWidth - track.clientWidth;
       pos = clamp(pos + dir * SPEED * dt, 0, max);
