@@ -80,7 +80,6 @@ The dev server prints its address, usually `http://localhost:4321`.
 | `npm run build` | Build the static site into `dist/` |
 | `npm run preview` | Serve the built site locally |
 | `npm test` | Run the unit tests, build the site, then run the tests on `dist/` |
-| `python3 -m unittest tests/test_import_contra.py` | Test the Contra import converter |
 
 Set `GITHUB_TOKEN` to include the graph and its test: `GITHUB_TOKEN=$(gh auth token) npm test`.
 
@@ -104,12 +103,9 @@ Set `GITHUB_TOKEN` to include the graph and its test: `GITHUB_TOKEN=$(gh auth to
 
 Create the same file under `src/content/projects/fr/` (or `src/content/use-cases/fr/`). The French route then uses it. Until then, the French route shows the English text and points search engines to the English page.
 
-### Import scripts
+### Where the first content came from
 
-Two one-off scripts in `scripts/` built the first content. I keep them as a record of where the text came from:
-
-- `import_contra.py` fetched the 8 case studies published on Contra, with their images and videos.
-- `import_use_cases.py` copied the 4 case-study drafts from the sibling `freelance` repository.
+Two one-off scripts built the first content: one fetched the 8 case studies published on Contra, one copied the 4 case-study drafts from the sibling `freelance` repository. Both are gone since the copy review of 2026-09-29, which rewrote the texts. The Markdown files are now the only source; the scripts are in the git history.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

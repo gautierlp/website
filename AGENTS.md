@@ -27,4 +27,4 @@ Consult these guides before working on related tasks:
 
 ## Content
 
-Project and use-case pages are Markdown files under `src/content/`. Do not edit the 8 imported Contra files by hand while `scripts/import_contra.py` is the source; edit the script's table, or delete the script once the texts are rewritten.
+Project and use-case pages are Markdown files under `src/content/`. They are the only source: edit them by hand. The Contra and use-case import scripts were deleted on 2026-09-29.
