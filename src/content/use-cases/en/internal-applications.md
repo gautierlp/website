@@ -52,11 +52,4 @@ transparent process.
 ## What this proves
 
 The internal-application offer, three times over: a bounded scope, a manual process
-replaced, a hand-over to the team that runs it, and a client who returns. It is the
-only proof segment B has today, and it is the oldest, so the "still in use" line is
-the one that gives it weight.
-
-## Open item
-
-Permission: whether the group, or the parent car maker, can be named. Gautier is not
-sure. Ask the client before any publication; until then the client stays described.
+replaced, a hand-over to the team that runs it, and a client who returns.

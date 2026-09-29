@@ -30,8 +30,6 @@ second engineer.
   handling.
 - Tested the whole surface against production with a real key: 35 of 36 MCP tools
   passed; the last one was left untested only because of its credit cost.
-- Found and filed one billing defect in the public API during that test, with measured
-  evidence, so the backend engineer could fix it before customers hit it.
 - Opened and merged pull requests on the core repository along the way, each one
   reviewed.
 

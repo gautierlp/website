@@ -33,7 +33,7 @@ Evaboot is a B2B SaaS startup, built on Bubble. With no additional staff, the tw
 
 <video controls muted playsinline src="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.mp4" poster="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.webp"></video>
 
-At the $1M ARR milestone, the startup encountered scaling challenges. The Bubble application had accumulated technical debt, was exposed to security risks, and suffered from persistent bugs. Addressing these issues was essential for scaling from $1M to $2M ARR while safeguarding product stability and user satisfaction.
+At the $1M ARR milestone, the startup encountered scaling challenges. The Bubble application had accumulated technical debt and suffered from persistent bugs. Addressing these issues was essential for scaling from $1M to $2M ARR while safeguarding product stability and user satisfaction.
 
 ---
 
@@ -47,7 +47,7 @@ The primary challenge was to reduce the technical load on one founder heavily in
 
 ### Key Business Risks
 
-If these technical issues went unresolved, there was a risk of stagnation and potential security vulnerabilities.
+If these technical issues went unresolved, there was a risk of stagnation.
 
 ---
 
@@ -83,7 +83,7 @@ The approach taken was systematic, addressing both immediate technical issues an
 
 ### Security Enhancements
 
-- **API Security**: Redesigned API implementations to securely hide tokens and routes, addressing a significant security vulnerability.
+- **API Security**: Redesigned the API calls so that tokens and routes stay on the server.
 
 - **Privacy and Access Control**: Completely revamped privacy rules to ensure strict data access control, allowing only authorized users to access specific data. Optimized data loading on the front end to limit exposure, ensuring that only necessary information is displayed to users.
 

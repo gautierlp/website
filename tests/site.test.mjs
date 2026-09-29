@@ -188,3 +188,9 @@ test("homepage: the work carousel scrolls by itself and stops under the mouse", 
 test("homepage: a small photo of Gautier in the hero", () => {
   assert.match(page(""), /<img class="avatar" src="\/assets\/images\/avatar\.jpg" alt="Gautier Le Poher"/);
 });
+
+test("no client internals or internal notes on any page", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const banned = [/billing defect/i, /security vulnerabilit/i, /exposed to security/i, /\bIndra\b/, /\bRenault\b/, /Open item/, /segment B/i, /Gautier is not sure/];
+  for (const p of pages) for (const re of banned) assert.doesNotMatch(page(p), re, `${p}: ${re}`);
+});

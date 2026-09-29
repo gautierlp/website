@@ -2,7 +2,7 @@
 name: "Eco'link"
 client: "Automotive recycling group"
 logo: ""
-summary: "Developed a Bubble app to automate workflows and enhance collaboration among dealerships, transporters, and recyclers for Indra’s battery recycling."
+summary: "Developed a Bubble app to automate workflows and enhance collaboration among dealerships, transporters, and recyclers for the battery recycling of a subsidiary of a large French automotive group."
 result: ""
 resultLabel: ""
 links: []
