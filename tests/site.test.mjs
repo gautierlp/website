@@ -168,6 +168,9 @@ test("homepage: the work carousel scrolls by itself and stops under the mouse", 
   assert.match(script, /pointerenter/);
   assert.match(script, /pointerleave/);
   assert.match(script, /prefers-reduced-motion/);
+  // A mouse click also focuses the card; only keyboard focus may hold the drift.
+  assert.match(script, /:focus-visible/);
+  assert.ok(!script.includes("contains(document.activeElement)"));
 });
 
 test("homepage: a small photo of Gautier in the hero", () => {
