@@ -244,3 +244,8 @@ test("homepage: one founder quote, and not the JB quote still under review", () 
   assert.ok(!html.includes("JB Jézéquel"));
   assert.ok(!html.includes("future Bubble"));
 });
+
+test("homepage: says what I do not do", () => {
+  assert.ok(page("").includes("What I do not do: model training, MLOps, data engineering, RAG."));
+  assert.ok(page("fr").includes("Ce que je ne fais pas : entraîner des modèles, du MLOps, du data engineering, du RAG."));
+});
