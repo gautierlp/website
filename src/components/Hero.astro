@@ -4,13 +4,11 @@ import { t } from "../i18n/utils.ts";
 import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
-// Each word of the role gets its own hand-drawn stroke, in turn yellow, pink, green.
-const roleWords = tr("hero.role").split(" ");
 ---
 <section class="block hero">
   <img class="avatar" src="/assets/images/avatar.jpg" alt="Gautier Le Poher" width="56" height="56" />
   <h1>
-    <span class="hero__line">{tr("hero.hi")}<span class="nowrap">{roleWords.map((w, i) => <>{i > 0 && " "}<span class={`mark mark--${(i % 3) + 1}`}>{w}</span></>)}.</span></span>
+    <span class="hero__line">{tr("hero.hi")}<span class="nowrap"><span class="hero__role">{tr("hero.role")}</span>.</span></span>
     <span class="hero__line">{tr("hero.line1")}</span>
   </h1>
   <p>{tr("hero.p1")}</p>

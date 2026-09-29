@@ -146,10 +146,11 @@ test("the old Carrd page is gone", () => {
   assert.ok(!exists("demo"));
 });
 
-test("homepage hero: greeting, marked title, availability and booking button", () => {
+test("homepage hero: greeting, role in contrast, availability and booking button", () => {
   const en = page("");
   assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
-  assert.equal((en.match(/class="mark /g) ?? []).length, 3);
+  assert.match(en, /<span class="hero__role">Technical Product Manager<\/span>/);
+  assert.ok(!en.includes('class="mark '));
   assert.ok(en.includes("Available for day-rate work on your product."));
   assert.ok(!en.includes("new projects"));
   assert.match(en, /<a class="pill"[^>]*data-booking/);
