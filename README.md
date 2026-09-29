@@ -134,6 +134,9 @@ The offer text comes from `positioning.md` in the sibling `freelance` repository
 - [x] Text-only design after plud.net (the Carrd look is kept under the git tag `archive/carrd-design`)
 - [x] Booking through a Cal.com popup, self-hosted at book.lepoher.co
 - [ ] A `/privacy` page, then point the Google Cloud project `calcom-jarvis` (Branding) at it instead of the homepage
+- [x] Side projects on the homepage, in a row that scrolls sideways
+- [ ] A link on every side project tile: an open-source project opens its GitHub repository, a private one opens an article on this site. Jolt and Session reviewer are private and have no article yet, so their tiles have no link
+- [ ] A blog. It starts with the articles about the private side projects. Not designed yet: run the brainstorm, spec and plan flow before any code
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
