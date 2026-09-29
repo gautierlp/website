@@ -1,0 +1,42 @@
+---
+name: "Camarage"
+client: "Camarage"
+logo: "/assets/images/image34.png"
+summary: "I took over Camarage's custom-coded housing platform and rebuilt it on Bubble, so its team could run the product without a developer."
+result: "1,000"
+resultLabel: "users moved to the new app"
+links: []
+useCases: []
+featured: false
+order: 5
+status: "live"
+images: []
+highlights: []
+---
+
+![Camarage](/assets/projects/camarage/qjftnmkvlglermlhtsxm.webp)
+
+## Situation
+
+Camarage matches seniors who have a spare room with young adults who need a place to live. Its platform was custom code, so every change went through a developer. The team wanted to run its own product.
+
+## Why Bubble, for this client
+
+A small team that edits its own listings, rules and pages needs a tool it can open itself. For Camarage that was Bubble. When a product outgrows that setup, I make the opposite move: see [the exit from Bubble](/use-cases/no-code-exit/). The tool follows the product, not the other way round.
+
+## What I did
+
+- I took over the product, from the data model to the launch.
+- I redesigned the database for Bubble.
+- I moved the data in stages: small sets first, each one checked before the next, subscriptions and payments included.
+- I rebuilt the property search on a Google Maps map.
+- I built the admin screens that the team uses for listings and users.
+
+![Camarage data model](/assets/projects/camarage/hnlzpjxacownbk2nob7x.webp)
+
+## Results
+
+- The 1,000 users moved to the new app.
+- The Camarage team runs the platform day to day without a developer.
+
+![Camarage property search](/assets/projects/camarage/dfaazlthjwfykwtqvdna.webp)

@@ -8,7 +8,7 @@ const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
 const exists = (path) => existsSync(join(DIST, path, "index.html"));
 const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
-const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech"];
+const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech"];
 const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
 const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
@@ -32,10 +32,8 @@ test("homepage: the record lists every live project, and no draft", () => {
   for (const slug of DRAFT_PROJECTS) assert.ok(!links(html).includes(`/projects/${slug}/`), slug);
 });
 
-test("homepage: no Camarage, no client revenue sold as a result", () => {
+test("homepage: no client revenue sold as a result", () => {
   const html = page("");
-  assert.ok(!html.includes("Camarage"));
-  assert.ok(!exists("projects/camarage"));
   assert.ok(!html.includes("$1.6M"));
   assert.ok(!html.includes("From $1M to $2M+"));
 });
@@ -61,7 +59,7 @@ test("no language switch until the use cases exist in French", () => {
   for (const p of ["", "fr", "projects/evaboot", "use-cases/no-code-exit"]) assert.ok(!page(p).includes('class="header__lang"'), p);
 });
 
-test("project pages: 10 in English and 10 in French", () => {
+test("project pages: 11 in English and 11 in French", () => {
   for (const slug of PROJECTS) {
     assert.ok(exists(`projects/${slug}`), slug);
     assert.ok(exists(`fr/projects/${slug}`), `fr ${slug}`);
@@ -265,6 +263,13 @@ test("NDA projects: placeholder name blurred, with an NDA label, on the list and
     const html = page(`projects/${slug}`);
     assert.match(html, /<h1><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span><\/h1>/, slug);
   }
+});
+
+test("Camarage: a product taken over, with the reason Bubble fit this client", () => {
+  const html = page("projects/camarage");
+  assert.match(html, /took over/);
+  assert.match(html, /without a developer/);
+  assert.ok(!html.includes("Migrating a 1,000-user app from Code to Bubble"));
 });
 
 test("Folderly: no quote from a third party about another product", () => {
