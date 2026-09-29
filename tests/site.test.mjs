@@ -140,10 +140,27 @@ test("homepage hero: greeting, marked title, availability and booking button", (
   const en = page("");
   assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
   assert.equal((en.match(/class="mark /g) ?? []).length, 3);
-  assert.ok(en.includes("Available for new projects"));
+  assert.ok(en.includes("Available for day-rate work on your product."));
+  assert.ok(!en.includes("new projects"));
   assert.match(en, /<a class="pill"[^>]*data-booking/);
   const fr = page("fr");
-  assert.ok(fr.includes("Disponible pour de nouveaux projets"));
+  assert.ok(fr.includes("Disponible au TJM sur votre produit."));
+});
+
+test("homepage hero: names the client type, the problem and a number", () => {
+  const en = page("");
+  assert.ok(en.includes("B2B SaaS or an internal business app that nobody owns end to end"));
+  assert.ok(en.includes("from $1M to $2M in annual revenue"));
+  assert.ok(en.includes("about 500 features and fixes"));
+  assert.ok(en.includes("Product Owner from 2019 to 2022."));
+});
+
+test("homepage CTA: invites the owner-less product, not a buyer of development", () => {
+  const en = page("");
+  assert.ok(!en.includes("Need to build an app?"));
+  assert.ok(en.includes("A product nobody owns end to end?"));
+  assert.ok(en.includes("Book a 30-minute call"));
+  assert.ok(en.includes("mailto:gautier@lepoher.co"));
 });
 
 test("booking links open the Cal.com popup and fall back to the booking page", () => {
