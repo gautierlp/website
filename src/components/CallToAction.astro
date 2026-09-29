@@ -1,10 +1,11 @@
 ---
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
+import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
 ---
 <section class="block">
   <h2>{tr("section.yourProject")}</h2>
-  <p>{tr("cta.title")} <a href="https://calendly.com/gautierlp/30min" target="_blank" rel="noopener">{tr("cta.button")}</a> <span class="muted">{tr("cta.email")}</span> <a href="mailto:gautier@lepoher.co">gautier@lepoher.co</a></p>
+  <p>{tr("cta.title")} <BookingLink>{tr("cta.button")}</BookingLink> <span class="muted">{tr("cta.email")}</span> <a href="mailto:gautier@lepoher.co">gautier@lepoher.co</a></p>
 </section>

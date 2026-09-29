@@ -1,0 +1,35 @@
+---
+// A link to the self-hosted Cal.com booking page (on jarvis) that opens as a popup over the site.
+// The popup only takes over once embed.js has loaded: if the script is blocked or the server is
+// down, the click follows the href to the booking page in a new tab.
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<a class={className} href="https://book.lepoher.co/gautier/30min" target="_blank" rel="noopener" data-booking><slot /></a>
+
+<script>
+  const ORIGIN = "https://book.lepoher.co";
+  const EMBED_JS = "https://book.lepoher.co/embed/embed.js";
+  const NAMESPACE = "30min";
+  const CAL_LINK = "gautier/30min";
+
+  // Cal.com's loader snippet, unchanged: it queues calls on window.Cal until embed.js arrives.
+  // prettier-ignore
+  (function (C: any, A: string, L: string) { let p = function (a: any, ar: any) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api: any = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, EMBED_JS, "init");
+
+  const Cal = (window as any).Cal;
+  Cal("init", NAMESPACE, { origin: ORIGIN });
+  Cal.ns[NAMESPACE]("ui", { theme: "light", styles: { branding: { brandColor: "#2300ff" } }, hideEventTypeDetails: false, layout: "month_view" });
+
+  let ready = false;
+  document.querySelector(`script[src="${EMBED_JS}"]`)?.addEventListener("load", () => { ready = true; });
+
+  // Not data-cal-link: Cal.com's own click handler opens the popup without cancelling the link,
+  // so the visitor would get the popup and a new tab.
+  document.addEventListener("click", (e) => {
+    const link = (e.target as Element).closest?.("a[data-booking]");
+    if (!link || !ready || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    Cal.ns[NAMESPACE]("modal", { calLink: CAL_LINK, config: { layout: "month_view" } });
+  });
+</script>
