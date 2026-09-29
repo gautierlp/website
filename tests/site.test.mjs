@@ -121,6 +121,15 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.equal((html.match(/class="gh-week"/g) ?? []).length, 53);
   assert.match(html, /contributions in the last year/);
   assert.ok(!/<script[^>]*>[^<]*github/i.test(html), "the graph adds no script");
+  // The head has the link to the profile, the foot has the total and the key of the five tints.
+  assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
+  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last year<\/span>/);
+  assert.equal((html.match(/class="gh-key l\d"/g) ?? []).length, 5);
+  assert.match(html, /<span class="gh-foot-label">Less<\/span>/);
+  assert.match(html, /<span class="gh-foot-label">More<\/span>/);
+  const fr = page("fr");
+  assert.match(fr, /class="gh-link"[^>]*>Voir sur GitHub/);
+  assert.match(fr, /<span class="gh-foot-label">Moins<\/span>/);
 });
 
 test("every page has canonical, description, title and hreflang tags", () => {

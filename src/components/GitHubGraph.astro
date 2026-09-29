@@ -10,7 +10,10 @@ const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") 
 ---
 {cal && (
   <section class="block gh">
-    <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
+    <div class="gh-head">
+      <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
+      <a class="gh-link" href="https://github.com/gautierlp" target="_blank" rel="noopener">{tr("github.view")}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" /></svg></a>
+    </div>
     <div class="gh-grid" role="img" aria-label={tr("github.caption").replace("{n}", total)}>
       {cal.weeks.map((week) => (
         <div class="gh-week">
@@ -18,6 +21,13 @@ const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") 
         </div>
       ))}
     </div>
-    <p class="gh-caption">{tr("github.caption").replace("{n}", total)} · <a href="https://github.com/gautierlp" target="_blank" rel="noopener">github.com/gautierlp</a></p>
+    <div class="gh-foot">
+      <span class="gh-total">{tr("github.caption").replace("{n}", total)}</span>
+      <span class="gh-scale" aria-hidden="true">
+        <span class="gh-foot-label">{tr("github.less")}</span>
+        {[0, 1, 2, 3, 4].map((l) => <i class={`gh-key l${l}`}></i>)}
+        <span class="gh-foot-label">{tr("github.more")}</span>
+      </span>
+    </div>
   </section>
 )}
