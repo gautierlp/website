@@ -141,9 +141,19 @@ test("homepage hero: greeting, marked title, availability and booking button", (
   assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
   assert.equal((en.match(/class="mark /g) ?? []).length, 3);
   assert.ok(en.includes("Available for new projects"));
-  assert.match(en, /class="pill"[^>]*href="https:\/\/calendly\.com\/gautierlp\/30min"|href="https:\/\/calendly\.com\/gautierlp\/30min"[^>]*class="pill"/);
+  assert.match(en, /<a class="pill"[^>]*data-booking/);
   const fr = page("fr");
   assert.ok(fr.includes("Disponible pour de nouveaux projets"));
+});
+
+test("booking links open the Cal.com popup and fall back to the booking page", () => {
+  for (const html of [page(""), page("fr")]) {
+    const booking = [...html.matchAll(/<a [^>]*data-booking[^>]*>/g)].map((m) => m[0]);
+    assert.equal(booking.length, 2, "hero pill and CTA");
+    for (const a of booking) assert.match(a, /href="https:\/\/book\.lepoher\.co\/gautier\/30min"/);
+    assert.ok(!html.includes("calendly.com"));
+    assert.ok(html.includes("https://book.lepoher.co/embed/embed.js"), "embed loader");
+  }
 });
 
 test("homepage: selected work cards for the four use cases, in order", () => {

@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
+import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
 // Each word of the role gets its own hand-drawn stroke, in turn yellow, pink, green.
@@ -15,10 +16,10 @@ const roleWords = tr("hero.role").split(" ");
   <p>{tr("hero.p1")}</p>
   <p>{tr("hero.p2")}<strong>{tr("hero.p2.strong")}</strong></p>
   <div class="hero__actions">
-    <a class="pill" href="https://calendly.com/gautierlp/30min" target="_blank" rel="noopener">
+    <BookingLink class="pill">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2" /><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" /></svg>
       {tr("hero.book")}
-    </a>
+    </BookingLink>
     <p class="status"><span class="status__dot" aria-hidden="true"></span>{tr("hero.available")}</p>
   </div>
 </section>
