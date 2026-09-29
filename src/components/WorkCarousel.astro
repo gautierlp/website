@@ -111,7 +111,12 @@ const cards = useCases.map((u) => ({
     const target = track.scrollLeft - 120 * d.velocity;
     let best = 0, dist = Infinity;
     slides.forEach((_, i) => { const x = Math.abs(leftOf(i) - target); if (x < dist) { dist = x; best = i; } });
+    // Snap stays off (data-settling) until the smooth scroll lands, else the browser jumps there.
     delete track.dataset.dragging;
+    track.dataset.settling = "";
+    const settled = () => delete track.dataset.settling;
+    track.addEventListener("scrollend", settled, { once: true });
+    setTimeout(settled, 1000); // Safari before 26 has no scrollend
     go(best);
     track.dataset.swallowClick = "";
     setTimeout(() => delete track.dataset.swallowClick, 0);

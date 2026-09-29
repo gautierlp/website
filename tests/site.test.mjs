@@ -171,6 +171,8 @@ test("homepage: the work carousel scrolls by itself and stops under the mouse", 
   // A mouse click also focuses the card; only keyboard focus may hold the drift.
   assert.match(script, /:focus-visible/);
   assert.ok(!script.includes("contains(document.activeElement)"));
+  // After a drag, snap stays off until the smooth scroll lands, else the browser jumps there.
+  assert.match(script, /scrollend/);
 });
 
 test("homepage: a small photo of Gautier in the hero", () => {
