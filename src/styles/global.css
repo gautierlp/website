@@ -161,7 +161,20 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 .gh-foot-label { font-size: 0.75rem; }
 .gh-foot-label:first-child { margin-right: 0.2rem; }
 .gh-foot-label:last-child { margin-left: 0.2rem; }
-@media (prefers-reduced-motion: reduce) { .gh-link svg { transition: none; } }
+.gh-day.is-on { outline: 1.5px solid var(--ink); outline-offset: 1px; }
+/* The reveal: a curtain in the page colour slides off the grid, one column per step. The script adds the classes. */
+.gh-body { position: relative; }
+.gh-body::before { content: ""; position: absolute; z-index: 1; inset: 0; background: var(--bg); pointer-events: none; transform-origin: 100% 50%; transform: scaleX(0); }
+.gh-body.gh-wait::before { transform: scaleX(1); }
+.gh-body.gh-sweep::before { animation: gh-sweep calc(var(--gh-cols, 53) * 12ms) steps(var(--gh-cols, 53), end) both; }
+@keyframes gh-sweep { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+/* The label of a day. It sits on <body> so it can stay inside the screen edge. */
+.gh-tip { position: fixed; left: 0; top: 0; z-index: 1000; pointer-events: none; white-space: nowrap; padding: 4px 8px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 0.6875rem; font-weight: 500; line-height: 1.4;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14); display: none; opacity: 0; scale: 0.94; transform-origin: 50% 100%;
+  transition: opacity 0.14s cubic-bezier(0.22, 1, 0.36, 1), scale 0.14s cubic-bezier(0.22, 1, 0.36, 1), display 0.14s allow-discrete; }
+.gh-tip.is-on { display: block; opacity: 1; scale: 1; }
+@starting-style { .gh-tip.is-on { opacity: 0; scale: 0.94; } }
+@media (prefers-reduced-motion: reduce) { .gh-link svg, .gh-tip { transition: none; } }
 
 /* Project and use-case pages */
 .page > * + * { margin-top: 1.5rem; }

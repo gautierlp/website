@@ -120,7 +120,11 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   const html = page("");
   assert.equal((html.match(/class="gh-week"/g) ?? []).length, 53);
   assert.match(html, /contributions in the last year/);
-  assert.ok(!/<script[^>]*>[^<]*github/i.test(html), "the graph adds no script");
+  assert.ok(!html.includes("api.github.com"), "the page never calls GitHub: the graph is built with the site");
+  // Each day carries its count and date for the label that shows on hover.
+  assert.equal((html.match(/class="gh-day l\d" data-count="\d+" data-date="\d{4}-\d{2}-\d{2}"/g) ?? []).length, (html.match(/class="gh-day /g) ?? []).length);
+  assert.match(html, /<div class="gh-grid" data-gh-grid data-locale="en-GB" data-none="No contributions on \{date\}" data-one="1 contribution on \{date\}" data-many="\{n\} contributions on \{date\}"/);
+  assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
   // The head has the link to the profile, the foot has the total and the key of the five tints.
   assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
   assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last year<\/span>/);
