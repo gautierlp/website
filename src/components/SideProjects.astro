@@ -1,15 +1,18 @@
 ---
 // Side projects, after plud.net: an icon, the name, one line. The tiles sit in one row that
 // scrolls sideways and never moves by itself.
-// A project with no `href` (a private repository) is a tile with no link and no arrow.
+// A project with no `href` is a tile with no link and no arrow. The rule for the links: an open-source
+// project opens its GitHub repository, a private one opens an article on this site. All four are
+// private and have no article yet.
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
-const items = [
+const items: { name: string; icon: string; line: string; href?: string }[] = [
+  { name: tr("side.server.name"), icon: "home-server", line: tr("side.server") },
+  { name: tr("side.finance.name"), icon: "finance", line: tr("side.finance") },
   { name: "Jolt", icon: "jolt", line: tr("side.jolt") },
   { name: "Session reviewer", icon: "session-reviewer", line: tr("side.sessionReviewer") },
-  { name: "WikiMasters Multi-Discard", icon: "wikimasters", line: tr("side.wikimasters"), href: "https://github.com/gautierlp/wikimasters-multi-discard" },
 ];
 ---
 <section class="side" aria-labelledby="side-title">

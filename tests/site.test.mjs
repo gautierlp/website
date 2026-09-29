@@ -201,21 +201,21 @@ test("homepage: side projects in a row that scrolls sideways, in both languages"
   assert.match(en, /<h2 id="side-title">Side projects<\/h2>/);
   assert.ok(!en.includes("Personal projects"));
   assert.match(en, /<ul class="side__track" data-side-track/);
-  assert.equal((en.match(/class="tile[ "]/g) ?? []).length, 3);
-  // A public repository is a link with an arrow.
-  assert.match(en, /<a class="tile" href="https:\/\/github\.com\/gautierlp\/wikimasters-multi-discard" target="_blank" rel="noopener">/);
-  assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 1);
-  assert.ok(en.includes("A Chrome extension to discard many WikiMasters cards with one confirmation."));
-  // A private repository is a tile with no link.
-  assert.match(en, /<div class="tile tile--static">/);
-  for (const icon of ["jolt", "session-reviewer", "wikimasters"]) {
+  // Four projects, in this order. All four are private today, so no tile is a link yet.
+  const names = [...en.matchAll(/<span class="tile__copy"><strong>([^<]+)<\/strong>/g)].map((m) => m[1]);
+  assert.deepEqual(names, ["Home server", "Finance app", "Jolt", "Session reviewer"]);
+  assert.equal((en.match(/<div class="tile tile--static">/g) ?? []).length, 4);
+  assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 0);
+  assert.ok(en.includes("A server at home that runs my booking page, my email assistant and my test runners."));
+  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
     assert.ok(en.includes(`src="/assets/side/${icon}.svg"`), icon);
     assert.ok(existsSync(join(DIST, "assets/side", `${icon}.svg`)), icon);
   }
   assert.ok(en.indexOf("Track record") < en.indexOf("Side projects"));
   const fr = page("fr");
   assert.match(fr, /<h2 id="side-title">Projets perso<\/h2>/);
-  assert.ok(fr.includes("Une extension Chrome pour défausser plusieurs cartes WikiMasters en une seule confirmation."));
+  assert.ok(fr.includes("<strong>Serveur maison</strong>"));
+  assert.ok(fr.includes("Une app qui importe mes données bancaires dans Postgres et répond aux questions que je lui pose."));
 });
 
 test("homepage CTA: invites the owner-less product, not a buyer of development", () => {
