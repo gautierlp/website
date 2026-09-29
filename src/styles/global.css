@@ -132,6 +132,8 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
 .media img, .media video { width: 100%; }
 figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
+.nda { filter: blur(5px); user-select: none; }
+.nda-label { font-size: 0.75rem; font-weight: 400; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.45rem; vertical-align: middle; }
 .quote { padding-left: 1rem; border-left: 2px solid var(--rule); }
 .quote footer { font-size: 0.875rem; margin-top: 0.4rem; }
 .draft-note { color: var(--muted); font-size: 0.875rem; font-style: italic; }

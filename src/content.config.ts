@@ -18,6 +18,8 @@ const projects = defineCollection({
     links: z.array(link).default([]),
     useCases: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
+    // The client's product has no public name: show a placeholder, blurred, with an "NDA signed" label.
+    nda: z.boolean().default(false),
     order: z.number(),
     status,
     images: z.array(image).default([]),

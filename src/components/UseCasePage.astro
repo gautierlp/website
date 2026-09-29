@@ -17,7 +17,7 @@ const isDraft = d.status === "draft";
 const isEmpty = useCase.body === undefined || useCase.body.trim() === "";
 const projects = (await getProjects(lang)).filter((p) => d.projects.includes(slugOf(p)));
 const items = projects.map((p) => ({
-  name: p.data.name, summary: p.data.summary,
+  name: p.data.name, summary: p.data.summary, nda: p.data.nda,
   href: localePath(lang, `/projects/${slugOf(p)}/`),
 }));
 const isFallback = pageLang !== lang;
@@ -34,7 +34,7 @@ const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathna
     {items.length > 0 && (
       <section class="block">
         <h2>{tr("useCase.projects")}</h2>
-        <PlainList items={items} />
+        <PlainList items={items} lang={lang} />
       </section>
     )}
   </article>

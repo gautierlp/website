@@ -4,7 +4,7 @@ title: "3 internal applications in 3 years for the same automotive group, all st
 summary: "Three internal applications for the same automotive group, one a year, all still in use."
 result: "3"
 resultLabel: "internal apps, same client"
-projects: ["fleetnova", "eco-insight", "eco-link"]
+projects: ["parts-marketplace", "dealership-onboarding", "battery-recycling"]
 order: 4
 status: "draft"
 ---

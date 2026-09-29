@@ -8,7 +8,7 @@ const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
 const exists = (path) => existsSync(join(DIST, path, "index.html"));
 const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
-const PROJECTS = ["evaboot", "disko-leads", "folderly", "fleetnova", "eco-insight", "eco-link", "clean-car", "price-writers", "betc", "protech"];
+const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech"];
 const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
 const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
@@ -68,9 +68,9 @@ test("project pages: 10 in English and 10 in French", () => {
   }
 });
 
-test("project page: the Contra story and the quote", () => {
+test("project page: the story and the quote", () => {
   const html = page("projects/evaboot");
-  assert.ok(html.includes("Introduction"));
+  assert.ok(html.includes("Situation"));
   assert.ok(html.includes("Results"));
   assert.ok(html.includes("JB Jézéquel"));
   assert.ok(!html.includes("contra.com/p/"));
@@ -91,7 +91,7 @@ test("project page: French route falls back to English content", () => {
 });
 
 test("project page: links to its use cases exist", () => {
-  const html = page("projects/fleetnova");
+  const html = page("projects/parts-marketplace");
   assert.ok(links(html).includes("/use-cases/internal-applications/"));
 });
 
@@ -105,7 +105,7 @@ test("use-case pages: 4 in English and 4 in French", () => {
 test("use-case page: draft note and project links", () => {
   const html = page("use-cases/internal-applications");
   assert.ok(html.includes("Draft. Waits for the client&#39;s approval."));
-  for (const slug of ["fleetnova", "eco-insight", "eco-link"]) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+  for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
 });
 
 test("every internal link on every page resolves", () => {
@@ -247,4 +247,26 @@ test("homepage: one founder quote, and not the JB quote still under review", () 
 test("homepage: says what I do not do", () => {
   assert.ok(page("").includes("What I do not do: model training, MLOps, data engineering, RAG."));
   assert.ok(page("fr").includes("Ce que je ne fais pas : entraîner des modèles, du MLOps, du data engineering, du RAG."));
+});
+
+test("no emoji, no em dash, no filler words, no invented product names on any page", () => {
+  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const banned = [/\p{Extended_Pictographic}/u, /—/, /seamless/i, /robust/i, /spearhead/i, /leverag/i, /Eco'?Insight/i, /Eco'?link/i, /Fleetnova/i, /Over the course of a year/, /I have achieved by/];
+  for (const p of pages) {
+    const text = page(p).replace(/<script[\s\S]*?<\/script>/g, "");
+    for (const re of banned) assert.doesNotMatch(text, re, `${p}: ${re}`);
+  }
+});
+
+test("NDA projects: placeholder name blurred, with an NDA label, on the list and the page", () => {
+  const home = page("");
+  assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
+  for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) {
+    const html = page(`projects/${slug}`);
+    assert.match(html, /<h1><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span><\/h1>/, slug);
+  }
+});
+
+test("Folderly: no quote from a third party about another product", () => {
+  assert.ok(!page("projects/folderly").includes("Belkins"));
 });

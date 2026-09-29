@@ -1,0 +1,33 @@
+---
+name: "Ostrake"
+client: "A subsidiary of a large French automotive group"
+logo: ""
+summary: "A dealership onboarding app: one request form, automatic checks, two admin roles and a one-time-code login."
+result: ""
+resultLabel: "dealership onboarding app, still in use"
+links: []
+useCases: ["internal-applications"]
+featured: false
+nda: true
+order: 6
+status: "live"
+images: [{"src": "/assets/projects/dealership-onboarding/ne6m3zcu7egyjlzrb10m.webp", "alt": "Dealership onboarding"}]
+highlights: []
+---
+
+## Situation
+
+The same client brings new dealerships into its network. Requests arrived in no fixed format, admins checked and chased each one by hand, and nobody had one view of where a request stood.
+
+## What I built
+
+- One request form where a dealership sends its details and documents.
+- Automatic checks in the backend. An incomplete request goes back to the dealership by email, with the reason.
+- Two admin roles. Assistants review the checked requests, and advisors validate the dealership on site, from a tablet.
+- Email sequences through Mailjet at each step.
+- A one-time-code login, so a dealership reaches its follow-up forms without an account.
+
+## Results
+
+- The admins handle more requests with fewer delays, and the dealerships follow one process.
+- Still in use in September 2026.

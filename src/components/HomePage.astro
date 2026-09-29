@@ -16,6 +16,7 @@ const useCases = await getUseCases(lang);
 // Drafts with no text stay off the list: they build, but only a direct link reaches them.
 const projectItems = projects.filter((p) => p.data.status === "live").map((p) => ({
   name: p.data.name,
+  nda: p.data.nda,
   note: [p.data.result, p.data.resultLabel].filter(Boolean).join(" "),
   href: localePath(lang, `/projects/${slugOf(p)}/`),
 }));
@@ -35,7 +36,7 @@ const quote = projects.find((p) => slugOf(p) === "disko-leads")?.data.quote;
   )}
   <section class="block">
     <h2>{tr("section.allApps")}</h2>
-    <PlainList items={projectItems} />
+    <PlainList items={projectItems} lang={lang} />
   </section>
   <GitHubGraph lang={lang} />
   <CallToAction lang={lang} />
