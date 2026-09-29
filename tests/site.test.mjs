@@ -11,8 +11,10 @@ const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 const PROJECTS = ["evaboot", "disko-leads", "folderly", "fleetnova", "camarage", "eco-insight", "eco-link", "clean-car", "price-writers", "betc", "protech"];
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
 
-test("homepage: headline verb in code font", () => {
-  assert.match(page(""), /<code class="fn">ship\(\)<\/code>/);
+test("homepage: headline in plain text, no code font", () => {
+  const html = page("");
+  assert.ok(html.includes("I take over your product and ship it myself."));
+  assert.ok(!html.includes("ship()"));
 });
 
 test("homepage: the three featured projects", () => {

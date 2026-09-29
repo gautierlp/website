@@ -5,9 +5,7 @@ export const defaultLang: Lang = "en";
 const en = {
   "site.title": "Gautier Le Poher",
   "site.description": "I take over your product and ship it myself.",
-  "hero.line1.before": "I take over your product and ",
-  "hero.line1.verb": "ship()",
-  "hero.line1.after": " it myself.",
+  "hero.line1": "I take over your product and ship it myself.",
   "hero.hi": "Hi, I'm Gautier Le Poher, a ",
   "hero.role": "Technical Product Manager",
   "hero.p1": "Ex-Product Owner, freelance on one B2B SaaS since 2023. I make the product calls and ship the code around the core: the data, the interfaces, the tools.",
@@ -39,9 +37,7 @@ const en = {
 const fr: Partial<Record<keyof typeof en, string>> = {
   "site.title": "Gautier Le Poher",
   "site.description": "Je reprends votre produit et je le livre moi-même.",
-  "hero.line1.before": "Je reprends votre produit et je le ",
-  "hero.line1.verb": "ship()",
-  "hero.line1.after": " moi-même.",
+  "hero.line1": "Je reprends votre produit et je le livre moi-même.",
   "hero.hi": "Bonjour, je suis Gautier\u00a0Le\u00a0Poher, ",
   "hero.p1": "Ex-Product Owner, freelance sur un SaaS B2B depuis 2023. Je prends les décisions produit et je livre le code autour du cœur : la donnée, les interfaces, les outils.",
   "hero.p2": "J'ai préparé la sortie de Bubble de ce produit, puis construit son serveur MCP et sa CLI sur la nouvelle stack. ",
