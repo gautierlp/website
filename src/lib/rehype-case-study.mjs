@@ -41,6 +41,10 @@ export function rewrite(node) {
   if (node.type === "element" && node.tagName === "p") {
     const kids = node.children.filter((c) => !isBlank(c));
     if (kids.length === 1 && isMedia(kids[0])) return stage(kids[0]);
+    // Markdown splits an inline <video ...></video> into two raw nodes (open tag, close tag) inside the paragraph.
+    if (kids.length > 0 && kids.every((c) => c.type === "raw") && isRawVideo(kids[0]) && /<\/video>\s*$/.test(kids.at(-1).value)) {
+      return el("figure", "stage", kids);
+    }
     return node;
   }
   if (isMedia(node) || isRawVideo(node)) return stage(node);

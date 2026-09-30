@@ -45,6 +45,16 @@ test("a video at the top level, parsed or raw, goes in a stage", () => {
   assert.equal(out.children[0], raw);
 });
 
+test("a raw video alone in its paragraph (open and close tag as two raw nodes) goes in a stage", () => {
+  const open = { type: "raw", value: '<video controls src="/v.mp4">' };
+  const close = { type: "raw", value: "</video>" };
+  const out = rewrite(el("p", {}, [open, close]));
+  assert.equal(out.tagName, "figure");
+  assert.deepEqual(out.children, [open, close]);
+  const mixed = el("p", {}, [text("See "), open, close]);
+  assert.equal(rewrite(mixed), mixed);
+});
+
 test("the plugin rewrites the top-level children of the tree", () => {
   const tree = { type: "root", children: [el("h2", {}, [text("Task | Map it.")]), el("p", {}, [text("Body.")])] };
   rehypeCaseStudy()(tree);
