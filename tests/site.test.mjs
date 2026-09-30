@@ -133,8 +133,9 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.ok(!html.includes("gh-title") && !html.includes("gh-key"), "no heading, no key");
   // The foot has the total and the link to the profile.
   assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 12 months<\/span>/);
-  assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
-  assert.match(page("fr"), /class="gh-link"[^>]*>Voir sur GitHub/);
+  // The link looks like the email link in the hero: ink, a thin grey line, the ink line draws on hover.
+  assert.match(html, /<a class="gh-link hero__ref" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
+  assert.match(page("fr"), /class="gh-link hero__ref"[^>]*>Voir sur GitHub/);
 });
 
 test("every page has canonical, description, title and hreflang tags", () => {

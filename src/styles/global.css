@@ -176,8 +176,8 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 /* The graph is a strip right under the hero, wider than the text column (up to 56rem), with no heading. */
 .gh > * + * { margin-top: 0.75rem; }
 .gh-body { width: min(100vw, 56rem); margin-left: calc(50% - min(50vw, 28rem)); padding-inline: 0.5rem; }
-.gh-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--muted); font-size: 0.875rem; }
-.gh-link:hover { color: var(--ink); text-decoration: none; }
+/* The profile link takes the look of the email link in the hero (.hero__ref), plus an arrow: it opens a new tab. */
+.gh-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.875rem; }
 .gh-link svg { width: 0.75rem; height: 0.75rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
 .gh-link:hover svg { transform: translate(1px, -1px); }
 /* The weeks share the width of the column, so the squares grow and shrink with it. */
@@ -187,7 +187,7 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 .gh-day { width: 100%; aspect-ratio: 1; border-radius: 2px; }
 /* Five greys in even steps from the empty day to ink, so one contribution already reads as a mark. */
 .gh-day.l1 { background: #c2c2c2; } .gh-day.l2 { background: #939393; } .gh-day.l3 { background: #5c5c5c; } .gh-day.l4 { background: var(--accent); }
-.gh-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.25rem 1rem; font-size: 0.875rem; color: var(--muted); }
+.gh-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; font-size: 0.875rem; color: var(--muted); }
 .gh-day.is-on { outline: 1.5px solid var(--ink); outline-offset: 1px; }
 /* The reveal: a curtain in the page colour slides off the grid, one column per step. The script adds the classes. */
 .gh-body { position: relative; }
