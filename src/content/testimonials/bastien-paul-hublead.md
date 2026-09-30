@@ -1,6 +1,6 @@
 ---
 who: "Bastien Paul"
-role: "Growth, Hublead"
+role: "Co-founder & CEO, Hublead"
 lang: "en"
 source: "contra"
 date: 2024-11-12
