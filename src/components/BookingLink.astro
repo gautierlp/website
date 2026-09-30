@@ -19,7 +19,7 @@ const { class: className } = Astro.props;
 
   const Cal = (window as any).Cal;
   Cal("init", NAMESPACE, { origin: ORIGIN });
-  Cal.ns[NAMESPACE]("ui", { theme: "light", styles: { branding: { brandColor: "#2300ff" } }, hideEventTypeDetails: false, layout: "month_view" });
+  Cal.ns[NAMESPACE]("ui", { theme: "light", styles: { branding: { brandColor: "#111111" } }, hideEventTypeDetails: false, layout: "month_view" });
 
   let ready = false;
   document.querySelector(`script[src="${EMBED_JS}"]`)?.addEventListener("load", () => { ready = true; });

@@ -5,9 +5,9 @@ import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const tr = t(lang);
-// GitHub gives a year. The graph shows the last 6 months, in squares large enough to fill the column.
+// GitHub gives a year. The graph shows the last 12 months, in columns that share the width of the column.
 const year = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
-const cal = year && lastMonths(year, 6);
+const cal = year && lastMonths(year, 12);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
 ---
 {cal && (

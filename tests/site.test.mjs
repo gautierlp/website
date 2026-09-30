@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const DIST = new URL("../dist/", import.meta.url).pathname;
@@ -118,10 +118,10 @@ test("every internal link on every page resolves", () => {
 
 test("homepage: GitHub graph when a token was present at build", { skip: !process.env.GITHUB_TOKEN }, () => {
   const html = page("");
-  // 6 months is 26 or 27 weeks, by the day of the build.
+  // 12 months is 52 or 53 weeks, by the day of the build.
   const weeks = (html.match(/class="gh-week"/g) ?? []).length;
-  assert.ok(weeks === 26 || weeks === 27, `${weeks} weeks`);
-  assert.match(html, /<code class="fn">git log<\/code> · last 6 months/);
+  assert.ok(weeks === 52 || weeks === 53, `${weeks} weeks`);
+  assert.match(html, /<code class="fn">git log<\/code> · last 12 months/);
   assert.ok(!html.includes("in the last year"));
   assert.ok(!html.includes("api.github.com"), "the page never calls GitHub: the graph is built with the site");
   // Each day carries its count and date for the label that shows on hover.
@@ -130,7 +130,7 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
   // The head has the link to the profile, the foot has the total and the key of the five tints.
   assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
-  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 6 months<\/span>/);
+  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 12 months<\/span>/);
   assert.equal((html.match(/class="gh-key l\d"/g) ?? []).length, 5);
   assert.match(html, /<span class="gh-foot-label">Less<\/span>/);
   assert.match(html, /<span class="gh-foot-label">More<\/span>/);
@@ -207,10 +207,6 @@ test("homepage: side projects in a row that scrolls sideways, in both languages"
   assert.equal((en.match(/<div class="tile tile--static">/g) ?? []).length, 4);
   assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 0);
   assert.ok(en.includes("A server at home that runs my booking page, my email assistant and my test runners."));
-  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
-    assert.ok(en.includes(`src="/assets/side/${icon}.svg"`), icon);
-    assert.ok(existsSync(join(DIST, "assets/side", `${icon}.svg`)), icon);
-  }
   assert.ok(en.indexOf("Track record") < en.indexOf("Side projects"));
   const fr = page("fr");
   assert.match(fr, /<h2 id="side-title">Projets perso<\/h2>/);
@@ -290,7 +286,7 @@ test("use cases: written for the buyer, with the result number in the title", ()
 test("homepage: one founder quote, and not the JB quote still under review", () => {
   const html = page("");
   assert.match(html, /<blockquote class="quote">/);
-  assert.ok(html.includes("Johary Randria, Founder, Disko Leads"));
+  assert.ok(html.includes("Johary Randria") && html.includes("Founder, Disko Leads"));
   assert.ok(!html.includes("JB Jézéquel"));
   assert.ok(!html.includes("future Bubble"));
 });
@@ -327,4 +323,50 @@ test("Camarage: a product taken over, with the reason Bubble fit this client", (
 
 test("Folderly: no quote from a third party about another product", () => {
   assert.ok(!page("projects/folderly").includes("Belkins"));
+});
+
+test("links are ink with a grey underline: the Carrd blue is gone from the built site", () => {
+  const files = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css"));
+  assert.ok(files.length > 0);
+  const css = files.map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  assert.ok(!css.includes("2300ff"));
+  assert.ok(!page("").includes("2300ff"));
+  assert.match(css, /a\{color:var\(--ink\);text-decoration:underline;text-decoration-color:var\(--underline\)/);
+});
+
+test("homepage: the client quote sits under the selected work, with a heading and the client as a row", () => {
+  for (const [path, heading] of [["", "What a client says"], ["fr", "Ce qu’un client en dit"]]) {
+    const html = page(path);
+    assert.ok(html.includes(`<h2>${heading}</h2>`));
+    assert.ok(html.indexOf("work-title") < html.indexOf('<blockquote class="quote">'), `${path}: the quote comes after the selected work`);
+    assert.ok(html.indexOf('<blockquote class="quote">') < html.indexOf("plainlist"), `${path}: the quote comes before the track record`);
+    assert.match(html, /<footer class="quote__who">.*<span class="quote__name">Johary Randria<\/span>.*<span class="muted">Founder, Disko Leads<\/span>/s);
+  }
+});
+
+test("side projects: the four icons are inline SVG with named moving parts, and motion stops under reduced motion", () => {
+  const html = page("");
+  assert.ok(!html.includes('<img class="tile__icon"'));
+  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
+    assert.match(html, new RegExp(`<svg class="tile__icon" data-icon="${icon}"`));
+  }
+  assert.match(html, /class="icon__light"/);
+  assert.match(html, /class="icon__bar"/);
+  assert.match(html, /class="icon__bolt"/);
+  assert.match(html, /class="icon__lens"/);
+  const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.tile__icon \*\{[^}]*animation:none/);
+});
+
+test("GitHub graph: the five tints are clearly apart, from the empty day to the busiest", () => {
+  const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  const hex = (sel) => {
+    const m = css.match(new RegExp(`${sel.replace(/\./g, "\\.")}[^{]*\\{background:(#[0-9a-f]{3,6}|var\\(--accent\\))`));
+    assert.ok(m, sel);
+    const v = m[1] === "var(--accent)" ? css.match(/--accent:(#[0-9a-f]{3,6})/)[1] : m[1];
+    const full = v.length === 4 ? v.slice(1).split("").map((c) => c + c).join("") : v.slice(1);
+    return parseInt(full.slice(0, 2), 16); // grey: one channel is the lightness
+  };
+  const tints = [hex(".gh-day,.gh-key"), hex(".gh-day.l1"), hex(".gh-day.l2"), hex(".gh-day.l3"), hex(".gh-day.l4")];
+  for (let i = 1; i < tints.length; i++) assert.ok(tints[i - 1] - tints[i] >= 35, `tint ${i}: ${tints[i - 1]} to ${tints[i]}`);
 });

@@ -6,6 +6,7 @@ import PlainList from "./PlainList.astro";
 import SideProjects from "./SideProjects.astro";
 import WorkCarousel from "./WorkCarousel.astro";
 import CallToAction from "./CallToAction.astro";
+import Quote from "./Quote.astro";
 import { getProjects, getUseCases, slugOf } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath } from "../i18n/utils.ts";
@@ -29,10 +30,8 @@ const quote = projects.find((p) => slugOf(p) === "disko-leads")?.data.quote;
   <WorkCarousel useCases={useCases} lang={lang} />
   {quote && (
     <section class="block">
-      <blockquote class="quote">
-        <p>&ldquo;{quote.text}&rdquo;</p>
-        <footer class="muted">{quote.who}, {quote.role}</footer>
-      </blockquote>
+      <h2>{tr("section.quote")}</h2>
+      <Quote quote={quote} />
     </section>
   )}
   <section class="block">

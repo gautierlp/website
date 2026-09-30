@@ -1,10 +1,11 @@
-/* Text-only look after plud.net: one narrow column, one font, one grey, one accent for links. */
+/* Text-only look after plud.net: one narrow column, one font, one grey. Links are ink with a thin grey underline: the images and icons bring the colour. */
 :root {
   --bg: #ffffff;
   --ink: #111111;
   --muted: #6b6b6b;
   --rule: #e6e6e6;
-  --accent: #2300ff;
+  --accent: #111111;
+  --underline: #c4c4c4;
   --column: 40rem;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-code: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -17,8 +18,10 @@ h1, h2, h3, p, ul, figure, blockquote { margin: 0; padding: 0; }
 ul { list-style: none; }
 img, video { display: block; max-width: 100%; height: auto; }
 strong { font-weight: 600; }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--underline); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+a:hover { text-decoration-color: var(--ink); }
+/* Links that are a name, a button, a tile or a card carry no underline: their shape says they are links. */
+.header__name, .hero__ref, .pill, .button, a.tile, .card, .logogrid__item { text-decoration: none; }
 .muted { color: var(--muted); }
 .nowrap { white-space: nowrap; }
 code.fn { font-family: var(--font-code); font-size: 0.92em; font-weight: 400; }
@@ -54,7 +57,7 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 /* A name in the hero text that links to its project page: a thin grey line, and the accent line draws over it from the left on hover. */
 .hero__ref { color: var(--ink); padding-bottom: 0.18em; background:
     linear-gradient(var(--accent), var(--accent)) left bottom / 0 1.5px no-repeat,
-    linear-gradient(#c4c4c4, #c4c4c4) left bottom / 100% 1px no-repeat;
+    linear-gradient(var(--underline), var(--underline)) left bottom / 100% 1px no-repeat;
   transition: background-size 0.3s cubic-bezier(0.2, 0, 0, 1); }
 .hero__ref:hover, .hero__ref:focus-visible { text-decoration: none; background-size: 100% 1.5px, 100% 1px; }
 @media (prefers-reduced-motion: reduce) { .hero__ref { transition: none; } }
@@ -88,7 +91,7 @@ a.tile { cursor: pointer; }
 a.tile:hover { text-decoration: none; box-shadow: 0 15px 20px -15px #0000000d, 0 2px 5px 0 #00000012, 0 5px 25px -10px #0000001a, 0 0 0 0.5px #00000026; }
 a.tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 a.tile:active { scale: 0.97; }
-.tile__icon { flex: none; display: block; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; object-fit: cover; -webkit-user-drag: none; box-shadow: 0 0 0 0.5px #0000001f, 0 1px 2px #0000001a, 0 4px 10px #0000000f; }
+.tile__icon { flex: none; display: block; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; -webkit-user-drag: none; box-shadow: 0 0 0 0.5px #0000001f, 0 1px 2px #0000001a, 0 4px 10px #0000000f; }
 .tile__copy { min-width: 0; display: flex; flex-direction: column; gap: 0.15rem; }
 .tile__copy strong { font-size: 0.9375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
 .tile__copy > span { color: var(--muted); font-size: 0.8125rem; line-height: 1.4; text-wrap: pretty; }
@@ -97,6 +100,30 @@ a.tile .tile__copy strong { padding-right: 1.25rem; }
   transition: color 0.18s cubic-bezier(0, 0, 0.2, 1), opacity 0.18s cubic-bezier(0, 0, 0.2, 1), transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
 a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink); opacity: 1; transform: translate(2px, -2px); }
 @media (prefers-reduced-motion: reduce) { .tile, .tile__arrow { transition: none; } }
+
+/* One motion per side icon, after the byte.kids tiles: a slow idle beat, and a quicker one when the tile is under the mouse. Each part moves about its own box. */
+.tile__icon * { transform-box: fill-box; }
+.icon__light { transform-origin: center; animation: icon-pulse 4s ease-in-out infinite; }
+.icon__light--b { animation-delay: 2s; }
+.tile:hover .icon__light { animation-duration: 0.9s; }
+.tile:hover .icon__light--b { animation-delay: 0.45s; }
+@keyframes icon-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.75); } }
+.icon__bar { transform-origin: bottom; animation: icon-dip 7s cubic-bezier(0.2, 0, 0, 1) infinite; }
+.icon__bar--2 { animation-delay: 0.1s; }
+.icon__bar--3 { animation-delay: 0.2s; }
+.tile:hover .icon__bar { animation: icon-rise 0.7s cubic-bezier(0.2, 0, 0, 1) both; }
+.tile:hover .icon__bar--2 { animation-delay: 0.08s; }
+.tile:hover .icon__bar--3 { animation-delay: 0.16s; }
+@keyframes icon-dip { 0%, 86%, 100% { transform: scaleY(1); } 91% { transform: scaleY(0.55); } }
+@keyframes icon-rise { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+.icon__bolt { transform-origin: center; animation: icon-flicker 5s ease-out infinite; }
+.tile:hover .icon__bolt { animation: icon-flash 0.6s ease-out infinite; }
+@keyframes icon-flicker { 0%, 88%, 100% { opacity: 1; transform: scale(1); } 90% { opacity: 0.45; } 92% { opacity: 1; transform: scale(1.08); } 94% { opacity: 0.6; } 96% { opacity: 1; transform: scale(1); } }
+@keyframes icon-flash { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(1.1); } }
+.icon__lens { animation: icon-scan 6s cubic-bezier(0.4, 0, 0.2, 1) infinite; transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1); }
+.tile:hover .icon__lens { animation: none; transform: translate(-120px, -118px); }
+@keyframes icon-scan { 0%, 76%, 100% { transform: translate(0, 0); } 84%, 92% { transform: translate(-120px, -118px); } }
+@media (prefers-reduced-motion: reduce) { .tile__icon * { animation: none; transition: none; } }
 
 /* Selected work: square cards in a row that scrolls sideways, wider than the column. Motion values copied from plud.net. */
 @property --px { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
@@ -156,9 +183,10 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 .gh-grid { --gh-gap: clamp(2px, 0.6vw, 3px); display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--gh-gap); }
 .gh-week { display: grid; grid-template-rows: repeat(7, auto); align-content: start; gap: var(--gh-gap); }
 .gh-day, .gh-key { display: block; background: #eeeeee; }
-.gh-day { width: 100%; aspect-ratio: 1; border-radius: clamp(2px, 0.6vw, 4px); }
+.gh-day { width: 100%; aspect-ratio: 1; border-radius: 2px; }
 .gh-key { width: 10px; height: 10px; border-radius: 2px; }
-.gh-day.l1, .gh-key.l1 { background: #cfc9ff; } .gh-day.l2, .gh-key.l2 { background: #9d93ff; } .gh-day.l3, .gh-key.l3 { background: #5d4dff; } .gh-day.l4, .gh-key.l4 { background: var(--accent); }
+/* Five greys in even steps from the empty day to ink, so one contribution already reads as a mark. */
+.gh-day.l1, .gh-key.l1 { background: #c2c2c2; } .gh-day.l2, .gh-key.l2 { background: #939393; } .gh-day.l3, .gh-key.l3 { background: #5c5c5c; } .gh-day.l4, .gh-key.l4 { background: var(--accent); }
 .gh-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.25rem 1rem; font-size: 0.875rem; color: var(--muted); }
 .gh-scale { display: inline-flex; align-items: center; gap: 3px; }
 .gh-foot-label { font-size: 0.75rem; }
@@ -189,8 +217,12 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
 .nda { filter: blur(5px); user-select: none; }
 .nda-label { font-size: 0.75rem; font-weight: 400; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.45rem; vertical-align: middle; }
+/* A client quote: the text a step larger than the body, then the client as one row. */
 .quote { padding-left: 1rem; border-left: 2px solid var(--rule); }
-.quote footer { font-size: 0.875rem; margin-top: 0.4rem; }
+.quote p { font-size: 1.125rem; line-height: 1.6; }
+.quote__who { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; margin-top: 0.75rem; font-size: 0.875rem; }
+.quote__photo { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; }
+.quote__name { font-weight: 500; }
 .draft-note { color: var(--muted); font-size: 0.875rem; font-style: italic; }
 
 /* Markdown bodies */

@@ -3,6 +3,7 @@ import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Media from "./Media.astro";
 import PlainList from "./PlainList.astro";
+import Quote from "./Quote.astro";
 import DraftNote from "./DraftNote.astro";
 import { getUseCases, langOf, slugOf, type Project } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
@@ -44,10 +45,7 @@ const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathna
     ))}
     <div class="prose"><Content /></div>
     {d.quote && (
-      <blockquote class="quote">
-        <p>&ldquo;{d.quote.text}&rdquo;</p>
-        <footer class="muted">{d.quote.who}, {d.quote.role}</footer>
-      </blockquote>
+      <Quote quote={d.quote} />
     )}
     {items.length > 0 && (
       <section class="block">

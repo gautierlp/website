@@ -1,0 +1,13 @@
+---
+// A client quote: the text, then the client as one row (photo when there is one, name, role).
+interface Props { quote: { text: string; who: string; role: string; photo?: string } }
+const { quote } = Astro.props;
+---
+<blockquote class="quote">
+  <p>&ldquo;{quote.text}&rdquo;</p>
+  <footer class="quote__who">
+    {quote.photo && <img class="quote__photo" src={quote.photo} alt="" width="32" height="32" loading="lazy" />}
+    <span class="quote__name">{quote.who}</span>
+    <span class="muted">{quote.role}</span>
+  </footer>
+</blockquote>
