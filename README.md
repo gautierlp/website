@@ -87,21 +87,25 @@ Set `GITHUB_TOKEN` to include the graph and its test: `GITHUB_TOKEN=$(gh auth to
 
 | Path | Content |
 |---|---|
-| `src/content/projects/{en,fr}/<slug>.md` | One project per file. A header block (name, client, logo, result, links, use cases, status), then the story in Markdown |
-| `src/content/use-cases/{en,fr}/<slug>.md` | One use case per file, same shape |
+| `src/content/case-studies/{en,fr}/<slug>.md` | One case study per file: a header block, then the story in Markdown |
+| `src/content/clients/{en,fr}/<slug>.md` | One client per file: a short header block and a paragraph about the client |
 | `src/i18n/ui.ts` | Every UI string, in English and French |
 | `src/content.config.ts` | The list of header fields and their types; the build checks every file against it |
 
-### Add a project
+The header fields of a case study: `kind` (`app` or `use-case`), `name`, `title` (the result, as a sentence), `summary`, `intro`, `client`, `clientPage` (slug of the client page, if any), `when` (the period, only if the text states it), `stats`, `cover`, `links`, `quote`, `nda`, `order`, `status`, `review`.
 
-1. Create `src/content/projects/en/<slug>.md`. Copy the header block of an existing file and fill it.
+In the body, a heading written `## Label | Sentence` shows a small label above the sentence. `review` is never shown on the page: it flags text drafted by an assistant, so delete it once you have checked the text. A client page lists every case study whose `clientPage` names it.
+
+### Add a case study
+
+1. Create `src/content/case-studies/en/<slug>.md`. Copy the header block of an existing file and fill it.
 2. Put the screenshots under `public/assets/projects/<slug>/`.
 3. Set `status: "live"`. With `status: "draft"` the page builds, shows a grey note, and tells search engines to skip it.
 4. Run `npm test`.
 
 ### Add the French text of a page
 
-Create the same file under `src/content/projects/fr/` (or `src/content/use-cases/fr/`). The French route then uses it. Until then, the French route shows the English text and points search engines to the English page.
+Create the same file under `src/content/case-studies/fr/` (or `src/content/clients/fr/`). The French route then uses it. Until then, the French route shows the English text and points search engines to the English page.
 
 ### Where the first content came from
 
