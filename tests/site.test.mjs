@@ -118,9 +118,25 @@ test("every internal link on every page resolves", () => {
 
 test("homepage: GitHub graph when a token was present at build", { skip: !process.env.GITHUB_TOKEN }, () => {
   const html = page("");
-  assert.equal((html.match(/class="gh-week"/g) ?? []).length, 53);
-  assert.match(html, /contributions in the last year/);
-  assert.ok(!/<script[^>]*>[^<]*github/i.test(html), "the graph adds no script");
+  // 6 months is 26 or 27 weeks, by the day of the build.
+  const weeks = (html.match(/class="gh-week"/g) ?? []).length;
+  assert.ok(weeks === 26 || weeks === 27, `${weeks} weeks`);
+  assert.match(html, /<code class="fn">git log<\/code> · last 6 months/);
+  assert.ok(!html.includes("in the last year"));
+  assert.ok(!html.includes("api.github.com"), "the page never calls GitHub: the graph is built with the site");
+  // Each day carries its count and date for the label that shows on hover.
+  assert.equal((html.match(/class="gh-day l\d" data-count="\d+" data-date="\d{4}-\d{2}-\d{2}"/g) ?? []).length, (html.match(/class="gh-day /g) ?? []).length);
+  assert.match(html, /<div class="gh-grid" data-gh-grid data-locale="en-GB" data-none="No contributions on \{date\}" data-one="1 contribution on \{date\}" data-many="\{n\} contributions on \{date\}"/);
+  assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
+  // The head has the link to the profile, the foot has the total and the key of the five tints.
+  assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
+  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 6 months<\/span>/);
+  assert.equal((html.match(/class="gh-key l\d"/g) ?? []).length, 5);
+  assert.match(html, /<span class="gh-foot-label">Less<\/span>/);
+  assert.match(html, /<span class="gh-foot-label">More<\/span>/);
+  const fr = page("fr");
+  assert.match(fr, /class="gh-link"[^>]*>Voir sur GitHub/);
+  assert.match(fr, /<span class="gh-foot-label">Moins<\/span>/);
 });
 
 test("every page has canonical, description, title and hreflang tags", () => {
@@ -146,23 +162,60 @@ test("the old Carrd page is gone", () => {
   assert.ok(!exists("demo"));
 });
 
-test("homepage hero: greeting, marked title, availability and booking button", () => {
+test("homepage hero: greeting, role in contrast, booking button and email", () => {
   const en = page("");
   assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
-  assert.equal((en.match(/class="mark /g) ?? []).length, 3);
-  assert.ok(en.includes("Available for day-rate work on your product."));
+  assert.match(en, /<span class="hero__role">Technical Product Manager<\/span>/);
+  assert.ok(!en.includes('class="mark '));
+  assert.ok(!en.includes("Available for day-rate work on your product."));
   assert.ok(!en.includes("new projects"));
   assert.match(en, /<a class="pill"[^>]*data-booking/);
+  assert.match(en, /<p class="hero__mail"><span class="muted">or email me<\/span> <a class="hero__ref" href="mailto:gautier@lepoher\.co\?subject=A%20product%20to%20take%20over">gautier@lepoher\.co<\/a><\/p>/);
   const fr = page("fr");
-  assert.ok(fr.includes("Disponible au TJM sur votre produit."));
+  assert.ok(!fr.includes("Disponible au TJM sur votre produit."));
+  assert.match(fr, /<p class="hero__mail"><span class="muted">ou écrivez-moi<\/span>/);
+  assert.ok(fr.includes('href="mailto:gautier@lepoher.co?subject=Un%20produit%20%C3%A0%20reprendre"'));
+  for (const [html, n] of [[en, "en"], [fr, "fr"]]) assert.ok(!html.includes('href="mailto:gautier@lepoher.co"'), `${n}: a mail link has no subject`);
 });
 
 test("homepage hero: names the client type, the problem and a number", () => {
   const en = page("");
-  assert.ok(en.includes("B2B SaaS or an internal business app that nobody owns end to end"));
+  assert.ok(en.includes("B2B SaaS and internal business apps that nobody owns end to end"));
+  assert.ok(en.includes("then I build it, alone or with your team."));
+  assert.ok(!en.includes("the data, the interfaces, the code"));
   assert.ok(en.includes("from $1M to $2M in annual revenue"));
-  assert.ok(en.includes("about 500 features and fixes"));
-  assert.ok(en.includes("Product Owner from 2019 to 2022."));
+  assert.ok(en.includes("I shipped 500+ features and fixes"));
+  assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/projects/evaboot/">Evaboot</a>, a B2B SaaS'));
+  assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/projects/evaboot/">Evaboot</a>'));
+  assert.ok(en.includes("moved its marketing site from WordPress to code"));
+  assert.ok(en.includes("and helped migrate its app from no-code to code."));
+  assert.ok(en.includes("I also built the MCP server and the CLI, as part of its ambition to become an AI-first company."));
+  assert.ok(en.includes("I have also owned and shipped a dozen other apps over the years."));
+  assert.ok(!en.includes("Product Owner from 2019 to 2022."));
+  assert.ok(en.includes("a dozen other apps over the years. <strong>I build with coding agents every day.</strong>"));
+  assert.ok(!en.includes("and I decide what they build"));
+});
+
+test("homepage: side projects in a row that scrolls sideways, in both languages", () => {
+  const en = page("");
+  assert.match(en, /<h2 id="side-title">Side projects<\/h2>/);
+  assert.ok(!en.includes("Personal projects"));
+  assert.match(en, /<ul class="side__track" data-side-track/);
+  // Four projects, in this order. All four are private today, so no tile is a link yet.
+  const names = [...en.matchAll(/<span class="tile__copy"><strong>([^<]+)<\/strong>/g)].map((m) => m[1]);
+  assert.deepEqual(names, ["Home server", "Finance app", "Jolt", "Session reviewer"]);
+  assert.equal((en.match(/<div class="tile tile--static">/g) ?? []).length, 4);
+  assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 0);
+  assert.ok(en.includes("A server at home that runs my booking page, my email assistant and my test runners."));
+  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
+    assert.ok(en.includes(`src="/assets/side/${icon}.svg"`), icon);
+    assert.ok(existsSync(join(DIST, "assets/side", `${icon}.svg`)), icon);
+  }
+  assert.ok(en.indexOf("Track record") < en.indexOf("Side projects"));
+  const fr = page("fr");
+  assert.match(fr, /<h2 id="side-title">Projets perso<\/h2>/);
+  assert.ok(fr.includes("<strong>Serveur maison</strong>"));
+  assert.ok(fr.includes("Une app qui importe mes données bancaires dans Postgres et répond aux questions que je lui pose."));
 });
 
 test("homepage CTA: invites the owner-less product, not a buyer of development", () => {

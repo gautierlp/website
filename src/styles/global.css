@@ -47,27 +47,56 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 .hero > * + * { margin-top: 1.25rem; }
 .hero > h1 + p { margin-top: 1.5rem; }
 
-/* Hand-drawn strokes under the role, one colour per word, after plud.net. */
-.mark { position: relative; white-space: nowrap; }
-.mark::after { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: -0.16em; height: 0.28em; z-index: -1; background: var(--stroke);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C 20 3, 40 8, 60 5 S 90 4, 98 6' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C 20 3, 40 8, 60 5 S 90 4, 98 6' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
-.hero h1 { position: relative; z-index: 0; }
-.mark--1 { --stroke: #f5e27a; }
-.mark--2 { --stroke: #f4a9c6; }
-.mark--3 { --stroke: #93e2cc; }
+/* The headline is grey and only the role is black: the contrast is the emphasis. #8a8a8a gives 3.45:1 on white, above the 3:1 minimum for large text. */
+.hero h1 { color: #8a8a8a; font-weight: 500; }
+.hero__role { color: var(--ink); font-weight: 600; }
 
-/* Booking button and availability line */
+/* A name in the hero text that links to its project page: a thin grey line, and the accent line draws over it from the left on hover. */
+.hero__ref { color: var(--ink); padding-bottom: 0.18em; background:
+    linear-gradient(var(--accent), var(--accent)) left bottom / 0 1.5px no-repeat,
+    linear-gradient(#c4c4c4, #c4c4c4) left bottom / 100% 1px no-repeat;
+  transition: background-size 0.3s cubic-bezier(0.2, 0, 0, 1); }
+.hero__ref:hover, .hero__ref:focus-visible { text-decoration: none; background-size: 100% 1.5px, 100% 1px; }
+@media (prefers-reduced-motion: reduce) { .hero__ref { transition: none; } }
+
+/* Booking button and email line */
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1.75rem; }
 .pill { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.6rem 1.25rem; border-radius: 999px; background: var(--ink); color: #ffffff; font-weight: 500; }
 .pill:hover { text-decoration: none; background: #333333; }
 .pill svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
-.status { margin-left: 0.25rem; display: inline-flex; align-items: center; gap: 0.6rem; color: var(--muted); font-size: 0.9375rem; }
-.status__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #3fbf5f; box-shadow: 0 0 0 0.25rem #e3f5e8; }
+.hero__mail { font-size: 0.9375rem; }
 
 /* Plain list: one link per line */
 .plainlist > li + li { margin-top: 0.35rem; }
 .plainlist p { font-size: 0.9375rem; line-height: 1.5; margin-bottom: 0.65rem; }
+
+/* Side projects: small tiles in one row that scrolls sideways, as wide as the screen, with the first tile on the column edge. Shadows and motion copied from plud.net. */
+.side { --edge: max(1rem, calc((100vw - var(--column)) / 2 + 1rem)); width: 100vw; margin-left: calc(50% - 50vw); }
+.side h2 { max-width: var(--column); margin: 0 auto; padding: 0 1rem; }
+.side__track { display: flex; gap: 0.75rem; margin-top: 0.5rem; padding: 0.5rem var(--edge) 1.25rem; overflow: auto hidden; scroll-padding-inline: var(--edge);
+  scroll-snap-type: x proximity; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.side__track::-webkit-scrollbar { display: none; }
+.side__track:focus-visible { outline: none; }
+.side__track:focus-visible .tile { box-shadow: 0 0 0 1.5px var(--ink); }
+@media (pointer: fine) { .side__track { cursor: grab; } }
+.side__track[data-dragging] { cursor: grabbing; user-select: none; scroll-snap-type: none; }
+.side__slide { flex: 0 0 min(17.5rem, calc(100vw - 4rem)); display: flex; scroll-snap-align: start; }
+.tile { position: relative; display: flex; align-items: center; gap: 0.875rem; width: 100%; padding: 0.875rem 1rem; border-radius: 16px; background: #ffffff; color: var(--ink); user-select: none; -webkit-user-drag: none;
+  box-shadow: 0 15px 20px -15px #0000000d, 0 1px 4px 0 #0000000d, 0 5px 20px -10px #0000000d, 0 0 0 0.5px #0000001a;
+  transition: scale 0.18s cubic-bezier(0, 0, 0.2, 1), box-shadow 0.18s cubic-bezier(0, 0, 0.2, 1); }
+a.tile { cursor: pointer; }
+a.tile:hover { text-decoration: none; box-shadow: 0 15px 20px -15px #0000000d, 0 2px 5px 0 #00000012, 0 5px 25px -10px #0000001a, 0 0 0 0.5px #00000026; }
+a.tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+a.tile:active { scale: 0.97; }
+.tile__icon { flex: none; display: block; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; object-fit: cover; -webkit-user-drag: none; box-shadow: 0 0 0 0.5px #0000001f, 0 1px 2px #0000001a, 0 4px 10px #0000000f; }
+.tile__copy { min-width: 0; display: flex; flex-direction: column; gap: 0.15rem; }
+.tile__copy strong { font-size: 0.9375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+.tile__copy > span { color: var(--muted); font-size: 0.8125rem; line-height: 1.4; text-wrap: pretty; }
+a.tile .tile__copy strong { padding-right: 1.25rem; }
+.tile__arrow { position: absolute; top: 0.875rem; right: 0.875rem; width: 0.875rem; height: 0.875rem; fill: none; stroke: currentColor; stroke-width: 1.5px; stroke-linecap: round; stroke-linejoin: round; color: var(--muted); opacity: 0.6;
+  transition: color 0.18s cubic-bezier(0, 0, 0.2, 1), opacity 0.18s cubic-bezier(0, 0, 0.2, 1), transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
+a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink); opacity: 1; transform: translate(2px, -2px); }
+@media (prefers-reduced-motion: reduce) { .tile, .tile__arrow { transition: none; } }
 
 /* Selected work: square cards in a row that scrolls sideways, wider than the column. Motion values copied from plud.net. */
 @property --px { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
@@ -116,13 +145,39 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
   .card, .card__media, .card__media img, .card__copy { transition: none !important; transform: none !important; }
 }
 
-/* GitHub contribution graph */
+/* GitHub contribution graph: the title and the profile link, the grid, then the total and the key of the five tints. */
 .gh h2 { font-weight: 500; }
-.gh-grid { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; gap: 2px; overflow-x: auto; }
-.gh-week { display: grid; grid-template-rows: repeat(7, 8px); gap: 2px; }
-.gh-day { display: block; width: 8px; height: 8px; border-radius: 1px; background: #eeeeee; }
-.gh-day.l1 { background: #cfc9ff; } .gh-day.l2 { background: #9d93ff; } .gh-day.l3 { background: #5d4dff; } .gh-day.l4 { background: var(--accent); }
-.gh-caption { font-size: 0.875rem; color: var(--muted); }
+.gh-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; }
+.gh-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--muted); font-size: 0.875rem; }
+.gh-link:hover { color: var(--ink); text-decoration: none; }
+.gh-link svg { width: 0.75rem; height: 0.75rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
+.gh-link:hover svg { transform: translate(1px, -1px); }
+/* The weeks share the width of the column, so the squares grow and shrink with it. */
+.gh-grid { --gh-gap: clamp(2px, 0.6vw, 3px); display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--gh-gap); }
+.gh-week { display: grid; grid-template-rows: repeat(7, auto); align-content: start; gap: var(--gh-gap); }
+.gh-day, .gh-key { display: block; background: #eeeeee; }
+.gh-day { width: 100%; aspect-ratio: 1; border-radius: clamp(2px, 0.6vw, 4px); }
+.gh-key { width: 10px; height: 10px; border-radius: 2px; }
+.gh-day.l1, .gh-key.l1 { background: #cfc9ff; } .gh-day.l2, .gh-key.l2 { background: #9d93ff; } .gh-day.l3, .gh-key.l3 { background: #5d4dff; } .gh-day.l4, .gh-key.l4 { background: var(--accent); }
+.gh-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.25rem 1rem; font-size: 0.875rem; color: var(--muted); }
+.gh-scale { display: inline-flex; align-items: center; gap: 3px; }
+.gh-foot-label { font-size: 0.75rem; }
+.gh-foot-label:first-child { margin-right: 0.2rem; }
+.gh-foot-label:last-child { margin-left: 0.2rem; }
+.gh-day.is-on { outline: 1.5px solid var(--ink); outline-offset: 1px; }
+/* The reveal: a curtain in the page colour slides off the grid, one column per step. The script adds the classes. */
+.gh-body { position: relative; }
+.gh-body::before { content: ""; position: absolute; z-index: 1; inset: 0; background: var(--bg); pointer-events: none; transform-origin: 100% 50%; transform: scaleX(0); }
+.gh-body.gh-wait::before { transform: scaleX(1); }
+.gh-body.gh-sweep::before { animation: gh-sweep calc(var(--gh-cols, 53) * 12ms) steps(var(--gh-cols, 53), end) both; }
+@keyframes gh-sweep { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+/* The label of a day. It sits on <body> so it can stay inside the screen edge. */
+.gh-tip { position: fixed; left: 0; top: 0; z-index: 1000; pointer-events: none; white-space: nowrap; padding: 4px 8px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 0.6875rem; font-weight: 500; line-height: 1.4;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14); display: none; opacity: 0; scale: 0.94; transform-origin: 50% 100%;
+  transition: opacity 0.14s cubic-bezier(0.22, 1, 0.36, 1), scale 0.14s cubic-bezier(0.22, 1, 0.36, 1), display 0.14s allow-discrete; }
+.gh-tip.is-on { display: block; opacity: 1; scale: 1; }
+@starting-style { .gh-tip.is-on { opacity: 0; scale: 0.94; } }
+@media (prefers-reduced-motion: reduce) { .gh-link svg, .gh-tip { transition: none; } }
 
 /* Project and use-case pages */
 .page > * + * { margin-top: 1.5rem; }

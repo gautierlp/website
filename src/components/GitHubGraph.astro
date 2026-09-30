@@ -1,23 +1,98 @@
 ---
-import { fetchCalendar, level } from "../lib/github.ts";
+import { fetchCalendar, lastMonths, level } from "../lib/github.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const tr = t(lang);
-const cal = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
+// GitHub gives a year. The graph shows the last 6 months, in squares large enough to fill the column.
+const year = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
+const cal = year && lastMonths(year, 6);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
 ---
 {cal && (
   <section class="block gh">
-    <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
-    <div class="gh-grid" role="img" aria-label={tr("github.caption").replace("{n}", total)}>
-      {cal.weeks.map((week) => (
-        <div class="gh-week">
-          {week.map((day) => <i class={`gh-day l${level(day.count)}`} title={`${day.date}: ${day.count}`}></i>)}
-        </div>
-      ))}
+    <div class="gh-head">
+      <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
+      <a class="gh-link" href="https://github.com/gautierlp" target="_blank" rel="noopener">{tr("github.view")}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" /></svg></a>
     </div>
-    <p class="gh-caption">{tr("github.caption").replace("{n}", total)} · <a href="https://github.com/gautierlp" target="_blank" rel="noopener">github.com/gautierlp</a></p>
+    <div class="gh-body">
+      <div class="gh-grid" data-gh-grid data-locale={lang === "fr" ? "fr-FR" : "en-GB"} data-none={tr("github.day.none")} data-one={tr("github.day.one")} data-many={tr("github.day.many")} role="img" aria-label={tr("github.caption").replace("{n}", total)}>
+        {cal.weeks.map((week) => (
+          <div class="gh-week">
+            {week.map((day) => <i class={`gh-day l${level(day.count)}`} data-count={day.count} data-date={day.date}></i>)}
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="gh-foot">
+      <span class="gh-total">{tr("github.caption").replace("{n}", total)}</span>
+      <span class="gh-scale" aria-hidden="true">
+        <span class="gh-foot-label">{tr("github.less")}</span>
+        {[0, 1, 2, 3, 4].map((l) => <i class={`gh-key l${l}`}></i>)}
+        <span class="gh-foot-label">{tr("github.more")}</span>
+      </span>
+    </div>
   </section>
 )}
+<script is:inline>
+// The graph is built with the site. This script only adds the label on each day and the
+// reveal of the columns. After the graph of creativeatishay.in.
+(() => {
+  const grid = document.querySelector("[data-gh-grid]");
+  if (!grid) return;
+  const body = grid.parentElement;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Reveal: a curtain over the grid slides off, one column at a time, the first time the grid is seen.
+  if (!reduced && "IntersectionObserver" in window) {
+    body.style.setProperty("--gh-cols", grid.children.length);
+    body.classList.add("gh-wait");
+    const io = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      body.addEventListener("animationend", () => body.classList.remove("gh-sweep"), { once: true });
+      body.classList.remove("gh-wait");
+      body.classList.add("gh-sweep");
+    }, { threshold: 0.35 });
+    io.observe(body);
+  }
+
+  // One label for all the days. The mouse hides it on leave; a tap keeps it until a scroll or a tap elsewhere.
+  const tip = document.createElement("div");
+  tip.className = "gh-tip";
+  tip.setAttribute("aria-hidden", "true");
+  document.body.appendChild(tip);
+  const dates = new Intl.DateTimeFormat(grid.dataset.locale, { day: "numeric", month: "short", year: "numeric" });
+  let current = null;
+  function hide() {
+    if (!current) return;
+    current.classList.remove("is-on");
+    current = null;
+    tip.classList.remove("is-on");
+  }
+  function show(day) {
+    if (day === current) return;
+    if (current) current.classList.remove("is-on");
+    current = day;
+    day.classList.add("is-on");
+    const n = Number(day.dataset.count);
+    const text = n === 0 ? grid.dataset.none : n === 1 ? grid.dataset.one : grid.dataset.many;
+    tip.textContent = text.replace("{n}", n.toLocaleString(grid.dataset.locale)).replace("{date}", dates.format(new Date(day.dataset.date + "T00:00:00")));
+    tip.classList.add("is-on");
+    const r = day.getBoundingClientRect();
+    const w = tip.offsetWidth;
+    const edge = 8 + w / 2;
+    const x = Math.min(Math.max(r.left + r.width / 2, edge), window.innerWidth - edge);
+    tip.style.translate = `${Math.round(x - w / 2)}px ${Math.round(r.top - tip.offsetHeight - 8)}px`;
+  }
+  grid.addEventListener("pointerover", (e) => {
+    const day = e.target.closest(".gh-day");
+    // The gaps between the days report the grid itself: keep the label, do not flicker.
+    if (day) show(day);
+  });
+  grid.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") hide(); });
+  document.addEventListener("pointerdown", (e) => { if (current && !grid.contains(e.target)) hide(); });
+  window.addEventListener("scroll", (e) => { if (e.target === document || e.target === grid) hide(); }, { capture: true, passive: true });
+})();
+</script>

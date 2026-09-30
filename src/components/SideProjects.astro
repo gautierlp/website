@@ -1,0 +1,74 @@
+---
+// Side projects, after plud.net: an icon, the name, one line. The tiles sit in one row that
+// scrolls sideways and never moves by itself.
+// A project with no `href` is a tile with no link and no arrow. The rule for the links: an open-source
+// project opens its GitHub repository, a private one opens an article on this site. All four are
+// private and have no article yet.
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Props { lang: Lang }
+const tr = t(Astro.props.lang);
+const items: { name: string; icon: string; line: string; href?: string }[] = [
+  { name: tr("side.server.name"), icon: "home-server", line: tr("side.server") },
+  { name: tr("side.finance.name"), icon: "finance", line: tr("side.finance") },
+  { name: "Jolt", icon: "jolt", line: tr("side.jolt") },
+  { name: "Session reviewer", icon: "session-reviewer", line: tr("side.sessionReviewer") },
+];
+---
+<section class="side" aria-labelledby="side-title">
+  <h2 id="side-title">{tr("section.side")}</h2>
+  <ul class="side__track" data-side-track tabindex="0" aria-label={tr("section.side")}>
+    {items.map((item) => {
+      const body = (
+        <>
+          <img class="tile__icon" src={`/assets/side/${item.icon}.svg`} alt="" width="40" height="40" loading="lazy" draggable="false" />
+          <span class="tile__copy"><strong>{item.name}</strong><span>{item.line}</span></span>
+        </>
+      );
+      return (
+        <li class="side__slide">
+          {item.href
+            ? <a class="tile" href={item.href} target="_blank" rel="noopener">{body}<svg class="tile__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" /></svg></a>
+            : <div class="tile tile--static">{body}</div>}
+        </li>
+      );
+    })}
+  </ul>
+</section>
+<script is:inline>
+// Mouse drag for the row. Touch and trackpad keep the native scroll. No autoplay.
+(() => {
+  const track = document.querySelector("[data-side-track]");
+  if (!track) return;
+  let drag = null;
+  track.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    drag = { id: e.pointerId, startX: e.clientX, startScroll: track.scrollLeft, moved: false };
+  });
+  track.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.startX;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 6) return;
+      drag.moved = true;
+      track.setPointerCapture(drag.id);
+      track.dataset.dragging = "";
+    }
+    track.scrollLeft = drag.startScroll - dx;
+  });
+  function release(e) {
+    const d = drag;
+    if (!d || e.pointerId !== d.id) return;
+    drag = null;
+    if (!d.moved) return;
+    if (track.hasPointerCapture(d.id)) track.releasePointerCapture(d.id);
+    delete track.dataset.dragging;
+    track.dataset.swallowClick = "";
+    setTimeout(() => delete track.dataset.swallowClick, 0);
+  }
+  track.addEventListener("pointerup", release);
+  track.addEventListener("pointercancel", release);
+  // A drag that ends on a tile must not open it.
+  track.addEventListener("click", (e) => { if ("swallowClick" in track.dataset) { e.preventDefault(); e.stopPropagation(); } }, true);
+})();
+</script>
