@@ -26,3 +26,4 @@ pnpm-debug.log*
 # Design mockups from the 2026-09 brainstorm, kept locally only
 design-explorations/
 __pycache__/
+.superpowers/
