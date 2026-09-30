@@ -12,6 +12,12 @@ const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "ca
 const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
 const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
+const APPS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet"];
+const STORIES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration"];
+const CASE_STUDIES = [...APPS, ...STORIES];
+const EMPTY = ["price-writers", "betc", "protech"];
+const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
+const cssText = () => readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
 
 test("homepage: headline in plain text, no code font", () => {
   const html = page("");
@@ -417,4 +423,51 @@ test("pile CSS: cards move only without reduced motion", () => {
   const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
   assert.match(css, /\.pile__card\{[^}]*transition:/);
   assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.pile__card\{[^}]*transition:none/);
+});
+
+test("case study pages: 15 in English and 15 in French", () => {
+  for (const slug of CASE_STUDIES) {
+    assert.ok(exists(`case-studies/${slug}`), slug);
+    assert.ok(exists(`fr/case-studies/${slug}`), `fr ${slug}`);
+  }
+});
+
+test("client pages: each lists its case studies, and each case study links back", () => {
+  for (const [client, slugs] of Object.entries(CLIENTS)) {
+    assert.ok(exists(`clients/${client}`) && exists(`fr/clients/${client}`), client);
+    const html = page(`clients/${client}`);
+    for (const slug of slugs) {
+      assert.ok(links(html).includes(`/case-studies/${slug}/`), `${client} -> ${slug}`);
+      assert.ok(links(page(`case-studies/${slug}`)).includes(`/clients/${client}/`), `${slug} -> ${client}`);
+    }
+  }
+});
+
+test("case study: title, numbers, cover, quote and client card", () => {
+  const html = page("case-studies/evaboot");
+  assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /500 features and fixes/);
+  assert.match(html, /<ul class="cs__stats"[^>]*>[\s\S]*?<b data-stat>500<\/b>/);
+  assert.ok(html.includes("JB Jézéquel"));
+  assert.ok(links(html).includes("/clients/evaboot/"));
+});
+
+test("case study: screens and the video sit in a grey stage", () => {
+  const html = page("case-studies/evaboot");
+  assert.ok((html.match(/<figure class="stage"/g) ?? []).length >= 3, "cover and body screens");
+  assert.match(html, /<figure class="stage"><video/);
+});
+
+test("case study reveal: hidden only when scripts run, never under reduced motion", () => {
+  const css = cssText();
+  assert.match(css, /\.js \.cs \[data-r\],\.js \.cs__body>\*\{[^}]*opacity:0/);
+  assert.match(css, /\.js \.cs \.is-in\{[^}]*opacity:1/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.cs__body>\*\{[^}]*transition:none/);
+  assert.match(page("case-studies/evaboot"), /<html[^>]*>[\s\S]*?classList\.add\("js"\)/);
+});
+
+test("case study: a French route falls back to English", () => {
+  const html = page("fr/case-studies/betc");
+  assert.match(html, /<html lang="en">/);
+  assert.match(html, /<meta name="robots" content="noindex">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/case-studies\/betc\/"/);
 });

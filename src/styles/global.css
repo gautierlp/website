@@ -284,3 +284,35 @@ figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
 .review__meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1rem; margin-top: 0.75rem; }
 .review__source { color: var(--muted); font-size: 0.8125rem; }
 .review .review-card__note { margin-top: 0.5rem; }
+
+/* Case study pages, layout "A. Story": text in the column, screens in a wider grey stage. */
+.cs > * + * { margin-top: 1.75rem; }
+.cs__label { color: var(--muted); font-size: 0.875rem; }
+.cs__head h1 { margin-top: 0.5rem; font-size: clamp(1.6rem, 5vw, 2.1rem); line-height: 1.15; letter-spacing: -0.03em; font-weight: 600; text-wrap: balance; }
+.cs__intro { margin-top: 1rem; font-size: 1.125rem; }
+.cs__stats { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); list-style: none; }
+.cs__stats b { display: block; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cs__stats span { color: var(--muted); font-size: 0.875rem; }
+.stage { width: min(calc(100vw - 2rem), 60rem); margin-left: calc(50% - min(50vw - 1rem, 30rem)); padding: clamp(1rem, 4vw, 3rem); background: #f4f4f4; border: 1px solid #ececec; border-radius: 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.stage img, .stage video, .stage .media { width: auto; max-width: 100%; max-height: 36rem; border-radius: 0.5rem; }
+.stage figcaption { color: var(--muted); font-size: 0.875rem; text-align: center; }
+.cs__body > * + * { margin-top: 1rem; }
+.cs__body > .stage { margin-top: 2.5rem; margin-bottom: 1.5rem; }
+.cs__body > .cs-h { margin-top: 3.5rem; }
+.cs-label { display: block; margin-bottom: 0.35rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.cs-title { display: block; font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.02em; }
+.cs__quote { margin-top: 3.5rem; }
+.cs__quote .quote { padding-left: 0; border-left: 0; }
+.cs__quote .quote p { font-size: clamp(1.2rem, 3vw, 1.5rem); line-height: 1.4; letter-spacing: -0.02em; font-weight: 500; }
+.cs__client { display: flex; align-items: center; gap: 1rem; margin-top: 3rem; padding: 1rem 1.25rem; border: 1px solid var(--rule); border-radius: 1rem; text-decoration: none; transition: border-color 0.18s, transform 0.18s; }
+.cs__client:hover { border-color: var(--underline); transform: translateY(-2px); }
+.cs__client img { width: 2.5rem; height: 2.5rem; border-radius: 0.6rem; }
+.cs__client small { display: block; color: var(--muted); }
+.client__logo { width: 3rem; height: 3rem; border-radius: 0.75rem; }
+/* Reveal: hidden only when scripts run (html.js), shown by .is-in. Reduced motion: nothing hidden, nothing moves. */
+.js .cs [data-r], .js .cs__body > * { opacity: 0; filter: blur(10px); transform: translateY(12px); transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.js .cs .is-in { opacity: 1; filter: none; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .cs [data-r], .js .cs__body > * { opacity: 1; filter: none; transform: none; transition: none; }
+  .cs__client { transition: none; }
+}

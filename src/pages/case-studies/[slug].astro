@@ -1,0 +1,11 @@
+---
+import CaseStudyPage from "../../components/CaseStudyPage.astro";
+import { getCaseStudies, slugOf } from "../../lib/content.ts";
+
+export async function getStaticPaths() {
+  const items = await getCaseStudies("en");
+  return items.map((study) => ({ params: { slug: slugOf(study) }, props: { study } }));
+}
+const { study } = Astro.props;
+---
+<CaseStudyPage study={study} lang="en" />
