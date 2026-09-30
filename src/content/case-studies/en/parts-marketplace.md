@@ -32,7 +32,7 @@ Let the professionals in the network find and request the parts online, from a c
 - Professional accounts, approved by an admin, with a cart.
 - An HTML summary email to the admins for each validated cart.
 
-## Results | Designed, built and tested in two weeks.
+## Results | Professionals request parts from a catalogue updated each night.
 
 - Designed, built and tested in two weeks.
 - One of three applications built for this client, one a year from 2023 to 2025. All three were still in use in September 2026.
