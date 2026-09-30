@@ -185,7 +185,8 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 .gh-day, .gh-key { display: block; background: #eeeeee; }
 .gh-day { width: 100%; aspect-ratio: 1; border-radius: 2px; }
 .gh-key { width: 10px; height: 10px; border-radius: 2px; }
-.gh-day.l1, .gh-key.l1 { background: #e3e3e3; } .gh-day.l2, .gh-key.l2 { background: #b5b5b5; } .gh-day.l3, .gh-key.l3 { background: #7a7a7a; } .gh-day.l4, .gh-key.l4 { background: var(--accent); }
+/* Five greys in even steps from the empty day to ink, so one contribution already reads as a mark. */
+.gh-day.l1, .gh-key.l1 { background: #c2c2c2; } .gh-day.l2, .gh-key.l2 { background: #939393; } .gh-day.l3, .gh-key.l3 { background: #5c5c5c; } .gh-day.l4, .gh-key.l4 { background: var(--accent); }
 .gh-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.25rem 1rem; font-size: 0.875rem; color: var(--muted); }
 .gh-scale { display: inline-flex; align-items: center; gap: 3px; }
 .gh-foot-label { font-size: 0.75rem; }

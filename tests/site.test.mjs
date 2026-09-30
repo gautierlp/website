@@ -357,3 +357,16 @@ test("side projects: the four icons are inline SVG with named moving parts, and 
   const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
   assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.tile__icon \*\{[^}]*animation:none/);
 });
+
+test("GitHub graph: the five tints are clearly apart, from the empty day to the busiest", () => {
+  const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  const hex = (sel) => {
+    const m = css.match(new RegExp(`${sel.replace(/\./g, "\\.")}[^{]*\\{background:(#[0-9a-f]{3,6}|var\\(--accent\\))`));
+    assert.ok(m, sel);
+    const v = m[1] === "var(--accent)" ? css.match(/--accent:(#[0-9a-f]{3,6})/)[1] : m[1];
+    const full = v.length === 4 ? v.slice(1).split("").map((c) => c + c).join("") : v.slice(1);
+    return parseInt(full.slice(0, 2), 16); // grey: one channel is the lightness
+  };
+  const tints = [hex(".gh-day,.gh-key"), hex(".gh-day.l1"), hex(".gh-day.l2"), hex(".gh-day.l3"), hex(".gh-day.l4")];
+  for (let i = 1; i < tints.length; i++) assert.ok(tints[i - 1] - tints[i] >= 35, `tint ${i}: ${tints[i - 1]} to ${tints[i]}`);
+});
