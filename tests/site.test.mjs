@@ -121,22 +121,21 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   // 12 months is 52 or 53 weeks, by the day of the build.
   const weeks = (html.match(/class="gh-week"/g) ?? []).length;
   assert.ok(weeks === 52 || weeks === 53, `${weeks} weeks`);
-  assert.match(html, /<code class="fn">git log<\/code> · last 12 months/);
-  assert.ok(!html.includes("in the last year"));
   assert.ok(!html.includes("api.github.com"), "the page never calls GitHub: the graph is built with the site");
   // Each day carries its count and date for the label that shows on hover.
   assert.equal((html.match(/class="gh-day l\d" data-count="\d+" data-date="\d{4}-\d{2}-\d{2}"/g) ?? []).length, (html.match(/class="gh-day /g) ?? []).length);
   assert.match(html, /<div class="gh-grid" data-gh-grid data-locale="en-GB" data-none="No contributions on \{date\}" data-one="1 contribution on \{date\}" data-many="\{n\} contributions on \{date\}"/);
   assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
-  // The head has the link to the profile, the foot has the total and the key of the five tints.
-  assert.match(html, /<a class="gh-link" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
+  // A strip right under the hero, before the work: no heading and no key of the tints.
+  const at = (s) => html.indexOf(s);
+  assert.ok(at('class="block hero"') < at('class="gh"') && at('class="gh"') < at('class="work"'), "hero, then the strip, then the work");
+  assert.match(html, /<section class="gh" aria-label="[\d,]+ contributions in the last 12 months">/);
+  assert.ok(!html.includes("gh-title") && !html.includes("gh-key"), "no heading, no key");
+  // The foot has the total and the link to the profile.
   assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 12 months<\/span>/);
-  assert.equal((html.match(/class="gh-key l\d"/g) ?? []).length, 5);
-  assert.match(html, /<span class="gh-foot-label">Less<\/span>/);
-  assert.match(html, /<span class="gh-foot-label">More<\/span>/);
-  const fr = page("fr");
-  assert.match(fr, /class="gh-link"[^>]*>Voir sur GitHub/);
-  assert.match(fr, /<span class="gh-foot-label">Moins<\/span>/);
+  // The link looks like the email link in the hero: ink, a thin grey line, the ink line draws on hover.
+  assert.match(html, /<a class="gh-link hero__ref" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
+  assert.match(page("fr"), /class="gh-link hero__ref"[^>]*>Voir sur GitHub/);
 });
 
 test("every page has canonical, description, title and hreflang tags", () => {
@@ -350,13 +349,13 @@ test("side projects: the four icons are inline SVG with named moving parts, and 
 test("GitHub graph: the five tints are clearly apart, from the empty day to the busiest", () => {
   const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
   const hex = (sel) => {
-    const m = css.match(new RegExp(`${sel.replace(/\./g, "\\.")}[^{]*\\{background:(#[0-9a-f]{3,6}|var\\(--accent\\))`));
+    const m = css.match(new RegExp(`(?:^|[}\\s])${sel.replace(/\./g, "\\.")}\\{[^}]*?background:(#[0-9a-f]{3,6}|var\\(--accent\\))`));
     assert.ok(m, sel);
     const v = m[1] === "var(--accent)" ? css.match(/--accent:(#[0-9a-f]{3,6})/)[1] : m[1];
     const full = v.length === 4 ? v.slice(1).split("").map((c) => c + c).join("") : v.slice(1);
     return parseInt(full.slice(0, 2), 16); // grey: one channel is the lightness
   };
-  const tints = [hex(".gh-day,.gh-key"), hex(".gh-day.l1"), hex(".gh-day.l2"), hex(".gh-day.l3"), hex(".gh-day.l4")];
+  const tints = [hex(".gh-day"), hex(".gh-day.l1"), hex(".gh-day.l2"), hex(".gh-day.l3"), hex(".gh-day.l4")];
   for (let i = 1; i < tints.length; i++) assert.ok(tints[i - 1] - tints[i] >= 35, `tint ${i}: ${tints[i - 1]} to ${tints[i]}`);
 });
 

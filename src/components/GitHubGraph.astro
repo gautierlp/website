@@ -5,17 +5,13 @@ import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const tr = t(lang);
-// GitHub gives a year. The graph shows the last 12 months, in columns that share the width of the column.
+// GitHub gives a year. The graph shows the last 12 months, as a strip under the hero that is wider than the text column.
 const year = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
 const cal = year && lastMonths(year, 12);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
 ---
 {cal && (
-  <section class="block gh">
-    <div class="gh-head">
-      <h2 class="gh-title"><code class="fn">git log</code> · {tr("github.title")}</h2>
-      <a class="gh-link" href="https://github.com/gautierlp" target="_blank" rel="noopener">{tr("github.view")}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" /></svg></a>
-    </div>
+  <section class="gh" aria-label={tr("github.caption").replace("{n}", total)}>
     <div class="gh-body">
       <div class="gh-grid" data-gh-grid data-locale={lang === "fr" ? "fr-FR" : "en-GB"} data-none={tr("github.day.none")} data-one={tr("github.day.one")} data-many={tr("github.day.many")} role="img" aria-label={tr("github.caption").replace("{n}", total)}>
         {cal.weeks.map((week) => (
@@ -27,11 +23,7 @@ const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") 
     </div>
     <div class="gh-foot">
       <span class="gh-total">{tr("github.caption").replace("{n}", total)}</span>
-      <span class="gh-scale" aria-hidden="true">
-        <span class="gh-foot-label">{tr("github.less")}</span>
-        {[0, 1, 2, 3, 4].map((l) => <i class={`gh-key l${l}`}></i>)}
-        <span class="gh-foot-label">{tr("github.more")}</span>
-      </span>
+      <span><a class="gh-link hero__ref" href="https://github.com/gautierlp" target="_blank" rel="noopener">{tr("github.view")}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" /></svg></a></span>
     </div>
   </section>
 )}

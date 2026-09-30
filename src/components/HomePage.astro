@@ -25,6 +25,7 @@ const projectItems = projects.filter((p) => p.data.status === "live").map((p) =>
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
+  <GitHubGraph lang={lang} />
   <WorkCarousel useCases={useCases} lang={lang} />
   <TestimonialPile lang={lang} />
   <section class="block">
@@ -32,6 +33,5 @@ const projectItems = projects.filter((p) => p.data.status === "live").map((p) =>
     <PlainList items={projectItems} lang={lang} />
   </section>
   <SideProjects lang={lang} />
-  <GitHubGraph lang={lang} />
   <CallToAction lang={lang} />
 </BaseLayout>
