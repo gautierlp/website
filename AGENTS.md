@@ -27,4 +27,4 @@ Consult these guides before working on related tasks:
 
 ## Content
 
-Project and use-case pages are Markdown files under `src/content/`. They are the only source: edit them by hand. The Contra and use-case import scripts were deleted on 2026-09-29.
+Case studies are Markdown files under `src/content/case-studies/`, client pages under `src/content/clients/`. They are the only source: edit them by hand. A heading written `## Situation | A sentence.` shows the label above the sentence. The Contra and use-case import scripts were deleted on 2026-09-29.

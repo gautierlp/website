@@ -4,11 +4,11 @@ import { localePath, mailto, t } from "../i18n/utils.ts";
 import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
-// The first "Evaboot" of the second paragraph links to the project page.
+// The first "Evaboot" of the second paragraph links to the Evaboot client page.
 const REF = "Evaboot";
 const p2 = tr("hero.p2");
 const at = p2.indexOf(REF);
-const refHref = localePath(Astro.props.lang, "/projects/evaboot/");
+const refHref = localePath(Astro.props.lang, "/clients/evaboot/");
 ---
 <section class="block hero">
   <img class="avatar" src="/assets/images/avatar.jpg" alt="Gautier Le Poher" width="56" height="56" />

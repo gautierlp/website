@@ -23,7 +23,7 @@ Camarage matches seniors who have a spare room with young adults who need a plac
 
 ## Why Bubble, for this client
 
-A small team that edits its own listings, rules and pages needs a tool it can open itself. For Camarage that was Bubble. When a product outgrows that setup, I make the opposite move: see [the exit from Bubble](/use-cases/no-code-exit/). The tool follows the product, not the other way round.
+A small team that edits its own listings, rules and pages needs a tool it can open itself. For Camarage that was Bubble. When a product outgrows that setup, I make the opposite move: see [the exit from Bubble](/case-studies/no-code-exit/). The tool follows the product, not the other way round.
 
 ## What I did
 

@@ -7,20 +7,20 @@ import SideProjects from "./SideProjects.astro";
 import WorkCarousel from "./WorkCarousel.astro";
 import CallToAction from "./CallToAction.astro";
 import TestimonialPile from "./TestimonialPile.astro";
-import { getProjects, getUseCases, slugOf } from "../lib/content.ts";
+import { getCaseStudies, slugOf } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath } from "../i18n/utils.ts";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const tr = t(lang);
-const projects = await getProjects(lang);
-const useCases = await getUseCases(lang);
-// Drafts with no text stay off the list: they build, but only a direct link reaches them.
-const projectItems = projects.filter((p) => p.data.status === "live").map((p) => ({
-  name: p.data.name,
-  nda: p.data.nda,
-  note: [p.data.result, p.data.resultLabel].filter(Boolean).join(" "),
-  href: localePath(lang, `/projects/${slugOf(p)}/`),
+const studies = await getCaseStudies(lang);
+const useCases = studies.filter((s) => s.data.kind === "use-case");
+// One line per app. Drafts with no text stay off the list: they build, but only a direct link reaches them.
+const projectItems = studies.filter((s) => s.data.kind === "app" && s.data.status === "live").map((s) => ({
+  name: s.data.name,
+  nda: s.data.nda,
+  note: [s.data.result, s.data.resultLabel].filter(Boolean).join(" "),
+  href: localePath(lang, `/case-studies/${slugOf(s)}/`),
 }));
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
