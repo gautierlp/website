@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import rehypeCaseStudy, { rewrite } from "../src/lib/rehype-case-study.mjs";
+import { formatStat, parseStat } from "../src/lib/stats.ts";
 
 const text = (value) => ({ type: "text", value });
 const el = (tagName, properties, children = []) => ({ type: "element", tagName, properties, children });
@@ -49,4 +50,24 @@ test("the plugin rewrites the top-level children of the tree", () => {
   rehypeCaseStudy()(tree);
   assert.deepEqual(tree.children[0].properties.className, ["cs-h"]);
   assert.equal(tree.children[1].tagName, "p");
+});
+
+test("parseStat splits a value around the one whole number in it", () => {
+  assert.deepEqual(parseStat("200k"), { prefix: "", n: 200, suffix: "k", commas: false });
+  assert.deepEqual(parseStat("1,000"), { prefix: "", n: 1000, suffix: "", commas: true });
+  assert.equal(parseStat("+1").prefix, "+");
+  assert.equal(parseStat("600+").suffix, "+");
+  assert.equal(parseStat("13 working days").n, 13);
+});
+
+test("parseStat gives up on a value with no single number to count", () => {
+  assert.equal(parseStat("From 0 to $3k"), null);
+  assert.equal(parseStat("2.5x"), null);
+  assert.equal(parseStat("no number"), null);
+});
+
+test("formatStat writes a step of the count the way the final value is written", () => {
+  assert.equal(formatStat(parseStat("1,000"), 1000), "1,000");
+  assert.equal(formatStat(parseStat("1,000"), 250), "250");
+  assert.equal(formatStat(parseStat("200k"), 37), "37k");
 });
