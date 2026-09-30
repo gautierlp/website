@@ -27,13 +27,13 @@ const quote = projects.find((p) => slugOf(p) === "disko-leads")?.data.quote;
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
+  <WorkCarousel useCases={useCases} lang={lang} />
   {quote && (
     <section class="block">
       <h2>{tr("section.quote")}</h2>
       <Quote quote={quote} />
     </section>
   )}
-  <WorkCarousel useCases={useCases} lang={lang} />
   <section class="block">
     <h2>{tr("section.allApps")}</h2>
     <PlainList items={projectItems} lang={lang} />

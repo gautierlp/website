@@ -334,11 +334,12 @@ test("links are ink with a grey underline: the Carrd blue is gone from the built
   assert.match(css, /a\{color:var\(--ink\);text-decoration:underline;text-decoration-color:var\(--underline\)/);
 });
 
-test("homepage: the client quote sits under the hero, with a heading and the client as a row", () => {
+test("homepage: the client quote sits under the selected work, with a heading and the client as a row", () => {
   for (const [path, heading] of [["", "What a client says"], ["fr", "Ce qu’un client en dit"]]) {
     const html = page(path);
     assert.ok(html.includes(`<h2>${heading}</h2>`));
-    assert.ok(html.indexOf('<blockquote class="quote">') < html.indexOf("work-title"), `${path}: the quote comes before the selected work`);
+    assert.ok(html.indexOf("work-title") < html.indexOf('<blockquote class="quote">'), `${path}: the quote comes after the selected work`);
+    assert.ok(html.indexOf('<blockquote class="quote">') < html.indexOf("plainlist"), `${path}: the quote comes before the track record`);
     assert.match(html, /<footer class="quote__who">.*<span class="quote__name">Johary Randria<\/span>.*<span class="muted">Founder, Disko Leads<\/span>/s);
   }
 });
