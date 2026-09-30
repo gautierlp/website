@@ -107,7 +107,7 @@ test("use-case page: draft note and project links", () => {
 });
 
 test("every internal link on every page resolves", () => {
-  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
   for (const p of pages) {
     for (const href of links(page(p))) {
       if (!href.startsWith("/") || href.startsWith("/assets/") || href.startsWith("/_astro/") || href === "/") continue;
@@ -140,7 +140,7 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
 });
 
 test("every page has canonical, description, title and hreflang tags", () => {
-  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
   for (const p of pages) {
     const html = page(p);
     assert.match(html, /<html lang="/, p);
@@ -153,7 +153,7 @@ test("every page has canonical, description, title and hreflang tags", () => {
 });
 
 test("no Contra case-study link anywhere in dist", () => {
-  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
   for (const p of pages) assert.ok(!page(p).includes("contra.com/p/"), p);
 });
 
@@ -266,7 +266,7 @@ test("homepage: a small photo of Gautier in the hero", () => {
 });
 
 test("no client internals or internal notes on any page", () => {
-  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
   const banned = [/billing defect/i, /security vulnerabilit/i, /exposed to security/i, /\bIndra\b/, /\bRenault\b/, /Open item/, /segment B/i, /Gautier is not sure/];
   for (const p of pages) for (const re of banned) assert.doesNotMatch(page(p), re, `${p}: ${re}`);
 });
@@ -283,11 +283,8 @@ test("use cases: written for the buyer, with the result number in the title", ()
   assert.match(exit, /about 200,000 users at the time of the migration/);
 });
 
-test("homepage: one founder quote, and not the JB quote still under review", () => {
+test("homepage: the Evaboot quote still under review stays off the homepage", () => {
   const html = page("");
-  assert.match(html, /<blockquote class="quote">/);
-  assert.ok(html.includes("Johary Randria") && html.includes("Founder, Disko Leads"));
-  assert.ok(!html.includes("JB Jézéquel"));
   assert.ok(!html.includes("future Bubble"));
 });
 
@@ -299,7 +296,7 @@ test("homepage: says what I do not do", () => {
 });
 
 test("no emoji, no em dash, no filler words, no invented product names on any page", () => {
-  const pages = ["", "fr", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
   const banned = [/\p{Extended_Pictographic}/u, /—/, /seamless/i, /robust/i, /spearhead/i, /leverag/i, /Eco'?Insight/i, /Eco'?link/i, /Fleetnova/i, /Over the course of a year/, /I have achieved by/];
   for (const p of pages) {
     const text = page(p).replace(/<script[\s\S]*?<\/script>/g, "");
@@ -336,16 +333,6 @@ test("links are ink with a grey underline: the Carrd blue is gone from the built
   assert.match(css, /a\{color:var\(--ink\);text-decoration:underline;text-decoration-color:var\(--underline\)/);
 });
 
-test("homepage: the client quote sits under the selected work, with a heading and the client as a row", () => {
-  for (const [path, heading] of [["", "What a client says"], ["fr", "Ce qu’un client en dit"]]) {
-    const html = page(path);
-    assert.ok(html.includes(`<h2>${heading}</h2>`));
-    assert.ok(html.indexOf("work-title") < html.indexOf('<blockquote class="quote">'), `${path}: the quote comes after the selected work`);
-    assert.ok(html.indexOf('<blockquote class="quote">') < html.indexOf("plainlist"), `${path}: the quote comes before the track record`);
-    assert.match(html, /<footer class="quote__who">.*<span class="quote__name">Johary Randria<\/span>.*<span class="muted">Founder, Disko Leads<\/span>/s);
-  }
-});
-
 test("side projects: the four icons are inline SVG with named moving parts, and motion stops under reduced motion", () => {
   const html = page("");
   assert.ok(!html.includes('<img class="tile__icon"'));
@@ -371,4 +358,56 @@ test("GitHub graph: the five tints are clearly apart, from the empty day to the 
   };
   const tints = [hex(".gh-day,.gh-key"), hex(".gh-day.l1"), hex(".gh-day.l2"), hex(".gh-day.l3"), hex(".gh-day.l4")];
   for (let i = 1; i < tints.length; i++) assert.ok(tints[i - 1] - tints[i] >= 35, `tint ${i}: ${tints[i - 1]} to ${tints[i]}`);
+});
+
+const PILE = ["JB Jézéquel", "Nirundthan Parameswaran", "Johary Randria", "Pierre Hilbert", "Bastien Paul", "Clara Ananou"];
+const pileOf = (html) => html.slice(html.indexOf('<ol class="pile"'), html.indexOf("</ol>", html.indexOf('<ol class="pile"')));
+
+test("homepage: six reviews in a pile after the selected work, in order, with a link to all ten", () => {
+  for (const [path, heading, link] of [["", "What clients say", '<a class="pile__all" href="/reviews/">Read all 10 reviews</a>'], ["fr", "Ce que disent les clients", '<a class="pile__all" href="/fr/reviews/">Lire les 10 avis</a>']]) {
+    const html = page(path);
+    assert.ok(html.includes(`<h2 id="reviews-title">${heading}</h2>`), path);
+    assert.ok(html.indexOf("work-title") < html.indexOf('<ol class="pile"'), `${path}: after the selected work`);
+    assert.ok(html.indexOf('<ol class="pile"') < html.indexOf("plainlist"), `${path}: before the track record`);
+    const pile = pileOf(html);
+    assert.deepEqual([...pile.matchAll(/<span class="review__name">([^<]+)<\/span>/g)].map((m) => m[1]), PILE, path);
+    assert.deepEqual([...pile.matchAll(/data-place="(\d)"/g)].map((m) => m[1]), ["1", "2", "3", "4", "5", "6"], path);
+    assert.equal((pile.match(/tabindex="0"/g) ?? []).length, 6, `${path}: each card takes keyboard focus`);
+    assert.match(pile, /data-place="1" data-tone="ink"/);
+    assert.ok(html.includes(link), path);
+    assert.ok(!pile.includes("CMO") && !pile.includes("promotional"), `${path}: reviews off the pile stay off the homepage`);
+    assert.ok(!html.includes('<blockquote class="quote">'), `${path}: the single quote is gone`);
+  }
+});
+
+test("homepage: a French review shows its translation and a label in English, the original in French", () => {
+  const en = pileOf(page(""));
+  assert.ok(en.includes("double hat of PO and no-code developer"));
+  assert.ok(!en.includes("double casque"));
+  assert.equal((en.match(/<p class="review-card__note">Translated from French<\/p>/g) ?? []).length, 2);
+  const fr = pileOf(page("fr"));
+  assert.ok(fr.includes("Cette double casque de PO et de dev nocode"));
+  assert.ok(!fr.includes("review-card__note"));
+  assert.ok(fr.includes("He helped scale our Bubble app to $200k MRR"), "an English review stays in English");
+  assert.match(en, /<p class="review-card__result">From 0 to \$3k MRR<\/p>/);
+});
+
+test("reviews page: every review in full, newest first, a hidden name shows the role alone", () => {
+  for (const path of ["reviews", "fr/reviews"]) {
+    const html = page(path);
+    assert.equal((html.match(/<article class="review"/g) ?? []).length, 10, path);
+    const years = [...html.matchAll(/<span class="review__source">(?:Malt|Contra), (\d{4})<\/span>/g)].map((m) => Number(m[1]));
+    assert.equal(years.length, 10, path);
+    assert.deepEqual(years, [...years].sort((a, b) => b - a), `${path}: newest first`);
+    assert.match(html, /<span class="review__role">CMO<\/span>/);
+  }
+  assert.ok(page("reviews").includes("Azure Graph"));
+  assert.ok(page("reviews").includes("Translated from French"));
+  assert.ok(page("fr/reviews").includes("faire des appels api sur Azure Graph"));
+});
+
+test("pile CSS: cards move only without reduced motion", () => {
+  const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  assert.match(css, /\.pile__card\{[^}]*transition:/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.pile__card\{[^}]*transition:none/);
 });

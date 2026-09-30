@@ -1,0 +1,15 @@
+---
+// The author row of a review: a photo or the initials, the name, the role. A hidden name shows the role alone.
+interface Props { who?: string; role?: string; photo?: string }
+import { initials } from "../lib/content.ts";
+const { who, role, photo } = Astro.props;
+---
+<span class="review__who">
+  {photo
+    ? <img class="review__photo" src={photo} alt="" width="32" height="32" loading="lazy" />
+    : who && <span class="review__initials" aria-hidden="true">{initials(who)}</span>}
+  <span class="review__id">
+    {who && <span class="review__name">{who}</span>}
+    {role && <span class={who ? "review__role muted" : "review__role"}>{role}</span>}
+  </span>
+</span>

@@ -6,7 +6,7 @@ import PlainList from "./PlainList.astro";
 import SideProjects from "./SideProjects.astro";
 import WorkCarousel from "./WorkCarousel.astro";
 import CallToAction from "./CallToAction.astro";
-import Quote from "./Quote.astro";
+import TestimonialPile from "./TestimonialPile.astro";
 import { getProjects, getUseCases, slugOf } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath } from "../i18n/utils.ts";
@@ -22,18 +22,11 @@ const projectItems = projects.filter((p) => p.data.status === "live").map((p) =>
   note: [p.data.result, p.data.resultLabel].filter(Boolean).join(" "),
   href: localePath(lang, `/projects/${slugOf(p)}/`),
 }));
-// JB's quote on the Evaboot page stays off the homepage until he agrees to a shorter version.
-const quote = projects.find((p) => slugOf(p) === "disko-leads")?.data.quote;
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
   <WorkCarousel useCases={useCases} lang={lang} />
-  {quote && (
-    <section class="block">
-      <h2>{tr("section.quote")}</h2>
-      <Quote quote={quote} />
-    </section>
-  )}
+  <TestimonialPile lang={lang} />
   <section class="block">
     <h2>{tr("section.allApps")}</h2>
     <PlainList items={projectItems} lang={lang} />
