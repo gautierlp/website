@@ -438,6 +438,13 @@ test("case study reveal: hidden only when scripts run, never under reduced motio
   assert.match(page("case-studies/evaboot"), /<html[^>]*>[\s\S]*?classList\.add\("js"\)/);
 });
 
+test("case study: content shows when printing and when the page script fails", () => {
+  const css = cssText();
+  assert.match(css, /@media print\{\.js \.cs \[data-r\],\.js \.cs__body>\*\{[^}]*opacity:1/);
+  assert.match(css, /@keyframes cs-show\{/);
+  assert.match(css, /html\.js:not\(\.cs-ready\) \.cs \[data-r\],html\.js:not\(\.cs-ready\) \.cs__body>\*\{[^}]*animation:[^;}]*cs-show/);
+});
+
 test("case study: a French route falls back to English", () => {
   const html = page("fr/case-studies/betc");
   assert.match(html, /<html lang="en">/);

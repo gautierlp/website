@@ -57,6 +57,7 @@ const label = [d.client !== d.name ? d.client : "", d.when].filter(Boolean).join
 <script>
   import { formatStat, parseStat } from "../lib/stats.ts";
 
+  document.documentElement.classList.add("cs-ready"); // tells the CSS safety net that this script started
   // Blocks blur in as they enter the view; numbers count up once. Reduced motion: all shown, nothing moves.
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const show = (el: Element) => el.classList.add("is-in");
