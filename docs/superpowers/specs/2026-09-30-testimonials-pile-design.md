@@ -79,7 +79,7 @@ The pile positions (offset and tilt for places 1 to 6) are fixed in CSS by place
 - English homepage: the French reviews show their translation and the label; French homepage: the French originals and no label.
 - The reviews pages list every file, and a review with no name shows its role alone.
 - The page-wide rules (no em dash, no emoji, no banned words) run on both reviews pages.
-- The CSS turns the tilt off and drops the transition under reduced motion.
+- The CSS drops the transition of the cards under reduced motion.
 
 ## Out of scope
 

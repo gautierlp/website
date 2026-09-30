@@ -42,4 +42,24 @@ const useCases = defineCollection({
   }),
 });
 
-export const collections = { projects, useCases };
+// Client reviews: one file each, word for word. Delete a file to take a review off the site.
+const testimonials = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/testimonials" }),
+  schema: z.object({
+    who: z.string().optional(),
+    role: z.string().optional(),
+    lang: z.enum(["en", "fr"]),
+    source: z.enum(["contra", "malt"]),
+    date: z.coerce.date(),
+    text: z.string(),
+    translation: z.string().optional(),
+    excerpt: z.string().optional(),
+    excerptTranslation: z.string().optional(),
+    pile: z.number().int().min(1).max(6).optional(),
+    result: z.string().optional(),
+    photo: z.string().optional(),
+    tone: z.enum(["ink"]).optional(),
+  }),
+});
+
+export const collections = { projects, useCases, testimonials };

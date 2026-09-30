@@ -1,0 +1,34 @@
+---
+// Every review in full, newest first.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+import { getTestimonials, reviewText } from "../lib/content.ts";
+import ReviewWho from "./ReviewWho.astro";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const reviews = await getTestimonials();
+const SOURCE = { contra: "Contra", malt: "Malt" } as const;
+---
+<BaseLayout lang={lang} routeLang={lang} title={`${tr("reviews.pageTitle")} | Gautier Le Poher`} description={tr("reviews.pageIntro")}>
+  <article class="page">
+    <header class="page__head">
+      <h1>{tr("reviews.pageTitle")}</h1>
+      <p class="muted">{tr("reviews.pageIntro")}</p>
+    </header>
+    {reviews.map((r) => {
+      const { text, translated } = reviewText(r, lang, false);
+      return (
+        <article class="review" data-tone={r.data.tone}>
+          <blockquote class="review__text"><p>&ldquo;{text}&rdquo;</p></blockquote>
+          <p class="review__meta">
+            <ReviewWho who={r.data.who} role={r.data.role} photo={r.data.photo} />
+            <span class="review__source">{SOURCE[r.data.source]}, {r.data.date.getUTCFullYear()}</span>
+          </p>
+          {translated && <p class="review-card__note">{tr("reviews.translated")}</p>}
+        </article>
+      );
+    })}
+  </article>
+</BaseLayout>

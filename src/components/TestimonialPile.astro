@@ -1,0 +1,32 @@
+---
+// Six reviews in a loose pile, after the Dribbble shot "Testimonial Card Hover Interaction" by Aathif
+// Thajudeen. Hover or focus brings a card to the front. On touch or narrow screens the pile is a row.
+import type { Lang } from "../i18n/ui.ts";
+import { localePath, t } from "../i18n/utils.ts";
+import { getTestimonials, reviewText } from "../lib/content.ts";
+import ReviewWho from "./ReviewWho.astro";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const all = await getTestimonials();
+const pile = all.filter((r) => r.data.pile).sort((a, b) => (a.data.pile ?? 0) - (b.data.pile ?? 0));
+---
+{pile.length > 0 && (
+  <section class="reviews" aria-labelledby="reviews-title">
+    <h2 id="reviews-title">{tr("reviews.title")}</h2>
+    <ol class="pile" data-pile>
+      {pile.map((r) => {
+        const { text, translated } = reviewText(r, lang, true);
+        return (
+          <li class="pile__card" data-place={r.data.pile} data-tone={r.data.tone} tabindex="0">
+            {r.data.result && <p class="review-card__result">{r.data.result}</p>}
+            <blockquote class="review-card__text"><p>&ldquo;{text}&rdquo;</p></blockquote>
+            {translated && <p class="review-card__note">{tr("reviews.translated")}</p>}
+            <ReviewWho who={r.data.who} role={r.data.role} photo={r.data.photo} />
+          </li>
+        );
+      })}
+    </ol>
+    <p class="pile__foot"><a class="pile__all" href={localePath(lang, "/reviews/")}>{tr("reviews.all").replace("{n}", String(all.length))}</a></p>
+  </section>
+)}
