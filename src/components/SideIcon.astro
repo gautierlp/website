@@ -1,0 +1,60 @@
+---
+// The icon of a side project, inline so that CSS can move one part of it: the status lights of the
+// server, the bars of the finance app, the bolt of Jolt, the lens of the session reviewer.
+// Each gradient id carries the icon name: the four SVGs share one document.
+interface Props { icon: "home-server" | "finance" | "jolt" | "session-reviewer" }
+const { icon } = Astro.props;
+const stops: Record<Props["icon"], [string, string, string]> = {
+  "home-server": ["#34D399", "#059669", "#064E3B"],
+  finance: ["#FBBF24", "#D97706", "#78350F"],
+  jolt: ["#FB7185", "#E11D48", "#881337"],
+  "session-reviewer": ["#3B82F6", "#1D4ED8", "#172554"],
+};
+const [c0, c1, c2] = stops[icon];
+---
+<svg class="tile__icon" data-icon={icon} viewBox="0 0 512 512" width="40" height="40" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id={`${icon}-tile`} x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color={c0} />
+      <stop offset="0.52" stop-color={c1} />
+      <stop offset="1" stop-color={c2} />
+    </linearGradient>
+    <radialGradient id={`${icon}-sheen`} cx="0.28" cy="0.2" r="0.9">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16" />
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill={`url(#${icon}-tile)`} />
+  <rect width="512" height="512" rx="112" fill={`url(#${icon}-sheen)`} />
+  {icon === "home-server" && (
+    <>
+      <rect x="116" y="136" width="280" height="104" rx="26" fill="#FFFFFF" />
+      <rect x="116" y="272" width="280" height="104" rx="26" fill="#FFFFFF" opacity="0.7" />
+      <circle class="icon__light" cx="170" cy="188" r="18" fill="#059669" />
+      <circle class="icon__light icon__light--b" cx="170" cy="324" r="18" fill="#059669" />
+    </>
+  )}
+  {icon === "finance" && (
+    <>
+      <rect class="icon__bar" x="124" y="268" width="68" height="120" rx="18" fill="#FFFFFF" opacity="0.6" />
+      <rect class="icon__bar icon__bar--2" x="222" y="200" width="68" height="188" rx="18" fill="#FFFFFF" opacity="0.8" />
+      <rect class="icon__bar icon__bar--3" x="320" y="124" width="68" height="264" rx="18" fill="#FFFFFF" />
+    </>
+  )}
+  {icon === "jolt" && (
+    <g class="icon__bolt">
+      <path transform="translate(72 76) scale(3.6)" d="M56 12 L28 56 L48 56 L44 88 L74 42 L52 42 Z" fill="#FFFFFF" />
+    </g>
+  )}
+  {icon === "session-reviewer" && (
+    <>
+      <rect x="150" y="120" width="180" height="130" rx="20" fill="#FFFFFF" opacity="0.35" />
+      <rect x="128" y="150" width="180" height="130" rx="20" fill="#FFFFFF" opacity="0.6" />
+      <rect x="106" y="180" width="180" height="130" rx="20" fill="#FFFFFF" />
+      <g class="icon__lens" stroke="#FFFFFF" stroke-width="26" fill="none" stroke-linecap="round">
+        <circle cx="332" cy="318" r="60" />
+        <line x1="376" y1="362" x2="418" y2="404" />
+      </g>
+    </>
+  )}
+</svg>

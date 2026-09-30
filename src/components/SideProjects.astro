@@ -6,9 +6,10 @@
 // private and have no article yet.
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
+import SideIcon from "./SideIcon.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
-const items: { name: string; icon: string; line: string; href?: string }[] = [
+const items: { name: string; icon: "home-server" | "finance" | "jolt" | "session-reviewer"; line: string; href?: string }[] = [
   { name: tr("side.server.name"), icon: "home-server", line: tr("side.server") },
   { name: tr("side.finance.name"), icon: "finance", line: tr("side.finance") },
   { name: "Jolt", icon: "jolt", line: tr("side.jolt") },
@@ -21,7 +22,7 @@ const items: { name: string; icon: string; line: string; href?: string }[] = [
     {items.map((item) => {
       const body = (
         <>
-          <img class="tile__icon" src={`/assets/side/${item.icon}.svg`} alt="" width="40" height="40" loading="lazy" draggable="false" />
+          <SideIcon icon={item.icon} />
           <span class="tile__copy"><strong>{item.name}</strong><span>{item.line}</span></span>
         </>
       );

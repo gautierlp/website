@@ -91,7 +91,7 @@ a.tile { cursor: pointer; }
 a.tile:hover { text-decoration: none; box-shadow: 0 15px 20px -15px #0000000d, 0 2px 5px 0 #00000012, 0 5px 25px -10px #0000001a, 0 0 0 0.5px #00000026; }
 a.tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 a.tile:active { scale: 0.97; }
-.tile__icon { flex: none; display: block; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; object-fit: cover; -webkit-user-drag: none; box-shadow: 0 0 0 0.5px #0000001f, 0 1px 2px #0000001a, 0 4px 10px #0000000f; }
+.tile__icon { flex: none; display: block; width: 2.5rem; height: 2.5rem; border-radius: 0.625rem; -webkit-user-drag: none; box-shadow: 0 0 0 0.5px #0000001f, 0 1px 2px #0000001a, 0 4px 10px #0000000f; }
 .tile__copy { min-width: 0; display: flex; flex-direction: column; gap: 0.15rem; }
 .tile__copy strong { font-size: 0.9375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
 .tile__copy > span { color: var(--muted); font-size: 0.8125rem; line-height: 1.4; text-wrap: pretty; }
@@ -100,6 +100,30 @@ a.tile .tile__copy strong { padding-right: 1.25rem; }
   transition: color 0.18s cubic-bezier(0, 0, 0.2, 1), opacity 0.18s cubic-bezier(0, 0, 0.2, 1), transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
 a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink); opacity: 1; transform: translate(2px, -2px); }
 @media (prefers-reduced-motion: reduce) { .tile, .tile__arrow { transition: none; } }
+
+/* One motion per side icon, after the byte.kids tiles: a slow idle beat, and a quicker one when the tile is under the mouse. Each part moves about its own box. */
+.tile__icon * { transform-box: fill-box; }
+.icon__light { transform-origin: center; animation: icon-pulse 4s ease-in-out infinite; }
+.icon__light--b { animation-delay: 2s; }
+.tile:hover .icon__light { animation-duration: 0.9s; }
+.tile:hover .icon__light--b { animation-delay: 0.45s; }
+@keyframes icon-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.75); } }
+.icon__bar { transform-origin: bottom; animation: icon-dip 7s cubic-bezier(0.2, 0, 0, 1) infinite; }
+.icon__bar--2 { animation-delay: 0.1s; }
+.icon__bar--3 { animation-delay: 0.2s; }
+.tile:hover .icon__bar { animation: icon-rise 0.7s cubic-bezier(0.2, 0, 0, 1) both; }
+.tile:hover .icon__bar--2 { animation-delay: 0.08s; }
+.tile:hover .icon__bar--3 { animation-delay: 0.16s; }
+@keyframes icon-dip { 0%, 86%, 100% { transform: scaleY(1); } 91% { transform: scaleY(0.55); } }
+@keyframes icon-rise { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+.icon__bolt { transform-origin: center; animation: icon-flicker 5s ease-out infinite; }
+.tile:hover .icon__bolt { animation: icon-flash 0.6s ease-out infinite; }
+@keyframes icon-flicker { 0%, 88%, 100% { opacity: 1; transform: scale(1); } 90% { opacity: 0.45; } 92% { opacity: 1; transform: scale(1.08); } 94% { opacity: 0.6; } 96% { opacity: 1; transform: scale(1); } }
+@keyframes icon-flash { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(1.1); } }
+.icon__lens { animation: icon-scan 6s cubic-bezier(0.4, 0, 0.2, 1) infinite; transition: transform 0.5s cubic-bezier(0.2, 0, 0, 1); }
+.tile:hover .icon__lens { animation: none; transform: translate(-120px, -118px); }
+@keyframes icon-scan { 0%, 76%, 100% { transform: translate(0, 0); } 84%, 92% { transform: translate(-120px, -118px); } }
+@media (prefers-reduced-motion: reduce) { .tile__icon * { animation: none; transition: none; } }
 
 /* Selected work: square cards in a row that scrolls sideways, wider than the column. Motion values copied from plud.net. */
 @property --px { syntax: "<percentage>"; inherits: true; initial-value: 50%; }

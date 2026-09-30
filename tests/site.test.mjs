@@ -207,10 +207,6 @@ test("homepage: side projects in a row that scrolls sideways, in both languages"
   assert.equal((en.match(/<div class="tile tile--static">/g) ?? []).length, 4);
   assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 0);
   assert.ok(en.includes("A server at home that runs my booking page, my email assistant and my test runners."));
-  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
-    assert.ok(en.includes(`src="/assets/side/${icon}.svg"`), icon);
-    assert.ok(existsSync(join(DIST, "assets/side", `${icon}.svg`)), icon);
-  }
   assert.ok(en.indexOf("Track record") < en.indexOf("Side projects"));
   const fr = page("fr");
   assert.match(fr, /<h2 id="side-title">Projets perso<\/h2>/);
@@ -345,4 +341,18 @@ test("homepage: the client quote sits under the hero, with a heading and the cli
     assert.ok(html.indexOf('<blockquote class="quote">') < html.indexOf("work-title"), `${path}: the quote comes before the selected work`);
     assert.match(html, /<footer class="quote__who">.*<span class="quote__name">Johary Randria<\/span>.*<span class="muted">Founder, Disko Leads<\/span>/s);
   }
+});
+
+test("side projects: the four icons are inline SVG with named moving parts, and motion stops under reduced motion", () => {
+  const html = page("");
+  assert.ok(!html.includes('<img class="tile__icon"'));
+  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
+    assert.match(html, new RegExp(`<svg class="tile__icon" data-icon="${icon}"`));
+  }
+  assert.match(html, /class="icon__light"/);
+  assert.match(html, /class="icon__bar"/);
+  assert.match(html, /class="icon__bolt"/);
+  assert.match(html, /class="icon__lens"/);
+  const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.tile__icon \*\{[^}]*animation:none/);
 });
