@@ -54,13 +54,13 @@ URL `/clients/<slug>/`. The page holds the client's name or description, one or 
 
 ## Links from the rest of the site
 
-- Homepage logo grid, featured case and work carousel: a client with one case study links to that case study; a client with several links to its client page. The carousel keeps linking to case studies.
+- Homepage track record: one line per app, each linking to its own case study. The work carousel links to the use-case case studies. Client pages are reached from the hero link and from the client card at the foot of each case study. (The logo grid and featured case components are unused and go away.)
 - The hero link that points at `/projects/evaboot/` points at the Evaboot client page.
 
 ## Content work
 
 - Move the text of each project page into its case study unchanged, except for the headings, which take the `Label | Sentence` form.
-- The project pages have no Task section. Write a short Task paragraph for each live one from facts already on the page, and mark each with an HTML comment `<!-- TASK DRAFT: check -->` for Gautier to review. Invent no number and no fact.
+- The project pages have no Task section. Write a short Task paragraph for each live one from facts already on the page, and flag each file in a front-matter field `review` for Gautier to check. The page never shows that field (an HTML comment would ship in the page source). Invent no number and no fact.
 - Where a page lacks a number for the title or the stats, keep the current `result` and mark the gap in a comment; do not invent one.
 
 ## Tests
