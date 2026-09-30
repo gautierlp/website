@@ -176,9 +176,9 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 /* The graph is a strip right under the hero, wider than the text column (up to 56rem), with no heading. */
 .gh > * + * { margin-top: 0.75rem; }
 .gh-body { width: min(100vw, 56rem); margin-left: calc(50% - min(50vw, 28rem)); padding-inline: 0.5rem; }
-/* The profile link takes the look of the email link in the hero (.hero__ref), plus an arrow: it opens a new tab. */
-.gh-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.875rem; }
-.gh-link svg { width: 0.75rem; height: 0.75rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
+/* The profile link takes the look of the email link in the hero (.hero__ref), plus an arrow: it opens a new tab. It stays inline (a span holds it in the flex row) so its line sits as close to the text as the email link. */
+.gh-link { font-size: 0.875rem; }
+.gh-link svg { display: inline-block; margin-left: 0.3rem; vertical-align: -0.05em; width: 0.75rem; height: 0.75rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s cubic-bezier(0, 0, 0.2, 1); }
 .gh-link:hover svg { transform: translate(1px, -1px); }
 /* The weeks share the width of the column, so the squares grow and shrink with it. */
 .gh-grid { --gh-gap: clamp(2px, 0.6vw, 3px); display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--gh-gap); }
