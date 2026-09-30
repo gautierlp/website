@@ -290,7 +290,7 @@ test("use cases: written for the buyer, with the result number in the title", ()
 test("homepage: one founder quote, and not the JB quote still under review", () => {
   const html = page("");
   assert.match(html, /<blockquote class="quote">/);
-  assert.ok(html.includes("Johary Randria, Founder, Disko Leads"));
+  assert.ok(html.includes("Johary Randria") && html.includes("Founder, Disko Leads"));
   assert.ok(!html.includes("JB Jézéquel"));
   assert.ok(!html.includes("future Bubble"));
 });
@@ -336,4 +336,13 @@ test("links are ink with a grey underline: the Carrd blue is gone from the built
   assert.ok(!css.includes("2300ff"));
   assert.ok(!page("").includes("2300ff"));
   assert.match(css, /a\{color:var\(--ink\);text-decoration:underline;text-decoration-color:var\(--underline\)/);
+});
+
+test("homepage: the client quote sits under the hero, with a heading and the client as a row", () => {
+  for (const [path, heading] of [["", "What a client says"], ["fr", "Ce qu’un client en dit"]]) {
+    const html = page(path);
+    assert.ok(html.includes(`<h2>${heading}</h2>`));
+    assert.ok(html.indexOf('<blockquote class="quote">') < html.indexOf("work-title"), `${path}: the quote comes before the selected work`);
+    assert.match(html, /<footer class="quote__who">.*<span class="quote__name">Johary Randria<\/span>.*<span class="muted">Founder, Disko Leads<\/span>/s);
+  }
 });

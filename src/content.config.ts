@@ -24,7 +24,7 @@ const projects = defineCollection({
     status,
     images: z.array(image).default([]),
     highlights: z.array(highlight).default([]),
-    quote: z.object({ text: z.string(), who: z.string(), role: z.string() }).optional(),
+    quote: z.object({ text: z.string(), who: z.string(), role: z.string(), photo: z.string().optional() }).optional(),
   }),
 });
 

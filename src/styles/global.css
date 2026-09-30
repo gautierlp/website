@@ -192,8 +192,12 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
 .nda { filter: blur(5px); user-select: none; }
 .nda-label { font-size: 0.75rem; font-weight: 400; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.45rem; vertical-align: middle; }
+/* A client quote: the text a step larger than the body, then the client as one row. */
 .quote { padding-left: 1rem; border-left: 2px solid var(--rule); }
-.quote footer { font-size: 0.875rem; margin-top: 0.4rem; }
+.quote p { font-size: 1.125rem; line-height: 1.6; }
+.quote__who { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.6rem; margin-top: 0.75rem; font-size: 0.875rem; }
+.quote__photo { width: 2rem; height: 2rem; border-radius: 50%; object-fit: cover; }
+.quote__name { font-weight: 500; }
 .draft-note { color: var(--muted); font-size: 0.875rem; font-style: italic; }
 
 /* Markdown bodies */
