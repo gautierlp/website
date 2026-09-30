@@ -27,6 +27,7 @@ const quote = projects.find((p) => slugOf(p) === "disko-leads")?.data.quote;
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
+  <GitHubGraph lang={lang} />
   <WorkCarousel useCases={useCases} lang={lang} />
   {quote && (
     <section class="block">
@@ -39,6 +40,5 @@ const quote = projects.find((p) => slugOf(p) === "disko-leads")?.data.quote;
     <PlainList items={projectItems} lang={lang} />
   </section>
   <SideProjects lang={lang} />
-  <GitHubGraph lang={lang} />
   <CallToAction lang={lang} />
 </BaseLayout>
