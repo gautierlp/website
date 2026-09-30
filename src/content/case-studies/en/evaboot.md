@@ -14,6 +14,7 @@ cover: {"src": "/assets/videos/video01.mp4", "alt": "User dashboard"}
 links: [{"label": "Website", "url": "https://evaboot.com/"}]
 featured: true
 nda: false
+when: "June 2023 to February 2026"
 order: 1
 status: "live"
 quote: {"text": "Gautier expertly used Bubble.io to support our projects, delivering effective solutions and overcoming obstacles. Impressed by their precision and ability to handle project challenges, we trust in their skills and will use them again for future Bubble.io projects.", "who": "JB Jézéquel", "role": "Co-Founder, Evaboot"}
@@ -44,7 +45,7 @@ Take the Bubble app off the founder's hands. Own it, clean it up, and ship what 
 
 ![Evaboot admin screen](/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp)
 
-From 2026 the work moved to the exit from Bubble, then to the MCP server and the CLI on the new stack. The use cases below tell those parts.
+From 2026 the work moved to the exit from Bubble, then to the MCP server and the CLI on the new stack. The stories: [the no-code exit](/case-studies/no-code-exit/), [the API, the CLI and the MCP server](/case-studies/interfaces-on-a-new-stack/), [the marketing site migration](/case-studies/marketing-site-migration/).
 
 ![Admin dashboard](/assets/images/image06.jpg)
 

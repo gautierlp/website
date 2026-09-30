@@ -9,12 +9,13 @@ clientPage: "evaboot"
 result: "100"
 resultLabel: "Lighthouse performance and SEO"
 stats: [{"value": "100", "label": "Lighthouse performance and SEO"}]
+when: "February to March 2026"
 order: 3
 status: "draft"
 review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
-## Situation | Every content change went through a developer.
+## Situation | Content changes went through a developer.
 
 The marketing site ran on WordPress. Content changes went through a developer, the
 site was slow on Core Web Vitals, and the stack did not match the rest of the product.

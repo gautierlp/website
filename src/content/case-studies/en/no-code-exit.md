@@ -10,6 +10,7 @@ result: "200k"
 resultLabel: "users migrated, no downtime"
 stats: [{"value": "200k", "label": "users migrated, no downtime"}]
 cover: {"src": "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", "alt": "The product's exports screen"}
+when: "April to May 2026"
 order: 1
 status: "draft"
 review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
