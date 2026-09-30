@@ -444,3 +444,13 @@ test("case study: a French route falls back to English", () => {
   assert.match(html, /<meta name="robots" content="noindex">/);
   assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/case-studies\/betc\/"/);
 });
+
+test("case studies: a number in the title and the four STAR labels in order", () => {
+  const STAR = ["Situation", "Task", "Actions", "Results"];
+  for (const slug of CASE_STUDIES.filter((s) => !EMPTY.includes(s))) {
+    const html = page(`case-studies/${slug}`);
+    assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /\d/, `${slug}: number in the title`);
+    const labels = [...html.matchAll(/<span class="cs-label">([^<]+)<\/span>/g)].map((m) => m[1]).filter((l) => STAR.includes(l));
+    assert.deepEqual(labels, STAR, slug);
+  }
+});

@@ -17,19 +17,20 @@ nda: false
 order: 1
 status: "live"
 quote: {"text": "Gautier expertly used Bubble.io to support our projects, delivering effective solutions and overcoming obstacles. Impressed by their precision and ability to handle project challenges, we trust in their skills and will use them again for future Bubble.io projects.", "who": "JB Jézéquel", "role": "Co-Founder, Evaboot"}
+review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
-## Situation
+## Situation | The founder still built the app himself.
 
 Evaboot is a B2B SaaS for lead extraction, built on Bubble. The two founders grew it to $1M ARR with no other staff. One of them, JB, still built the app himself, and the app carried technical debt and bugs that kept coming back.
 
 <video controls muted playsinline src="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.mp4" poster="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.webp"></video>
 
-## Task
+## Task | Take the app off the founder's hands.
 
 Take the Bubble app off the founder's hands. Own it, clean it up, and ship what the business needed next.
 
-## Actions
+## Actions | I cleaned the app and shipped what customers asked for.
 
 - Reworked the database. I removed redundant fields, moved data between fields and tables with the service running, and checked every table with integrity scripts.
 - Moved the app from several pages to a single page, and loaded only the data each screen needs, with lazy loading and custom endpoints. Bubble bills on usage, so this cut the bill as well as the load time.
@@ -49,7 +50,7 @@ From 2026 the work moved to the exit from Bubble, then to the MCP server and the
 
 ![Stripe integration](/assets/images/image20.jpg)
 
-## Results
+## Results | About 500 features and fixes in production.
 
 - About 500 features and fixes shipped to production between June 2023 and February 2026 (count from the product board, rounded).
 - The founder handed day-to-day development over and went back to the business.

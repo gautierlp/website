@@ -12,17 +12,22 @@ featured: false
 nda: false
 order: 12
 status: "live"
+review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line."
 ---
 
 ![Domeet home screen: tasks on the left, the week's meetings on the right](/assets/projects/domeet/home.webp)
 
 *Design mockup, not a screenshot of the shipped app.*
 
-## Situation
+## Situation | The first version existed only as a Figma design.
 
 Domeet is a meeting app for teams. The first version existed only as a Figma design. The agency Evodev brought me in to build it.
 
-## What I built, in 13 working days
+## Task | Build the first version from the Figma design.
+
+Build the first version of the app from its Figma design, for the agency Evodev.
+
+## Actions | A meeting app with AI reports, in 13 working days.
 
 - Meetings with a Google Meet or Teams link. You record the meeting in the app, or upload the audio afterwards.
 - An AI transcript of each meeting, and a meeting report written from it.
@@ -32,6 +37,6 @@ Domeet is a meeting app for teams. The first version existed only as a Figma des
 
 Kick-off was on 19 December 2024. I built the app from 20 December to 5 January, then worked through the client's feedback until 17 January.
 
-## Results
+## Results | Built from the ground up in 13 working days.
 
 - Built from the ground up in 13 working days.

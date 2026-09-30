@@ -12,20 +12,21 @@ stats: [{"value": "36", "label": "MCP tools in production"}]
 cover: {"src": "/assets/projects/evaboot/yeozsoqcr93m15jqq47s.webp", "alt": "The product's admin logs screen"}
 order: 2
 status: "draft"
+review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
-## Situation
+## Situation | The product needed the layer users and machines touch.
 
 The core was rebuilt, with a public API underneath, built mostly by the backend
 engineer. The product needed the layer users and machines touch: a way for AI agents
 to use it, a command line for power users, and an agent of its own on the data source.
 
-## Task
+## Task | Ship those interfaces without a second engineer.
 
 Build and ship those interfaces on the new stack, with coding agents, without a
 second engineer.
 
-## Actions
+## Actions | An MCP server, a CLI and an agent.
 
 - Built an MCP server that exposes the product to AI clients: 36 tools, across reads,
   writes, asynchronous jobs and extractions.
@@ -38,7 +39,7 @@ second engineer.
 - Opened and merged pull requests on the core repository along the way, each one
   reviewed.
 
-## Results
+## Results | The MCP server and the CLI are in production.
 
 - MCP server live in production (August 2026).
 - CLI at v0.3.1 in production, installable with one command.

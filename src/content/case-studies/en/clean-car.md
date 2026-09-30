@@ -13,15 +13,20 @@ featured: false
 nda: false
 order: 8
 status: "live"
+review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line."
 ---
 
 ![Clean Car app](/assets/projects/clean-car/w7gkrwo3toydrww07npn.webp)
 
-## Situation
+## Situation | Customers needed to book from their phone.
 
 [Clean Car France](https://cleancar-france.fr/) prepares, cleans and delivers vehicles for private and business customers. It needed its customers to book a service from their phone, and its admins to give each job to an employee.
 
-## What I built, in 10 days
+## Task | Put booking on the customers' phones.
+
+Let Clean Car's customers book a service from their phone, and let its admins give each job to an employee.
+
+## Actions | A mobile booking app, built in 10 days.
 
 - A Bubble mobile app, published on the [App Store](https://apps.apple.com/lv/app/clean-car/id6463682542) and [Google Play](https://play.google.com/store/apps/details?id=com.cleancarapp.cleancarapp&pli=1).
 - Booking by service and vehicle type (new, used, demo, utility, transport), for one vehicle or several at once, so a business books its whole fleet in one order.
@@ -29,6 +34,6 @@ status: "live"
 
 ![Admin calendar](/assets/projects/clean-car/f1a26tsm1zbvfgljsppe.webp)
 
-## Results
+## Results | Live on both stores after 10 days.
 
 - Live on both stores 10 days after the start.

@@ -11,19 +11,20 @@ resultLabel: "Lighthouse performance and SEO"
 stats: [{"value": "100", "label": "Lighthouse performance and SEO"}]
 order: 3
 status: "draft"
+review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
-## Situation
+## Situation | Every content change went through a developer.
 
 The marketing site ran on WordPress. Content changes went through a developer, the
 site was slow on Core Web Vitals, and the stack did not match the rest of the product.
 
-## Task
+## Task | Move the site to Astro and Sanity.
 
 Move the site to Astro for the front and Sanity as the headless CMS, keep the content
 and the URLs, and leave the team able to edit without a developer.
 
-## Actions
+## Actions | Content moved, redirects set, then a three-phase cut-over.
 
 - Audited the WordPress site and defined the stack (27 February 2026).
 - Exported and prepared the content, built the Sanity schema in one day (3 March).
@@ -40,7 +41,7 @@ and the URLs, and leave the team able to edit without a developer.
   redirects on the old URLs, the sitemap submitted to Search Console, and crawl errors
   watched daily for 48 hours and weekly for four to six weeks (25 March 2026).
 
-## Results
+## Results | Lighthouse 100 on performance and SEO.
 
 - Core migration done in about two weeks, planning to production dataset.
 - Nine languages live.

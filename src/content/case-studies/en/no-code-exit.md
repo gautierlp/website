@@ -12,9 +12,10 @@ stats: [{"value": "200k", "label": "users migrated, no downtime"}]
 cover: {"src": "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", "alt": "The product's exports screen"}
 order: 1
 status: "draft"
+review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
-## Situation
+## Situation | The product had outgrown Bubble.
 
 The product ran on Bubble for the front end and workflows, with a Django backend
 behind it. It had about 200,000 users at the time of the migration. Growth had reached the limits of the platform: multi-second waits on
@@ -29,13 +30,13 @@ One person had run the Bubble application since June 2023: about 500 features an
 fixes shipped to production in two and a half years, around 200 to 250 a year (count
 from the product board, 2026-09-23, rounded).
 
-## Task
+## Task | Map the app, then move the data intact.
 
 Two things, both before any core code existed. First, a map of the whole application
 that a backend engineer could rebuild from. Second, the data: move it to Postgres
 without loss, and keep it in sync while both systems ran, up to the cut-over.
 
-## Actions
+## Actions | A full map, a full load, then a live sync.
 
 - Documented every workflow, page, element, table and field of the Bubble application,
   with the help of a Bubble analysis agent, so the rebuild had a complete reference.
@@ -50,7 +51,7 @@ without loss, and keep it in sync while both systems ran, up to the cut-over.
   in narrow time windows instead of full replays.
 - Coordinated the cut-over with the backend engineer and the founders.
 
-## Results
+## Results | All the data in Postgres, no downtime at cut-over.
 
 - Postgres populated at 100 percent from the Bubble export, verified by a post-load
   audit (1 May 2026).
