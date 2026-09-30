@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const DIST = new URL("../dist/", import.meta.url).pathname;
@@ -327,4 +327,13 @@ test("Camarage: a product taken over, with the reason Bubble fit this client", (
 
 test("Folderly: no quote from a third party about another product", () => {
   assert.ok(!page("projects/folderly").includes("Belkins"));
+});
+
+test("links are ink with a grey underline: the Carrd blue is gone from the built site", () => {
+  const files = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css"));
+  assert.ok(files.length > 0);
+  const css = files.map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
+  assert.ok(!css.includes("2300ff"));
+  assert.ok(!page("").includes("2300ff"));
+  assert.match(css, /a\{color:var\(--ink\);text-decoration:underline;text-decoration-color:var\(--underline\)/);
 });
