@@ -1,0 +1,93 @@
+---
+// Layout "A. Story": label, title with the number, intro, numbers, cover, STAR body, quote, client card.
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Media from "./Media.astro";
+import Quote from "./Quote.astro";
+import DraftNote from "./DraftNote.astro";
+import { getClients, langOf, slugOf, type CaseStudy } from "../lib/content.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { t, localePath, stripLang } from "../i18n/utils.ts";
+
+interface Props { study: CaseStudy; lang: Lang }
+const { study, lang } = Astro.props;
+const d = study.data;
+const tr = t(lang);
+const pageLang = langOf(study); // "en" when the French file is missing
+const { Content } = await render(study);
+const isDraft = d.status === "draft";
+const isEmpty = study.body === undefined || study.body.trim() === "";
+const client = d.clientPage ? (await getClients(lang)).find((c) => slugOf(c) === d.clientPage) : undefined;
+const isFallback = pageLang !== lang;
+const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
+const label = [d.client !== d.name ? d.client : "", d.when].filter(Boolean).join(" · ");
+---
+<BaseLayout lang={pageLang} routeLang={lang} title={`${d.title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
+  <article class="cs">
+    <header class="cs__head" data-r>
+      <p class="cs__label">{d.nda ? <><span class="nda">{d.name}</span> <span class="nda-label">{tr("project.nda")}</span></> : d.name}{label && ` · ${label}`}</p>
+      <h1>{d.title}</h1>
+      <p class="cs__intro">{d.intro}</p>
+    </header>
+    {isDraft && <DraftNote lang={lang} empty={isEmpty} />}
+    {d.stats.length > 0 && (
+      <ul class="cs__stats" data-r>
+        {d.stats.map((s) => <li><b data-stat>{s.value}</b><span>{s.label}</span></li>)}
+      </ul>
+    )}
+    {d.links.length > 0 && (
+      <p class="links" data-r>{d.links.map((l) => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}</p>
+    )}
+    {d.cover && (
+      <figure class="stage" data-r>
+        <Media src={d.cover.src} alt={d.cover.alt} />
+        <figcaption>{d.cover.alt}</figcaption>
+      </figure>
+    )}
+    <div class="prose cs__body"><Content /></div>
+    {d.quote && <div class="cs__quote" data-r><Quote quote={d.quote} /></div>}
+    {client && (
+      <a class="cs__client" href={localePath(lang, `/clients/${slugOf(client)}/`)} data-r>
+        {client.data.logo && <img src={client.data.logo} alt="" width="40" height="40" />}
+        <span><strong>{client.data.name}</strong><small>{tr("caseStudy.more")}</small></span>
+      </a>
+    )}
+  </article>
+</BaseLayout>
+<script>
+  import { formatStat, parseStat } from "../lib/stats.ts";
+
+  document.documentElement.classList.add("cs-ready"); // tells the CSS safety net that this script started
+  // Blocks blur in as they enter the view; numbers count up once. Reduced motion: all shown, nothing moves.
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const show = (el: Element) => el.classList.add("is-in");
+  const blocks = document.querySelectorAll(".cs [data-r], .cs__body > *");
+
+  function count(el: HTMLElement) {
+    const final = el.textContent ?? "";
+    const stat = parseStat(final);
+    if (!stat) return;
+    const start = performance.now();
+    const step = (now: number) => {
+      const k = Math.min(1, (now - start) / 1400);
+      el.textContent = formatStat(stat, Math.round(stat.n * (1 - (1 - k) ** 3)));
+      if (k < 1) requestAnimationFrame(step);
+      else el.textContent = final;
+    };
+    requestAnimationFrame(step);
+  }
+
+  if (still || !("IntersectionObserver" in window)) blocks.forEach(show);
+  else {
+    // Threshold 0: a block taller than the screen still triggers on its first visible line.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        show(e.target);
+        e.target.querySelectorAll<HTMLElement>("[data-stat]").forEach(count);
+        io.unobserve(e.target);
+      }
+    }, { rootMargin: "0px 0px -10% 0px" });
+    blocks.forEach((el) => io.observe(el));
+  }
+</script>

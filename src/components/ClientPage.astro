@@ -1,0 +1,45 @@
+---
+// A client with several stories: who they are, then the list of case studies.
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PlainList from "./PlainList.astro";
+import Quote from "./Quote.astro";
+import { getCaseStudies, langOf, slugOf, type Client } from "../lib/content.ts";
+import type { Lang } from "../i18n/ui.ts";
+import { t, localePath, stripLang } from "../i18n/utils.ts";
+
+interface Props { client: Client; lang: Lang }
+const { client, lang } = Astro.props;
+const d = client.data;
+const tr = t(lang);
+const pageLang = langOf(client);
+const { Content } = await render(client);
+const studies = (await getCaseStudies(lang)).filter((s) => s.data.clientPage === slugOf(client));
+const items = studies.map((s) => ({
+  name: s.data.name,
+  nda: s.data.nda,
+  note: [s.data.result, s.data.resultLabel].filter(Boolean).join(" "),
+  summary: s.data.summary,
+  href: localePath(lang, `/case-studies/${slugOf(s)}/`),
+}));
+const isFallback = pageLang !== lang;
+const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
+---
+<BaseLayout lang={pageLang} routeLang={lang} title={`${d.name} | Gautier Le Poher`} description={d.summary} noindex={isFallback} canonical={canonical}>
+  <article class="page">
+    <header class="page__head">
+      {d.logo && <img class="client__logo" src={d.logo} alt="" width="48" height="48" />}
+      <h1>{d.name}</h1>
+      <p class="muted">{d.summary}</p>
+    </header>
+    {d.links.length > 0 && (
+      <p class="links">{d.links.map((l) => <a href={l.url} target="_blank" rel="noopener">{l.label}</a>)}</p>
+    )}
+    <div class="prose"><Content /></div>
+    {d.quote && <Quote quote={d.quote} />}
+    <section class="block">
+      <h2>{tr("client.caseStudies")}</h2>
+      <PlainList items={items} lang={lang} />
+    </section>
+  </article>
+</BaseLayout>

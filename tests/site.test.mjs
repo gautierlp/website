@@ -8,10 +8,14 @@ const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
 const exists = (path) => existsSync(join(DIST, path, "index.html"));
 const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
-const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet", "pachamama"];
-const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
-const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
-const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
+const APPS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet", "pachamama"];
+const STORIES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration"];
+const CASE_STUDIES = [...APPS, ...STORIES];
+const EMPTY = ["price-writers", "betc", "protech"];
+const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
+const LISTED = APPS.filter((s) => !EMPTY.includes(s));
+const PAGES = ["", "fr", "reviews", "fr/reviews", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
+const cssText = () => readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
 
 test("homepage: headline in plain text, no code font", () => {
   const html = page("");
@@ -24,12 +28,12 @@ test("homepage: the three featured projects", () => {
   for (const name of ["Evaboot", "Disko Leads", "Folderly"]) assert.ok(html.includes(name), name);
 });
 
-test("homepage: the record lists every live project, and no draft", () => {
+test("homepage: the record lists every live app, and no empty draft", () => {
   const html = page("");
   assert.ok(html.includes("Track record"));
   assert.ok(!html.includes("All apps"));
-  for (const slug of LISTED) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
-  for (const slug of DRAFT_PROJECTS) assert.ok(!links(html).includes(`/projects/${slug}/`), slug);
+  for (const slug of LISTED) assert.ok(links(html).includes(`/case-studies/${slug}/`), slug);
+  for (const slug of EMPTY) assert.ok(!links(html).includes(`/case-studies/${slug}/`), slug);
 });
 
 test("homepage: no client revenue sold as a result", () => {
@@ -38,9 +42,9 @@ test("homepage: no client revenue sold as a result", () => {
   assert.ok(!html.includes("From $1M to $2M+"));
 });
 
-test("homepage: the use-case list links to every use case", () => {
+test("homepage: the selected work links to every use-case story", () => {
   const html = page("");
-  for (const slug of USE_CASES) assert.ok(links(html).includes(`/use-cases/${slug}/`), slug);
+  for (const slug of STORIES) assert.ok(links(html).includes(`/case-studies/${slug}/`), slug);
 });
 
 test("homepage: no Contra case-study link", () => {
@@ -51,31 +55,24 @@ test("homepage: no Contra case-study link", () => {
 test("french homepage: French strings and /fr/ links", () => {
   const html = page("fr");
   assert.ok(html.includes("Réserver un appel"));
-  assert.ok(links(html).includes("/fr/projects/evaboot/"));
+  assert.ok(links(html).includes("/fr/case-studies/evaboot/"));
   assert.match(html, /<html lang="fr">/);
 });
 
-test("no language switch until the use cases exist in French", () => {
-  for (const p of ["", "fr", "projects/evaboot", "use-cases/no-code-exit"]) assert.ok(!page(p).includes('class="header__lang"'), p);
+test("no language switch until the stories exist in French", () => {
+  for (const p of ["", "fr", "case-studies/evaboot", "case-studies/no-code-exit", "clients/evaboot"]) assert.ok(!page(p).includes('class="header__lang"'), p);
 });
 
-test("project pages: 13 in English and 13 in French", () => {
-  for (const slug of PROJECTS) {
-    assert.ok(exists(`projects/${slug}`), slug);
-    assert.ok(exists(`fr/projects/${slug}`), `fr ${slug}`);
-  }
-});
-
-test("project page: Domeet, a design mockup built with Evodev", () => {
-  const html = page("projects/domeet");
+test("case study: Domeet, a design mockup built with Evodev", () => {
+  const html = page("case-studies/domeet");
   assert.ok(html.includes("Evodev"));
   assert.ok(html.includes("13 working days"));
   assert.ok(html.includes("Design mockup"));
   assert.ok(!/bubble/i.test(html));
 });
 
-test("project page: Pachamama, taken over from another developer", () => {
-  const html = page("projects/pachamama");
+test("case study: Pachamama, taken over from another developer", () => {
+  const html = page("case-studies/pachamama");
   assert.ok(html.includes("Took over building a recruitment platform with 5,000+ candidates"));
   assert.ok(html.includes("NoxCod"));
   assert.ok(html.includes("57"));
@@ -85,48 +82,31 @@ test("project page: Pachamama, taken over from another developer", () => {
   assert.ok(page("").includes("Took over building a recruitment platform with 5,000+ candidates"), "the line in the Track record");
 });
 
-test("project page: the story and the quote", () => {
-  const html = page("projects/evaboot");
+test("case study: the story and the quote", () => {
+  const html = page("case-studies/evaboot");
   assert.ok(html.includes("Situation"));
   assert.ok(html.includes("Results"));
   assert.ok(html.includes("JB Jézéquel"));
   assert.ok(!html.includes("contra.com/p/"));
 });
 
-test("project page: draft note on a placeholder", () => {
-  const html = page("projects/betc");
+test("case study: draft note on a placeholder", () => {
+  const html = page("case-studies/betc");
   assert.ok(html.includes("Text to come."));
   assert.match(html, /<meta name="robots" content="noindex">/);
 });
 
-test("project page: French route falls back to English content", () => {
-  const html = page("fr/projects/betc");
-  assert.match(html, /<html lang="en">/);
-  assert.ok(links(html).includes("/fr/"));
-  assert.match(html, /<meta name="robots" content="noindex">/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/projects\/betc\/"/);
+test("case study: a use-case story waiting for approval has the draft note", () => {
+  assert.ok(page("case-studies/no-code-exit").includes("Draft. Waits for the client&#39;s approval."));
 });
 
-test("project page: links to its use cases exist", () => {
-  const html = page("projects/parts-marketplace");
-  assert.ok(links(html).includes("/use-cases/internal-applications/"));
-});
-
-test("use-case pages: 4 in English and 4 in French", () => {
-  for (const slug of USE_CASES) {
-    assert.ok(exists(`use-cases/${slug}`), slug);
-    assert.ok(exists(`fr/use-cases/${slug}`), `fr ${slug}`);
-  }
-});
-
-test("use-case page: draft note and project links", () => {
-  const html = page("use-cases/internal-applications");
-  assert.ok(html.includes("Draft. Waits for the client&#39;s approval."));
-  for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) assert.ok(links(html).includes(`/projects/${slug}/`), slug);
+test("the old addresses are gone, and nothing links to them", () => {
+  for (const p of ["projects/evaboot", "fr/projects/evaboot", "use-cases/no-code-exit", "fr/use-cases/no-code-exit", "case-studies/internal-applications"]) assert.ok(!exists(p), p);
+  for (const p of PAGES) for (const href of links(page(p))) assert.doesNotMatch(href, /^\/(fr\/)?(projects|use-cases)\//, `${p} -> ${href}`);
 });
 
 test("every internal link on every page resolves", () => {
-  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = PAGES;
   for (const p of pages) {
     for (const href of links(page(p))) {
       if (!href.startsWith("/") || href.startsWith("/assets/") || href.startsWith("/_astro/") || href === "/") continue;
@@ -158,7 +138,7 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
 });
 
 test("every page has canonical, description, title and hreflang tags", () => {
-  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = PAGES;
   for (const p of pages) {
     const html = page(p);
     assert.match(html, /<html lang="/, p);
@@ -171,7 +151,7 @@ test("every page has canonical, description, title and hreflang tags", () => {
 });
 
 test("no Contra case-study link anywhere in dist", () => {
-  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = PAGES;
   for (const p of pages) assert.ok(!page(p).includes("contra.com/p/"), p);
 });
 
@@ -203,8 +183,8 @@ test("homepage hero: names the client type, the problem and a number", () => {
   assert.ok(!en.includes("the data, the interfaces, the code"));
   assert.ok(en.includes("from $1M to $2M in annual revenue"));
   assert.ok(en.includes("I shipped 500+ features and fixes"));
-  assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/projects/evaboot/">Evaboot</a>, a B2B SaaS'));
-  assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/projects/evaboot/">Evaboot</a>'));
+  assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>, a B2B SaaS'));
+  assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
   assert.ok(en.includes("moved its marketing site from WordPress to code"));
   assert.ok(en.includes("and helped migrate its app from no-code to code."));
   assert.ok(en.includes("I also built the MCP server and the CLI, as part of its ambition to become an AI-first company."));
@@ -250,17 +230,17 @@ test("booking links open the Cal.com popup and fall back to the booking page", (
   }
 });
 
-test("homepage: selected work cards for the four use cases, in order", () => {
+test("homepage: selected work cards for the three use-case stories, in order", () => {
   const cards = [...page("").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(cards, USE_CASES.map((s) => `/use-cases/${s}/`));
+  assert.deepEqual(cards, STORIES.map((s) => `/case-studies/${s}/`));
   const fr = [...page("fr").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(fr, USE_CASES.map((s) => `/fr/use-cases/${s}/`));
+  assert.deepEqual(fr, STORIES.map((s) => `/fr/case-studies/${s}/`));
 });
 
 test("homepage: work cards carry an illustration, a light layer, and the carousel script, without sound or haptics", () => {
   const html = page("");
-  assert.equal((html.match(/class="card__media"[^>]*>\s*<img /g) ?? []).length, USE_CASES.length);
-  assert.equal((html.match(/class="card__shine"/g) ?? []).length, USE_CASES.length);
+  assert.equal((html.match(/class="card__media"[^>]*>\s*<img /g) ?? []).length, STORIES.length);
+  assert.equal((html.match(/class="card__shine"/g) ?? []).length, STORIES.length);
   assert.match(html, /<ul class="work__track" data-carousel/);
   assert.match(html, /<script[^>]*>[^<]*setProperty\("--d"/);
   assert.ok(!html.includes("data-haptic") && !html.includes("cuelume"));
@@ -284,19 +264,19 @@ test("homepage: a small photo of Gautier in the hero", () => {
 });
 
 test("no client internals or internal notes on any page", () => {
-  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = PAGES;
   const banned = [/billing defect/i, /security vulnerabilit/i, /exposed to security/i, /\bIndra\b/, /\bRenault\b/, /Open item/, /segment B/i, /Gautier is not sure/];
   for (const p of pages) for (const re of banned) assert.doesNotMatch(page(p), re, `${p}: ${re}`);
 });
 
 test("use cases: written for the buyer, with the result number in the title", () => {
-  for (const slug of USE_CASES) {
-    const html = page(`use-cases/${slug}`);
+  for (const slug of STORIES) {
+    const html = page(`case-studies/${slug}`);
     assert.ok(!html.includes("What this proves"), slug);
     assert.ok(html.includes("What you get"), slug);
     assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /\d/, `${slug} title has a number`);
   }
-  const exit = page("use-cases/no-code-exit");
+  const exit = page("case-studies/no-code-exit");
   assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
   assert.match(exit, /about 200,000 users at the time of the migration/);
 });
@@ -314,7 +294,7 @@ test("homepage: says what I do not do", () => {
 });
 
 test("no emoji, no em dash, no filler words, no invented product names on any page", () => {
-  const pages = ["", "fr", "reviews", "fr/reviews", ...PROJECTS.flatMap((s) => [`projects/${s}`, `fr/projects/${s}`]), ...USE_CASES.flatMap((s) => [`use-cases/${s}`, `fr/use-cases/${s}`])];
+  const pages = PAGES;
   const banned = [/\p{Extended_Pictographic}/u, /—/, /seamless/i, /robust/i, /spearhead/i, /leverag/i, /Eco'?Insight/i, /Eco'?link/i, /Fleetnova/i, /Over the course of a year/, /I have achieved by/];
   for (const p of pages) {
     const text = page(p).replace(/<script[\s\S]*?<\/script>/g, "");
@@ -322,24 +302,23 @@ test("no emoji, no em dash, no filler words, no invented product names on any pa
   }
 });
 
-test("NDA projects: placeholder name blurred, with an NDA label, on the list and the page", () => {
+test("NDA apps: placeholder name blurred, with an NDA label, on the list and the page", () => {
   const home = page("");
   assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
   for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) {
-    const html = page(`projects/${slug}`);
-    assert.match(html, /<h1><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span><\/h1>/, slug);
+    assert.match(page(`case-studies/${slug}`), /<p class="cs__label"><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span>/, slug);
   }
 });
 
 test("Camarage: a product taken over, with the reason Bubble fit this client", () => {
-  const html = page("projects/camarage");
+  const html = page("case-studies/camarage");
   assert.match(html, /took over/);
   assert.match(html, /without a developer/);
   assert.ok(!html.includes("Migrating a 1,000-user app from Code to Bubble"));
 });
 
 test("Folderly: no quote from a third party about another product", () => {
-  assert.ok(!page("projects/folderly").includes("Belkins"));
+  assert.ok(!page("case-studies/folderly").includes("Belkins"));
 });
 
 test("links are ink with a grey underline: the Carrd blue is gone from the built site", () => {
@@ -428,4 +407,68 @@ test("pile CSS: cards move only without reduced motion", () => {
   const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
   assert.match(css, /\.pile__card\{[^}]*transition:/);
   assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.pile__card\{[^}]*transition:none/);
+});
+
+test("case study pages: 15 in English and 15 in French", () => {
+  for (const slug of CASE_STUDIES) {
+    assert.ok(exists(`case-studies/${slug}`), slug);
+    assert.ok(exists(`fr/case-studies/${slug}`), `fr ${slug}`);
+  }
+});
+
+test("client pages: each lists its case studies, and each case study links back", () => {
+  for (const [client, slugs] of Object.entries(CLIENTS)) {
+    assert.ok(exists(`clients/${client}`) && exists(`fr/clients/${client}`), client);
+    const html = page(`clients/${client}`);
+    for (const slug of slugs) {
+      assert.ok(links(html).includes(`/case-studies/${slug}/`), `${client} -> ${slug}`);
+      assert.ok(links(page(`case-studies/${slug}`)).includes(`/clients/${client}/`), `${slug} -> ${client}`);
+    }
+  }
+});
+
+test("case study: title, numbers, cover, quote and client card", () => {
+  const html = page("case-studies/evaboot");
+  assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /500 features and fixes/);
+  assert.match(html, /<ul class="cs__stats"[^>]*>[\s\S]*?<b data-stat>500<\/b>/);
+  assert.ok(html.includes("JB Jézéquel"));
+  assert.ok(links(html).includes("/clients/evaboot/"));
+});
+
+test("case study: screens and the video sit in a grey stage", () => {
+  const html = page("case-studies/evaboot");
+  assert.ok((html.match(/<figure class="stage"/g) ?? []).length >= 3, "cover and body screens");
+  assert.match(html, /<figure class="stage"><video/);
+});
+
+test("case study reveal: hidden only when scripts run, never under reduced motion", () => {
+  const css = cssText();
+  assert.match(css, /\.js \.cs \[data-r\],\.js \.cs__body>\*\{[^}]*opacity:0/);
+  assert.match(css, /\.js \.cs \.is-in\{[^}]*opacity:1/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.cs__body>\*\{[^}]*transition:none/);
+  assert.match(page("case-studies/evaboot"), /<html[^>]*>[\s\S]*?classList\.add\("js"\)/);
+});
+
+test("case study: content shows when printing and when the page script fails", () => {
+  const css = cssText();
+  assert.match(css, /@media print\{\.js \.cs \[data-r\],\.js \.cs__body>\*\{[^}]*opacity:1/);
+  assert.match(css, /@keyframes cs-show\{/);
+  assert.match(css, /html\.js:not\(\.cs-ready\) \.cs \[data-r\],html\.js:not\(\.cs-ready\) \.cs__body>\*\{[^}]*animation:[^;}]*cs-show/);
+});
+
+test("case study: a French route falls back to English", () => {
+  const html = page("fr/case-studies/betc");
+  assert.match(html, /<html lang="en">/);
+  assert.match(html, /<meta name="robots" content="noindex">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/case-studies\/betc\/"/);
+});
+
+test("case studies: a number in the title and the four STAR labels in order", () => {
+  const STAR = ["Situation", "Task", "Actions", "Results"];
+  for (const slug of CASE_STUDIES.filter((s) => !EMPTY.includes(s))) {
+    const html = page(`case-studies/${slug}`);
+    assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /\d/, `${slug}: number in the title`);
+    const labels = [...html.matchAll(/<span class="cs-label">([^<]+)<\/span>/g)].map((m) => m[1]).filter((l) => STAR.includes(l));
+    assert.deepEqual(labels, STAR, slug);
+  }
 });

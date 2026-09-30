@@ -1,0 +1,11 @@
+---
+import ClientPage from "../../../components/ClientPage.astro";
+import { getClients, slugOf } from "../../../lib/content.ts";
+
+export async function getStaticPaths() {
+  const items = await getClients("fr");
+  return items.map((client) => ({ params: { slug: slugOf(client) }, props: { client } }));
+}
+const { client } = Astro.props;
+---
+<ClientPage client={client} lang="fr" />

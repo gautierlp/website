@@ -1,9 +1,9 @@
 ---
-import type { UseCase } from "../lib/content.ts";
+import type { CaseStudy } from "../lib/content.ts";
 import { slugOf } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath } from "../i18n/utils.ts";
-interface Props { useCases: UseCase[]; lang: Lang }
+interface Props { useCases: CaseStudy[]; lang: Lang }
 const { useCases, lang } = Astro.props;
 const tr = t(lang);
 // The picture and logo on each card. "light" cards match the grey behind the laptop mockups.
@@ -14,12 +14,11 @@ const art: Record<string, { image: string; logo: string; tone: "light" | "dark";
   "no-code-exit": { image: "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", logo: EVABOOT_LOGO, tone: "light", bg: "#e8e8e8" },
   "interfaces-on-a-new-stack": { image: "/assets/projects/evaboot/yeozsoqcr93m15jqq47s.webp", logo: EVABOOT_LOGO, tone: "light", bg: "#e8e8e8", place: [5, -20, 140] },
   "marketing-site-migration": { image: "/assets/images/image20.jpg", logo: EVABOOT_LOGO, tone: "light", bg: "#e8e8e8", place: [16, -2, 115] },
-  "internal-applications": { image: "/assets/projects/parts-marketplace/wcipnwjiikjqyctuxvsx.webp", logo: "", tone: "dark", bg: "#1e1e1e" },
 };
 const cards = useCases.map((u) => ({
   ...art[slugOf(u)],
   name: u.data.name, summary: u.data.summary, result: u.data.result, resultLabel: u.data.resultLabel,
-  href: localePath(lang, `/use-cases/${slugOf(u)}/`),
+  href: localePath(lang, `/case-studies/${slugOf(u)}/`),
 }));
 ---
 <section class="work" aria-labelledby="work-title">
