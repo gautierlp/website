@@ -27,3 +27,6 @@ pnpm-debug.log*
 design-explorations/
 __pycache__/
 .superpowers/
+
+# Source material for project pages (client tickets, exports, notes), kept locally only
+sources/
