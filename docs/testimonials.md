@@ -48,23 +48,27 @@ Truncated on the screenshot: the end after "impliquant" is missing.
 
 ## Contra (4 reviews, 5.00, profile gautierlp)
 
-Contra shows each author as "Verified Client". The names below are guesses until Gautier confirms them.
+The public page shows each author as "Verified Client". The names come from Gautier's signed-in view of the same page (2026-09-30). Five other review requests from 2024-11-12 expired with no answer: Clara (Malt, twice), Pierre (Schroders), Christophe (Adyen) and Bastien (Hublead).
 
-### Author unknown (2024-11-13)
+### Clara Ananou (2024-11-13)
+
+No company or role on the review.
 
 > Gautier turned our idea into a scalable, fully working solution with Bubble.io. His deep platform knowledge made complex tasks simple, and he created an interface that blew us away. Throughout, his clear communication, problem-solving, and attention to detail kept everything running smoothly. Thanks to his innovative approach, we met deadlines and improved our workflow. I'd work with him again in a heartbeat—he's a real asset to any team.
 
-### Author unknown, Computer Software Co (2024-11-12)
+### Bastien Paul, Hublead (2024-11-12)
+
+The same person as the Malt recommendation from Bastien Paul.
 
 > Gautier's work with Bubble.io has made a huge difference for our business. He built a Chrome extension, a dashboard, and automated processes that helped us scale quickly. The extension lets our team access key tools right from the browser, and the dashboard gives us real-time insights that make decision-making easier. His automations save us tons of time on repetitive tasks, allowing us to focus more on growing the business. Gautier didn't just meet our needs—he improved our entire workflow 🔥
 
-### Johary Randria, Founder, Disko Leads (2024-11-12)
+### Johary Randriamandranto, Disko Leads (2024-11-12)
 
-The site already uses the first two sentences of this review.
+The site already uses the first two sentences of this review, signed "Johary Randria".
 
 > Working with Gautier on our SaaS project was an exceptional experience. His mastery of Bubble.io allowed us to quickly bring our vision to life, and the final product exceeded our expectations. Gautier's ability to understand our goals, communicate effectively, and provide valuable input throughout the development process made the collaboration seamless. His deep expertise in building scalable SaaS solutions truly shines, and I am confident in his ability to handle any future projects!
 
-### Author unknown, probably JB, Evaboot (2024-11-12)
+### Jean Baptiste Jézéquel, Evaboot (2024-11-12)
 
 > We've worked with Gautier for two years, and he's been a game changer. He helped scale our Bubble app to $200k MRR by transforming my messy MVP code into a clean, efficient product with fewer bugs. He improved onboarding, streamlined admin, and optimized our conversion funnel, all while staying laser-focused on driving revenue. Gautier always delivers on time and responds super quickly to requests. If you need a top-tier Bubble expert, hire him.
 
