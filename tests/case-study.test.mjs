@@ -11,8 +11,11 @@ test("a labelled heading splits into a label and a title", () => {
   assert.deepEqual(out.properties.className, ["cs-h"]);
   assert.deepEqual(out.children[0].properties.className, ["cs-label"]);
   assert.equal(out.children[0].children[0].value, "Situation");
-  assert.deepEqual(out.children[1].properties.className, ["cs-title"]);
-  assert.equal(out.children[1].children[0].value, "The product had outgrown Bubble.");
+  assert.deepEqual(out.children[1], { type: "text", value: " " });
+  assert.deepEqual(out.children[2].properties.className, ["cs-title"]);
+  assert.equal(out.children[2].children[0].value, "The product had outgrown Bubble.");
+  const words = (n) => (n.type === "text" ? n.value : n.children.map(words).join(""));
+  assert.equal(words(out), "Situation The product had outgrown Bubble.");
 });
 
 test("a heading with no bar stays as it is", () => {

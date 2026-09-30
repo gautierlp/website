@@ -31,6 +31,7 @@ function labelHeading(node) {
     properties: { ...node.properties, className: ["cs-h"] },
     children: [
       el("span", "cs-label", [{ type: "text", value: match[1] }]),
+      { type: "text", value: " " },
       el("span", "cs-title", [{ type: "text", value: match[2] }, ...rest]),
     ],
   };
