@@ -8,7 +8,7 @@ const page = (path) => readFileSync(join(DIST, path, "index.html"), "utf8");
 const exists = (path) => existsSync(join(DIST, path, "index.html"));
 const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
-const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet"];
+const PROJECTS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet", "pachamama"];
 const DRAFT_PROJECTS = ["price-writers", "betc", "protech"];
 const LISTED = PROJECTS.filter((s) => !DRAFT_PROJECTS.includes(s));
 const USE_CASES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration", "internal-applications"];
@@ -59,7 +59,7 @@ test("no language switch until the use cases exist in French", () => {
   for (const p of ["", "fr", "projects/evaboot", "use-cases/no-code-exit"]) assert.ok(!page(p).includes('class="header__lang"'), p);
 });
 
-test("project pages: 12 in English and 12 in French", () => {
+test("project pages: 13 in English and 13 in French", () => {
   for (const slug of PROJECTS) {
     assert.ok(exists(`projects/${slug}`), slug);
     assert.ok(exists(`fr/projects/${slug}`), `fr ${slug}`);
@@ -72,6 +72,17 @@ test("project page: Domeet, a design mockup built with Evodev", () => {
   assert.ok(html.includes("13 working days"));
   assert.ok(html.includes("Design mockup"));
   assert.ok(!/bubble/i.test(html));
+});
+
+test("project page: Pachamama, taken over from another developer", () => {
+  const html = page("projects/pachamama");
+  assert.ok(html.includes("Took over building a recruitment platform with 5,000+ candidates"));
+  assert.ok(html.includes("NoxCod"));
+  assert.ok(html.includes("57"));
+  assert.ok(html.includes("Situation") && html.includes("Results"));
+  // Client staff and client internals stay off the page.
+  for (const name of ["Marion", "Valentine", "Laurie", "Gabrielle", "Arnaud", "Marine", "Mendrika"]) assert.ok(!html.includes(name), name);
+  assert.ok(page("").includes("Took over building a recruitment platform with 5,000+ candidates"), "the line in the Track record");
 });
 
 test("project page: the story and the quote", () => {
