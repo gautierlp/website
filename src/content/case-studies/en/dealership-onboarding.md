@@ -22,7 +22,7 @@ The same client brings new dealerships into its network. Requests arrived in no 
 
 ## Task | Give every request one format and one process.
 
-Bring the dealership requests into one format and one process, with one view of where each request stands.
+Bring the dealership requests into one format and one process.
 
 ## Actions | One form, automatic checks and a code login.
 
@@ -35,5 +35,4 @@ Bring the dealership requests into one format and one process, with one view of 
 ## Results | More requests handled, with fewer delays.
 
 - The admins handle more requests with fewer delays, and the dealerships follow one process.
-- Still in use in September 2026.
 - One of three applications built for this client, one a year from 2023 to 2025. All three were still in use in September 2026.

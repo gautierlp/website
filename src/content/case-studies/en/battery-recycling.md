@@ -20,9 +20,9 @@ review: "Drafted on 2026-09-30: the heading sentences and the Task section. Chec
 
 The client recycles electric-vehicle batteries for its partner dealerships. Four parties took part: the dealerships, the client's admins, the transporters and the recycling centres. The process ran on Excel sheets, email threads and PDFs made by hand, and requests got lost or delayed.
 
-## Task | Replace the spreadsheets, emails and PDFs with one app.
+## Task | One app for all four parties.
 
-Replace the Excel sheets, the manual emails and the hand-made PDFs with one app, so requests stop getting lost or delayed.
+Give the dealerships, the client's admins, the transporters and the recycling centres one app to follow each recycling request.
 
 ## Actions | A request form, PDFs, emails and a live board.
 
@@ -34,5 +34,4 @@ Replace the Excel sheets, the manual emails and the hand-made PDFs with one app,
 ## Results | No more Excel sheets or hand-made PDFs.
 
 - The app replaced the Excel sheets, the manual emails and the hand-made PDFs.
-- Still in use in September 2026.
 - One of three applications built for this client, one a year from 2023 to 2025. All three were still in use in September 2026.

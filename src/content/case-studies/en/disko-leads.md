@@ -24,7 +24,7 @@ review: "Drafted on 2026-09-30: the heading sentences and the Task section. Chec
 
 Johary Randria founded Disko Leads to sell lead data: the profiles of the people who like or comment on a LinkedIn post. He needed the whole product built from nothing, and fast.
 
-## Task | Build the product from nothing, fast.
+## Task | Turn LinkedIn post engagement into a lead file.
 
 Build the whole Disko Leads product from nothing, and fast: turn the likes and comments on a LinkedIn post into an enriched lead file.
 

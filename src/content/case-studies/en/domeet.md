@@ -37,6 +37,6 @@ Build the first version of the app from its Figma design, for the agency Evodev.
 
 Kick-off was on 19 December 2024. I built the app from 20 December to 5 January, then worked through the client's feedback until 17 January.
 
-## Results | Built from the ground up in 13 working days.
+## Results | The Figma design became a built first version.
 
 - Built from the ground up in 13 working days.
