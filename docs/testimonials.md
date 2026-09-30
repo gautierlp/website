@@ -72,6 +72,10 @@ The site already uses the first two sentences of this review, signed "Johary Ran
 
 > We've worked with Gautier for two years, and he's been a game changer. He helped scale our Bubble app to $200k MRR by transforming my messy MVP code into a clean, efficient product with fewer bugs. He improved onboarding, streamlined admin, and optimized our conversion funnel, all while staying laser-focused on driving revenue. Gautier always delivers on time and responds super quickly to requests. If you need a top-tier Bubble expert, hire him.
 
+## Changes the site makes
+
+Punctuation only, for the site's rules (no em dash, no emoji): Clara Ananou's and Bastien Paul's Contra reviews show a comma where they have an em dash, and Bastien's closing emoji is dropped.
+
 ## On the site today
 
 - Johary Randria: homepage and the Disko Leads page.
