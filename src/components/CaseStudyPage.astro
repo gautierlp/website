@@ -20,7 +20,9 @@ const isEmpty = study.body === undefined || study.body.trim() === "";
 const client = d.clientPage ? (await getClients(lang)).find((c) => slugOf(c) === d.clientPage) : undefined;
 const isFallback = pageLang !== lang;
 const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
-const label = [d.client !== d.name ? d.client : "", d.when].filter(Boolean).join(" · ");
+// A use case's intro already says what kind of company it was, so its label leaves the client out.
+const showClient = d.kind !== "use-case" && d.client !== d.name;
+const label = [showClient ? d.client : "", d.when].filter(Boolean).join(" · ");
 ---
 <BaseLayout lang={pageLang} routeLang={lang} title={`${d.title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
   <article class="cs">
@@ -29,7 +31,7 @@ const label = [d.client !== d.name ? d.client : "", d.when].filter(Boolean).join
       <h1>{d.title}</h1>
       <p class="cs__intro">{d.intro}</p>
     </header>
-    {isDraft && <DraftNote lang={lang} empty={isEmpty} />}
+    {isDraft && isEmpty && <DraftNote lang={lang} />}
     {d.stats.length > 0 && (
       <ul class="cs__stats" data-r>
         {d.stats.map((s) => <li><b data-stat>{s.value}</b><span>{s.label}</span></li>)}

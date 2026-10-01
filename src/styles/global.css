@@ -293,7 +293,7 @@ figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
 .cs__stats { display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); list-style: none; }
 .cs__stats b { display: block; font-size: 1.75rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .cs__stats span { color: var(--muted); font-size: 0.875rem; }
-.stage { width: min(calc(100vw - 2rem), 60rem); margin-left: calc(50% - min(50vw - 1rem, 30rem)); padding: clamp(1rem, 4vw, 3rem); background: #f4f4f4; border: 1px solid #ececec; border-radius: 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.stage { width: min(calc(100vw - 2rem), 60rem); margin-left: calc(50% - min(50vw - 1rem, 30rem)); display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
 .stage img, .stage video, .stage .media { width: auto; max-width: 100%; max-height: 36rem; border-radius: 0.5rem; }
 .stage figcaption { color: var(--muted); font-size: 0.875rem; text-align: center; }
 .cs__body > * + * { margin-top: 1rem; }

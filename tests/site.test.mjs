@@ -97,8 +97,29 @@ test("case study: draft note on a placeholder", () => {
   assert.match(html, /<meta name="robots" content="noindex">/);
 });
 
-test("case study: a use-case story waiting for approval has the draft note", () => {
-  assert.ok(page("case-studies/no-code-exit").includes("Draft. Waits for the client&#39;s approval."));
+test("case study: a story waiting for approval shows no draft note, but stays out of search", () => {
+  const html = page("case-studies/no-code-exit");
+  assert.ok(!html.includes("Waits for the client"));
+  assert.ok(!page("fr/case-studies/no-code-exit").includes("En attente de la validation"));
+  assert.match(html, /<meta name="robots" content="noindex">/);
+});
+
+test("case study: the client card says where it leads", () => {
+  assert.match(page("case-studies/no-code-exit"), /<small>See every project for this client<\/small>/);
+  assert.match(page("fr/case-studies/no-code-exit"), /<small>Voir tous les projets pour ce client<\/small>/);
+});
+
+test("case study: the image frame has no grey box of its own", async () => {
+  const { readFileSync } = await import("node:fs");
+  const rule = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8").match(/^\.stage \{[^}]*\}/m)[0];
+  assert.doesNotMatch(rule, /background|border:/, "an image with its own grey background showed two greys");
+});
+
+test("no-code exit: Gautier's corrections of 2026-10-01", () => {
+  const exit = page("case-studies/no-code-exit");
+  assert.doesNotMatch(exit, /outgrown/i, "the product did not outgrow Bubble");
+  for (const why of ["HubSpot", "Salesforce", "A/B tests", "AI agents"]) assert.ok(exit.includes(why), why);
+  for (const gone of [/not from memory/, /twelve/, /thirteen pages/, /took seconds/, /plugins changed/]) assert.doesNotMatch(exit, gone);
 });
 
 test("the old addresses are gone, and nothing links to them", () => {
@@ -291,6 +312,24 @@ test("use cases: written for the buyer, with the result number in the title", ()
   const exit = page("case-studies/no-code-exit");
   assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
   assert.match(exit, /about 200,000 users at the time of the migration/);
+});
+
+test("no-code exit: the course's case study shape, in plain words", () => {
+  const exit = page("case-studies/no-code-exit");
+  const title = exit.match(/<h1>(.*?)<\/h1>/)[1];
+  assert.match(title, /in two months/, "the result comes with its duration");
+  assert.match(exit, /What I learned/, "a section on what went wrong and what was learned");
+  assert.match(exit, /<strong>Before\.<\/strong>/);
+  assert.match(exit, /<strong>After\.<\/strong>/);
+  assert.match(exit, /coding agents/, "says who wrote the code");
+  for (const jargon of [/delta-sync/i, /cursors/i, /run log/i, /fill rate/i, /500 features/]) assert.doesNotMatch(exit, jargon);
+});
+
+test("use cases: the label shows the name and the period, not the client type the intro already gives", () => {
+  assert.match(page("case-studies/no-code-exit"), /<p class="cs__label">The no-code exit · April to May 2026<\/p>/);
+  for (const slug of STORIES) assert.doesNotMatch(page(`case-studies/${slug}`), /class="cs__label">[^<]*lead extraction/, slug);
+  // An app page keeps the client, often the only place that says who the client was.
+  assert.match(page("case-studies/battery-recycling"), /class="cs__label">.*A subsidiary of a large French automotive group/);
 });
 
 test("homepage: the Evaboot quote still under review stays off the homepage", () => {
