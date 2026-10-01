@@ -433,6 +433,7 @@ test("GitHub graph: the five tints are clearly apart, from the empty day to the 
 
 test("GitHub graph: the tints fill in from empty, the busiest days last, never under reduced motion", { skip: !process.env.GITHUB_TOKEN }, () => {
   const css = cssText();
+  assert.ok(!/\.gh-body\{[^}]*(?:100vw|56rem)/.test(css), "the grid stays in the text column, as wide as the text");
   assert.match(css, /\.gh-body\.gh-wait \.gh-day\{background-color:#e{3,6}\}/);
   assert.match(css, /\.gh-body\.gh-play \.gh-day\{animation:gh-heat [^;}]*var\(--lv/);
   assert.match(css, /\.gh-n\{font-variant-numeric:tabular-nums\}/);
