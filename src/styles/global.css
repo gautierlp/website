@@ -194,6 +194,8 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 .gh-body.gh-wait .gh-day { background-color: #eeeeee; }
 .gh-body.gh-play .gh-day { animation: gh-heat 800ms ease-out calc(var(--lv, 0) * 380ms + var(--n) * 500ms) both; }
 @keyframes gh-heat { from { background-color: #eeeeee; } }
+/* Figures of one width, so the total does not jitter while it counts up. */
+.gh-n { font-variant-numeric: tabular-nums; }
 /* The label of a day. It sits on <body> so it can stay inside the screen edge. */
 .gh-tip { position: fixed; left: 0; top: 0; z-index: 1000; pointer-events: none; white-space: nowrap; padding: 4px 8px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 0.6875rem; font-weight: 500; line-height: 1.4;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14); display: none; opacity: 0; scale: 0.94; transform-origin: 50% 100%;

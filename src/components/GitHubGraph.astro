@@ -9,6 +9,7 @@ const tr = t(lang);
 const year = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
 const cal = year && lastMonths(year, 12);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
+const [beforeTotal, afterTotal] = tr("github.caption").split("{n}");
 ---
 {cal && (
   <section class="gh" aria-label={tr("github.caption").replace("{n}", total)}>
@@ -22,14 +23,14 @@ const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") 
       </div>
     </div>
     <div class="gh-foot">
-      <span class="gh-total">{tr("github.caption").replace("{n}", total)}</span>
+      <span class="gh-total">{beforeTotal}<span class="gh-n">{total}</span>{afterTotal}</span>
       <span><a class="gh-link hero__ref" href="https://github.com/gautierlp" target="_blank" rel="noopener">{tr("github.view")}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7" /></svg></a></span>
     </div>
   </section>
 )}
 <script is:inline>
-// The graph is built with the site. This script only adds the label on each day and the
-// reveal of the columns. After the graph of creativeatishay.in.
+// The graph is built with the site. This script only adds the label on each day, the
+// reveal of the grid and the count of the total. After the graph of creativeatishay.in.
 (() => {
   const grid = document.querySelector("[data-gh-grid]");
   if (!grid) return;
@@ -38,16 +39,36 @@ const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") 
 
   // Reveal, the first time the grid is seen: all the days start empty, then the tints fill in,
   // the lightest first and the busiest days last. Each day gets its tint (--lv) and a random number (--n).
+  // The total counts up with the grid: each day adds its contributions when its tint arrives,
+  // half way through its 800ms fade. The timing below must match .gh-play .gh-day in global.css.
   if (!reduced && "IntersectionObserver" in window) {
+    const steps = [];
     for (const day of grid.querySelectorAll(".gh-day")) {
-      day.style.setProperty("--lv", day.className.match(/l(\d)/)?.[1] ?? 0);
-      day.style.setProperty("--n", Math.random().toFixed(3));
+      const lv = Number(day.className.match(/l(\d)/)?.[1] ?? 0);
+      const n = Number(Math.random().toFixed(3));
+      day.style.setProperty("--lv", lv);
+      day.style.setProperty("--n", n);
+      if (Number(day.dataset.count)) steps.push([lv * 380 + n * 500 + 400, Number(day.dataset.count)]);
     }
+    steps.sort((a, b) => a[0] - b[0]);
+    const shown = document.querySelector(".gh-n");
+    const final = shown && shown.textContent;
+    const count = (n) => { if (shown) shown.textContent = n.toLocaleString(grid.dataset.locale === "fr-FR" ? "fr-FR" : "en-US"); };
+    count(0);
     body.classList.add("gh-wait");
     const io = new IntersectionObserver((entries) => {
       if (!entries[0].isIntersecting) return;
       io.disconnect();
       body.classList.replace("gh-wait", "gh-play");
+      const start = performance.now();
+      let i = 0, sum = 0;
+      const tick = (now) => {
+        while (i < steps.length && steps[i][0] <= now - start) sum += steps[i++][1];
+        count(sum);
+        if (i < steps.length) requestAnimationFrame(tick);
+        else if (shown) shown.textContent = final;
+      };
+      requestAnimationFrame(tick);
     }, { threshold: 0.35 });
     io.observe(body);
   }

@@ -172,7 +172,10 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.match(html, /<section class="gh" aria-label="[\d,]+ contributions in the last 12 months">/);
   assert.ok(!html.includes("gh-title") && !html.includes("gh-key"), "no heading, no key");
   // The foot has the total and the link to the profile.
-  assert.match(html, /<span class="gh-total">[\d,]+ contributions in the last 12 months<\/span>/);
+  // The number has its own span, so the script can count it up while the grid fills in.
+  assert.match(html, /<span class="gh-total"><span class="gh-n">[\d,]+<\/span> contributions in the last 12 months<\/span>/);
+  assert.match(page("fr"), /<span class="gh-total"><span class="gh-n">[\d\u202f\u00a0 ]+<\/span> contributions/);
+  assert.match(html, /querySelector\("\.gh-n"\)/);
   // The link looks like the email link in the hero: ink, a thin grey line, the ink line draws on hover.
   assert.match(html, /<a class="gh-link hero__ref" href="https:\/\/github\.com\/gautierlp" target="_blank" rel="noopener">View on GitHub/);
   assert.match(page("fr"), /class="gh-link hero__ref"[^>]*>Voir sur GitHub/);
@@ -431,6 +434,7 @@ test("GitHub graph: the tints fill in from empty, the busiest days last, never u
   const css = cssText();
   assert.match(css, /\.gh-body\.gh-wait \.gh-day\{background-color:#e{3,6}\}/);
   assert.match(css, /\.gh-body\.gh-play \.gh-day\{animation:gh-heat [^;}]*var\(--lv/);
+  assert.match(css, /\.gh-n\{font-variant-numeric:tabular-nums\}/);
   assert.match(css, /@keyframes gh-heat\{(?:from|0%)\{background-color:#e{3,6}\}\}/);
   const html = page("");
   assert.match(html, /if \(!reduced && "IntersectionObserver" in window\)/);
