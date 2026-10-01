@@ -171,8 +171,11 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.ok(at('class="side"') < at('class="gh"') && at('class="gh"') < at('<h2>Your product here'), "side projects, then the strip, then the call to action");
   assert.ok(at('class="work"') < at('class="gh"'), "the client work comes first");
   // Its own section with a heading, as Side projects and Track record. No key of the tints.
-  assert.match(html, /<section class="gh" aria-labelledby="gh-title">\s*<h2 id="gh-title">This year on GitHub<\/h2>/);
-  assert.match(page("fr"), /<h2 id="gh-title">Cette année sur GitHub<\/h2>/);
+  // The heading says "most days" only when more than half of the days in the graph have a contribution.
+  const counts = [...html.matchAll(/data-count="(\d+)"/g)].map((m) => Number(m[1]));
+  const most = counts.filter(Boolean).length * 2 > counts.length;
+  assert.match(html, new RegExp(`<section class="gh" aria-labelledby="gh-title">\\s*<h2 id="gh-title">${most ? "Most days" : "This year"} on GitHub</h2>`));
+  assert.match(page("fr"), new RegExp(`<h2 id="gh-title">${most ? "La plupart des jours" : "Cette année"} sur GitHub</h2>`));
   assert.ok(!html.includes("gh-key"), "no key");
   // The foot has the total and the link to the profile.
   // The number has its own span, so the script can count it up while the grid fills in.

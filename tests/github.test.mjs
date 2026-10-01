@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { lastMonths, level } from "../src/lib/github.ts";
+import { lastMonths, level, mostDays } from "../src/lib/github.ts";
 
 // 53 weeks that end on Tuesday 2026-09-29: 52 full weeks, then Sunday to Tuesday.
 function calendar() {
@@ -40,4 +40,11 @@ test("lastMonths keeps a full week when the 6 months start inside it", () => {
 
 test("level gives the five tints", () => {
   assert.deepEqual([0, 1, 4, 10, 20].map(level), [0, 1, 2, 3, 4]);
+});
+
+test("mostDays is true only when more than half of the days have a contribution", () => {
+  const cal = (counts) => ({ total: 0, weeks: [counts.map((count, i) => ({ date: `2026-09-0${i + 1}`, count }))] });
+  assert.equal(mostDays(cal([1, 1, 0, 0])), false, "half is not most");
+  assert.equal(mostDays(cal([1, 1, 1, 0])), true);
+  assert.equal(mostDays(cal([0, 0, 0, 5])), false, "a busy day counts once");
 });
