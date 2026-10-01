@@ -194,8 +194,8 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   const heroFr = fr.slice(fr.indexOf('class="block hero"'), fr.indexOf('class="hero__actions"'));
   assert.ok(heroFr.includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
   assert.ok(heroFr.includes("plus de 200\u00a0000 utilisateurs"));
-  assert.ok(heroFr.includes("Votre produit n&#39;a pas de vrai responsable"));
-  assert.ok(heroFr.includes("Je prends votre produit en main."));
+  assert.ok(heroFr.includes("Personne ne pilote vraiment votre produit"));
+  assert.ok(heroFr.includes("Je m&#39;en occupe de bout en bout"));
   for (const gone of ["500", "MCP", "CLI", "no-code"]) assert.ok(!heroFr.includes(gone), `French hero still says "${gone}"`);
 });
 
