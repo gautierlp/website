@@ -183,11 +183,14 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   const hero = en.slice(en.indexOf('class="block hero"'), en.indexOf('class="hero__actions"'));
   const proof = hero.indexOf('From 2023 to 2026 I ran <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>&#39;s app with over 200,000 users');
   const problem = hero.indexOf("You have a product that nobody owns end to end, or operations that still run on spreadsheets.");
-  const offer = hero.indexOf("I take ownership of your product.");
+  const offer = hero.indexOf("I take ownership of your product to create");
   assert.ok(proof > 0 && problem > proof && offer > problem, "proof, then problem, then offer");
   assert.ok(hero.includes("annual recurring revenue that grew from $1M to $2M."));
   assert.ok(hero.includes("internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS."));
-  assert.ok(hero.includes("You get one person accountable from the product decision to production, alone or with your team."));
+  assert.ok(hero.includes("I take ownership of your product to create what your users need. From their feedback and your data, I build it and ship it to production. One person accountable, alone or with your team."));
+  // The count links to the list of apps it counts, in both languages.
+  assert.ok(hero.includes('<a class="hero__ref" href="#track-record">a dozen other apps</a>'));
+  assert.match(en, /<section class="block" id="track-record">\s*<h2>Track record<\/h2>/);
   assert.ok(hero.includes("<strong>I build with coding agents every day.</strong>"));
   // Cut on purpose during the 2026-10-01 review: too specific, jargon for the buyer, or a claim Gautier does not make.
   for (const gone of ["500", "MCP", "CLI", "no-code", "write the code", "agency", "over the years"]) assert.ok(!hero.includes(gone), `hero still says "${gone}"`);
@@ -197,6 +200,9 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   assert.ok(heroFr.includes("plus de 200\u00a0000 utilisateurs"));
   assert.ok(heroFr.includes("Votre produit n&#39;a pas de responsable clairement identifié"));
   assert.ok(heroFr.includes("Un seul interlocuteur, en autonomie ou intégré à votre équipe."));
+  assert.ok(heroFr.includes('<a class="hero__ref" href="#track-record">une dizaine d&#39;autres projets</a>'));
+  assert.match(fr, /<section class="block" id="track-record">/);
+  assert.ok(heroFr.includes("<strong>Je pilote des agents IA au quotidien.</strong>"), "active verb: the agents are the tool, not the actor");
   for (const gone of ["500", "MCP", "CLI", "no-code"]) assert.ok(!heroFr.includes(gone), `French hero still says "${gone}"`);
 });
 
