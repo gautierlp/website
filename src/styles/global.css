@@ -189,12 +189,37 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
 .gh-day.l1 { background: #c2c2c2; } .gh-day.l2 { background: #939393; } .gh-day.l3 { background: #5c5c5c; } .gh-day.l4 { background: var(--accent); }
 .gh-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; font-size: 0.875rem; color: var(--muted); }
 .gh-day.is-on { outline: 1.5px solid var(--ink); outline-offset: 1px; }
-/* The reveal: a curtain in the page colour slides off the grid, one column per step. The script adds the classes. */
 .gh-body { position: relative; }
-.gh-body::before { content: ""; position: absolute; z-index: 1; inset: 0; background: var(--bg); pointer-events: none; transform-origin: 100% 50%; transform: scaleX(0); }
-.gh-body.gh-wait::before { transform: scaleX(1); }
-.gh-body.gh-sweep::before { animation: gh-sweep calc(var(--gh-cols, 53) * 12ms) steps(var(--gh-cols, 53), end) both; }
+/* The reveals of the grid. The script sets data-gh-anim, then .gh-wait (the start state) and .gh-play when the grid is seen. */
+/* blur (the default): each column goes from a blur to clear, left to right. */
+[data-gh-anim=blur].gh-wait .gh-week { opacity: 0; filter: blur(8px); }
+[data-gh-anim=blur].gh-play .gh-week { animation: gh-blur 700ms cubic-bezier(0.2, 0, 0, 1) calc(var(--c) * 14ms) both; }
+@keyframes gh-blur { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: blur(0); } }
+/* focus: the whole grid comes into focus at once, like a lens. */
+[data-gh-anim=focus].gh-wait .gh-grid { opacity: 0; filter: blur(16px); scale: 1.03; }
+[data-gh-anim=focus].gh-play .gh-grid { animation: gh-focus 1100ms cubic-bezier(0.2, 0, 0, 1) both; }
+@keyframes gh-focus { from { opacity: 0; filter: blur(16px); scale: 1.03; } }
+/* sweep: a curtain over the grid slides off, one column at a time. */
+[data-gh-anim=sweep]::before { content: ""; position: absolute; z-index: 1; inset: 0; background: var(--bg); pointer-events: none; transform-origin: 100% 50%; transform: scaleX(0); }
+[data-gh-anim=sweep].gh-wait::before { transform: scaleX(1); }
+[data-gh-anim=sweep].gh-play::before { animation: gh-sweep calc(var(--gh-cols, 53) * 12ms) steps(var(--gh-cols, 53), end) both; }
 @keyframes gh-sweep { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+/* wave: the days pop up in a diagonal wave from the top left. */
+[data-gh-anim=wave].gh-wait .gh-day { scale: 0; }
+[data-gh-anim=wave].gh-play .gh-day { animation: gh-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1) calc((var(--c) + var(--r)) * 16ms) both; }
+@keyframes gh-pop { from { scale: 0; } }
+/* rain: the days drop into place, column by column. */
+[data-gh-anim=rain].gh-wait .gh-day { opacity: 0; translate: 0 -10px; }
+[data-gh-anim=rain].gh-play .gh-day { animation: gh-drop 380ms cubic-bezier(0.2, 0, 0, 1) calc(var(--c) * 12ms + var(--r) * 30ms) both; }
+@keyframes gh-drop { from { opacity: 0; translate: 0 -10px; } }
+/* dissolve: the days fade in, in a random order. */
+[data-gh-anim=dissolve].gh-wait .gh-day { opacity: 0; }
+[data-gh-anim=dissolve].gh-play .gh-day { animation: gh-fade 300ms ease-out calc(var(--n) * 1000ms) both; }
+@keyframes gh-fade { from { opacity: 0; } }
+/* heat: all the days start empty, then the tints fill in, the lightest first and the busiest days last. */
+[data-gh-anim=heat].gh-wait .gh-day { background-color: #eeeeee; }
+[data-gh-anim=heat].gh-play .gh-day { animation: gh-heat 500ms ease-out calc(var(--lv, 0) * 220ms + var(--n) * 300ms) both; }
+@keyframes gh-heat { from { background-color: #eeeeee; } }
 /* The label of a day. It sits on <body> so it can stay inside the screen edge. */
 .gh-tip { position: fixed; left: 0; top: 0; z-index: 1000; pointer-events: none; white-space: nowrap; padding: 4px 8px; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 0.6875rem; font-weight: 500; line-height: 1.4;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14); display: none; opacity: 0; scale: 0.94; transform-origin: 50% 100%;
