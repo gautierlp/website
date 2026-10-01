@@ -427,17 +427,14 @@ test("GitHub graph: the five tints are clearly apart, from the empty day to the 
   for (let i = 1; i < tints.length; i++) assert.ok(tints[i - 1] - tints[i] >= 35, `tint ${i}: ${tints[i - 1]} to ${tints[i]}`);
 });
 
-const GH_ANIMS = ["blur", "focus", "sweep", "wave", "rain", "dissolve", "heat"];
-
-test("GitHub graph: a blur to clear reveal by default, and six other reveals to compare", { skip: !process.env.GITHUB_TOKEN }, () => {
-  assert.match(page(""), /<div class="gh-body" data-gh-anim="blur">/);
+test("GitHub graph: the tints fill in from empty, the busiest days last, never under reduced motion", { skip: !process.env.GITHUB_TOKEN }, () => {
   const css = cssText();
-  for (const name of GH_ANIMS) assert.match(css, new RegExp(`\\[data-gh-anim="?${name}"?\\]`), name);
-  assert.match(css, /@keyframes gh-blur\{[^}]*filter:blur\(/);
-  // The script reads ?gh= to try a reveal, and keeps the default for a name it does not know.
+  assert.match(css, /\.gh-body\.gh-wait \.gh-day\{background-color:#e{3,6}\}/);
+  assert.match(css, /\.gh-body\.gh-play \.gh-day\{animation:gh-heat [^;}]*var\(--lv/);
+  assert.match(css, /@keyframes gh-heat\{(?:from|0%)\{background-color:#e{3,6}\}\}/);
   const html = page("");
-  assert.match(html, /new URLSearchParams\(location\.search\)\.get\("gh"\)/);
-  for (const name of GH_ANIMS) assert.ok(html.includes(`"${name}"`), name);
+  assert.match(html, /if \(!reduced && "IntersectionObserver" in window\)/);
+  assert.ok(!html.includes("data-gh-anim") && !html.includes('get("gh")'), "the trial switch is gone");
 });
 
 const PILE = ["JB Jézéquel", "Nirundthan Parameswaran", "Johary Randria", "Pierre Hilbert", "Bastien Paul", "Clara Ananou"];
