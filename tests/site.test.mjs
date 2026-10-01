@@ -11,7 +11,7 @@ const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 const APPS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet", "pachamama"];
 const STORIES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration"];
 const CASE_STUDIES = [...APPS, ...STORIES];
-const EMPTY = ["price-writers", "betc", "protech"];
+const EMPTY = ["price-writers", "betc"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
 const LISTED = APPS.filter((s) => !EMPTY.includes(s));
 const PAGES = ["", "fr", "reviews", "fr/reviews", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
