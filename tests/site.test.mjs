@@ -386,11 +386,19 @@ test("NDA apps: placeholder name blurred, with an NDA label, on the list and the
   }
 });
 
-test("Camarage: a product taken over, with the reason Bubble fit this client", () => {
+test("Camarage: the launch and the payments, only claims the sources support", () => {
   const html = page("case-studies/camarage");
-  assert.match(html, /took over/);
-  assert.match(html, /without a developer/);
-  assert.ok(!html.includes("Migrating a 1,000-user app from Code to Bubble"));
+  assert.match(html, /Stripe/);
+  assert.match(html, /Qonto/);
+  // Not in the sources (2026-10-01 review): no user count of 1,000, the team kept a developer one day a week.
+  for (const claim of ["1,000", "without a developer", "from code to Bubble", "custom-coded"]) assert.ok(!html.includes(claim), claim);
+});
+
+test("Clean Car: no 10 days claim, the build took 17 days and the stores came later", () => {
+  const html = page("case-studies/clean-car");
+  assert.ok(!/10 days/.test(html), "10 days");
+  assert.match(html, /17 days/);
+  assert.ok(!html.includes("transport"), "no vehicle type the sources do not show");
 });
 
 test("Folderly: no quote from a third party about another product", () => {

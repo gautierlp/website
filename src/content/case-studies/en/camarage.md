@@ -1,48 +1,63 @@
 ---
 kind: "app"
 name: "Camarage"
-title: "1,000 users on the app I moved from code to Bubble"
-summary: "I took over Camarage's custom-coded housing platform and rebuilt it on Bubble, so its team could run the product without a developer."
-intro: "I took over Camarage's custom-coded housing platform and rebuilt it on Bubble, so its team could run the product without a developer."
+title: "A housing platform live 30 days after I joined, then its rent payments for 2 years"
+summary: "I built most of Camarage's Bubble platform and launched it in 30 days, then built and ran its Stripe rent payments until 2025."
+intro: "I built most of Camarage's Bubble platform and launched it in 30 days, then built and ran its Stripe rent payments until 2025."
 client: "Camarage"
+when: "February 2023 to June 2025"
 logo: "/assets/images/image34.png"
-result: "1,000"
-resultLabel: "users on the app I moved from code to Bubble"
-stats: [{"value": "1,000", "label": "users on the app I moved from code to Bubble"}]
+result: "30 days"
+resultLabel: "to launch a housing platform, then 2 years of its rent payments"
+stats: [{"value": "30 days", "label": "from my first day to the launch"}, {"value": "3,000+", "label": "young adults in the database"}, {"value": "8,152", "label": "matchings in the database by June 2025"}]
 featured: false
 nda: false
 order: 5
 status: "live"
-review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line."
+review: "Rewritten on 2026-10-01 from the Nifty chat and tickets, Clockify and the NoxCod invoices (sources/camarage/notes.md). The old 1,000 users, custom code and no-developer claims had no source. Check the title, the stats and the Why Bubble section, then delete this line."
 ---
 
 ![Camarage](/assets/projects/camarage/qjftnmkvlglermlhtsxm.webp)
 
-## Situation | Every change went through a developer.
+## Situation | A new platform to launch, and money to collect every month.
 
-Camarage matches seniors who have a spare room with young adults who need a place to live. Its platform was custom code, so every change went through a developer. The team wanted to run its own product.
+[Camarage](https://camarage.fr/) matches seniors who have a spare room with young adults who need a place to live. The young adult pays a matching fee, then a monthly rent. Camarage keeps a follow-up fee and pays the senior by bank transfer.
 
-## Task | Let the team run its own platform.
+In February 2023, Camarage was moving from its old site to a new platform on Bubble. The client had started the project and the designs were ready. The agency NoxCod put me on the development.
 
-Take over the custom-coded platform and rebuild it on a tool the Camarage team can edit itself.
+## Task | Launch the platform, then make the payments run on their own.
+
+Finish the Bubble platform and move the data from the old site. Then make the money side work every month: the fees, the rents, the failed payments and the transfers to the seniors.
 
 ## Why Bubble, for this client
 
-A small team that edits its own listings, rules and pages needs a tool it can open itself. For Camarage that was Bubble. When a product outgrows that setup, I make the opposite move: see [the exit from Bubble](/case-studies/no-code-exit/). The tool follows the product, not the other way round.
+Camarage had chosen Bubble before I joined. It fit: their team edits option sets and workflows, merges and deploys on its own, and calls on a developer for the larger work. When a product outgrows that setup, I make the opposite move: see [the exit from Bubble](/case-studies/no-code-exit/). The tool follows the product, not the other way round.
 
-## Actions | I rebuilt the platform on Bubble, data included.
+## Actions | A launch in 30 days, then the money side.
 
-- I took over the product, from the data model to the launch.
-- I redesigned the database for Bubble.
-- I moved the data in stages: small sets first, each one checked before the next, subscriptions and payments included.
-- I rebuilt the property search on a Google Maps map.
-- I built the admin screens that the team uses for listings and users.
+- I designed the data model with the client, built the sign-up, the account pages, the search for a room and the requests, and the platform went live on 24 March 2023.
+- I moved the data from the old site: users, seniors, young adults, matchings and cohabitations. The 46 young adults already living with a senior paid through a one-off page, and their monthly rent then ran on Stripe.
+- I built the Stripe payments: the matching fee, then a monthly rent subscription. Stripe does not prorate the first month on its own, so I calculated it myself. A change of dates or rent in the admin now updates the subscription in Stripe.
+- I handled failed payments: Stripe flags the young adult, an email goes out every two days, and they can update their card on their own.
+- I built the admin module: one page with tabs for seniors, young adults, matchings and cohabitations, and a payments tab that exports the transfers to the seniors as a Qonto bulk-transfer file.
+- I built the rent cap simulator, the feed that publishes the listings on property portals through Ubiflow, and 13 of the 15 SMS and email workflows of the first round.
 
 ![Camarage data model](/assets/projects/camarage/hnlzpjxacownbk2nob7x.webp)
 
-## Results | 1,000 users, and no developer needed day to day.
+## What I fixed
 
-- A 1,000-user app, moved from code to Bubble.
-- The Camarage team runs the platform day to day without a developer.
+- One table, the Facebook prospects, used 35% of the app's resources. I moved those prospects out of it.
+- The search slowed down to 15 seconds, and up to 45, after a filter on seniors with too many requests. I replaced the filter with a flag that a workflow sets on each change.
+
+## How I worked
+
+I asked before I built, with numbered options when a choice was open. Every change went to a test page or a branch first, then to production after the client approved it. For the actions the team does alone, such as changing a rent in Bubble and in Stripe, I recorded a short video. After the launch I stayed on one to two days a week, then on call until June 2025.
+
+## Results | Live in 30 days, and two years of rent payments.
+
+- The platform went live on 24 March 2023, 30 days after my first day.
+- 499 seniors in production by April 2023, and more than 3,000 young adults in the database.
+- 77 active rent subscriptions on Stripe in January 2024.
+- 8,152 matchings in the database by June 2025.
 
 ![Camarage property search](/assets/projects/camarage/dfaazlthjwfykwtqvdna.webp)
