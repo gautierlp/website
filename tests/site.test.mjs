@@ -162,8 +162,9 @@ test("the old Carrd page is gone", () => {
 
 test("homepage hero: greeting, role in contrast, booking button and email", () => {
   const en = page("");
-  assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
-  assert.match(en, /<span class="hero__role">Technical Product Manager<\/span>/);
+  assert.match(en, /<span class="hero__line">Hi, I&#39;m Gautier, a <\/span>/);
+  assert.match(en, /<span class="hero__line"><span class="hero__role">Technical Product Manager<\/span>\.<\/span>/, "the role on its own line");
+  assert.match(page("fr"), /<span class="hero__line">Bonjour, je suis Gautier, <\/span>/);
   assert.ok(!en.includes('class="mark '));
   assert.ok(!en.includes("Available for day-rate work on your product."));
   assert.ok(!en.includes("new projects"));
@@ -176,22 +177,26 @@ test("homepage hero: greeting, role in contrast, booking button and email", () =
   for (const [html, n] of [[en, "en"], [fr, "fr"]]) assert.ok(!html.includes('href="mailto:gautier@lepoher.co"'), `${n}: a mail link has no subject`);
 });
 
-test("homepage hero: names the client type, the problem and a number", () => {
+test("homepage hero: proof first, then the problem, then the offer, in both languages", () => {
   const en = page("");
-  assert.ok(en.includes("B2B SaaS and internal business apps that nobody owns end to end"));
-  assert.ok(en.includes("then I build it, alone or with your team."));
-  assert.ok(!en.includes("the data, the interfaces, the code"));
-  assert.ok(en.includes("from $1M to $2M in annual revenue"));
-  assert.ok(en.includes("I shipped 500+ features and fixes"));
-  assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>, a B2B SaaS'));
-  assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
-  assert.ok(en.includes("moved its marketing site from WordPress to code"));
-  assert.ok(en.includes("and helped migrate its app from no-code to code."));
-  assert.ok(en.includes("I also built the MCP server and the CLI, as part of its ambition to become an AI-first company."));
-  assert.ok(en.includes("I have also owned and shipped a dozen other apps over the years."));
-  assert.ok(!en.includes("Product Owner from 2019 to 2022."));
-  assert.ok(en.includes("a dozen other apps over the years. <strong>I build with coding agents every day.</strong>"));
-  assert.ok(!en.includes("and I decide what they build"));
+  const hero = en.slice(en.indexOf('class="block hero"'), en.indexOf('class="hero__actions"'));
+  const proof = hero.indexOf('From 2023 to 2026 I ran <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>&#39;s app with over 200,000 users');
+  const problem = hero.indexOf("You have a product that nobody owns end to end, or operations that still run on spreadsheets and email.");
+  const offer = hero.indexOf("I take ownership of your product.");
+  assert.ok(proof > 0 && problem > proof && offer > problem, "proof, then problem, then offer");
+  assert.ok(hero.includes("annual recurring revenue that grew from $1M to $2M."));
+  assert.ok(hero.includes("internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS."));
+  assert.ok(hero.includes("You get one person accountable from the product decision to production, alone or with your team."));
+  assert.ok(hero.includes("<strong>I build with coding agents every day.</strong>"));
+  // Cut on purpose during the 2026-10-01 review: too specific, jargon for the buyer, or a claim Gautier does not make.
+  for (const gone of ["500", "MCP", "CLI", "no-code", "write the code", "agency", "over the years"]) assert.ok(!hero.includes(gone), `hero still says "${gone}"`);
+  const fr = page("fr");
+  const heroFr = fr.slice(fr.indexOf('class="block hero"'), fr.indexOf('class="hero__actions"'));
+  assert.ok(heroFr.includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
+  assert.ok(heroFr.includes("plus de 200\u00a0000 utilisateurs"));
+  assert.ok(heroFr.includes("Vous avez un produit que personne ne porte de bout en bout"));
+  assert.ok(heroFr.includes("Je prends en charge votre produit."));
+  for (const gone of ["500", "MCP", "CLI", "no-code"]) assert.ok(!heroFr.includes(gone), `French hero still says "${gone}"`);
 });
 
 test("homepage: side projects in a row that scrolls sideways, in both languages", () => {
