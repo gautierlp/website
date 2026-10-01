@@ -9,7 +9,7 @@ clientPage: "evaboot"
 result: "200k"
 resultLabel: "users migrated, no downtime"
 stats: [{"value": "200k", "label": "users migrated, no downtime"}, {"value": "2 months", "label": "from the map of the app to the switch"}]
-cover: {"src": "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", "alt": "The product's exports screen"}
+cover: {"src": "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", "alt": "Evaboot's export screen"}
 when: "April to May 2026"
 order: 1
 status: "draft"
@@ -18,7 +18,7 @@ review: "Rewritten on 2026-10-01 against the course. Check it, then delete this 
 
 ## Situation | Bubble held the roadmap back.
 
-The product ran on Bubble, with about 200,000 users at the time of the migration. The roadmap needed more than Bubble allowed: deeper integrations with HubSpot, Salesforce and other CRMs, faster releases, A/B tests, and tests with AI agents. And the cost of Bubble became too high as the product grew.
+The product ran on Bubble, with about 200,000 users at the time of the migration. The roadmap needed more than Bubble allowed: deeper integrations with HubSpot, Salesforce and other CRMs, faster releases, A/B tests and autonomous AI agents. There were also few developers to hire who know Bubble, and the cost of Bubble became too high as the product grew.
 
 The founders decided to rebuild the core on Django and AWS. The risk was the data: years of accounts, exports, credits and billing, which had to arrive intact while customers kept paying.
 
@@ -44,9 +44,9 @@ The map paid off twice. It answered the engineer's questions during the rebuild,
 
 ## Results | All the data moved, and no downtime.
 
-- **Before.** One app on Bubble: no deep CRM integrations, slow releases, no A/B tests, no room to test AI agents, and a bill that rose with the usage.
-- **After.** The core on Django and AWS. Every table loaded and checked after the load (1 May 2026), and both systems in sync until the switch.
-- **The switch.** No downtime for customers (May 2026).
+- **Before.** One app on Bubble: no deep CRM integrations, slow releases, no A/B tests, no autonomous AI agents, few developers to hire who know Bubble, and a bill that rose with the usage.
+- **After.** The core on Django and AWS. Every table loaded and checked after the load, and both systems in sync until the switch.
+- **The switch.** No downtime for customers.
 - **The team.** One more engineer hired after the move off Bubble.
 
 ## What you get

@@ -115,6 +115,24 @@ test("case study: the image frame has no grey box of its own", async () => {
   assert.doesNotMatch(rule, /background|border:/, "an image with its own grey background showed two greys");
 });
 
+test("no-code exit: Gautier's second round of notes", () => {
+  const exit = page("case-studies/no-code-exit");
+  assert.match(exit, /<figcaption>Evaboot&#39;s export screen<\/figcaption>/);
+  assert.ok(exit.includes("A/B tests and autonomous AI agents"));
+  assert.ok(exit.includes("no autonomous AI agents"));
+  assert.equal((exit.match(/few developers to hire who know Bubble/g) ?? []).length, 2, "in the Situation and in Before");
+  assert.doesNotMatch(exit, /\((1 )?May 2026\)/, "no dates in brackets in the results");
+});
+
+test("case study: images fill a rounded frame with a hairline on top, as on plud.net", async () => {
+  const { readFileSync } = await import("node:fs");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const rule = css.match(/^\.stage img, \.stage video \{[^}]*\}/m)?.[0] ?? "";
+  assert.match(rule, /border-radius: 1\.25rem/);
+  assert.match(rule, /outline: 0\.5px solid rgba\(0, 0, 0, 0\.2\)/);
+  assert.match(rule, /outline-offset: -0\.5px/);
+});
+
 test("no-code exit: Gautier's corrections of 2026-10-01", () => {
   const exit = page("case-studies/no-code-exit");
   assert.doesNotMatch(exit, /outgrown/i, "the product did not outgrow Bubble");
