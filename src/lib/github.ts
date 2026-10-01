@@ -51,12 +51,6 @@ export function lastMonths(cal: Calendar, months: number, today: Date = new Date
   return { total: weeks.flat().reduce((sum, day) => sum + day.count, 0), weeks };
 }
 
-/** True when more than half of the days have at least one contribution. */
-export function mostDays(cal: Calendar): boolean {
-  const days = cal.weeks.flat();
-  return days.filter((day) => day.count > 0).length * 2 > days.length;
-}
-
 /** 0 to 4, like GitHub's five tints. */
 export function level(count: number): number {
   if (count >= 20) return 4;

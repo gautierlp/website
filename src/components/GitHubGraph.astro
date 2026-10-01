@@ -1,5 +1,5 @@
 ---
-import { fetchCalendar, lastMonths, level, mostDays } from "../lib/github.ts";
+import { fetchCalendar, lastMonths, level } from "../lib/github.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
 interface Props { lang: Lang }
@@ -9,13 +9,11 @@ const tr = t(lang);
 const year = await fetchCalendar(import.meta.env.GITHUB_TOKEN);
 const cal = year && lastMonths(year, 12);
 const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") : "";
-// "Most days" only once it is true of the graph; until then, "This year".
-const title = cal && tr(mostDays(cal) ? "github.titleMost" : "github.title");
 const [beforeTotal, afterTotal] = tr("github.caption").split("{n}");
 ---
 {cal && (
   <section class="gh" aria-labelledby="gh-title">
-    <h2 id="gh-title">{title}</h2>
+    <h2 id="gh-title">{tr("github.title")}</h2>
     <div class="gh-body">
       <div class="gh-grid" data-gh-grid data-locale={lang === "fr" ? "fr-FR" : "en-GB"} data-none={tr("github.day.none")} data-one={tr("github.day.one")} data-many={tr("github.day.many")} role="img" aria-label={tr("github.caption").replace("{n}", total)}>
         {cal.weeks.map((week) => (
