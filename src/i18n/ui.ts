@@ -9,7 +9,7 @@ const en = {
   "hero.hi": "Hi, I'm Gautier, a ",
   "hero.role": "Technical Product Manager",
   "hero.proof": "From 2023 to 2026 I ran Evaboot's app with over 200,000 users, and annual recurring revenue that grew from $1M to $2M. In the same years, I worked on a dozen other apps: internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS.",
-  "hero.problem": "You have a product that nobody owns end to end, or operations that still run on spreadsheets and email. Requests get lost, the backlog waits, and your team does by hand what software should do.",
+  "hero.problem": "You have a product that nobody owns end to end, or operations that still run on spreadsheets. Requests get lost, the backlog waits, and your team does by hand what software should do.",
   "hero.offer": "I take ownership of your product. I decide what gets built and in what order, from what your users and your numbers say, then ship it to production. You get one person accountable from the product decision to production, alone or with your team.",
   "hero.agents": "I build with coding agents every day.",
   "hero.book": "Book call",

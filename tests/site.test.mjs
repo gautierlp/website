@@ -182,7 +182,7 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   const en = page("");
   const hero = en.slice(en.indexOf('class="block hero"'), en.indexOf('class="hero__actions"'));
   const proof = hero.indexOf('From 2023 to 2026 I ran <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>&#39;s app with over 200,000 users');
-  const problem = hero.indexOf("You have a product that nobody owns end to end, or operations that still run on spreadsheets and email.");
+  const problem = hero.indexOf("You have a product that nobody owns end to end, or operations that still run on spreadsheets.");
   const offer = hero.indexOf("I take ownership of your product.");
   assert.ok(proof > 0 && problem > proof && offer > problem, "proof, then problem, then offer");
   assert.ok(hero.includes("annual recurring revenue that grew from $1M to $2M."));
