@@ -55,7 +55,7 @@ const fr: Partial<Record<keyof typeof en, string>> = {
   "site.description": "Je reprends un SaaS B2B ou une application métier interne que personne ne porte de bout en bout, et je le livre.",
   "hero.line1": "Je prends la main sur votre produit, de la priorisation à la mise en prod.",
   "hero.hi": "Bonjour, je suis Gautier, ",
-  "hero.proof": "De 2023 à 2026, j'ai pris en charge l'application d'Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs dont le revenu annuel récurrent est passé de 1 à 2\u00a0M$ sur la période. En parallèle, j'ai travaillé sur une dizaine d'autres projets\u00a0: outils internes, plateformes de recrutement, marketplaces et SaaS B2B.",
+  "hero.proof": "De 2023 à 2026, j'ai pris en charge l'application d'Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs dont le CA est passé de 1 à 2\u00a0M$ sur la période. En parallèle, j'ai travaillé sur une dizaine d'autres projets\u00a0: outils internes, plateformes de recrutement, marketplaces et SaaS B2B.",
   "hero.problem": "Votre produit n'a pas de responsable clairement identifié, ou vos processus reposent encore sur des spreadsheets. Les demandes se perdent et la roadmap prend du retard.",
   "hero.offer": "Je priorise à partir des retours de vos utilisateurs et de vos KPI, puis je livre. Un seul interlocuteur, en autonomie ou intégré à votre équipe.",
   "hero.agents": "Je travaille au quotidien avec des agents IA.",
