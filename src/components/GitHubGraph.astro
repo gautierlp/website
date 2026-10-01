@@ -39,20 +39,15 @@ const [beforeTotal, afterTotal] = tr("github.caption").split("{n}");
 
   // Reveal, the first time the grid is seen: all the days start empty, then the tints fill in,
   // the lightest first and the busiest days last. Each day gets its tint (--lv) and a random number (--n).
-  // The total counts up with the grid: each day adds its contributions when its tint arrives,
-  // half way through its 800ms fade. The timing below must match .gh-play .gh-day in global.css.
+  // The total counts up while the grid fills in, fast then slow, as the numbers on the case study pages.
   if (!reduced && "IntersectionObserver" in window) {
-    const steps = [];
     for (const day of grid.querySelectorAll(".gh-day")) {
-      const lv = Number(day.className.match(/l(\d)/)?.[1] ?? 0);
-      const n = Number(Math.random().toFixed(3));
-      day.style.setProperty("--lv", lv);
-      day.style.setProperty("--n", n);
-      if (Number(day.dataset.count)) steps.push([lv * 380 + n * 500 + 400, Number(day.dataset.count)]);
+      day.style.setProperty("--lv", day.className.match(/l(\d)/)?.[1] ?? 0);
+      day.style.setProperty("--n", Math.random().toFixed(3));
     }
-    steps.sort((a, b) => a[0] - b[0]);
     const shown = document.querySelector(".gh-n");
     const final = shown && shown.textContent;
+    const total = Number(final?.replace(/\D/g, "") || 0);
     const count = (n) => { if (shown) shown.textContent = n.toLocaleString(grid.dataset.locale === "fr-FR" ? "fr-FR" : "en-US"); };
     count(0);
     body.classList.add("gh-wait");
@@ -61,11 +56,10 @@ const [beforeTotal, afterTotal] = tr("github.caption").split("{n}");
       io.disconnect();
       body.classList.replace("gh-wait", "gh-play");
       const start = performance.now();
-      let i = 0, sum = 0;
       const tick = (now) => {
-        while (i < steps.length && steps[i][0] <= now - start) sum += steps[i++][1];
-        count(sum);
-        if (i < steps.length) requestAnimationFrame(tick);
+        const k = Math.min(1, Math.max(0, now - start) / 2200);
+        count(Math.round(total * (1 - (1 - k) ** 3)));
+        if (k < 1) requestAnimationFrame(tick);
         else if (shown) shown.textContent = final;
       };
       requestAnimationFrame(tick);
