@@ -19,7 +19,8 @@ const cssText = () => readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith
 
 test("homepage: headline in plain text, no code font", () => {
   const html = page("");
-  assert.ok(html.includes("I take over your product and ship it myself."));
+  assert.ok(html.includes("I take over your product and ship it."));
+  assert.ok(!html.includes("myself"));
   assert.ok(!html.includes("ship()"));
 });
 
@@ -96,8 +97,47 @@ test("case study: draft note on a placeholder", () => {
   assert.match(html, /<meta name="robots" content="noindex">/);
 });
 
-test("case study: a use-case story waiting for approval has the draft note", () => {
-  assert.ok(page("case-studies/no-code-exit").includes("Draft. Waits for the client&#39;s approval."));
+test("case study: a story waiting for approval shows no draft note, but stays out of search", () => {
+  const html = page("case-studies/no-code-exit");
+  assert.ok(!html.includes("Waits for the client"));
+  assert.ok(!page("fr/case-studies/no-code-exit").includes("En attente de la validation"));
+  assert.match(html, /<meta name="robots" content="noindex">/);
+});
+
+test("case study: the client card says where it leads", () => {
+  assert.match(page("case-studies/no-code-exit"), /<small>See every project for this client<\/small>/);
+  assert.match(page("fr/case-studies/no-code-exit"), /<small>Voir tous les projets pour ce client<\/small>/);
+});
+
+test("case study: the image frame has no grey box of its own", async () => {
+  const { readFileSync } = await import("node:fs");
+  const rule = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8").match(/^\.stage \{[^}]*\}/m)[0];
+  assert.doesNotMatch(rule, /background|border:/, "an image with its own grey background showed two greys");
+});
+
+test("no-code exit: Gautier's second round of notes", () => {
+  const exit = page("case-studies/no-code-exit");
+  assert.match(exit, /<figcaption>Evaboot&#39;s export screen<\/figcaption>/);
+  assert.ok(exit.includes("A/B tests and autonomous AI agents"));
+  assert.ok(exit.includes("no autonomous AI agents"));
+  assert.equal((exit.match(/few developers to hire who know Bubble/g) ?? []).length, 2, "in the Situation and in Before");
+  assert.doesNotMatch(exit, /\((1 )?May 2026\)/, "no dates in brackets in the results");
+});
+
+test("case study: images fill a rounded frame with a hairline on top, as on plud.net", async () => {
+  const { readFileSync } = await import("node:fs");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const rule = css.match(/^\.stage img, \.stage video \{[^}]*\}/m)?.[0] ?? "";
+  assert.match(rule, /border-radius: 1\.25rem/);
+  assert.match(rule, /outline: 0\.5px solid rgba\(0, 0, 0, 0\.2\)/);
+  assert.match(rule, /outline-offset: -0\.5px/);
+});
+
+test("no-code exit: Gautier's corrections of 2026-10-01", () => {
+  const exit = page("case-studies/no-code-exit");
+  assert.doesNotMatch(exit, /outgrown/i, "the product did not outgrow Bubble");
+  for (const why of ["HubSpot", "Salesforce", "A/B tests", "AI agents"]) assert.ok(exit.includes(why), why);
+  for (const gone of [/not from memory/, /twelve/, /thirteen pages/, /took seconds/, /plugins changed/]) assert.doesNotMatch(exit, gone);
 });
 
 test("the old addresses are gone, and nothing links to them", () => {
@@ -108,7 +148,8 @@ test("the old addresses are gone, and nothing links to them", () => {
 test("every internal link on every page resolves", () => {
   const pages = PAGES;
   for (const p of pages) {
-    for (const href of links(page(p))) {
+    for (const link of links(page(p))) {
+      const href = link.split("#")[0]; // "/#work" is the homepage, at the Selected work cards
       if (!href.startsWith("/") || href.startsWith("/assets/") || href.startsWith("/_astro/") || href === "/") continue;
       assert.ok(exists(href.replace(/^\/|\/$/g, "")), `${p} -> ${href}`);
     }
@@ -162,8 +203,9 @@ test("the old Carrd page is gone", () => {
 
 test("homepage hero: greeting, role in contrast, booking button and email", () => {
   const en = page("");
-  assert.match(en, /Hi, I&#39;m Gautier Le Poher/);
-  assert.match(en, /<span class="hero__role">Technical Product Manager<\/span>/);
+  assert.match(en, /<span class="hero__line">Hi, I&#39;m Gautier, a <\/span>/);
+  assert.match(en, /<span class="hero__line"><span class="hero__role">Technical Product Manager<\/span>\.<\/span>/, "the role on its own line");
+  assert.match(page("fr"), /<span class="hero__line">Bonjour, je suis Gautier, <\/span>/);
   assert.ok(!en.includes('class="mark '));
   assert.ok(!en.includes("Available for day-rate work on your product."));
   assert.ok(!en.includes("new projects"));
@@ -176,22 +218,32 @@ test("homepage hero: greeting, role in contrast, booking button and email", () =
   for (const [html, n] of [[en, "en"], [fr, "fr"]]) assert.ok(!html.includes('href="mailto:gautier@lepoher.co"'), `${n}: a mail link has no subject`);
 });
 
-test("homepage hero: names the client type, the problem and a number", () => {
+test("homepage hero: proof first, then the problem, then the offer, in both languages", () => {
   const en = page("");
-  assert.ok(en.includes("B2B SaaS and internal business apps that nobody owns end to end"));
-  assert.ok(en.includes("then I build it, alone or with your team."));
-  assert.ok(!en.includes("the data, the interfaces, the code"));
-  assert.ok(en.includes("from $1M to $2M in annual revenue"));
-  assert.ok(en.includes("I shipped 500+ features and fixes"));
-  assert.ok(en.includes('From 2023 to 2026 I worked on <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>, a B2B SaaS'));
-  assert.ok(page("fr").includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
-  assert.ok(en.includes("moved its marketing site from WordPress to code"));
-  assert.ok(en.includes("and helped migrate its app from no-code to code."));
-  assert.ok(en.includes("I also built the MCP server and the CLI, as part of its ambition to become an AI-first company."));
-  assert.ok(en.includes("I have also owned and shipped a dozen other apps over the years."));
-  assert.ok(!en.includes("Product Owner from 2019 to 2022."));
-  assert.ok(en.includes("a dozen other apps over the years. <strong>I build with coding agents every day.</strong>"));
-  assert.ok(!en.includes("and I decide what they build"));
+  const hero = en.slice(en.indexOf('class="block hero"'), en.indexOf('class="hero__actions"'));
+  const proof = hero.indexOf('From 2023 to 2026 I ran <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>&#39;s app with over 200,000 users');
+  const problem = hero.indexOf("You have a product that nobody owns end to end, or operations that still run on spreadsheets.");
+  const offer = hero.indexOf("I take ownership of your product to create");
+  assert.ok(proof > 0 && problem > proof && offer > problem, "proof, then problem, then offer");
+  assert.ok(hero.includes("annual recurring revenue that grew from $1M to $2M."));
+  assert.ok(hero.includes("internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS."));
+  assert.ok(hero.includes("I take ownership of your product to create what your users need. From their feedback and your data, I build it and ship it to production. One person accountable, alone or with your team."));
+  // The count links to the list of apps it counts, in both languages.
+  assert.ok(hero.includes('<a class="hero__ref" href="#track-record">a dozen other apps</a>'));
+  assert.match(en, /<section class="block" id="track-record">\s*<h2>Track record<\/h2>/);
+  assert.ok(hero.includes("<strong>I build with coding agents every day.</strong>"));
+  // Cut on purpose during the 2026-10-01 review: too specific, jargon for the buyer, or a claim Gautier does not make.
+  for (const gone of ["500", "MCP", "CLI", "no-code", "write the code", "agency", "over the years"]) assert.ok(!hero.includes(gone), `hero still says "${gone}"`);
+  const fr = page("fr");
+  const heroFr = fr.slice(fr.indexOf('class="block hero"'), fr.indexOf('class="hero__actions"'));
+  assert.ok(heroFr.includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
+  assert.ok(heroFr.includes("plus de 200\u00a0000 utilisateurs"));
+  assert.ok(heroFr.includes("Votre produit n&#39;a pas de responsable clairement identifié"));
+  assert.ok(heroFr.includes("Un seul interlocuteur, en autonomie ou intégré à votre équipe."));
+  assert.ok(heroFr.includes('<a class="hero__ref" href="#track-record">une dizaine d&#39;autres projets</a>'));
+  assert.match(fr, /<section class="block" id="track-record">/);
+  assert.ok(heroFr.includes("<strong>Je pilote des agents IA au quotidien.</strong>"), "active verb: the agents are the tool, not the actor");
+  for (const gone of ["500", "MCP", "CLI", "no-code"]) assert.ok(!heroFr.includes(gone), `French hero still says "${gone}"`);
 });
 
 test("homepage: side projects in a row that scrolls sideways, in both languages", () => {
@@ -279,6 +331,24 @@ test("use cases: written for the buyer, with the result number in the title", ()
   const exit = page("case-studies/no-code-exit");
   assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
   assert.match(exit, /about 200,000 users at the time of the migration/);
+});
+
+test("no-code exit: the course's case study shape, in plain words", () => {
+  const exit = page("case-studies/no-code-exit");
+  const title = exit.match(/<h1>(.*?)<\/h1>/)[1];
+  assert.match(title, /in two months/, "the result comes with its duration");
+  assert.match(exit, /What I learned/, "a section on what went wrong and what was learned");
+  assert.match(exit, /<strong>Before\.<\/strong>/);
+  assert.match(exit, /<strong>After\.<\/strong>/);
+  assert.match(exit, /coding agents/, "says who wrote the code");
+  for (const jargon of [/delta-sync/i, /cursors/i, /run log/i, /fill rate/i, /500 features/]) assert.doesNotMatch(exit, jargon);
+});
+
+test("use cases: the label shows the name and the period, not the client type the intro already gives", () => {
+  assert.match(page("case-studies/no-code-exit"), /<p class="cs__label">The no-code exit · April to May 2026<\/p>/);
+  for (const slug of STORIES) assert.doesNotMatch(page(`case-studies/${slug}`), /class="cs__label">[^<]*lead extraction/, slug);
+  // An app page keeps the client, often the only place that says who the client was.
+  assert.match(page("case-studies/battery-recycling"), /class="cs__label">.*A subsidiary of a large French automotive group/);
 });
 
 test("homepage: the Evaboot quote still under review stays off the homepage", () => {
@@ -471,4 +541,24 @@ test("case studies: a number in the title and the four STAR labels in order", ()
     const labels = [...html.matchAll(/<span class="cs-label">([^<]+)<\/span>/g)].map((m) => m[1]).filter((l) => STAR.includes(l));
     assert.deepEqual(labels, STAR, slug);
   }
+});
+
+test("case study: a back link above the title returns to the list the story comes from", () => {
+  assert.match(page(""), /<section class="work" id="work"/);
+  assert.match(page("case-studies/no-code-exit"), /<a class="cs__back" href="\/#work">← Selected work<\/a>/);
+  assert.match(page("fr/case-studies/no-code-exit"), /<a class="cs__back" href="\/fr\/#work">← Projets phares<\/a>/);
+  assert.match(page("case-studies/camarage"), /<a class="cs__back" href="\/#track-record">← Track record<\/a>/);
+  const html = page("case-studies/no-code-exit");
+  assert.ok(html.indexOf('class="cs__back"') < html.indexOf("<h1>"), "above the title");
+});
+
+test("case study: a card at the bottom leads to the next story of the same list, and the last one wraps", () => {
+  const next = (slug) => page(slug).match(/<a class="cs__next" href="([^"]+)"[^>]*>[\s\S]*?<strong[^>]*>([^<]+)<\/strong>/)?.slice(1);
+  assert.deepEqual(next("case-studies/no-code-exit"), ["/case-studies/interfaces-on-a-new-stack/", "The API, the CLI and the MCP server"]);
+  assert.deepEqual(next("case-studies/marketing-site-migration"), ["/case-studies/no-code-exit/", "The no-code exit"], "the last use case wraps to the first");
+  assert.deepEqual(next("case-studies/evaboot"), ["/case-studies/pachamama/", "Pachamama"], "apps follow the Track record order");
+  assert.deepEqual(next("case-studies/domeet"), ["/case-studies/evaboot/", "Evaboot"], "the last app wraps to the first");
+  assert.equal(next("case-studies/camarage")?.[0], "/case-studies/dealership-onboarding/");
+  assert.match(page("case-studies/no-code-exit"), /<small>Next<\/small>/);
+  assert.match(page("fr/case-studies/no-code-exit"), /<a class="cs__next" href="\/fr\/case-studies\/interfaces-on-a-new-stack\/"[\s\S]*?<small>Suivant<\/small>/);
 });

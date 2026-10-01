@@ -1,8 +1,9 @@
 ---
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
-interface Props { lang: Lang; empty: boolean }
-const { lang, empty } = Astro.props;
+// Shown on a case study page that has no text yet.
+interface Props { lang: Lang }
+const { lang } = Astro.props;
 const tr = t(lang);
 ---
-<p class="draft-note">{empty ? tr("draft.empty") : tr("draft.pending")}</p>
+<p class="draft-note">{tr("draft.empty")}</p>

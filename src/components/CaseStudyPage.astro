@@ -5,7 +5,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Media from "./Media.astro";
 import Quote from "./Quote.astro";
 import DraftNote from "./DraftNote.astro";
-import { getClients, langOf, slugOf, type CaseStudy } from "../lib/content.ts";
+import ArrowRight from "./icons/ArrowRight.astro";
+import { getCaseStudies, getClients, langOf, slugOf, type CaseStudy } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath, stripLang } from "../i18n/utils.ts";
 
@@ -20,16 +21,28 @@ const isEmpty = study.body === undefined || study.body.trim() === "";
 const client = d.clientPage ? (await getClients(lang)).find((c) => slugOf(c) === d.clientPage) : undefined;
 const isFallback = pageLang !== lang;
 const canonical = isFallback ? "https://lepoher.co" + stripLang(Astro.url.pathname) : undefined;
-const label = [d.client !== d.name ? d.client : "", d.when].filter(Boolean).join(" · ");
+// A use case's intro already says what kind of company it was, so its label leaves the client out.
+const showClient = d.kind !== "use-case" && d.client !== d.name;
+const label = [showClient ? d.client : "", d.when].filter(Boolean).join(" · ");
+// The list this story belongs to on the homepage: use cases are the Selected work cards, apps the live Track record lines.
+const isUseCase = d.kind === "use-case";
+const list = (await getCaseStudies(lang)).filter((s) => s.data.kind === d.kind && (isUseCase || s.data.status === "live"));
+const back = isUseCase
+  ? { href: `${localePath(lang, "/")}#work`, text: tr("section.selectedWork") }
+  : { href: `${localePath(lang, "/")}#track-record`, text: tr("section.allApps") };
+// The next story in that list, back to the first after the last. A story not in the list (an empty draft) leads to the first.
+const at = list.findIndex((s) => slugOf(s) === slugOf(study));
+const next = list.length > 1 ? list[(at + 1) % list.length] : undefined;
 ---
 <BaseLayout lang={pageLang} routeLang={lang} title={`${d.title} | Gautier Le Poher`} description={d.summary} noindex={isDraft || isFallback} canonical={canonical}>
   <article class="cs">
     <header class="cs__head" data-r>
+      <a class="cs__back" href={back.href}>← {back.text}</a>
       <p class="cs__label">{d.nda ? <><span class="nda">{d.name}</span> <span class="nda-label">{tr("project.nda")}</span></> : d.name}{label && ` · ${label}`}</p>
       <h1>{d.title}</h1>
       <p class="cs__intro">{d.intro}</p>
     </header>
-    {isDraft && <DraftNote lang={lang} empty={isEmpty} />}
+    {isDraft && isEmpty && <DraftNote lang={lang} />}
     {d.stats.length > 0 && (
       <ul class="cs__stats" data-r>
         {d.stats.map((s) => <li><b data-stat>{s.value}</b><span>{s.label}</span></li>)}
@@ -50,6 +63,12 @@ const label = [d.client !== d.name ? d.client : "", d.when].filter(Boolean).join
       <a class="cs__client" href={localePath(lang, `/clients/${slugOf(client)}/`)} data-r>
         {client.data.logo && <img src={client.data.logo} alt="" width="40" height="40" />}
         <span><strong>{client.data.name}</strong><small>{tr("caseStudy.more")}</small></span>
+      </a>
+    )}
+    {next && (
+      <a class="cs__next" href={localePath(lang, `/case-studies/${slugOf(next)}/`)} data-r>
+        <span><small>{tr("caseStudy.next")}</small><strong class={next.data.nda ? "nda" : undefined}>{next.data.name}</strong><span class="cs__next-title">{next.data.title}</span></span>
+        <ArrowRight />
       </a>
     )}
   </article>

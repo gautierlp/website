@@ -4,21 +4,34 @@ import { localePath, mailto, t } from "../i18n/utils.ts";
 import BookingLink from "./BookingLink.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
-// The first "Evaboot" of the second paragraph links to the Evaboot client page.
-const REF = "Evaboot";
-const p2 = tr("hero.p2");
-const at = p2.indexOf(REF);
-const refHref = localePath(Astro.props.lang, "/clients/evaboot/");
+// Two phrases of the proof paragraph are links: the first "Evaboot" goes to the Evaboot client page,
+// and the count of other apps goes down to the Track record list that it counts.
+const proof = tr("hero.proof");
+const refs = [
+  { text: "Evaboot", href: localePath(Astro.props.lang, "/clients/evaboot/") },
+  { text: tr("hero.proofCount"), href: "#track-record" },
+];
+// Split the paragraph into plain text and links, in the order they appear. A phrase not found stays plain text.
+const parts: { text: string; href?: string }[] = [];
+let rest = proof;
+for (const ref of refs.map((r) => ({ ...r, at: proof.indexOf(r.text) })).filter((r) => r.at >= 0).sort((a, b) => a.at - b.at)) {
+  const at = rest.indexOf(ref.text);
+  parts.push({ text: rest.slice(0, at) }, { text: ref.text, href: ref.href });
+  rest = rest.slice(at + ref.text.length);
+}
+parts.push({ text: rest });
 ---
 <section class="block hero">
   <img class="avatar" src="/assets/images/avatar.jpg" alt="Gautier Le Poher" width="56" height="56" />
   <h1>
-    <span class="hero__line">{tr("hero.hi")}<span class="nowrap"><span class="hero__role">{tr("hero.role")}</span>.</span></span>
+    <span class="hero__line">{tr("hero.hi")}</span>
+    <span class="hero__line"><span class="hero__role">{tr("hero.role")}</span>.</span>
     <span class="hero__line">{tr("hero.line1")}</span>
   </h1>
-  <p>{tr("hero.p1")}</p>
-  <p>{at < 0 ? p2 : <>{p2.slice(0, at)}<a class="hero__ref" href={refHref}>{REF}</a>{p2.slice(at + REF.length)}</>}</p>
-  <p>{tr("hero.clients")} <strong>{tr("hero.agents")}</strong></p>
+  <p>{parts.map((p) => (p.href ? <a class="hero__ref" href={p.href}>{p.text}</a> : p.text))}</p>
+  <p>{tr("hero.problem")}</p>
+  <p>{tr("hero.offer")}</p>
+  <p><strong>{tr("hero.agents")}</strong></p>
   <div class="hero__actions">
     <BookingLink class="pill">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="10" rx="2" /><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3" /></svg>

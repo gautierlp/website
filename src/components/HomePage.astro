@@ -28,7 +28,7 @@ const projectItems = studies.filter((s) => s.data.kind === "app" && s.data.statu
   <GitHubGraph lang={lang} />
   <WorkCarousel useCases={useCases} lang={lang} />
   <TestimonialPile lang={lang} />
-  <section class="block">
+  <section class="block" id="track-record">
     <h2>{tr("section.allApps")}</h2>
     <PlainList items={projectItems} lang={lang} />
   </section>
