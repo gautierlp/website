@@ -56,7 +56,7 @@ const fr: Partial<Record<keyof typeof en, string>> = {
   "hero.line1": "Je prends la main sur votre produit, de la priorisation à la mise en prod.",
   "hero.hi": "Bonjour, je suis Gautier, ",
   "hero.proof": "De 2023 à 2026, j'ai pris en charge l'application d'Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs dont le revenu annuel récurrent est passé de 1 à 2\u00a0M$ sur la période. En parallèle, j'ai travaillé sur une dizaine d'autres projets\u00a0: outils internes, plateformes de recrutement, marketplaces et SaaS B2B.",
-  "hero.problem": "Le fondateur développe encore l'application lui-même, faute de quelqu'un pour la reprendre. Ou vos équipes suivent leurs dossiers sur Excel, relancent par e-mail et font leurs PDF à la main. Dans les deux cas, le produit n'avance que lorsque quelqu'un trouve le temps de s'en occuper.",
+  "hero.problem": "Votre produit n'a pas de responsable clairement identifié, ou certains processus reposent encore sur Excel et des échanges par e-mail. Les demandes se perdent, la roadmap prend du retard et les équipes consacrent du temps à des tâches qui pourraient être automatisées.",
   "hero.offer": "Je m'en occupe de bout en bout\u00a0: je priorise ce qui doit être construit à partir des retours de vos utilisateurs et de vos KPI, puis je le mets en production. Un seul interlocuteur, de la décision produit à la mise en prod, en autonomie ou intégré à votre équipe.",
   "hero.agents": "Je travaille au quotidien avec des agents IA.",
   "hero.book": "Réserver un appel",
