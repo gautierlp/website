@@ -148,7 +148,8 @@ test("the old addresses are gone, and nothing links to them", () => {
 test("every internal link on every page resolves", () => {
   const pages = PAGES;
   for (const p of pages) {
-    for (const href of links(page(p))) {
+    for (const link of links(page(p))) {
+      const href = link.split("#")[0]; // "/#work" is the homepage, at the Selected work cards
       if (!href.startsWith("/") || href.startsWith("/assets/") || href.startsWith("/_astro/") || href === "/") continue;
       assert.ok(exists(href.replace(/^\/|\/$/g, "")), `${p} -> ${href}`);
     }
@@ -540,4 +541,24 @@ test("case studies: a number in the title and the four STAR labels in order", ()
     const labels = [...html.matchAll(/<span class="cs-label">([^<]+)<\/span>/g)].map((m) => m[1]).filter((l) => STAR.includes(l));
     assert.deepEqual(labels, STAR, slug);
   }
+});
+
+test("case study: a back link above the title returns to the list the story comes from", () => {
+  assert.match(page(""), /<section class="work" id="work"/);
+  assert.match(page("case-studies/no-code-exit"), /<a class="cs__back" href="\/#work">← Selected work<\/a>/);
+  assert.match(page("fr/case-studies/no-code-exit"), /<a class="cs__back" href="\/fr\/#work">← Projets phares<\/a>/);
+  assert.match(page("case-studies/camarage"), /<a class="cs__back" href="\/#track-record">← Track record<\/a>/);
+  const html = page("case-studies/no-code-exit");
+  assert.ok(html.indexOf('class="cs__back"') < html.indexOf("<h1>"), "above the title");
+});
+
+test("case study: a card at the bottom leads to the next story of the same list, and the last one wraps", () => {
+  const next = (slug) => page(slug).match(/<a class="cs__next" href="([^"]+)"[^>]*>[\s\S]*?<strong[^>]*>([^<]+)<\/strong>/)?.slice(1);
+  assert.deepEqual(next("case-studies/no-code-exit"), ["/case-studies/interfaces-on-a-new-stack/", "The API, the CLI and the MCP server"]);
+  assert.deepEqual(next("case-studies/marketing-site-migration"), ["/case-studies/no-code-exit/", "The no-code exit"], "the last use case wraps to the first");
+  assert.deepEqual(next("case-studies/evaboot"), ["/case-studies/pachamama/", "Pachamama"], "apps follow the Track record order");
+  assert.deepEqual(next("case-studies/domeet"), ["/case-studies/evaboot/", "Evaboot"], "the last app wraps to the first");
+  assert.equal(next("case-studies/camarage")?.[0], "/case-studies/dealership-onboarding/");
+  assert.match(page("case-studies/no-code-exit"), /<small>Next<\/small>/);
+  assert.match(page("fr/case-studies/no-code-exit"), /<a class="cs__next" href="\/fr\/case-studies\/interfaces-on-a-new-stack\/"[\s\S]*?<small>Suivant<\/small>/);
 });

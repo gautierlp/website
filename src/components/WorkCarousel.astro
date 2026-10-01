@@ -21,7 +21,7 @@ const cards = useCases.map((u) => ({
   href: localePath(lang, `/case-studies/${slugOf(u)}/`),
 }));
 ---
-<section class="work" aria-labelledby="work-title">
+<section class="work" id="work" aria-labelledby="work-title">
   <h2 id="work-title">{tr("section.selectedWork")}</h2>
   <ul class="work__track" data-carousel aria-label={tr("section.selectedWork")}>
     {cards.map((c, i) => (
