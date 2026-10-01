@@ -19,7 +19,8 @@ const cssText = () => readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith
 
 test("homepage: headline in plain text, no code font", () => {
   const html = page("");
-  assert.ok(html.includes("I take over your product and ship it myself."));
+  assert.ok(html.includes("I take over your product and ship it."));
+  assert.ok(!html.includes("myself"));
   assert.ok(!html.includes("ship()"));
 });
 

@@ -4,8 +4,8 @@ export const defaultLang: Lang = "en";
 
 const en = {
   "site.title": "Gautier Le Poher",
-  "site.description": "I take over a B2B SaaS or an internal business app that nobody owns end to end, and ship it myself.",
-  "hero.line1": "I take over your product and ship it myself.",
+  "site.description": "I take over a B2B SaaS or an internal business app that nobody owns end to end, and ship it.",
+  "hero.line1": "I take over your product and ship it.",
   "hero.hi": "Hi, I'm Gautier, a ",
   "hero.role": "Technical Product Manager",
   "hero.proof": "From 2023 to 2026 I ran Evaboot's app with over 200,000 users, and annual recurring revenue that grew from $1M to $2M. In the same years, I worked on a dozen other apps: internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS.",
@@ -52,7 +52,7 @@ const en = {
 
 const fr: Partial<Record<keyof typeof en, string>> = {
   "site.title": "Gautier Le Poher",
-  "site.description": "Je reprends un SaaS B2B ou une application métier interne que personne ne porte de bout en bout, et je le livre moi-même.",
+  "site.description": "Je reprends un SaaS B2B ou une application métier interne que personne ne porte de bout en bout, et je le livre.",
   "hero.line1": "Je prends la main sur votre produit, de la priorisation à la mise en prod.",
   "hero.hi": "Bonjour, je suis Gautier, ",
   "hero.proof": "De 2023 à 2026, j'ai pris en charge l'application d'Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs dont le revenu annuel récurrent est passé de 1 à 2\u00a0M$ sur la période. En parallèle, j'ai travaillé sur une dizaine d'autres projets\u00a0: outils internes, plateformes de recrutement, marketplaces et SaaS B2B.",
