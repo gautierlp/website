@@ -53,10 +53,10 @@ const en = {
 const fr: Partial<Record<keyof typeof en, string>> = {
   "site.title": "Gautier Le Poher",
   "site.description": "Je reprends un SaaS B2B ou une application métier interne que personne ne porte de bout en bout, et je le livre moi-même.",
-  "hero.line1": "Je reprends la main sur votre produit, de la priorisation à la mise en prod.",
+  "hero.line1": "Je prends la main sur votre produit, de la priorisation à la mise en prod.",
   "hero.hi": "Bonjour, je suis Gautier, ",
-  "hero.proof": "De 2023 à 2026, j'ai pris en charge l'application d'Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs dont l'ARR est passé de 1 à 2\u00a0M$ sur la période. En parallèle, j'ai travaillé sur une douzaine d'autres projets\u00a0: outils internes, plateformes de recrutement, marketplaces et SaaS B2B.",
-  "hero.problem": "Personne ne pilote vraiment votre produit\u00a0? Vos équipes gèrent encore leurs process sur Excel et par mail\u00a0? Résultat\u00a0: les demandes se perdent, la roadmap prend du retard, et tout le monde perd un temps fou sur des tâches qui devraient être automatisées.",
+  "hero.proof": "De 2023 à 2026, j'ai pris en charge l'application d'Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs dont le revenu annuel récurrent est passé de 1 à 2\u00a0M$ sur la période. En parallèle, j'ai travaillé sur une dizaine d'autres projets\u00a0: outils internes, plateformes de recrutement, marketplaces et SaaS B2B.",
+  "hero.problem": "Votre produit n'a pas de responsable clairement identifié, ou certains processus reposent encore sur Excel et des échanges par e-mail. Les demandes se perdent, la roadmap prend du retard et les équipes consacrent du temps à des tâches qui pourraient être automatisées.",
   "hero.offer": "Je m'en occupe de bout en bout\u00a0: je priorise ce qui doit être construit à partir des retours utilisateurs et des données, puis je le mets en production. Un seul interlocuteur, de la décision produit à la mise en prod, en autonomie ou intégré à votre équipe.",
   "hero.agents": "Je travaille au quotidien avec des agents IA.",
   "hero.book": "Réserver un appel",
