@@ -195,7 +195,7 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   assert.ok(heroFr.includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
   assert.ok(heroFr.includes("plus de 200\u00a0000 utilisateurs"));
   assert.ok(heroFr.includes("Votre produit n&#39;a pas de responsable clairement identifié"));
-  assert.ok(heroFr.includes("Je m&#39;en occupe de bout en bout"));
+  assert.ok(heroFr.includes("Un seul interlocuteur, en autonomie ou intégré à votre équipe."));
   for (const gone of ["500", "MCP", "CLI", "no-code"]) assert.ok(!heroFr.includes(gone), `French hero still says "${gone}"`);
 });
 
