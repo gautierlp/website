@@ -12,7 +12,8 @@ const total = cal ? cal.total.toLocaleString(lang === "fr" ? "fr-FR" : "en-US") 
 const [beforeTotal, afterTotal] = tr("github.caption").split("{n}");
 ---
 {cal && (
-  <section class="gh" aria-label={tr("github.caption").replace("{n}", total)}>
+  <section class="gh" aria-labelledby="gh-title">
+    <h2 id="gh-title">{tr("github.title")}</h2>
     <div class="gh-body">
       <div class="gh-grid" data-gh-grid data-locale={lang === "fr" ? "fr-FR" : "en-GB"} data-none={tr("github.day.none")} data-one={tr("github.day.one")} data-many={tr("github.day.many")} role="img" aria-label={tr("github.caption").replace("{n}", total)}>
         {cal.weeks.map((week) => (

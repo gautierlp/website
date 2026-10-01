@@ -166,12 +166,14 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.equal((html.match(/class="gh-day l\d" data-count="\d+" data-date="\d{4}-\d{2}-\d{2}"/g) ?? []).length, (html.match(/class="gh-day /g) ?? []).length);
   assert.match(html, /<div class="gh-grid" data-gh-grid data-locale="en-GB" data-none="No contributions on \{date\}" data-one="1 contribution on \{date\}" data-many="\{n\} contributions on \{date\}"/);
   assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
-  // A strip after the side projects it proves, before the call to action: no heading and no key of the tints.
+  // After the side projects it proves, before the call to action.
   const at = (s) => html.indexOf(s);
   assert.ok(at('class="side"') < at('class="gh"') && at('class="gh"') < at('<h2>Your product here'), "side projects, then the strip, then the call to action");
   assert.ok(at('class="work"') < at('class="gh"'), "the client work comes first");
-  assert.match(html, /<section class="gh" aria-label="[\d,]+ contributions in the last 12 months">/);
-  assert.ok(!html.includes("gh-title") && !html.includes("gh-key"), "no heading, no key");
+  // Its own section with a heading, as Side projects and Track record. No key of the tints.
+  assert.match(html, /<section class="gh" aria-labelledby="gh-title">\s*<h2 id="gh-title">This year on GitHub<\/h2>/);
+  assert.match(page("fr"), /<h2 id="gh-title">Cette année sur GitHub<\/h2>/);
+  assert.ok(!html.includes("gh-key"), "no key");
   // The foot has the total and the link to the profile.
   // The number has its own span, so the script can count it up while the grid fills in.
   assert.match(html, /<span class="gh-total"><span class="gh-n">[\d,]+<\/span> contributions in the last 12 months<\/span>/);

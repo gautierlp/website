@@ -172,8 +172,7 @@ a.tile:hover .tile__arrow, a.tile:focus-visible .tile__arrow { color: var(--ink)
   .card, .card__media, .card__media img, .card__copy { transition: none !important; transform: none !important; }
 }
 
-/* GitHub contribution graph: the title and the profile link, the grid, then the total and the key of the five tints. */
-/* The graph sits in the text column, as wide as the text, with no heading. */
+/* The graph is a section of its own, in the text column: a heading, the grid, then the total and the profile link. */
 .gh > * + * { margin-top: 0.75rem; }
 /* The profile link takes the look of the email link in the hero (.hero__ref), plus an arrow: it opens a new tab. It stays inline (a span holds it in the flex row) so its line sits as close to the text as the email link. */
 .gh-link { font-size: 0.875rem; }
