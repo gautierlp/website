@@ -30,3 +30,6 @@ __pycache__/
 
 # Source material for project pages (client tickets, exports, notes), kept locally only
 sources/
+
+# Superset workspace files (design screenshots), kept locally only
+.superset/
