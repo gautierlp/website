@@ -1,3 +1,6 @@
+**Context card:** `~/vault/20 Areas/freelance/_area.md` (status, goals, links). Read it first.
+The positioning that the site copy derives from is `~/vault/20 Areas/freelance/positioning.md`; decisions and logs go to that vault folder (never run git there), and code docs, specs and plans stay in this repo.
+
 ## Development
 
 When starting the dev server, use background mode:
