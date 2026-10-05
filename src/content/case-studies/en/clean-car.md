@@ -10,7 +10,7 @@ logo: "/assets/images/image14.png"
 result: "17 days"
 resultLabel: "to build a booking app, now on the App Store and Google Play"
 stats: [{"value": "17 days", "label": "from the first screen to the full app"}]
-featured: false
+featured: true
 nda: false
 order: 8
 status: "live"

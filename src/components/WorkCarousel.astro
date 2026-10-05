@@ -3,8 +3,8 @@ import type { CaseStudy } from "../lib/content.ts";
 import { slugOf } from "../lib/content.ts";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath } from "../i18n/utils.ts";
-interface Props { useCases: CaseStudy[]; lang: Lang }
-const { useCases, lang } = Astro.props;
+interface Props { stories: CaseStudy[]; lang: Lang }
+const { stories, lang } = Astro.props;
 const tr = t(lang);
 // The picture and logo on each card. "light" cards match the grey behind the laptop mockups.
 const EVABOOT_LOGO = "/assets/images/image30.png";
@@ -13,9 +13,13 @@ type Place = [number, number, number];
 const art: Record<string, { image: string; logo: string; tone: "light" | "dark"; bg: string; place?: Place }> = {
   "no-code-exit": { image: "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", logo: EVABOOT_LOGO, tone: "light", bg: "#e8e8e8" },
   "interfaces-on-a-new-stack": { image: "/assets/projects/evaboot/yeozsoqcr93m15jqq47s.webp", logo: EVABOOT_LOGO, tone: "light", bg: "#e8e8e8", place: [5, -20, 140] },
-  "marketing-site-migration": { image: "/assets/images/image20.jpg", logo: EVABOOT_LOGO, tone: "light", bg: "#e8e8e8", place: [16, -2, 115] },
+  "marketing-site-migration": { image: "/assets/projects/evaboot/marketing-site.webp", logo: EVABOOT_LOGO, tone: "light", bg: "#f2eeff", place: [24, 6, 110] },
+  // "bg" is the colour at the edge of each mockup, so the picture runs into the card.
+  "parts-marketplace": { image: "/assets/projects/parts-marketplace/wcipnwjiikjqyctuxvsx.webp", logo: "", tone: "dark", bg: "#1f272e" },
+  "camarage": { image: "/assets/projects/camarage/qjftnmkvlglermlhtsxm.webp", logo: "", tone: "dark", bg: "#0e1673", place: [-10, -4, 120] },
+  "clean-car": { image: "/assets/projects/clean-car/gpflqpc9ql4ixsxfpma4.webp", logo: "", tone: "dark", bg: "#282828", place: [-10, -8, 120] },
 };
-const cards = useCases.map((u) => ({
+const cards = stories.map((u) => ({
   ...art[slugOf(u)],
   name: u.data.name, summary: u.data.summary, result: u.data.result, resultLabel: u.data.resultLabel,
   href: localePath(lang, `/case-studies/${slugOf(u)}/`),

@@ -10,7 +10,7 @@ logo: "/assets/images/image34.png"
 result: "30 days"
 resultLabel: "to launch a housing platform, then 2 years of its rent payments"
 stats: [{"value": "30 days", "label": "from my first day to the launch"}, {"value": "3,000+", "label": "young adults in the database"}, {"value": "8,152", "label": "matchings in the database by June 2025"}]
-featured: false
+featured: true
 nda: false
 order: 5
 status: "live"

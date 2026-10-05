@@ -11,7 +11,7 @@ resultLabel: "students in the first weeks after launch"
 stats: [{"value": "600+", "label": "students in the first weeks after launch"}]
 cover: {"src": "/assets/images/image18.jpg", "alt": "Landing hero"}
 links: [{"label": "Product Hunt", "url": "https://www.producthunt.com/products/folderly#outreach-academy-by-folderly/"}]
-featured: true
+featured: false
 nda: false
 order: 3
 status: "live"

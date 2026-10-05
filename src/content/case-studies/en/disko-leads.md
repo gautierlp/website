@@ -10,7 +10,7 @@ result: "From 0 to $3k"
 resultLabel: "MRR"
 stats: [{"value": "From 0 to $3k", "label": "MRR"}]
 cover: {"src": "/assets/images/image21.jpg", "alt": "User dashboard"}
-featured: true
+featured: false
 nda: false
 order: 2
 status: "live"

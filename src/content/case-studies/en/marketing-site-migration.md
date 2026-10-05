@@ -9,6 +9,7 @@ clientPage: "evaboot"
 result: "100"
 resultLabel: "Lighthouse performance and SEO"
 stats: [{"value": "100", "label": "Lighthouse performance and SEO"}]
+cover: {"src": "/assets/projects/evaboot/marketing-site.webp", "alt": "The home page of the new marketing site"}
 when: "February to March 2026"
 order: 3
 status: "draft"

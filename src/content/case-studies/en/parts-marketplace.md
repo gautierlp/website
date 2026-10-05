@@ -11,7 +11,7 @@ result: "37 days"
 resultLabel: "from my first day to the site in production"
 stats: [{"value": "37 days", "label": "from my first day to the site in production"}, {"value": "Every weeknight", "label": "the parts list refreshed from the client's file"}]
 cover: {"src": "/assets/projects/parts-marketplace/wcipnwjiikjqyctuxvsx.webp", "alt": "Parts marketplace"}
-featured: false
+featured: true
 nda: true
 order: 4
 status: "live"

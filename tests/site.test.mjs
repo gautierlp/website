@@ -10,6 +10,9 @@ const links = (html) => [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
 
 const APPS = ["evaboot", "disko-leads", "folderly", "parts-marketplace", "camarage", "dealership-onboarding", "battery-recycling", "clean-car", "price-writers", "betc", "protech", "domeet", "pachamama"];
 const STORIES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-migration"];
+// The apps with featured: true follow the stories in the Selected work carousel, in Track record order.
+const FEATURED = ["parts-marketplace", "camarage", "clean-car"];
+const WORK = [...STORIES, ...FEATURED];
 const CASE_STUDIES = [...APPS, ...STORIES];
 const EMPTY = ["price-writers", "betc"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
@@ -48,9 +51,10 @@ test("homepage: the selected work links to every use-case story", () => {
   for (const slug of STORIES) assert.ok(links(html).includes(`/case-studies/${slug}/`), slug);
 });
 
-test("homepage: no Contra case-study link", () => {
-  assert.ok(!page("").includes("contra.com/p/"));
-  assert.ok(page("").includes("https://contra.com/gautierlp"));
+test("homepage: no Contra link, the profiles are LinkedIn and Malt", () => {
+  assert.ok(!page("").includes("contra.com"));
+  assert.ok(page("").includes("https://www.linkedin.com/in/gautier-le-poher/"));
+  assert.ok(page("").includes("https://www.malt.fr/profile/gautierlepoher"));
 });
 
 test("french homepage: French strings and /fr/ links", () => {
@@ -166,9 +170,10 @@ test("homepage: GitHub graph when a token was present at build", { skip: !proces
   assert.equal((html.match(/class="gh-day l\d" data-count="\d+" data-date="\d{4}-\d{2}-\d{2}"/g) ?? []).length, (html.match(/class="gh-day /g) ?? []).length);
   assert.match(html, /<div class="gh-grid" data-gh-grid data-locale="en-GB" data-none="No contributions on \{date\}" data-one="1 contribution on \{date\}" data-many="\{n\} contributions on \{date\}"/);
   assert.match(page("fr"), /data-locale="fr-FR" data-none="Aucune contribution le \{date\}"/);
-  // After the side projects it proves, before the call to action.
+  // After the side projects it proves, at the end of the page: no "Your product here" section.
   const at = (s) => html.indexOf(s);
-  assert.ok(at('class="side"') < at('class="gh"') && at('class="gh"') < at('<h2>Your product here'), "side projects, then the strip, then the call to action");
+  assert.ok(at('class="side"') < at('class="gh"'), "side projects, then the strip");
+  assert.ok(!html.includes("Your product here") && !page("fr").includes("Votre produit ici"));
   assert.ok(at('class="work"') < at('class="gh"'), "the client work comes first");
   // Its own section with a heading, as Side projects and Track record. No key of the tints.
   assert.match(html, /<section class="gh" aria-labelledby="gh-title">\s*<h2 id="gh-title">Most days on GitHub<\/h2>/);
@@ -270,35 +275,40 @@ test("homepage: side projects in a row that scrolls sideways, in both languages"
   assert.ok(fr.includes("Une app qui importe mes données bancaires dans Postgres et répond aux questions que je lui pose."));
 });
 
-test("homepage CTA: invites the owner-less product, not a buyer of development", () => {
+test("homepage: the hero alone carries the call and the email, there is no closing call to action", () => {
   const en = page("");
   assert.ok(!en.includes("Need to build an app?"));
-  assert.ok(en.includes("A product nobody owns end to end?"));
-  assert.ok(en.includes("Book a 30-minute call"));
+  assert.ok(!en.includes("A product nobody owns end to end?"));
+  assert.ok(en.includes("Book call") && !en.includes("Book a 30-minute call"));
   assert.ok(en.includes("mailto:gautier@lepoher.co"));
 });
 
 test("booking links open the Cal.com popup and fall back to the booking page", () => {
   for (const html of [page(""), page("fr")]) {
     const booking = [...html.matchAll(/<a [^>]*data-booking[^>]*>/g)].map((m) => m[0]);
-    assert.equal(booking.length, 2, "hero pill and CTA");
+    assert.equal(booking.length, 1, "the hero pill");
     for (const a of booking) assert.match(a, /href="https:\/\/book\.lepoher\.co\/gautier\/30min"/);
     assert.ok(!html.includes("calendly.com"));
     assert.ok(html.includes("https://book.lepoher.co/embed/embed.js"), "embed loader");
   }
 });
 
-test("homepage: selected work cards for the three use-case stories, in order", () => {
+test("homepage: selected work cards for the three use-case stories, then the featured apps, in order", () => {
   const cards = [...page("").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(cards, STORIES.map((s) => `/case-studies/${s}/`));
+  assert.deepEqual(cards, WORK.map((s) => `/case-studies/${s}/`));
   const fr = [...page("fr").matchAll(/<a class="card"[^>]*href="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(fr, STORIES.map((s) => `/fr/case-studies/${s}/`));
+  assert.deepEqual(fr, WORK.map((s) => `/fr/case-studies/${s}/`));
+});
+
+test("marketing site migration: the new site is the picture, on its card and as the page cover", () => {
+  assert.match(page(""), /<a class="card"[^>]*href="\/case-studies\/marketing-site-migration\/"[\s\S]*?<img src="\/assets\/projects\/evaboot\/marketing-site\.webp"/);
+  assert.ok(page("case-studies/marketing-site-migration").includes("/assets/projects/evaboot/marketing-site.webp"));
 });
 
 test("homepage: work cards carry an illustration, a light layer, and the carousel script, without sound or haptics", () => {
   const html = page("");
-  assert.equal((html.match(/class="card__media"[^>]*>\s*<img /g) ?? []).length, STORIES.length);
-  assert.equal((html.match(/class="card__shine"/g) ?? []).length, STORIES.length);
+  assert.equal((html.match(/class="card__media"[^>]*>\s*<img src="\/assets\/[^"]+"/g) ?? []).length, WORK.length);
+  assert.equal((html.match(/class="card__shine"/g) ?? []).length, WORK.length);
   assert.match(html, /<ul class="work__track" data-carousel/);
   assert.match(html, /<script[^>]*>[^<]*setProperty\("--d"/);
   assert.ok(!html.includes("data-haptic") && !html.includes("cuelume"));
@@ -362,9 +372,7 @@ test("homepage: the Evaboot quote still under review stays off the homepage", ()
   assert.ok(!html.includes("future Bubble"));
 });
 
-test("homepage: says what I do not do", () => {
-  assert.ok(page("").includes("What I do not do: model training, MLOps, data engineering, RAG."));
-  assert.ok(page("fr").includes("Ce que je ne fais pas : entraîner des modèles, du MLOps, du data engineering, du RAG."));
+test("homepage: no AI section", () => {
   assert.ok(!page("").includes("The AI I build"));
   assert.ok(!page("fr").includes("L'IA que je fais"));
 });
