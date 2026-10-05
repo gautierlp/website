@@ -15,7 +15,7 @@ featured: false
 nda: true
 order: 6
 status: "live"
-review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The applicants are vehicle recycling centres, not dealerships; removed the unsourced 'more requests, fewer delays' result, the tablet (the sources say smartphone) and 'one a year from 2023 to 2025' (all three apps started in 2023). The 'still in use in September 2026' line is back on all three pages; nothing after January 2026 in the sources confirms it. Check the title, the stats, the January 2026 line (not confirmed in production) and the Results line on the three apps, then delete this line."
+review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The applicants are vehicle recycling centres, not dealerships; removed the unsourced 'more requests, fewer delays' result, the tablet (the sources say smartphone) and 'one a year from 2023 to 2025' (all three apps started in 2023). Check the title, the stats, the January 2026 line (not confirmed in production) and the Results line on the three apps, then delete this line."
 ---
 
 ## Situation | Recycling centres apply to join a network, and staff review each one.
@@ -51,4 +51,4 @@ Every change went to a test version first, with a link. The client's project lea
 
 - In production on 4 July 2024.
 - Every application is checked against 15 rules the moment it is sent, and a refused centre gets the reasons by email.
-- One of three applications I built for this client. All three were still in use in September 2026.
+- One of three applications I built for this client.

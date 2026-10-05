@@ -15,7 +15,7 @@ featured: false
 nda: true
 order: 7
 status: "live"
-review: "Rewritten on 2026-10-02 from the sources (the project's source notes). Gone, because no source supports them: the Excel, email and hand-made PDF process before the app, lost requests, Mailjet (the app sends through SendGrid), PDFs with no third-party tool, a PDF template the admins edit, a board that refreshes on its own, and carriers and recyclers as app users (they get emails and the PDF). The Results line no longer says one app a year: the chat shows another app for this client in development in November and December 2023. Check the title, the 2 months (first entry 22 August, PDF and emails confirmed working 23 October 2023), and that the app is still in use in September 2026, then delete this line."
+review: "Rewritten on 2026-10-02 from the sources (the project's source notes). Gone, because no source supports them: the Excel, email and hand-made PDF process before the app, lost requests, Mailjet (the app sends through SendGrid), PDFs with no third-party tool, a PDF template the admins edit, a board that refreshes on its own, and carriers and recyclers as app users (they get emails and the PDF). The Results line no longer says one app a year: the chat shows another app for this client in development in November and December 2023. Check the title, the 2 months (first entry 22 August, PDF and emails confirmed working 23 October 2023), then delete this line."
 ---
 
 ## Situation | Dealerships had used batteries to send to a recycler.
@@ -52,4 +52,4 @@ Before the second round, I sent the client a video and six numbered questions, s
 - The PDF and the emails worked on 23 October 2023, two months after my first day. All eight tickets of the first round were closed as "done and validated".
 - On 31 January 2025, the client validated every fix of the second round. I released it on 3 February 2025.
 - 113 hours of work in total, from August 2023 to February 2025.
-- One of three applications I built for this client. All three were still in use in September 2026.
+- One of three applications I built for this client.

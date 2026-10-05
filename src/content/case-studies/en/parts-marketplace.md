@@ -15,7 +15,7 @@ featured: false
 nda: true
 order: 4
 status: "live"
-review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The old 2 weeks claim was wrong: my first day was 30 October 2023, the first version was ready to test on 20 November, the site went to production on 6 December. The old page also said the parts came from dealerships and that admins got each cart by email: the parts sit in car recycling centres, and each order goes to the centre that holds the part. Check the title, the stats, and the line on the three apps (the battery app started in August 2023 and the application portal in November 2023, so the old 'one a year from 2023 to 2025' line is gone; nothing in these sources shows use in 2026). Check it, then delete this line."
+review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The old 2 weeks claim was wrong: my first day was 30 October 2023, the first version was ready to test on 20 November, the site went to production on 6 December. The old page also said the parts came from dealerships and that admins got each cart by email: the parts sit in car recycling centres, and each order goes to the centre that holds the part. Check the title, the stats, and the line on the three apps (the battery app started in August 2023 and the application portal in November 2023, so the old 'one a year from 2023 to 2025' line is gone). Check it, then delete this line."
 ---
 
 ## Situation | Repairers needed to find used parts, and the stock changed every day.
@@ -57,4 +57,4 @@ Not everything went well. The agency apologised to the client for a late deliver
 - The site went to production on 6 December 2023, 37 days after my first day. About 52 hours of my work went into that first version.
 - The parts list refreshes from the client's file every weeknight.
 - I kept working on it until September 2025, about 98 hours in all.
-- One of three applications I built for this client. All three were still in use in September 2026.
+- One of three applications I built for this client.
