@@ -1,9 +1,9 @@
 ---
 name: "A subsidiary of a large French automotive group"
-summary: "Three internal applications for the same client, one a year, all still in use."
+summary: "Three applications for the same client, all started in 2023 and all still in use."
 order: 2
 ---
 
-An automotive recycling company, a subsidiary of a large French automotive group, with a network of partner dealerships. Three of its processes ran on Excel, e-mail and PDFs. The IT department of a group that size does not staff tools for a subsidiary's operations team, so each time the operations side bought the tool directly.
+A subsidiary of a large French automotive group that runs a network of vehicle recycling centres. I built three applications for it as the developer of an agency: an app to collect used electric-vehicle batteries from dealerships, a site where car repairers order used parts held by the client's recycling centres, and a portal where recycling centres apply to join the network.
 
-I built one application a year, in 2023, 2024 and 2025, through the agency that introduced the client. The client bought the second and the third on the strength of the first. All three were still in use in September 2026.
+All three started in 2023: the battery app in August, the parts site in October, the portal in November. The parts site went live in December 2023, the portal in July 2024. I kept changing them until January 2026. All three were still in use in September 2026.
