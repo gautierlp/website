@@ -30,7 +30,7 @@ Reprendre une plateforme que les techniciens, les concessionnaires et les admins
 
 ## Actions | Un export de nuit, des prix à vérifier, un scanner de garanties.
 
-- J'ai envoyé les jobs vers l'outil que les managers utilisaient déjà. Chaque nuit à minuit, tous les jobs ouverts partent dans un Google Sheet. Les jobs clôturés restent exclus. Quand la connexion s'est coupée en avril 2025, je l'ai rétablie.
+- J'ai envoyé les jobs vers l'outil que les managers utilisaient déjà. Chaque nuit à minuit, tous les jobs ouverts partent dans un Google Sheet. Les jobs clôturés restent exclus. Quand la connexion s'est coupée en avril 2025, je l'ai rétablie. En octobre 2023, les managers y ont demandé une colonne horaire, et je l'ai ajoutée.
 - J'ai rendu les prix vérifiables. La plateforme calculait chaque prix à chaque fois qu'elle affichait un job. J'ai enregistré les prix en base de données et je les ai affichés sous les prix calculés, pour les techniciens et les admins, afin que Protech puisse comparer les deux avant de faire confiance aux valeurs enregistrées.
 - J'ai rendu le score de satisfaction plus rapide à calculer.
 - J'ai ajouté à l'app des techniciens un scan par QR code des garanties, pour qu'un technicien scanne une garantie au lieu de saisir un long numéro.

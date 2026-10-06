@@ -137,7 +137,7 @@ The offer text comes from `positioning.md` in the sibling `freelance` repository
 - [x] Text-only design after plud.net (the Carrd look is kept under the git tag `archive/carrd-design`)
 - [x] Booking through a Cal.com popup, self-hosted at book.lepoher.co
 - [x] A `/privacy` page
-- [ ] A `/legal` page (mentions légales): done except the business address and the phone number, which French law asks for
+- [x] A `/legal` page (mentions légales), with no address or phone number for now, by choice
 - [x] Side projects on the homepage, in a row that scrolls sideways
 - [ ] Point the Google Cloud project `calcom-jarvis` (Branding) at https://lepoher.co/privacy/ once the domain points here
 - [ ] Point the lepoher.co domain at Cloudflare (it still serves the Carrd page)

@@ -15,7 +15,7 @@ featured: false
 nda: false
 order: 11
 status: "live"
-review: "Drafted on 2026-10-01 from the Nifty discussion and tickets, the Clockify export and the NoxCod invoices. Check the title, the stats, and the time column in the export (asked on 2023-10-25, delivery not confirmed in the sources), then delete this line."
+review: "Drafted on 2026-10-01 from the Nifty discussion and tickets, the Clockify export and the NoxCod invoices. Check the title, the stats, then delete this line. Gautier confirmed on 2026-10-06 that the time column asked on 2023-10-25 was delivered."
 ---
 
 ## Situation | A platform in daily use, built by another developer.
@@ -30,7 +30,7 @@ Take over a platform that technicians, dealers and admins used every day, ship w
 
 ## Actions | A nightly export, prices to check, a warranty scanner.
 
-- I sent the jobs to the tool the managers already used. Every night at midnight, every open job goes to a Google Sheet. Closed jobs stay out. When the connection broke in April 2025, I restored it.
+- I sent the jobs to the tool the managers already used. Every night at midnight, every open job goes to a Google Sheet. Closed jobs stay out. When the connection broke in April 2025, I restored it. In October 2023 the managers asked for a time column in it, and I added it.
 - I made prices checkable. The platform calculated each price every time it showed a job. I saved the prices in the database and showed them under the calculated ones, for the technicians and the admins, so Protech could compare the two before trusting the saved values.
 - I made the satisfaction score faster to calculate.
 - I added a QR code scan of warranties to the technicians' app, so a technician scans a warranty instead of typing a long number.
