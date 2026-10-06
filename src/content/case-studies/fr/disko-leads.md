@@ -1,15 +1,15 @@
 ---
 kind: "app"
 name: "Disko Leads"
-title: "De 0 à 3k $ de MRR"
+title: "De 0 à 3 k€ de MRR"
 summary: "Une extension Chrome et une application web Bubble qui transforment les likes et les commentaires d'un post LinkedIn en fichier de leads enrichi. Construites en trois semaines."
 intro: "Une extension Chrome et une application web Bubble qui transforment les likes et les commentaires d'un post LinkedIn en fichier de leads enrichi. Construites en trois semaines."
 client: "Disko Leads"
 when: "août à septembre 2024"
 logo: "/assets/images/image31.png"
-result: "De 0 à 3k $"
+result: "De 0 à 3 k€"
 resultLabel: "de MRR"
-stats: [{"value": "De 0 à 3k $", "label": "de MRR"}]
+stats: [{"value": "De 0 à 3 k€", "label": "de MRR"}]
 cover: {"src": "/assets/images/image21.jpg", "alt": "Tableau de bord utilisateur"}
 featured: false
 nda: false
@@ -42,6 +42,6 @@ Construire tout le produit Disko Leads de zéro, et vite : transformer les like
 
 ![Extension Chrome](/assets/images/image03.jpg)
 
-## Résultats | 3 000 $ de MRR peu après le lancement.
+## Résultats | 3 000 € de MRR peu après le lancement.
 
-- Lancé dans les temps, et 3 000 $ de MRR atteints peu après le lancement.
+- Lancé dans les temps, et 3 000 € de MRR atteints peu après le lancement.

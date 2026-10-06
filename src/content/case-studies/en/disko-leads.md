@@ -1,22 +1,22 @@
 ---
 kind: "app"
 name: "Disko Leads"
-title: "From 0 to $3k MRR"
+title: "From 0 to €3k MRR"
 summary: "A Chrome extension and a Bubble web app that turn the likes and comments on a LinkedIn post into an enriched lead file. Built in three weeks."
 intro: "A Chrome extension and a Bubble web app that turn the likes and comments on a LinkedIn post into an enriched lead file. Built in three weeks."
 client: "Disko Leads"
 when: "August to September 2024"
 logo: "/assets/images/image31.png"
-result: "From 0 to $3k"
+result: "From 0 to €3k"
 resultLabel: "MRR"
-stats: [{"value": "From 0 to $3k", "label": "MRR"}]
+stats: [{"value": "From 0 to €3k", "label": "MRR"}]
 cover: {"src": "/assets/images/image21.jpg", "alt": "User dashboard"}
 featured: false
 nda: false
 order: 2
 status: "live"
 quote: {"text": "Working with Gautier on our SaaS project was an exceptional experience. His mastery of Bubble.io allowed us to quickly bring our vision to life, and the final product exceeded our expectations. Highly recommended!", "who": "Johary Randria", "role": "Founder, Disko Leads"}
-review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line."
+review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line. Gautier confirmed on 2026-10-06 that the MRR was in euros (€3k, as on Malt)."
 ---
 
 ![Disko Leads](/assets/projects/disko-leads/eyhufmqecxshrucr74k4.webp)
@@ -42,6 +42,6 @@ Build the whole Disko Leads product from nothing, and fast: turn the likes and c
 
 ![Chrome extension](/assets/images/image03.jpg)
 
-## Results | $3,000 MRR soon after launch.
+## Results | €3,000 MRR soon after launch.
 
-- Launched on time, and reached $3,000 MRR soon after launch.
+- Launched on time, and reached €3,000 MRR soon after launch.

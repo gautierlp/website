@@ -13,7 +13,7 @@ featured: false
 # Second in the Track record, after Evaboot: 15 months of work.
 order: 1.5
 status: "live"
-review: "Checked on 2026-10-02 against the sources (sources/pachamama/notes.md). Kept 57 (58 tickets marked done in Nifty, minus PAC-566 done by another NoxCod developer) and the 5,000+ (admin_candidat, December 2025). Changed: the app was not built with NoxCod (it existed before NoxCod joined in November 2023), the search no longer works again (no source says it worked before), not every ticket went to a test version (PAC-497, PAC-545 went straight to production), the spam cause is now a likely cause, and 3 business areas merged is now 6 merged into 3. Check the second stat label and the results, then delete this line."
+review: "Checked on 2026-10-02 against the sources (sources/pachamama/notes.md). Kept 57 (58 tickets marked done in Nifty, minus PAC-566 done by another NoxCod developer) and the 5,000+ (admin_candidat, December 2025). Changed: the app was not built with NoxCod (it existed before NoxCod joined in November 2023), the search no longer works again (no source says it worked before), not every ticket went to a test version (PAC-497, PAC-545 went straight to production), the spam cause is now a likely cause, and 3 business areas merged is now 6 merged into 3. Check the second stat label and the results, then delete this line. Gautier confirmed on 2026-10-06 the 5,000+ candidates."
 ---
 
 ## Situation | The whole business runs on one Bubble app.

@@ -505,7 +505,8 @@ test("homepage: a French review shows its translation and a label in English, th
   assert.ok(fr.includes("Cette double casque de PO et de dev nocode"));
   assert.ok(!fr.includes("review-card__note"));
   assert.ok(fr.includes("He helped scale our Bubble app to $200k MRR"), "an English review stays in English");
-  assert.match(en, /<p class="review-card__result">From 0 to \$3k MRR<\/p>/);
+  assert.match(en, /<p class="review-card__result">From 0 to €3k MRR<\/p>/);
+  for (const p of ["", "case-studies/disko-leads", "fr/case-studies/disko-leads"]) assert.doesNotMatch(page(p), /\$3k|3k \$|3 000 \$|\$3,000/, p);
 });
 
 test("reviews page: every review in full, newest first, a hidden name shows the role alone", () => {

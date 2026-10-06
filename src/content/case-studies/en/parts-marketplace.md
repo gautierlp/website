@@ -15,7 +15,7 @@ featured: true
 nda: true
 order: 4
 status: "live"
-review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The old 2 weeks claim was wrong: my first day was 30 October 2023, the first version was ready to test on 20 November, the site went to production on 6 December. The old page also said the parts came from dealerships and that admins got each cart by email: the parts sit in car recycling centres, and each order goes to the centre that holds the part. Check the title, the stats, and the line on the three apps (the battery app started in August 2023 and the application portal in November 2023, so the old 'one a year from 2023 to 2025' line is gone). Check it, then delete this line."
+review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The old 2 weeks claim was wrong: my first day was 30 October 2023, the first version was ready to test on 20 November, the site went to production on 6 December. The old page also said the parts came from dealerships and that admins got each cart by email: the parts sit in car recycling centres, and each order goes to the centre that holds the part. Check the title, the stats, and the line on the three apps (the battery app started in August 2023 and the application portal in November 2023, so the old 'one a year from 2023 to 2025' line is gone). Check it, then delete this line. Gautier confirmed on 2026-10-06 the 37 days (30 October to 6 December 2023)."
 ---
 
 ## Situation | Repairers needed to find used parts, and the stock changed every day.
