@@ -12,7 +12,7 @@ stats: [{"value": "36", "label": "MCP tools in production"}]
 cover: {"src": "/assets/projects/evaboot/yeozsoqcr93m15jqq47s.webp", "alt": "The product's admin logs screen"}
 when: "August 2026"
 order: 2
-status: "draft"
+status: "live"
 review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 

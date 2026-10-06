@@ -12,7 +12,7 @@ stats: [{"value": "200k", "label": "users migrated, no downtime"}, {"value": "2 
 cover: {"src": "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", "alt": "Evaboot's export screen"}
 when: "April to May 2026"
 order: 1
-status: "draft"
+status: "live"
 review: "Rewritten on 2026-10-01 against the course. Check it, then delete this line."
 ---
 

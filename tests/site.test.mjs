@@ -64,8 +64,20 @@ test("french homepage: French strings and /fr/ links", () => {
   assert.match(html, /<html lang="fr">/);
 });
 
-test("no language switch until the stories exist in French", () => {
-  for (const p of ["", "fr", "case-studies/evaboot", "case-studies/no-code-exit", "clients/evaboot"]) assert.ok(!page(p).includes('class="header__lang"'), p);
+test("a language switch leads to the same page in the other language", () => {
+  for (const [p, twin] of [["", "/fr/"], ["fr", "/"], ["case-studies/evaboot", "/fr/case-studies/evaboot/"], ["fr/case-studies/no-code-exit", "/case-studies/no-code-exit/"], ["clients/evaboot", "/fr/clients/evaboot/"], ["privacy", "/fr/privacy/"]]) {
+    assert.match(page(p), new RegExp(`<a class="header__lang" href="${twin}"`), p);
+  }
+});
+
+test("french stories: French text, French STAR labels, links that stay in French", () => {
+  for (const slug of CASE_STUDIES.filter((s) => !EMPTY.includes(s))) {
+    const html = page(`fr/case-studies/${slug}`);
+    assert.match(html, /<html lang="fr">/, slug);
+    const labels = [...html.matchAll(/<span class="cs-label">([^<]+)<\/span>/g)].map((m) => m[1]).filter((l) => ["Situation", "Mission", "Actions", "Résultats"].includes(l));
+    assert.deepEqual(labels, ["Situation", "Mission", "Actions", "Résultats"], slug);
+    for (const href of links(html.replace(/<a class="header__lang"[^>]*>/, ""))) assert.doesNotMatch(href, /^\/(case-studies|clients)\//, `${slug} -> ${href}`);
+  }
 });
 
 test("case study: Domeet, a design mockup built with Evodev", () => {
@@ -101,11 +113,11 @@ test("case study: draft note on a placeholder", () => {
   assert.match(html, /<meta name="robots" content="noindex">/);
 });
 
-test("case study: a story waiting for approval shows no draft note, but stays out of search", () => {
-  const html = page("case-studies/no-code-exit");
-  assert.ok(!html.includes("Waits for the client"));
-  assert.ok(!page("fr/case-studies/no-code-exit").includes("En attente de la validation"));
-  assert.match(html, /<meta name="robots" content="noindex">/);
+test("case study: the stories the client cleared are in search, in both languages", () => {
+  for (const slug of STORIES) for (const p of [`case-studies/${slug}`, `fr/case-studies/${slug}`]) {
+    assert.doesNotMatch(page(p), /<meta name="robots" content="noindex">/, p);
+    assert.ok(!page(p).includes("Text to come.") && !page(p).includes("Texte à venir."), p);
+  }
 });
 
 test("case study: the client card says where it leads", () => {

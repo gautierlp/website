@@ -12,7 +12,7 @@ stats: [{"value": "100", "label": "Lighthouse performance and SEO"}]
 cover: {"src": "/assets/projects/evaboot/marketing-site.webp", "alt": "The home page of the new marketing site"}
 when: "February to March 2026"
 order: 3
-status: "draft"
+status: "live"
 review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
