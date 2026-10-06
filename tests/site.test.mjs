@@ -14,7 +14,7 @@ const STORIES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-mi
 const FEATURED = ["parts-marketplace", "camarage", "clean-car"];
 const WORK = [...STORIES, ...FEATURED];
 const CASE_STUDIES = [...APPS, ...STORIES];
-// Drafts: they build, but stay off the lists and out of search. Price Writers has no text yet, BETC no number.
+// Drafts waiting for client approval: they build, but stay off the lists and out of search.
 const EMPTY = ["price-writers", "betc"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
 const LISTED = APPS.filter((s) => !EMPTY.includes(s));
@@ -108,10 +108,12 @@ test("case study: the story and the quote", () => {
   assert.ok(!html.includes("contra.com/p/"));
 });
 
-test("case study: draft note on a placeholder", () => {
-  const html = page("case-studies/price-writers");
-  assert.ok(html.includes("Text to come."));
-  assert.match(html, /<meta name="robots" content="noindex">/);
+test("case study: a draft waiting for client approval has its text, but stays out of search", () => {
+  for (const slug of EMPTY) {
+    const html = page(`case-studies/${slug}`);
+    assert.ok(!html.includes("Text to come."), slug);
+    assert.match(html, /<meta name="robots" content="noindex">/, slug);
+  }
 });
 
 test("case study: the stories the client cleared are in search, in both languages", () => {

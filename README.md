@@ -141,7 +141,7 @@ The offer text comes from `positioning.md` in the sibling `freelance` repository
 - [ ] Point the Google Cloud project `calcom-jarvis` (Branding) at https://lepoher.co/privacy/ once the domain points here
 - [ ] Point the lepoher.co domain at Cloudflare (it still serves the Carrd page)
 - [ ] Read and clear the `review:` line of each case study, in both languages
-- [ ] Texts for the 2 draft case studies: Price Writers (no source yet) and BETC (needs a number, dates and permission)
+- [ ] Client approval for the 2 draft case studies (BETC, Price Writers), then set them live
 - [ ] A link on every side project tile: an open-source project opens its GitHub repository, a private one opens an article on this site. The four projects on the page (home server, finance app, Jolt, Session reviewer) are private and have no article yet, so no tile has a link
 - [ ] A blog. It starts with the articles about the private side projects. Not designed yet: run the brainstorm, spec and plan flow before any code
 
