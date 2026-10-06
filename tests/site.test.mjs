@@ -18,7 +18,7 @@ const CASE_STUDIES = [...APPS, ...STORIES];
 const EMPTY = ["price-writers", "betc"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
 const LISTED = APPS.filter((s) => !EMPTY.includes(s));
-const PAGES = ["", "fr", "reviews", "fr/reviews", "privacy", "fr/privacy", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
+const PAGES = ["", "fr", "reviews", "fr/reviews", "privacy", "fr/privacy", "legal", "fr/legal", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
 const cssText = () => readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
 
 test("homepage: headline in plain text, no code font", () => {
@@ -639,4 +639,19 @@ test("privacy page: in both languages, names what the site collects, and every p
     for (const fact of ["Google Analytics", "book.lepoher.co", "Google Calendar", "gautier@lepoher.co"]) assert.ok(html.includes(fact), `${path}: ${fact}`);
   }
   for (const p of PAGES) assert.ok(links(page(p)).includes(p.startsWith("fr") ? "/fr/privacy/" : "/privacy/"), p);
+});
+
+test("legal notice: the publisher's legal identity and the host, linked from every page", () => {
+  for (const [path, heading] of [["legal", "Legal notice"], ["fr/legal", "Mentions légales"]]) {
+    const html = page(path);
+    assert.match(html, new RegExp(`<h1>${heading}`), path);
+    for (const fact of ["Gautier Le Poher", "824 922 363 00034", "FR87824922363", "Cloudflare, Inc.", "gautier@lepoher.co"]) assert.ok(html.includes(fact), `${path}: ${fact}`);
+  }
+  for (const p of PAGES) assert.ok(links(page(p)).includes(p.startsWith("fr") ? "/fr/legal/" : "/legal/"), p);
+});
+
+test("case study: Clean Car links to both app stores", () => {
+  const hrefs = links(page("case-studies/clean-car"));
+  assert.ok(hrefs.some((h) => h.startsWith("https://apps.apple.com/")));
+  assert.ok(hrefs.some((h) => h.startsWith("https://play.google.com/")));
 });

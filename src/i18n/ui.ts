@@ -47,6 +47,8 @@ const en = {
   "privacy.title": "Privacy",
   "privacy.updated": "Last updated",
   "privacy.intro": "What this site collects about you, who receives it, and how to have it deleted.",
+  "legal.title": "Legal notice",
+  "legal.intro": "Who publishes this site and who hosts it.",
   "nav.profiles": "Profiles",
   "nav.top": "Back to top",
 } as const;
@@ -96,6 +98,8 @@ const fr: Partial<Record<keyof typeof en, string>> = {
   "privacy.title": "Confidentialité",
   "privacy.updated": "Mis à jour le",
   "privacy.intro": "Ce que ce site collecte sur vous, qui le reçoit, et comment le faire supprimer.",
+  "legal.title": "Mentions légales",
+  "legal.intro": "Qui publie ce site et qui l'héberge.",
 };
 
 export type UiKey = keyof typeof en;

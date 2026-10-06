@@ -7,6 +7,7 @@ intro: "A booking app for Clean Car France, built in 17 days, now on the App Sto
 client: "Clean Car"
 when: "May to July 2023"
 logo: "/assets/images/image14.png"
+links: [{"label": "App Store", "url": "https://apps.apple.com/ch/app/clean-car/id6463682542"}, {"label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.cleancarapp.cleancarapp"}]
 result: "17 days"
 resultLabel: "to build a booking app, now on the App Store and Google Play"
 stats: [{"value": "17 days", "label": "from the first screen to the full app"}]
@@ -14,7 +15,7 @@ featured: true
 nda: false
 order: 8
 status: "live"
-review: "Rewritten on 2026-10-01 from Clockify and the Nifty chat (sources/clean-car/notes.md). The old 10 days claim did not hold: the build ran 8 to 24 May 2023, the web version was final on 21 June, the store date is unknown. Check it, then delete this line."
+review: "Rewritten on 2026-10-01 from Clockify and the Nifty chat (sources/clean-car/notes.md). The old 10 days claim did not hold: the build ran 8 to 24 May 2023, the web version was final on 21 June, the store date is unknown. On 2026-10-06 Gautier gave the App Store and Google Play links, so the app is on both stores today. Check the rest, then delete this line."
 ---
 
 ![Clean Car app](/assets/projects/clean-car/w7gkrwo3toydrww07npn.webp)

@@ -1,0 +1,32 @@
+---
+// Mentions légales: who publishes the site and who hosts it (French law, LCEN art. 6).
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const fr = lang === "fr";
+// Not on the page until Gautier gives them: a business address and a phone number.
+const address = "";
+const phone = "";
+---
+<BaseLayout lang={lang} routeLang={lang} title={`${tr("legal.title")} | Gautier Le Poher`} description={tr("legal.intro")}>
+  <article class="page prose">
+    <h1>{tr("legal.title")}</h1>
+    <p>{tr("legal.intro")}</p>
+    <h2>{fr ? "Éditeur" : "Publisher"}</h2>
+    <p>
+      Gautier Le Poher, {fr ? "entrepreneur individuel (micro-entreprise)" : "sole trader (French micro-entreprise)"}<br />
+      SIRET 824 922 363 00034<br />
+      {fr ? "TVA intracommunautaire" : "EU VAT number"} FR87824922363<br />
+      {address && <>{address}<br /></>}
+      {phone && <>{phone}<br /></>}
+      gautier@lepoher.co
+    </p>
+    <h2>{fr ? "Directeur de la publication" : "Publication director"}</h2>
+    <p>Gautier Le Poher</p>
+    <h2>{fr ? "Hébergeur" : "Host"}</h2>
+    <p>Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, {fr ? "États-Unis" : "United States"}. cloudflare.com</p>
+  </article>
+</BaseLayout>

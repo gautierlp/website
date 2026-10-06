@@ -7,6 +7,7 @@ intro: "Une application de réservation pour Clean Car France, construite en 17 
 client: "Clean Car"
 when: "mai à juillet 2023"
 logo: "/assets/images/image14.png"
+links: [{"label": "App Store", "url": "https://apps.apple.com/ch/app/clean-car/id6463682542"}, {"label": "Google Play", "url": "https://play.google.com/store/apps/details?id=com.cleancarapp.cleancarapp"}]
 result: "17 jours"
 resultLabel: "pour construire une application de réservation, disponible sur l'App Store et Google Play"
 stats: [{"value": "17 jours", "label": "du premier écran à l'application complète"}]
