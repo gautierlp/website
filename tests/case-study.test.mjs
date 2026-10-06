@@ -66,11 +66,17 @@ test("the plugin rewrites the top-level children of the tree", () => {
 });
 
 test("parseStat splits a value around the one whole number in it", () => {
-  assert.deepEqual(parseStat("200k"), { prefix: "", n: 200, suffix: "k", commas: false });
-  assert.deepEqual(parseStat("1,000"), { prefix: "", n: 1000, suffix: "", commas: true });
+  assert.deepEqual(parseStat("200k"), { prefix: "", n: 200, suffix: "k", sep: "" });
+  assert.deepEqual(parseStat("1,000"), { prefix: "", n: 1000, suffix: "", sep: "," });
   assert.equal(parseStat("+1").prefix, "+");
   assert.equal(parseStat("600+").suffix, "+");
   assert.equal(parseStat("13 working days").n, 13);
+});
+
+test("parseStat reads a French number, with a non-breaking space between the thousands", () => {
+  assert.deepEqual(parseStat("8\u00a0152"), { prefix: "", n: 8152, suffix: "", sep: "\u00a0" });
+  assert.deepEqual(parseStat("3\u00a0000+"), { prefix: "", n: 3000, suffix: "+", sep: "\u00a0" });
+  assert.equal(parseStat("2 mois").n, 2);
 });
 
 test("parseStat gives up on a value with no single number to count", () => {
@@ -83,4 +89,5 @@ test("formatStat writes a step of the count the way the final value is written",
   assert.equal(formatStat(parseStat("1,000"), 1000), "1,000");
   assert.equal(formatStat(parseStat("1,000"), 250), "250");
   assert.equal(formatStat(parseStat("200k"), 37), "37k");
+  assert.equal(formatStat(parseStat("8\u00a0152"), 4500), "4\u00a0500");
 });
