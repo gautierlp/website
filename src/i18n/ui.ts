@@ -44,6 +44,9 @@ const en = {
   "github.day.one": "1 contribution on {date}",
   "github.day.many": "{n} contributions on {date}",
   "test.onlyEnglish": "only english",
+  "privacy.title": "Privacy",
+  "privacy.updated": "Last updated",
+  "privacy.intro": "What this site collects about you, who receives it, and how to have it deleted.",
   "nav.profiles": "Profiles",
   "nav.top": "Back to top",
 } as const;
@@ -90,6 +93,9 @@ const fr: Partial<Record<keyof typeof en, string>> = {
   "github.day.many": "{n} contributions le {date}",
   "nav.profiles": "Profils",
   "nav.top": "Haut de page",
+  "privacy.title": "Confidentialité",
+  "privacy.updated": "Mis à jour le",
+  "privacy.intro": "Ce que ce site collecte sur vous, qui le reçoit, et comment le faire supprimer.",
 };
 
 export type UiKey = keyof typeof en;

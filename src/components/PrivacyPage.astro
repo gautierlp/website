@@ -1,0 +1,50 @@
+---
+// What the site collects and who receives it. Google's OAuth consent screen (project calcom-jarvis) links here.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const updated = lang === "fr" ? "6 octobre 2026" : "6 October 2026";
+---
+<BaseLayout lang={lang} routeLang={lang} title={`${tr("privacy.title")} | Gautier Le Poher`} description={tr("privacy.intro")}>
+  <article class="page prose">
+    <h1>{tr("privacy.title")}</h1>
+    <p class="muted">{tr("privacy.updated")} {updated}</p>
+    <p>{tr("privacy.intro")}</p>
+    {lang === "fr" ? (
+      <>
+        <h2>Mesure d'audience</h2>
+        <p>Le site utilise Google Analytics (Google Ireland Limited) pour compter les visites et voir quelles pages sont lues. Google Analytics dépose des cookies et reçoit votre adresse IP, le type de navigateur et les pages vues. Je ne vois que des statistiques agrégées, jamais votre identité.</p>
+        <h2>Polices</h2>
+        <p>La police Inter est chargée depuis Google Fonts. Votre navigateur envoie alors votre adresse IP à Google.</p>
+        <h2>Prise de rendez-vous</h2>
+        <p>Le bouton « Réserver un appel » ouvre Cal.com, hébergé sur mon propre serveur à l'adresse book.lepoher.co. Pour réserver, vous donnez votre nom, votre e-mail et, si vous le souhaitez, un message. Ces données restent sur ce serveur et servent uniquement à organiser l'appel.</p>
+        <p>Cal.com est connecté à mon propre Google Calendar. Il lit mes créneaux occupés et ajoute le rendez-vous à mon agenda, avec votre nom et votre e-mail en invité. Il n'a jamais accès à votre compte Google. Les données de Google Calendar ne servent qu'à la prise de rendez-vous : elles ne sont ni vendues, ni partagées, ni utilisées pour de la publicité.</p>
+        <h2>E-mail</h2>
+        <p>Si vous m'écrivez à gautier@lepoher.co, je garde votre message dans ma boîte mail pour vous répondre et suivre notre échange.</p>
+        <h2>Hébergement</h2>
+        <p>Le site est servi par Cloudflare, qui reçoit votre adresse IP pour délivrer les pages et bloquer les abus.</p>
+        <h2>Vos droits</h2>
+        <p>Vous pouvez demander l'accès, la correction ou la suppression de vos données à gautier@lepoher.co. Vous pouvez aussi saisir la CNIL (cnil.fr).</p>
+      </>
+    ) : (
+      <>
+        <h2>Visit statistics</h2>
+        <p>The site uses Google Analytics (Google Ireland Limited) to count visits and see which pages are read. Google Analytics sets cookies and receives your IP address, your browser type and the pages you view. I only see totals, never who you are.</p>
+        <h2>Fonts</h2>
+        <p>The Inter font loads from Google Fonts. Your browser sends your IP address to Google to get it.</p>
+        <h2>Booking a call</h2>
+        <p>The "Book call" button opens Cal.com, which runs on my own server at book.lepoher.co. To book, you give your name, your email and, if you want, a note. This data stays on that server and is used only to set up the call.</p>
+        <p>Cal.com is connected to my own Google Calendar. It reads when I am busy and adds the meeting to my calendar, with your name and email as the guest. It never has access to your Google account. Google Calendar data is used only to book meetings: it is not sold, shared or used for advertising.</p>
+        <h2>Email</h2>
+        <p>If you write to gautier@lepoher.co, I keep your message in my mailbox to answer you and follow up on our conversation.</p>
+        <h2>Hosting</h2>
+        <p>The site is served by Cloudflare, which receives your IP address to deliver the pages and block abuse.</p>
+        <h2>Your rights</h2>
+        <p>You can ask to see, correct or delete your data at gautier@lepoher.co. You can also complain to the French data protection authority, the CNIL (cnil.fr).</p>
+      </>
+    )}
+  </article>
+</BaseLayout>

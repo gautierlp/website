@@ -17,7 +17,7 @@ const CASE_STUDIES = [...APPS, ...STORIES];
 const EMPTY = ["price-writers", "betc"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
 const LISTED = APPS.filter((s) => !EMPTY.includes(s));
-const PAGES = ["", "fr", "reviews", "fr/reviews", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
+const PAGES = ["", "fr", "reviews", "fr/reviews", "privacy", "fr/privacy", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
 const cssText = () => readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
 
 test("homepage: headline in plain text, no code font", () => {
@@ -616,3 +616,12 @@ test("design: 64px between the sections of a page", () => {
   assert.match(css, /^\.page \.block \{ margin-top: 4rem; \}/m);
 });
 
+
+test("privacy page: in both languages, names what the site collects, and every page links to it", () => {
+  for (const [path, heading] of [["privacy", "Privacy"], ["fr/privacy", "Confidentialité"]]) {
+    const html = page(path);
+    assert.match(html, new RegExp(`<h1>${heading}`), path);
+    for (const fact of ["Google Analytics", "book.lepoher.co", "Google Calendar", "gautier@lepoher.co"]) assert.ok(html.includes(fact), `${path}: ${fact}`);
+  }
+  for (const p of PAGES) assert.ok(links(page(p)).includes(p.startsWith("fr") ? "/fr/privacy/" : "/privacy/"), p);
+});
