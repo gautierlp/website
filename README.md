@@ -27,15 +27,17 @@ Personal site of Gautier Le Poher, a technical product manager who takes over a 
 
 ## About the project
 
-This repository holds the source of lepoher.co. It replaces a page made with Carrd, and it keeps that page's look on purpose: the page read well, and I wanted the content model first and a redesign later.
+This repository holds the source of lepoher.co. It replaces a page made with Carrd.
 
-The site has three page types:
+The site has five page types:
 
-- The homepage: who I am, three featured projects, the use cases, every app I built, and a call to action.
-- One page per project (11 today): the full story, screenshots, the client's review, and links to the use cases it belongs to.
-- One page per use case (4 today): a longer text on one kind of work, with the projects where it applied.
+- The homepage: who I am, the selected work, a pile of client reviews, the track record, the side projects and the GitHub graph.
+- One page per case study (16, two of them drafts): the story in four parts (situation, task, actions, results), the numbers, screenshots and the client's review.
+- One page per client with several case studies (2 today).
+- The reviews page: every client review in full.
+- The privacy page.
 
-Every page exists in English and, under `/fr/`, in French. A page with no French text yet shows the English text.
+Every page exists in English and, under `/fr/`, in French. A page with no French text yet shows the English text and stays out of search.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -128,17 +130,18 @@ The offer text comes from `positioning.md` in the sibling `freelance` repository
 ## Roadmap
 
 - [x] Rebuild the Carrd page as Astro components
-- [x] One page per project and per use case
-- [x] English and French routes
+- [x] One page per case study and per client
+- [x] English and French routes, with a language switch
+- [x] French texts for the case studies and client pages (each French file keeps a review line until it is read)
 - [x] GitHub contribution graph
-- [ ] French texts for the projects and use cases
-- [ ] Rewrite the 8 imported stories (remove the duplicated review, real alt text, lighter images)
-- [ ] Texts for the 3 projects without a story
-- [ ] Point the lepoher.co domain at Cloudflare
 - [x] Text-only design after plud.net (the Carrd look is kept under the git tag `archive/carrd-design`)
 - [x] Booking through a Cal.com popup, self-hosted at book.lepoher.co
-- [ ] A `/privacy` page, then point the Google Cloud project `calcom-jarvis` (Branding) at it instead of the homepage
+- [x] A `/privacy` page
 - [x] Side projects on the homepage, in a row that scrolls sideways
+- [ ] Point the Google Cloud project `calcom-jarvis` (Branding) at https://lepoher.co/privacy/ once the domain points here
+- [ ] Point the lepoher.co domain at Cloudflare (it still serves the Carrd page)
+- [ ] Read and clear the `review:` line of each case study, in both languages
+- [ ] Texts for the 2 draft case studies: Price Writers (no source yet) and BETC (needs a number, dates and permission)
 - [ ] A link on every side project tile: an open-source project opens its GitHub repository, a private one opens an article on this site. The four projects on the page (home server, finance app, Jolt, Session reviewer) are private and have no article yet, so no tile has a link
 - [ ] A blog. It starts with the articles about the private side projects. Not designed yet: run the brainstorm, spec and plan flow before any code
 

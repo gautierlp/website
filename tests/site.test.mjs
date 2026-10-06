@@ -14,6 +14,7 @@ const STORIES = ["no-code-exit", "interfaces-on-a-new-stack", "marketing-site-mi
 const FEATURED = ["parts-marketplace", "camarage", "clean-car"];
 const WORK = [...STORIES, ...FEATURED];
 const CASE_STUDIES = [...APPS, ...STORIES];
+// Drafts: they build, but stay off the lists and out of search. Price Writers has no text yet, BETC no number.
 const EMPTY = ["price-writers", "betc"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
 const LISTED = APPS.filter((s) => !EMPTY.includes(s));
@@ -108,7 +109,7 @@ test("case study: the story and the quote", () => {
 });
 
 test("case study: draft note on a placeholder", () => {
-  const html = page("case-studies/betc");
+  const html = page("case-studies/price-writers");
   assert.ok(html.includes("Text to come."));
   assert.match(html, /<meta name="robots" content="noindex">/);
 });
