@@ -596,3 +596,23 @@ test("case study: a card at the bottom leads to the next story of the same list,
   assert.match(page("case-studies/no-code-exit"), /<small>Next<\/small>/);
   assert.match(page("fr/case-studies/no-code-exit"), /<a class="cs__next" href="\/fr\/case-studies\/interfaces-on-a-new-stack\/"[\s\S]*?<small>Suivant<\/small>/);
 });
+
+// Design notes copied from pedromarques.me: one font, a 586px text column, 64px between sections.
+test("design: one font family, Inter, and no second font download", () => {
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const layout = readFileSync(new URL("../src/layouts/BaseLayout.astro", import.meta.url), "utf8");
+  assert.ok(!layout.includes("JetBrains"), "the code font is not used on any page");
+  assert.ok(!css.includes("--font-code"));
+});
+
+test("design: the text column is 586px wide, plus 1rem of margin on each side", () => {
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(css, /--column: calc\(586px \+ 2rem\);/);
+});
+
+test("design: 64px between the sections of a page", () => {
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(css, /^main > \* \+ \* \{ margin-top: 4rem; \}/m);
+  assert.match(css, /^\.page \.block \{ margin-top: 4rem; \}/m);
+});
+
