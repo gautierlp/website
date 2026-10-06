@@ -15,7 +15,7 @@ featured: false
 nda: true
 order: 6
 status: "live"
-review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The applicants are vehicle recycling centres, not dealerships; removed the unsourced 'more requests, fewer delays' result, the tablet (the sources say smartphone) and 'one a year from 2023 to 2025' (all three apps started in 2023). Check the title, the stats, the January 2026 line (not confirmed in production) and the Results line on the three apps, then delete this line."
+review: "Rewritten on 2026-10-02 from the sources (the project's source notes). The applicants are vehicle recycling centres, not dealerships; removed the unsourced 'more requests, fewer delays' result, the tablet (the sources say smartphone) and 'one a year from 2023 to 2025' (all three apps started in 2023). Check the title, the stats, the Results line on the three apps, then delete this line. Gautier confirmed on 2026-10-06 that the January 2026 work went into production."
 ---
 
 ## Situation | Recycling centres apply to join a network, and staff review each one.
@@ -35,7 +35,7 @@ Build one app where a centre applies and the staff follow each application up to
 - I added 15 automatic refusal rules. When a centre sends the first form, the app checks its permits, its certificates and its recycling rates. If a rule fails, the application is refused and the centre gets an email with the reasons. When staff refuse an application by hand, they must give a reason, and it stays in the file.
 - The back office has two roles. Assistants sort and review the applications. Network managers audit the site and fill in the audit report. The managers work in the field on their phones, so in September 2024 I made the whole app work on a phone.
 - I added an export of every application with all its fields, for the assistants. When the file grew too big, I moved it to the server, and the file now arrives by email.
-- In January 2026, I made the first application simpler and added renewals: assistants send a renewal request to one centre or several at once. This was ready for the client to test on 26 January 2026.
+- In January 2026, I made the first application simpler and added renewals: assistants send a renewal request to one centre or several at once. This was ready for the client to test on 26 January 2026, then went into production.
 
 ## What I fixed
 

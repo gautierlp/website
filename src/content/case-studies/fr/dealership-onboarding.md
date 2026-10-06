@@ -35,7 +35,7 @@ Construire une appli où un centre candidate et où le personnel suit chaque dos
 - J'ai ajouté 15 règles de refus automatiques. Quand un centre envoie le premier formulaire, l'appli vérifie ses autorisations, ses certificats et ses taux de recyclage. Si une règle échoue, la candidature est refusée et le centre reçoit un e-mail avec les raisons. Quand le personnel refuse un dossier à la main, il doit donner une raison, qui reste dans le dossier.
 - Le back office a deux rôles. Les assistants trient et examinent les candidatures. Les responsables de réseau auditent le site et remplissent le rapport d'audit. Les responsables travaillent sur le terrain avec leur téléphone : en septembre 2024, j'ai donc rendu toute l'appli utilisable sur mobile.
 - J'ai ajouté pour les assistants un export de toutes les candidatures avec tous leurs champs. Quand le fichier est devenu trop gros, je l'ai déplacé côté serveur, et le fichier arrive maintenant par e-mail.
-- En janvier 2026, j'ai simplifié la première candidature et ajouté les renouvellements : les assistants envoient une demande de renouvellement à un centre ou à plusieurs à la fois. C'était prêt pour les tests du client le 26 janvier 2026.
+- En janvier 2026, j'ai simplifié la première candidature et ajouté les renouvellements : les assistants envoient une demande de renouvellement à un centre ou à plusieurs à la fois. C'était prêt pour les tests du client le 26 janvier 2026, puis c'est passé en production.
 
 ## Ce que j'ai corrigé
 
