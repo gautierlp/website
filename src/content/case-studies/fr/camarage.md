@@ -2,8 +2,8 @@
 kind: "app"
 name: "Camarage"
 title: "Une plateforme de logement en ligne 30 jours après mon arrivée, puis 2 ans de paiements de loyers"
-summary: "J'ai construit l'essentiel de la plateforme Bubble de Camarage et je l'ai lancée en 30 jours, puis j'ai construit et fait tourner ses paiements de loyers sur Stripe jusqu'en 2025."
-intro: "J'ai construit l'essentiel de la plateforme Bubble de Camarage et je l'ai lancée en 30 jours, puis j'ai construit et fait tourner ses paiements de loyers sur Stripe jusqu'en 2025."
+summary: "J'ai aidé Camarage à finir de passer d'un site codé à Bubble, et j'ai lancé la plateforme en 30 jours, puis j'ai construit et fait tourner ses paiements de loyers sur Stripe jusqu'en 2025."
+intro: "J'ai aidé Camarage à finir de passer d'un site codé à Bubble, et j'ai lancé la plateforme en 30 jours, puis j'ai construit et fait tourner ses paiements de loyers sur Stripe jusqu'en 2025."
 client: "Camarage"
 when: "février 2023 à juin 2025"
 logo: "/assets/images/image34.png"
@@ -23,7 +23,7 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 [Camarage](https://camarage.fr/) met en relation des seniors qui ont une chambre libre avec des jeunes qui cherchent un logement. Le jeune paie des frais de mise en relation, puis un loyer mensuel. Camarage garde des frais de suivi et verse le reste au senior par virement.
 
-En février 2023, Camarage passait de son ancien site à une nouvelle plateforme sur Bubble. Le client avait lancé le projet et les maquettes étaient prêtes. L'agence NoxCod m'a placé sur le développement.
+En février 2023, Camarage passait de son ancien site codé à une nouvelle plateforme sur Bubble. Le client avait déjà commencé la migration et les maquettes étaient prêtes. L'agence NoxCod m'a placé sur le développement.
 
 ## Mission | Lancer la plateforme, puis faire tourner les paiements sans intervention.
 

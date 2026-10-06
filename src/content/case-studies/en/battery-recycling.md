@@ -15,7 +15,7 @@ featured: false
 nda: true
 order: 7
 status: "live"
-review: "Rewritten on 2026-10-02 from the sources (the project's source notes). Gone, because no source supports them: the Excel, email and hand-made PDF process before the app, lost requests, Mailjet (the app sends through SendGrid), PDFs with no third-party tool, a PDF template the admins edit, a board that refreshes on its own, and carriers and recyclers as app users (they get emails and the PDF). The Results line no longer says one app a year: the chat shows another app for this client in development in November and December 2023. Check the title, the 2 months (first entry 22 August, PDF and emails confirmed working 23 October 2023), then delete this line."
+review: "Rewritten on 2026-10-02 from the sources (the project's source notes). Gone, because no source supports them: the Excel, email and hand-made PDF process before the app, lost requests, PDFs with no third-party tool, a PDF template the admins edit, a board that refreshes on its own, and carriers and recyclers as app users (they get emails and the PDF). The Results line no longer says one app a year: the chat shows another app for this client in development in November and December 2023. Gautier confirmed on 2026-10-06 the move from SendGrid to Mailjet (date not known). Check the title, the 2 months (first entry 22 August, PDF and emails confirmed working 23 October 2023), then delete this line."
 ---
 
 ## Situation | Dealerships had used batteries to send to a recycler.
@@ -33,7 +33,7 @@ Let a dealership request a pickup, let the client's admins follow each battery t
 - I designed the data model, then built the login and the admin side. Each battery is a card on a board, in columns: request, compliant, delivered, invoiced, archived.
 - I built the request form for the dealerships, on phone and desktop, with a confirmation screen and a button to start a new request.
 - I built the transport orders. An admin groups batteries into an order for a carrier and a recycler, and the app makes the order as a PDF, from the client's own model.
-- I built the emails: to the dealership and the admins when a request comes in, to the carrier with the PDF, to the recycler, and to the dealership on delivery and with the recycling certificate. My demo of 23 October 2023 showed six emails. The client tested it the same day: "I can see it works."
+- I built the emails: to the dealership and the admins when a request comes in, to the carrier with the PDF, to the recycler, and to the dealership on delivery and with the recycling certificate. My demo of 23 October 2023 showed six emails. The client tested it the same day: "I can see it works." The emails went out through SendGrid at first; we later moved them to Mailjet.
 - In the first round of the client's tickets (September to November 2023), I added the regulatory numbers, the price of each transport order, a "not compliant" flag, and a rule that a battery needs its recycling certificate before it is invoiced.
 - In the second round (August 2024 to February 2025), from the client's list of changes: one transport order can now group batteries from several dealerships, and the PDF lists every one of them. An admin can edit the PDF before it goes to the carrier, without changing the data in the app. A request needs both regulatory numbers before it becomes compliant.
 

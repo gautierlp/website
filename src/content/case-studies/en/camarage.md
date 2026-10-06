@@ -2,8 +2,8 @@
 kind: "app"
 name: "Camarage"
 title: "A housing platform live 30 days after I joined, then its rent payments for 2 years"
-summary: "I built most of Camarage's Bubble platform and launched it in 30 days, then built and ran its Stripe rent payments until 2025."
-intro: "I built most of Camarage's Bubble platform and launched it in 30 days, then built and ran its Stripe rent payments until 2025."
+summary: "I helped Camarage finish its move from a coded site to Bubble and launched the platform in 30 days, then built and ran its Stripe rent payments until 2025."
+intro: "I helped Camarage finish its move from a coded site to Bubble and launched the platform in 30 days, then built and ran its Stripe rent payments until 2025."
 client: "Camarage"
 when: "February 2023 to June 2025"
 logo: "/assets/images/image34.png"
@@ -14,7 +14,7 @@ featured: true
 nda: false
 order: 5
 status: "live"
-review: "Rewritten on 2026-10-01 from the Nifty chat and tickets, Clockify and the NoxCod invoices (sources/camarage/notes.md). The old 1,000 users, custom code and no-developer claims had no source. Check the title, the stats and the Why Bubble section, then delete this line."
+review: "Rewritten on 2026-10-01 from the Nifty chat and tickets, Clockify and the NoxCod invoices (sources/camarage/notes.md). The old 1,000 users, custom code and no-developer claims had no source. Gautier confirmed on 2026-10-06 that Camarage had started the move from code to Bubble before he joined, and that he helped finish it. Check the title, the stats and the Why Bubble section, then delete this line."
 ---
 
 ![Camarage](/assets/projects/camarage/qjftnmkvlglermlhtsxm.webp)
@@ -23,7 +23,7 @@ review: "Rewritten on 2026-10-01 from the Nifty chat and tickets, Clockify and t
 
 [Camarage](https://camarage.fr/) matches seniors who have a spare room with young adults who need a place to live. The young adult pays a matching fee, then a monthly rent. Camarage keeps a follow-up fee and pays the senior by bank transfer.
 
-In February 2023, Camarage was moving from its old site to a new platform on Bubble. The client had started the project and the designs were ready. The agency NoxCod put me on the development.
+In February 2023, Camarage was moving from its old coded site to a new platform on Bubble. The client had already started the move and the designs were ready. The agency NoxCod put me on the development.
 
 ## Task | Launch the platform, then make the payments run on their own.
 
