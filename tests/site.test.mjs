@@ -15,7 +15,7 @@ const FEATURED = ["parts-marketplace", "camarage", "clean-car"];
 const WORK = [...STORIES, ...FEATURED];
 const CASE_STUDIES = [...APPS, ...STORIES];
 // Drafts waiting for client approval: they build, but stay off the lists and out of search.
-const EMPTY = ["price-writers", "betc"];
+const EMPTY = ["price-writers"];
 const CLIENTS = { evaboot: ["evaboot", ...STORIES], "automotive-group": ["parts-marketplace", "dealership-onboarding", "battery-recycling"] };
 const LISTED = APPS.filter((s) => !EMPTY.includes(s));
 const PAGES = ["", "fr", "reviews", "fr/reviews", "privacy", "fr/privacy", "legal", "fr/legal", ...CASE_STUDIES.flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), ...Object.keys(CLIENTS).flatMap((c) => [`clients/${c}`, `fr/clients/${c}`])];
@@ -49,6 +49,7 @@ test("homepage: each record row has a logo or a blank tile, a short proof only w
   for (const row of rows) assert.match(row, /class="record__icon/);
   assert.match(record, /Disko Leads<\/a>[\s\S]*?€0 to €3k MRR[\s\S]*?2024/);
   assert.match(record, /Evaboot<\/a>[\s\S]*?Lead developer of a \$2M ARR SaaS[\s\S]*?2023–26/);
+  assert.match(record, /BETC<\/a>[\s\S]*?2023<\/span>/);
   assert.match(record, /Clean Car<\/a>\s*<\/span>\s*<span class="record__years">2023<\/span>/);
   for (const old of ["to build a booking app", "features and fixes shipped", "17 days"]) assert.ok(!record.includes(old), old);
   const fr = page("fr");
@@ -591,10 +592,10 @@ test("case study: content shows when printing and when the page script fails", (
 });
 
 test("case study: a French route falls back to English", () => {
-  const html = page("fr/case-studies/betc");
+  const html = page("fr/case-studies/price-writers");
   assert.match(html, /<html lang="en">/);
   assert.match(html, /<meta name="robots" content="noindex">/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/case-studies\/betc\/"/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/lepoher\.co\/case-studies\/price-writers\/"/);
 });
 
 test("case studies: a number in the title and the four STAR labels in order", () => {
