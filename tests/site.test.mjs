@@ -45,7 +45,7 @@ test("homepage: each record row has a logo or a blank tile, a short proof only w
   const html = page("");
   const record = html.slice(html.indexOf('id="track-record"'), html.indexOf("</section>", html.indexOf('id="track-record"')));
   const rows = record.split("<li").slice(1);
-  assert.equal(rows.length, LISTED.length + 1);
+  assert.equal(rows.length, LISTED.length);
   for (const row of rows) assert.match(row, /class="record__icon/);
   assert.match(record, /Disko Leads<\/a>[\s\S]*?€0 to €3k MRR[\s\S]*?2024/);
   assert.match(record, /Evaboot<\/a>[\s\S]*?Lead developer of a \$2M ARR SaaS[\s\S]*?2023–26/);
@@ -53,15 +53,6 @@ test("homepage: each record row has a logo or a blank tile, a short proof only w
   for (const old of ["to build a booking app", "features and fixes shipped", "17 days"]) assert.ok(!record.includes(old), old);
   const fr = page("fr");
   assert.ok(fr.includes("De 0 à 3 k€ de MRR"));
-});
-
-test("homepage: BETC sits in the track record with its years but no link, while its page waits for approval", () => {
-  for (const p of ["", "fr"]) {
-    const html = page(p);
-    const record = html.slice(html.indexOf('id="track-record"'), html.indexOf("</section>", html.indexOf('id="track-record"')));
-    assert.match(record, /<span class="record__name">BETC<\/span>[\s\S]*?2023<\/span>/, p);
-    assert.ok(!links(html).some((l) => l.includes("/case-studies/betc/")), p);
-  }
 });
 
 test("homepage: no client revenue sold as a result", () => {

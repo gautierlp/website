@@ -25,8 +25,6 @@ const caseStudies = defineCollection({
     resultLabel: z.string().default(""),
     // A short proof for the Track record row: money, users, or size. Never a speed, because AI makes speed cheap.
     proof: z.string().default(""),
-    // A draft that still shows in the Track record, as a row with no link, until the client approves its page.
-    listed: z.boolean().default(false),
     stats: z.array(stat).max(4).default([]),
     cover: image.optional(),
     links: z.array(link).default([]),

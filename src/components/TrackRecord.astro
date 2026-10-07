@@ -1,7 +1,6 @@
 ---
 // The Track record, after pedromarques.me: a logo, the name, a short grey proof, the years on the right.
 // An app with no logo, or under NDA, gets a blank tile so the names stay in one column.
-// A draft has no link: its page waits for the client's approval.
 import { existsSync } from "node:fs";
 import type { Lang } from "../i18n/ui.ts";
 import { t, localePath } from "../i18n/utils.ts";
@@ -20,9 +19,7 @@ const logoOf = (s: CaseStudy) => (!s.data.nda && s.data.logo && existsSync(`publ
       <li>
         {logo ? <img class="record__icon" src={logo} alt="" width="24" height="24" loading="lazy" decoding="async" /> : <span class="record__icon record__icon--blank" aria-hidden="true" />}
         <span class="record__main">
-          {s.data.status === "draft"
-            ? <span class="record__name">{s.data.name}</span>
-            : <a href={localePath(lang, `/case-studies/${slugOf(s)}/`)}>{s.data.nda ? <><span class="nda">{s.data.name}</span> <span class="nda-label">{tr("project.nda")}</span></> : s.data.name}</a>}
+          <a href={localePath(lang, `/case-studies/${slugOf(s)}/`)}>{s.data.nda ? <><span class="nda">{s.data.name}</span> <span class="nda-label">{tr("project.nda")}</span></> : s.data.name}</a>
           {s.data.proof && <span class="muted record__proof">{s.data.proof}</span>}
         </span>
         {years && <span class="record__years">{years}</span>}

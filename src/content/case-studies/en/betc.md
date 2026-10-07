@@ -14,7 +14,6 @@ featured: false
 nda: false
 order: 10
 status: "draft"
-listed: true
 quote: {"text": "Cette double casque de PO et de dev nocode lui permet de maitriser parfaitement le projet. Je le recommande fortement", "who": "Nirundthan Parameswaran", "role": "Lead developer, BETC"}
 review: "Rewritten on 2026-10-06 from the Malt profile (the BETC experience entries, 23 January to 3 February 2023, and Product Owner from 16 March 2020 to 9 December 2022) and the Malt review of 2023-03-23. Stays a draft until BETC approves the text. Check the 2 weeks, the 3 years, and whether the app went into use, then set status to live and delete this line."
 ---
