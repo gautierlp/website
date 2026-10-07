@@ -5,6 +5,7 @@ title: "600+ students in the first weeks after launch"
 summary: "The Outreach Academy, Folderly's free cold-email course: a Bubble app for desktop, tablet and phone, built in three weeks."
 intro: "The Outreach Academy, Folderly's free cold-email course: a Bubble app for desktop, tablet and phone, built in three weeks."
 client: "Folderly"
+when: "From June 2023"
 logo: "/assets/images/image32.png"
 result: "600+"
 resultLabel: "students in the first weeks after launch"
@@ -16,7 +17,7 @@ featured: false
 nda: false
 order: 3
 status: "live"
-review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line."
+review: "Drafted on 2026-09-30: the heading sentences and the Task section. The start date, June 2023, comes from the discovery calls of 23 and 26 June 2023 in Gmail; the end date is not known. Check them, then delete this line."
 ---
 
 ![Outreach Academy](/assets/projects/folderly/r83htvwk05sopkmdu6xa.webp)

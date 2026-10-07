@@ -49,6 +49,7 @@ test("homepage: each record row has a logo or a blank tile, a short proof only w
   for (const row of rows) assert.match(row, /class="record__icon/);
   assert.match(record, /Disko Leads<\/a>[\s\S]*?€0 to €3k MRR[\s\S]*?2024/);
   assert.match(record, /Evaboot<\/a>[\s\S]*?Lead developer of a \$2M ARR SaaS[\s\S]*?2023–26/);
+  assert.match(rows.find((r) => r.includes("Folderly</a>")), /<span class="record__years">2023<\/span>/);
   assert.match(record, /BETC<\/a>[\s\S]*?2023<\/span>/);
   assert.match(record, /Clean Car<\/a>\s*<\/span>\s*<span class="record__years">2023<\/span>/);
   for (const old of ["to build a booking app", "features and fixes shipped", "17 days"]) assert.ok(!record.includes(old), old);
