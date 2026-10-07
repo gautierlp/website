@@ -24,7 +24,7 @@ review: "Rewritten on 2026-10-01 from the Nifty chat and tickets, Clockify and t
 
 [Camarage](https://camarage.fr/) matches seniors who have a spare room with young adults who need a place to live. The young adult pays a matching fee, then a monthly rent. Camarage keeps a follow-up fee and pays the senior by bank transfer.
 
-In February 2023, Camarage was moving from its old coded site to a new platform on Bubble. The client had already started the move and the designs were ready. The agency NoxCod put me on the development.
+In February 2023, Camarage was moving from its old coded site to a new platform on Bubble. The client had already started the move and the designs were ready. I joined as the developer.
 
 ## Task | Launch the platform, then make the payments run on their own.
 

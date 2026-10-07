@@ -20,9 +20,9 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 ## Situation | Une plateforme utilisée tous les jours, construite par un autre développeur.
 
-[Protech](https://protech.mc/) prend soin des voitures à Monte-Carlo depuis 1989 : films de protection et traitements. Son activité repose sur une seule plateforme Bubble, construite avec l'agence NoxCod. Les concessionnaires automobiles y demandent des prix et réservent des jobs, les techniciens suivent chaque job dans une app mobile, et les admins gèrent les jobs et les concessionnaires.
+[Protech](https://protech.mc/) prend soin des voitures à Monte-Carlo depuis 1989 : films de protection et traitements. Son activité repose sur une seule plateforme Bubble. Les concessionnaires automobiles y demandent des prix et réservent des jobs, les techniciens suivent chaque job dans une app mobile, et les admins gèrent les jobs et les concessionnaires.
 
-En septembre 2023, NoxCod m'a présenté à Protech comme le nouveau développeur en charge des évolutions. Je suis revenu en décembre 2024 pour un second round, jusqu'en avril 2025.
+En septembre 2023, j'ai rejoint Protech comme nouveau développeur en charge des évolutions. Je suis revenu en décembre 2024 pour un second round, jusqu'en avril 2025.
 
 ## Mission | Reprendre sans casser un outil que les gens utilisent tous les jours.
 

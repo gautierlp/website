@@ -24,7 +24,7 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 [Camarage](https://camarage.fr/) met en relation des seniors qui ont une chambre libre avec des jeunes qui cherchent un logement. Le jeune paie des frais de mise en relation, puis un loyer mensuel. Camarage garde des frais de suivi et verse le reste au senior par virement.
 
-En février 2023, Camarage passait de son ancien site codé à une nouvelle plateforme sur Bubble. Le client avait déjà commencé la migration et les maquettes étaient prêtes. L'agence NoxCod m'a placé sur le développement.
+En février 2023, Camarage passait de son ancien site codé à une nouvelle plateforme sur Bubble. Le client avait déjà commencé la migration et les maquettes étaient prêtes. Je suis arrivé comme développeur.
 
 ## Mission | Lancer la plateforme, puis faire tourner les paiements sans intervention.
 

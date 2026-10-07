@@ -105,10 +105,14 @@ test("case study: Domeet, a design mockup built with Evodev", () => {
   assert.ok(!/bubble/i.test(html));
 });
 
+test("NoxCod, the agency between Gautier and the end clients, appears on no page", () => {
+  // The site names the end client. NoxCod stays in the vault only.
+  for (const path of PAGES) assert.ok(!/noxcod/i.test(page(path)), path);
+});
+
 test("case study: Pachamama, taken over from another developer", () => {
   const html = page("case-studies/pachamama");
   assert.ok(html.includes("Took over building a recruitment platform with 5,000+ candidates"));
-  assert.ok(html.includes("NoxCod"));
   assert.ok(html.includes("57"));
   assert.ok(html.includes("Situation") && html.includes("Results"));
   // Client staff and client internals stay off the page.
