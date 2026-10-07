@@ -22,7 +22,7 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 Le client gère un réseau de centres de recyclage de véhicules : les sites qui reçoivent et traitent les voitures en fin de vie. Un centre qui veut rejoindre le réseau envoie une candidature. Le personnel du client l'examine, audite le site, puis accepte ou refuse le centre.
 
-En novembre 2023, l'agence m'a mis sur l'appli qui allait porter ce processus.
+En novembre 2023, j'ai rejoint le projet pour construire l'appli qui allait porter ce processus.
 
 ## Mission | Une seule appli pour toute la candidature, du formulaire à l'audit.
 

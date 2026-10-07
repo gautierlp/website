@@ -22,7 +22,7 @@ review: "Rewritten on 2026-10-02 from the sources (the project's source notes). 
 
 The client runs a network of vehicle recycling centres: the sites that take in and treat cars at the end of their life. A centre that wants to join sends an application. The client's staff review it, audit the site, then accept or refuse the centre.
 
-In November 2023, the agency put me on the app that would carry this process.
+In November 2023, I joined the project to build the app that would carry this process.
 
 ## Task | One app for the whole application, from the form to the audit.
 

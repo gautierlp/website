@@ -22,7 +22,7 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 Le client collecte les batteries usagées de véhicules électriques dans les concessions automobiles. Il réserve un transporteur pour amener chaque batterie chez un recycleur, puis envoie à la concession un certificat de recyclage. Chaque batterie porte des numéros réglementaires de déchets qui doivent la suivre.
 
-En août 2023, l'agence qui m'a présenté au client avait dessiné les écrans. J'ai construit l'appli.
+En août 2023, les écrans étaient déjà dessinés. J'ai construit l'appli.
 
 ## Mission | Une seule appli, de la demande de la concession jusqu'au certificat.
 

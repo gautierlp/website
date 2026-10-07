@@ -24,7 +24,7 @@ The client runs a network of car recycling centres. They take parts off old cars
 
 The parts list lives in the client's own system. Each day it puts a new file of all the parts in stock on a server, and the site has to follow it.
 
-On 30 October 2023, the agency put me on the project as its developer. The client planned to show the site to repairers on 28 and 29 November and go live right after.
+On 30 October 2023, I joined the project as its developer. The client planned to show the site to repairers on 28 and 29 November and go live right after.
 
 ## Task | Build the site and keep its parts list current on its own.
 
@@ -33,7 +33,7 @@ Build the search, the basket and the orders, read the client's daily parts file 
 ## Actions | A first version in three weeks, then two years of changes.
 
 - I built the first version in November 2023: sign-up and login, the search page, the basket, the account page, and a layout that works on smaller screens.
-- With another developer at the agency, I built the parts import. An automation tool (Make) picks up the client's file each night, cuts it into packs of 500 lines and sends them to the site. Each import replaces the whole list. A part someone already ordered is kept aside as a record, not deleted.
+- With another developer, I built the parts import. An automation tool (Make) picks up the client's file each night, cuts it into packs of 500 lines and sends them to the site. Each import replaces the whole list. A part someone already ordered is kept aside as a record, not deleted.
 - When a repairer confirms a basket, each recycling centre gets an email with the parts ordered from it. Later I added a confirmation email to the repairer, with the same table of parts.
 - A repairer searches by the maker's part number or, when the file has none, by brand, model and type of part. I made the model list follow the chosen brand.
 - In 2024 I replaced the wide table of results with cards, 25 or 50 per page. I added the end date of each part's exclusive period, two months after it became available, read from a new column of the file.
@@ -50,7 +50,7 @@ Build the search, the basket and the orders, read the client's daily parts file 
 
 Each request was a ticket. Larger ones went through a quote first. When a request was unclear, I asked before I built: whether a new date would come in the client's file, or a quick sketch of the model list to confirm it. Every change went to the test version first with a link, and to production after the client approved it.
 
-Not everything went well. The agency apologised to the client for a late delivery: it had underestimated the import. The first version was ready to test on 20 November 2023. In December the client asked us to test more carefully, because bugs had reached them.
+Not everything went well. We delivered late, because we had underestimated the import. The first version was ready to test on 20 November 2023. In December the client asked us to test more carefully, because bugs had reached them.
 
 ## Results | Live in 37 days, and still kept current two years later.
 

@@ -24,7 +24,7 @@ Le client gère un réseau de centres de recyclage automobile. Ils démontent le
 
 La liste des pièces vit dans le système du client. Chaque jour, il dépose sur un serveur un nouveau fichier de toutes les pièces en stock, et le site doit le suivre.
 
-Le 30 octobre 2023, l'agence m'a mis sur le projet comme développeur. Le client prévoyait de montrer le site aux réparateurs les 28 et 29 novembre, puis de passer en ligne juste après.
+Le 30 octobre 2023, j'ai rejoint le projet comme développeur. Le client prévoyait de montrer le site aux réparateurs les 28 et 29 novembre, puis de passer en ligne juste après.
 
 ## Mission | Construire le site et tenir sa liste de pièces à jour toute seule.
 
@@ -33,7 +33,7 @@ Construire la recherche, le panier et les commandes, lire le fichier quotidien d
 ## Actions | Une première version en trois semaines, puis deux ans d'évolutions.
 
 - J'ai construit la première version en novembre 2023 : inscription et connexion, la page de recherche, le panier, la page de compte, et une mise en page qui fonctionne sur les petits écrans.
-- Avec un autre développeur de l'agence, j'ai construit l'import des pièces. Un outil d'automatisation (Make) récupère le fichier du client chaque nuit, le découpe en paquets de 500 lignes et les envoie au site. Chaque import remplace toute la liste. Une pièce déjà commandée est gardée à part comme trace, pas supprimée.
+- Avec un autre développeur, j'ai construit l'import des pièces. Un outil d'automatisation (Make) récupère le fichier du client chaque nuit, le découpe en paquets de 500 lignes et les envoie au site. Chaque import remplace toute la liste. Une pièce déjà commandée est gardée à part comme trace, pas supprimée.
 - Quand un réparateur confirme un panier, chaque centre de recyclage reçoit un e-mail avec les pièces commandées chez lui. Plus tard, j'ai ajouté un e-mail de confirmation au réparateur, avec le même tableau de pièces.
 - Un réparateur cherche par référence du constructeur ou, quand le fichier n'en a pas, par marque, modèle et type de pièce. J'ai fait en sorte que la liste des modèles suive la marque choisie.
 - En 2024, j'ai remplacé le large tableau de résultats par des cartes, 25 ou 50 par page. J'ai ajouté la date de fin de la période d'exclusivité de chaque pièce, deux mois après sa mise à disposition, lue dans une nouvelle colonne du fichier.
@@ -50,7 +50,7 @@ Construire la recherche, le panier et les commandes, lire le fichier quotidien d
 
 Chaque demande était un ticket. Les plus grosses passaient d'abord par un devis. Quand une demande n'était pas claire, je posais la question avant de construire : si une nouvelle date arriverait dans le fichier du client, ou un croquis rapide de la liste des modèles à confirmer. Chaque changement passait d'abord sur la version de test avec un lien, puis en production après l'accord du client.
 
-Tout ne s'est pas bien passé. L'agence a présenté ses excuses au client pour une livraison en retard : elle avait sous-estimé l'import. La première version était prête à tester le 20 novembre 2023. En décembre, le client nous a demandé de tester plus soigneusement, parce que des bugs lui étaient arrivés.
+Tout ne s'est pas bien passé. Nous avons livré en retard, parce que nous avions sous-estimé l'import. La première version était prête à tester le 20 novembre 2023. En décembre, le client nous a demandé de tester plus soigneusement, parce que des bugs lui étaient arrivés.
 
 ## Résultats | En ligne en 37 jours, et toujours à jour deux ans plus tard.
 

@@ -109,6 +109,12 @@ test("NoxCod and Evodev, the IT services companies between Gautier and the end c
   for (const path of PAGES) assert.ok(!/noxcod|evodev/i.test(page(path)), path);
 });
 
+test("the automotive group pages never mention an agency", () => {
+  for (const path of [...CLIENTS["automotive-group"].flatMap((s) => [`case-studies/${s}`, `fr/case-studies/${s}`]), "clients/automotive-group", "fr/clients/automotive-group"]) {
+    assert.ok(!/\bagency\b|\bagence\b/i.test(page(path)), path);
+  }
+});
+
 test("case study: Pachamama, taken over from another developer", () => {
   const html = page("case-studies/pachamama");
   assert.ok(html.includes("Took over building a recruitment platform with 5,000+ candidates"));
