@@ -41,6 +41,20 @@ test("homepage: the record lists every live app, and no empty draft", () => {
   for (const slug of EMPTY) assert.ok(!links(html).includes(`/case-studies/${slug}/`), slug);
 });
 
+test("homepage: each record row has a logo or a blank tile, a short proof only where it lasts, and the years", () => {
+  const html = page("");
+  const record = html.slice(html.indexOf('id="track-record"'), html.indexOf("</section>", html.indexOf('id="track-record"')));
+  const rows = record.split("<li").slice(1);
+  assert.equal(rows.length, LISTED.length);
+  for (const row of rows) assert.match(row, /class="record__icon/);
+  assert.match(record, /Disko Leads<\/a>[\s\S]*?€0 to €3k MRR[\s\S]*?2024/);
+  assert.match(record, /Evaboot<\/a>[\s\S]*?Lead developer of a \$2M ARR SaaS[\s\S]*?2023–26/);
+  assert.match(record, /Clean Car<\/a>\s*<\/span>\s*<span class="record__years">2023<\/span>/);
+  for (const old of ["to build a booking app", "features and fixes shipped", "17 days"]) assert.ok(!record.includes(old), old);
+  const fr = page("fr");
+  assert.ok(fr.includes("De 0 à 3 k€ de MRR"));
+});
+
 test("homepage: no client revenue sold as a result", () => {
   const html = page("");
   assert.ok(!html.includes("$1.6M"));
@@ -97,7 +111,7 @@ test("case study: Pachamama, taken over from another developer", () => {
   assert.ok(html.includes("Situation") && html.includes("Results"));
   // Client staff and client internals stay off the page.
   for (const name of ["Marion", "Valentine", "Laurie", "Gabrielle", "Arnaud", "Marine", "Mendrika"]) assert.ok(!html.includes(name), name);
-  assert.ok(page("").includes("Took over building a recruitment platform with 5,000+ candidates"), "the line in the Track record");
+  assert.ok(page("").includes("5,000+ candidates"), "the proof in the Track record");
 });
 
 test("case study: the story and the quote", () => {
@@ -484,7 +498,7 @@ test("homepage: six reviews in a pile after the selected work, in order, with a 
     const html = page(path);
     assert.ok(html.includes(`<h2 id="reviews-title">${heading}</h2>`), path);
     assert.ok(html.indexOf("work-title") < html.indexOf('<ol class="pile"'), `${path}: after the selected work`);
-    assert.ok(html.indexOf('<ol class="pile"') < html.indexOf("plainlist"), `${path}: before the track record`);
+    assert.ok(html.indexOf('<ol class="pile"') < html.indexOf('class="record"'), `${path}: before the track record`);
     const pile = pileOf(html);
     assert.deepEqual([...pile.matchAll(/<span class="review__name">([^<]+)<\/span>/g)].map((m) => m[1]), PILE, path);
     assert.deepEqual([...pile.matchAll(/data-place="(\d)"/g)].map((m) => m[1]), ["1", "2", "3", "4", "5", "6"], path);

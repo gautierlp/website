@@ -71,6 +71,12 @@ h1, h2, h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-sp
 .plainlist > li + li { margin-top: 0.35rem; }
 .plainlist p { font-size: 0.9375rem; line-height: 1.5; margin-bottom: 0.65rem; }
 
+/* Track record: logo, name, grey proof, years on the right. */
+.record > li { display: flex; align-items: center; gap: 0.75rem; padding: 0.3rem 0; }
+.record__icon { flex: none; width: 24px; height: 24px; border-radius: 6px; border: 1px solid var(--rule); object-fit: contain; background: var(--bg); }
+.record__main { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; column-gap: 0.5rem; }
+.record__years { flex: none; margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+
 /* Side projects: small tiles in one row that scrolls sideways, as wide as the screen, with the first tile on the column edge. Shadows and motion copied from plud.net. */
 .side { --edge: max(1rem, calc((100vw - var(--column)) / 2 + 1rem)); width: 100vw; margin-left: calc(50% - 50vw); }
 .side h2 { max-width: var(--column); margin: 0 auto; padding: 0 1rem; }

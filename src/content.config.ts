@@ -23,6 +23,8 @@ const caseStudies = defineCollection({
     logo: z.string().default(""),
     result: z.string().default(""),
     resultLabel: z.string().default(""),
+    // A short proof for the Track record row: money, users, or size. Never a speed, because AI makes speed cheap.
+    proof: z.string().default(""),
     stats: z.array(stat).max(4).default([]),
     cover: image.optional(),
     links: z.array(link).default([]),

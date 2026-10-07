@@ -8,6 +8,7 @@ client: "Folderly"
 logo: "/assets/images/image32.png"
 result: "600+"
 resultLabel: "étudiants dans les premières semaines après le lancement"
+proof: "600+ étudiants au lancement"
 stats: [{"value": "600+", "label": "étudiants dans les premières semaines après le lancement"}]
 cover: {"src": "/assets/images/image18.jpg", "alt": "Page d'accueil, bandeau principal"}
 links: [{"label": "Product Hunt", "url": "https://www.producthunt.com/products/folderly#outreach-academy-by-folderly/"}]

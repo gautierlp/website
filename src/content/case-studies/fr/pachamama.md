@@ -8,6 +8,7 @@ client: "Pachamama"
 when: "novembre 2024 à février 2026"
 result: "Reprise du développement"
 resultLabel: "d'une plateforme de recrutement avec plus de 5 000 candidats"
+proof: "Plus de 5 000 candidats"
 stats: [{"value": "57", "label": "tickets livrés en 15 mois"}, {"value": "5 000+", "label": "candidats dans la recherche que j'ai reconstruite"}]
 featured: false
 # Second in the Track record, after Evaboot : 15 months of work.

@@ -9,6 +9,7 @@ when: "août à septembre 2024"
 logo: "/assets/images/image31.png"
 result: "De 0 à 3 k€"
 resultLabel: "de MRR"
+proof: "De 0 à 3 k€ de MRR"
 stats: [{"value": "De 0 à 3 k€", "label": "de MRR"}]
 cover: {"src": "/assets/images/image21.jpg", "alt": "Tableau de bord utilisateur"}
 featured: false

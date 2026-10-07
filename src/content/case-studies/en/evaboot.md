@@ -9,6 +9,7 @@ clientPage: "evaboot"
 logo: "/assets/images/image30.png"
 result: "500"
 resultLabel: "features and fixes shipped, June 2023 to February 2026"
+proof: "Lead developer of a $2M ARR SaaS"
 stats: [{"value": "500", "label": "features and fixes shipped, June 2023 to February 2026"}]
 cover: {"src": "/assets/videos/video01.mp4", "alt": "User dashboard"}
 links: [{"label": "Website", "url": "https://evaboot.com/"}]

@@ -9,6 +9,7 @@ when: "August to September 2024"
 logo: "/assets/images/image31.png"
 result: "From 0 to €3k"
 resultLabel: "MRR"
+proof: "€0 to €3k MRR"
 stats: [{"value": "From 0 to €3k", "label": "MRR"}]
 cover: {"src": "/assets/images/image21.jpg", "alt": "User dashboard"}
 featured: false

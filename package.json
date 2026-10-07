@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:unit": "node --experimental-strip-types --test tests/i18n.test.mjs tests/github.test.mjs tests/case-study.test.mjs",
+    "test:unit": "node --experimental-strip-types --test tests/i18n.test.mjs tests/github.test.mjs tests/case-study.test.mjs tests/years.test.mjs",
     "test:site": "node --test tests/site.test.mjs",
     "test": "npm run test:unit && npm run build && npm run test:site"
   },

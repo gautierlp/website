@@ -9,6 +9,7 @@ clientPage: "evaboot"
 logo: "/assets/images/image30.png"
 result: "500"
 resultLabel: "fonctionnalités et correctifs livrés, de juin 2023 à février 2026"
+proof: "Développeur principal d'un SaaS à 2 M$ d'ARR"
 stats: [{"value": "500", "label": "fonctionnalités et correctifs livrés, de juin 2023 à février 2026"}]
 cover: {"src": "/assets/videos/video01.mp4", "alt": "Tableau de bord utilisateur"}
 links: [{"label": "Site web", "url": "https://evaboot.com/"}]
