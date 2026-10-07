@@ -30,4 +30,4 @@ Consult these guides before working on related tasks:
 
 ## Content
 
-Case studies are Markdown files under `src/content/case-studies/`, client pages under `src/content/clients/`. They are the only source: edit them by hand. A heading written `## Situation | A sentence.` shows the label above the sentence. The Contra and use-case import scripts were deleted on 2026-09-29. Name the end client, never NoxCod: NoxCod is the IT services company that billed Gautier's work to Camarage, Clean Car, Protech, Pachamama and the automotive group. A test fails if any page contains the name.
+Case studies are Markdown files under `src/content/case-studies/`, client pages under `src/content/clients/`. They are the only source: edit them by hand. A heading written `## Situation | A sentence.` shows the label above the sentence. The Contra and use-case import scripts were deleted on 2026-09-29. Name the end client, never the IT services company between Gautier and that client: NoxCod (Camarage, Clean Car, Protech, Pachamama, the automotive group) and Evodev (Domeet). A test fails if any page contains either name.
