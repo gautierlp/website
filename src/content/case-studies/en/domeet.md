@@ -2,8 +2,8 @@
 kind: "app"
 name: "Domeet"
 title: "13 working days to build the first version from the ground up"
-summary: "A meeting app for teams, built from the ground up in 13 working days with the agency Evodev."
-intro: "A meeting app for teams, built from the ground up in 13 working days with the agency Evodev."
+summary: "A meeting app for teams, built from the ground up in 13 working days."
+intro: "A meeting app for teams, built from the ground up in 13 working days."
 client: "Domeet"
 result: "13 working days"
 resultLabel: "to build the first version from the ground up"
@@ -22,11 +22,11 @@ review: "Drafted on 2026-09-30: the heading sentences and the Task section. Chec
 
 ## Situation | The first version existed only as a Figma design.
 
-Domeet is a meeting app for teams. The first version existed only as a Figma design. The agency Evodev brought me in to build it.
+Domeet is a meeting app for teams. The first version existed only as a Figma design. Domeet brought me in to build it.
 
 ## Task | Build the first version from the Figma design.
 
-Build the first version of the app from its Figma design, for the agency Evodev.
+Build the first version of the app from its Figma design.
 
 ## Actions | A meeting app with AI reports, in 13 working days.
 

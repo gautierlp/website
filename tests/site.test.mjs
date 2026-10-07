@@ -97,17 +97,16 @@ test("french stories: French text, French STAR labels, links that stay in French
   }
 });
 
-test("case study: Domeet, a design mockup built with Evodev", () => {
+test("case study: Domeet, a design mockup", () => {
   const html = page("case-studies/domeet");
-  assert.ok(html.includes("Evodev"));
   assert.ok(html.includes("13 working days"));
   assert.ok(html.includes("Design mockup"));
   assert.ok(!/bubble/i.test(html));
 });
 
-test("NoxCod, the agency between Gautier and the end clients, appears on no page", () => {
-  // The site names the end client. NoxCod stays in the vault only.
-  for (const path of PAGES) assert.ok(!/noxcod/i.test(page(path)), path);
+test("NoxCod and Evodev, the IT services companies between Gautier and the end clients, appear on no page", () => {
+  // The site names the end client. The intermediaries stay in the vault only.
+  for (const path of PAGES) assert.ok(!/noxcod|evodev/i.test(page(path)), path);
 });
 
 test("case study: Pachamama, taken over from another developer", () => {

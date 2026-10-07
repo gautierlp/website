@@ -2,8 +2,8 @@
 kind: "app"
 name: "Domeet"
 title: "13 jours ouvrés pour construire la première version de zéro"
-summary: "Une application de réunions pour les équipes, construite de zéro en 13 jours ouvrés avec l'agence Evodev."
-intro: "Une application de réunions pour les équipes, construite de zéro en 13 jours ouvrés avec l'agence Evodev."
+summary: "Une application de réunions pour les équipes, construite de zéro en 13 jours ouvrés."
+intro: "Une application de réunions pour les équipes, construite de zéro en 13 jours ouvrés."
 client: "Domeet"
 result: "13 jours ouvrés"
 resultLabel: "pour construire la première version de zéro"
@@ -22,11 +22,11 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 ## Situation | La première version n'existait que sous forme de maquette Figma.
 
-Domeet est une application de réunions pour les équipes. La première version n'existait que sous forme de maquette Figma. L'agence Evodev m'a fait venir pour la construire.
+Domeet est une application de réunions pour les équipes. La première version n'existait que sous forme de maquette Figma. Domeet m'a fait venir pour la construire.
 
 ## Mission | Construire la première version à partir de la maquette Figma.
 
-Construire la première version de l'application à partir de sa maquette Figma, pour l'agence Evodev.
+Construire la première version de l'application à partir de sa maquette Figma.
 
 ## Actions | Une application de réunions avec des comptes rendus par IA, en 13 jours ouvrés.
 
