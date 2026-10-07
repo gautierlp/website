@@ -22,7 +22,7 @@ review: "Rewritten on 2026-10-02 from the sources (the project's source notes). 
 
 The client collects used electric-vehicle batteries from car dealerships. It books a carrier to take each battery to a recycler, then sends the dealership a recycling certificate. Each battery carries regulatory waste numbers that must follow it.
 
-In August 2023, the agency that introduced me to the client had designed the screens. I built the app.
+In August 2023, the screens were already designed. I built the app.
 
 ## Task | One app from the dealership's request to the certificate.
 
