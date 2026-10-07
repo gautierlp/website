@@ -19,13 +19,13 @@ review: "Checked on 2026-10-02 against the sources (sources/pachamama/notes.md).
 
 ## Situation | The whole business runs on one Bubble app.
 
-Pachamama is a recruitment collective. It places people in permanent jobs and in freelance missions. The whole business runs on one Bubble app, and the agency NoxCod has worked on it since November 2023. Recruiters manage hiring assignments and candidates there, client companies follow their candidates in their own space, and candidates apply through a public job board.
+Pachamama is a recruitment collective. It places people in permanent jobs and in freelance missions. The whole business runs on one Bubble app. Recruiters manage hiring assignments and candidates there, client companies follow their candidates in their own space, and candidates apply through a public job board.
 
-In November 2024 I took over the development from the previous developer at NoxCod. I worked on the app until February 2026, with the NoxCod team.
+In November 2024 I took over the development from the previous developer. I worked on the app until February 2026.
 
 ## Task | Take over the app from the previous developer.
 
-Take over the development of the Bubble app from the previous developer at NoxCod, and keep working on it with the NoxCod team.
+Take over the development of the Bubble app from the previous developer, and keep working on it.
 
 ## Actions | Faster pages, placement payouts, follow-ups and roles.
 

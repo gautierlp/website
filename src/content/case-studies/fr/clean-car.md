@@ -24,9 +24,9 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 [Clean Car France](https://cleancar-france.fr/) prépare et nettoie des véhicules pour des clients particuliers et professionnels. L'entreprise voulait que ses clients réservent une prestation depuis leur téléphone, et que son équipe voie chaque intervention dans un seul calendrier.
 
-## Mission | Construire l'application de réservation, via l'agence NoxCod.
+## Mission | Construire l'application de réservation.
 
-Construire l'application dans Bubble pour l'agence NoxCod, du modèle de données jusqu'à la partie administration, pour qu'elle puisse être publiée sur l'App Store et Google Play.
+Construire l'application dans Bubble, du modèle de données jusqu'à la partie administration, pour qu'elle puisse être publiée sur l'App Store et Google Play.
 
 ## Actions | Une application mobile de réservation, construite en 17 jours.
 

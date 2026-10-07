@@ -20,9 +20,9 @@ review: "Drafted on 2026-10-01 from the Nifty discussion and tickets, the Clocki
 
 ## Situation | A platform in daily use, built by another developer.
 
-[Protech](https://protech.mc/) has cared for cars in Monte-Carlo since 1989: protection films and treatments. Its business runs on one Bubble platform, built with the agency NoxCod. Car dealers request prices and book jobs there, technicians follow each job in a mobile app, and admins run the jobs and the dealers.
+[Protech](https://protech.mc/) has cared for cars in Monte-Carlo since 1989: protection films and treatments. Its business runs on one Bubble platform. Car dealers request prices and book jobs there, technicians follow each job in a mobile app, and admins run the jobs and the dealers.
 
-In September 2023, NoxCod introduced me to Protech as the new developer in charge of the changes. I came back in December 2024 for a second round, until April 2025.
+In September 2023, I joined Protech as the new developer in charge of the changes. I came back in December 2024 for a second round, until April 2025.
 
 ## Task | Take over without breaking a tool people use every day.
 

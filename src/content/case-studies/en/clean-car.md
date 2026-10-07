@@ -24,9 +24,9 @@ review: "Rewritten on 2026-10-01 from Clockify and the Nifty chat (sources/clean
 
 [Clean Car France](https://cleancar-france.fr/) prepares and cleans vehicles for private and business customers. It wanted its customers to book a service from their phone, and its team to see every job in one calendar.
 
-## Task | Build the booking app, through the agency NoxCod.
+## Task | Build the booking app.
 
-Build the app in Bubble for the agency NoxCod, from the data model to the admin side, so it could ship to the App Store and Google Play.
+Build the app in Bubble, from the data model to the admin side, so it could ship to the App Store and Google Play.
 
 ## Actions | A mobile booking app, built in 17 days.
 

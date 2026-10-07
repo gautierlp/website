@@ -19,13 +19,13 @@ review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne.
 
 ## Situation | Toute l'activité repose sur une seule app Bubble.
 
-Pachamama est un collectif de recrutement. Il place des personnes en CDI et sur des missions freelance. Toute l'activité repose sur une seule app Bubble, et l'agence NoxCod travaille dessus depuis novembre 2023. Les recruteurs y gèrent les missions de recrutement et les candidats, les entreprises clientes suivent leurs candidats dans leur propre espace, et les candidats postulent via un job board public.
+Pachamama est un collectif de recrutement. Il place des personnes en CDI et sur des missions freelance. Toute l'activité repose sur une seule app Bubble. Les recruteurs y gèrent les missions de recrutement et les candidats, les entreprises clientes suivent leurs candidats dans leur propre espace, et les candidats postulent via un job board public.
 
-En novembre 2024, j'ai repris le développement des mains du développeur précédent chez NoxCod. J'ai travaillé sur l'app jusqu'en février 2026, avec l'équipe NoxCod.
+En novembre 2024, j'ai repris le développement des mains du développeur précédent. J'ai travaillé sur l'app jusqu'en février 2026.
 
 ## Mission | Reprendre l'app du développeur précédent.
 
-Reprendre le développement de l'app Bubble des mains du développeur précédent chez NoxCod, et continuer à y travailler avec l'équipe NoxCod.
+Reprendre le développement de l'app Bubble des mains du développeur précédent, et continuer à y travailler.
 
 ## Actions | Pages plus rapides, commissions de placement, relances et rôles.
 
