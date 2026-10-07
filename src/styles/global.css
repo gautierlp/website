@@ -6,7 +6,7 @@
   --rule: #e6e6e6;
   --accent: #111111;
   --underline: #c4c4c4;
-  --column: calc(586px + 2rem);
+  --column: 40rem;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -271,11 +271,11 @@ figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
   .pile__card { position: absolute; left: var(--x); top: var(--y); width: 15rem; z-index: var(--z); transform: rotate(var(--r)); }
   /* The top row sits over the bottom row, and the lead card (place 1) over its neighbours. */
   .pile__card[data-place="1"] { --x: 0rem; --y: 1.25rem; --r: -4deg; --z: 6; }
-  .pile__card[data-place="2"] { --x: 10.75rem; --y: 0rem; --r: 3deg; --z: 4; }
-  .pile__card[data-place="3"] { --x: 21.5rem; --y: 1.5rem; --r: -2.5deg; --z: 5; }
-  .pile__card[data-place="4"] { --x: 0.75rem; --y: 13rem; --r: 3.5deg; --z: 2; }
-  .pile__card[data-place="5"] { --x: 11.25rem; --y: 14rem; --r: -3deg; --z: 3; }
-  .pile__card[data-place="6"] { --x: 21.5rem; --y: 12.75rem; --r: 4deg; --z: 1; }
+  .pile__card[data-place="2"] { --x: 11.5rem; --y: 0rem; --r: 3deg; --z: 4; }
+  .pile__card[data-place="3"] { --x: 23rem; --y: 1.5rem; --r: -2.5deg; --z: 5; }
+  .pile__card[data-place="4"] { --x: 1rem; --y: 13rem; --r: 3.5deg; --z: 2; }
+  .pile__card[data-place="5"] { --x: 12rem; --y: 14rem; --r: -3deg; --z: 3; }
+  .pile__card[data-place="6"] { --x: 23rem; --y: 12.75rem; --r: 4deg; --z: 1; }
   .pile__card:hover, .pile__card:focus-visible { z-index: 10; transform: rotate(0deg) scale(1.06); }
   .pile__card:hover { box-shadow: 0 30px 50px -20px #00000033, 0 4px 12px #0000001a, 0 0 0 0.5px #0000001f; }
 }

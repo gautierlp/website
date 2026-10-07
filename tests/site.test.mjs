@@ -628,7 +628,7 @@ test("case study: a card at the bottom leads to the next story of the same list,
   assert.match(page("fr/case-studies/no-code-exit"), /<a class="cs__next" href="\/fr\/case-studies\/interfaces-on-a-new-stack\/"[\s\S]*?<small>Suivant<\/small>/);
 });
 
-// Design notes copied from pedromarques.me: one font, a 586px text column, 64px between sections.
+// Design notes copied from pedromarques.me: one font, 64px between sections. The 586px column felt too tight, so the 40rem one is back.
 test("design: one font family, Inter, and no second font download", () => {
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
   const layout = readFileSync(new URL("../src/layouts/BaseLayout.astro", import.meta.url), "utf8");
@@ -636,9 +636,9 @@ test("design: one font family, Inter, and no second font download", () => {
   assert.ok(!css.includes("--font-code"));
 });
 
-test("design: the text column is 586px wide, plus 1rem of margin on each side", () => {
+test("design: the column is 40rem wide, margins included", () => {
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
-  assert.match(css, /--column: calc\(586px \+ 2rem\);/);
+  assert.match(css, /--column: 40rem;/);
 });
 
 test("design: 64px between the sections of a page", () => {
