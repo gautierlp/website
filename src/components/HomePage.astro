@@ -18,8 +18,8 @@ const work = [
   ...studies.filter((s) => s.data.kind === "use-case"),
   ...studies.filter((s) => s.data.kind === "app" && s.data.featured && s.data.status === "live"),
 ];
-// One row per app. Drafts with no text stay off the list: they build, but only a direct link reaches them.
-const apps = studies.filter((s) => s.data.kind === "app" && s.data.status === "live");
+// One row per app. Drafts stay off the list, except a `listed` draft, which shows with no link.
+const apps = studies.filter((s) => s.data.kind === "app" && (s.data.status === "live" || s.data.listed));
 ---
 <BaseLayout lang={lang} routeLang={lang} title={tr("site.title")} description={tr("site.description")}>
   <Hero lang={lang} />
