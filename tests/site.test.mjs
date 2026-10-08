@@ -306,17 +306,18 @@ test("homepage: side projects in a row that scrolls sideways, in both languages"
   assert.match(en, /<h2 id="side-title">Side projects<\/h2>/);
   assert.ok(!en.includes("Personal projects"));
   assert.match(en, /<ul class="side__track" data-side-track/);
-  // Four projects, in this order. All four are private today, so no tile is a link yet.
+  // The open-source work, in this order. Each tile opens its GitHub page.
   const names = [...en.matchAll(/<span class="tile__copy"><strong>([^<]+)<\/strong>/g)].map((m) => m[1]);
-  assert.deepEqual(names, ["Home server", "Finance app", "Jolt", "Session reviewer"]);
-  assert.equal((en.match(/<div class="tile tile--static">/g) ?? []).length, 4);
-  assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 0);
-  assert.ok(en.includes("A server at home that runs my booking page, my email assistant and my test runners."));
+  assert.deepEqual(names, ["Inbox Zero", "dormouse", "woodpecker", "magpie", "astro-agentation"]);
+  const hrefs = [...en.matchAll(/<a class="tile" href="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(hrefs, ["https://github.com/elie222/inbox-zero/pull/3993", "https://github.com/gautierlp/dormouse", "https://github.com/gautierlp/woodpecker", "https://github.com/gautierlp/magpie", "https://github.com/gautierlp/astro-agentation"]);
+  assert.equal((en.match(/class="tile__arrow"/g) ?? []).length, 5);
+  assert.ok(en.includes("12k+ GitHub stars"));
+  for (const gone of ["Home server", "Finance app", "Jolt", "Session reviewer"]) assert.ok(!en.includes(`<strong>${gone}</strong>`), gone);
   assert.ok(en.indexOf("Track record") < en.indexOf("Side projects"));
   const fr = page("fr");
   assert.match(fr, /<h2 id="side-title">Projets perso<\/h2>/);
-  assert.ok(fr.includes("<strong>Serveur maison</strong>"));
-  assert.ok(fr.includes("Une app qui importe mes données bancaires dans Postgres et répond aux questions que je lui pose."));
+  assert.ok(fr.includes("<strong>woodpecker</strong>") && fr.includes("Un bot Telegram"));
 });
 
 test("homepage: the hero alone carries the call and the email, there is no closing call to action", () => {
@@ -478,18 +479,12 @@ test("links are ink with a grey underline: the Carrd blue is gone from the built
   assert.match(css, /a\{color:var\(--ink\);text-decoration:underline;text-decoration-color:var\(--underline\)/);
 });
 
-test("side projects: the four icons are inline SVG with named moving parts, and motion stops under reduced motion", () => {
+test("side projects: each icon is the project's own logo, served from the site", () => {
   const html = page("");
-  assert.ok(!html.includes('<img class="tile__icon"'));
-  for (const icon of ["home-server", "finance", "jolt", "session-reviewer"]) {
-    assert.match(html, new RegExp(`<svg class="tile__icon" data-icon="${icon}"`));
-  }
-  assert.match(html, /class="icon__light"/);
-  assert.match(html, /class="icon__bar"/);
-  assert.match(html, /class="icon__bolt"/);
-  assert.match(html, /class="icon__lens"/);
-  const css = readdirSync(join(DIST, "_astro")).filter((f) => f.endsWith(".css")).map((f) => readFileSync(join(DIST, "_astro", f), "utf8")).join("\n");
-  assert.match(css, /prefers-reduced-motion:\s*reduce\)\{(?:[^{}]*\{[^}]*\})*?[^{}]*\.tile__icon \*\{[^}]*animation:none/);
+  const icons = [...html.matchAll(/<img class="tile__icon" src="([^"]+)" alt=""/g)].map((m) => m[1]);
+  assert.equal(icons.length, 5);
+  for (const src of icons) assert.ok(existsSync(join(DIST, src)), src);
+  assert.ok(!html.includes('<svg class="tile__icon"'));
 });
 
 test("GitHub graph: the five tints are clearly apart, from the empty day to the busiest", () => {
@@ -692,6 +687,9 @@ test("case study: Clean Car links to both app stores", () => {
 });
 
 test("the review toolbar stays on the dev server: no page or asset ships Agentation or React", () => {
-  for (const p of PAGES) assert.doesNotMatch(page(p), /agentation|react|data-insp-path/i, p);
+  // The Side projects row names the astro-agentation repo on purpose: check every page without it.
+  const withoutSide = (html) => html.replace(/<section class="side"[\s\S]*?<\/section>/, "");
+  for (const p of PAGES) assert.doesNotMatch(withoutSide(page(p)), /agentation|react|data-insp-path/i, p);
+  assert.doesNotMatch(page(""), /<script[^>]*agentation|data-insp-path/i);
   for (const f of readdirSync(join(DIST, "_astro"))) assert.doesNotMatch(readFileSync(join(DIST, "_astro", f), "utf8"), /agentation|react-dom/i, f);
 });

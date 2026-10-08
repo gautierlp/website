@@ -1,19 +1,18 @@
 ---
-// Side projects, after plud.net: an icon, the name, one line. The tiles sit in one row that
+// Side projects, after plud.net: a logo, the name, one line. The tiles sit in one row that
 // scrolls sideways and never moves by itself.
-// A project with no `href` is a tile with no link and no arrow. The rule for the links: an open-source
-// project opens its GitHub repository, a private one opens an article on this site. All four are
-// private and have no article yet.
+// Each tile opens the GitHub page of the project. A tile with no `href` has no link and no arrow.
+// The logos are copies of each project's own icon, in public/assets/side/.
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
-import SideIcon from "./SideIcon.astro";
 interface Props { lang: Lang }
 const tr = t(Astro.props.lang);
-const items: { name: string; icon: "home-server" | "finance" | "jolt" | "session-reviewer"; line: string; href?: string }[] = [
-  { name: tr("side.server.name"), icon: "home-server", line: tr("side.server") },
-  { name: tr("side.finance.name"), icon: "finance", line: tr("side.finance") },
-  { name: "Jolt", icon: "jolt", line: tr("side.jolt") },
-  { name: "Session reviewer", icon: "session-reviewer", line: tr("side.sessionReviewer") },
+const items: { name: string; icon: string; line: string; href?: string }[] = [
+  { name: "Inbox Zero", icon: "/assets/side/inbox-zero.png", line: tr("side.inboxZero"), href: "https://github.com/elie222/inbox-zero/pull/3993" },
+  { name: "dormouse", icon: "/assets/side/dormouse.svg", line: tr("side.dormouse"), href: "https://github.com/gautierlp/dormouse" },
+  { name: "woodpecker", icon: "/assets/side/woodpecker.svg", line: tr("side.woodpecker"), href: "https://github.com/gautierlp/woodpecker" },
+  { name: "magpie", icon: "/assets/side/magpie.svg", line: tr("side.magpie"), href: "https://github.com/gautierlp/magpie" },
+  { name: "astro-agentation", icon: "/assets/side/agentation.png", line: tr("side.astroAgentation"), href: "https://github.com/gautierlp/astro-agentation" },
 ];
 ---
 <section class="side" aria-labelledby="side-title">
@@ -22,7 +21,7 @@ const items: { name: string; icon: "home-server" | "finance" | "jolt" | "session
     {items.map((item) => {
       const body = (
         <>
-          <SideIcon icon={item.icon} />
+          <img class="tile__icon" src={item.icon} alt="" width="40" height="40" loading="lazy" decoding="async" draggable="false" />
           <span class="tile__copy"><strong>{item.name}</strong><span>{item.line}</span></span>
         </>
       );
