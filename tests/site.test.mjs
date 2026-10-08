@@ -510,19 +510,28 @@ test("GitHub graph: the tints fill in from empty, the busiest days last, never u
   assert.ok(!html.includes("data-gh-anim") && !html.includes('get("gh")'), "the trial switch is gone");
 });
 
-const PILE = ["JB Jézéquel", "Nirundthan Parameswaran", "Johary Randria", "Pierre Hilbert", "Bastien Paul", "Clara Ananou"];
+test("reviews: no fake, off-topic or Bubble-centred review on the site", () => {
+  for (const p of ["", "fr", "reviews", "fr/reviews"]) {
+    const html = page(p);
+    for (const gone of ["Clara Ananou", "Xano", "promotional videos", "vidéos promotionnelles", "implement an API on our website", "Gautier showed his expertise", "a démontré son expertise", "Gautier’s work with Bubble"]) assert.ok(!html.includes(gone), `${p}: ${gone}`);
+    const quotes = [...html.matchAll(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/g)].map((m) => m[1]).join("\n");
+    assert.ok(!/Bubble/.test(quotes), `${p}: no review names Bubble`);
+  }
+});
+
+const PILE = ["JB Jézéquel", "Nirundthan Parameswaran", "Johary Randria", "Pierre Hilbert", "Bastien Paul"];
 const pileOf = (html) => html.slice(html.indexOf('<ol class="pile"'), html.indexOf("</ol>", html.indexOf('<ol class="pile"')));
 
-test("homepage: six reviews in a pile after the selected work, in order, with a link to all ten", () => {
-  for (const [path, heading, link] of [["", "What clients say", '<a class="pile__all" href="/reviews/">Read all 10 reviews</a>'], ["fr", "Ce que disent les clients", '<a class="pile__all" href="/fr/reviews/">Lire les 10 avis</a>']]) {
+test("homepage: five reviews in a pile after the selected work, in order, with a link to all five", () => {
+  for (const [path, heading, link] of [["", "What clients say", '<a class="pile__all" href="/reviews/">Read all 5 reviews</a>'], ["fr", "Ce que disent les clients", '<a class="pile__all" href="/fr/reviews/">Lire les 5 avis</a>']]) {
     const html = page(path);
     assert.ok(html.includes(`<h2 id="reviews-title">${heading}</h2>`), path);
     assert.ok(html.indexOf("work-title") < html.indexOf('<ol class="pile"'), `${path}: after the selected work`);
     assert.ok(html.indexOf('<ol class="pile"') < html.indexOf('class="record"'), `${path}: before the track record`);
     const pile = pileOf(html);
     assert.deepEqual([...pile.matchAll(/<span class="review__name">([^<]+)<\/span>/g)].map((m) => m[1]), PILE, path);
-    assert.deepEqual([...pile.matchAll(/data-place="(\d)"/g)].map((m) => m[1]), ["1", "2", "3", "4", "5", "6"], path);
-    assert.equal((pile.match(/tabindex="0"/g) ?? []).length, 6, `${path}: each card takes keyboard focus`);
+    assert.deepEqual([...pile.matchAll(/data-place="(\d)"/g)].map((m) => m[1]), ["1", "2", "3", "4", "5"], path);
+    assert.equal((pile.match(/tabindex="0"/g) ?? []).length, 5, `${path}: each card takes keyboard focus`);
     assert.match(pile, /data-place="1" data-tone="ink"/);
     assert.ok(html.includes(link), path);
     assert.ok(!pile.includes("CMO") && !pile.includes("promotional"), `${path}: reviews off the pile stay off the homepage`);
@@ -538,19 +547,18 @@ test("homepage: a French review shows its translation and a label in English, th
   const fr = pileOf(page("fr"));
   assert.ok(fr.includes("Cette double casque de PO et de dev nocode"));
   assert.ok(!fr.includes("review-card__note"));
-  assert.ok(fr.includes("He helped scale our Bubble app to $200k MRR"), "an English review stays in English");
+  assert.ok(fr.includes("He helped scale our app to $200k MRR"), "an English review stays in English");
   assert.match(en, /<p class="review-card__result">From 0 to €3k MRR<\/p>/);
   for (const p of ["", "case-studies/disko-leads", "fr/case-studies/disko-leads"]) assert.doesNotMatch(page(p), /\$3k|3k \$|3 000 \$|\$3,000/, p);
 });
 
-test("reviews page: every review in full, newest first, a hidden name shows the role alone", () => {
+test("reviews page: every review in full, newest first", () => {
   for (const path of ["reviews", "fr/reviews"]) {
     const html = page(path);
-    assert.equal((html.match(/<article class="review"/g) ?? []).length, 10, path);
+    assert.equal((html.match(/<article class="review"/g) ?? []).length, 5, path);
     const years = [...html.matchAll(/<span class="review__source">(?:Malt|Contra), (\d{4})<\/span>/g)].map((m) => Number(m[1]));
-    assert.equal(years.length, 10, path);
+    assert.equal(years.length, 5, path);
     assert.deepEqual(years, [...years].sort((a, b) => b - a), `${path}: newest first`);
-    assert.match(html, /<span class="review__role">CMO<\/span>/);
   }
   assert.ok(page("reviews").includes("Azure Graph"));
   assert.ok(page("reviews").includes("Translated from French"));
