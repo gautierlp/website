@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "agentation": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "--no",
+        "agentation-mcp",
+        "server",
+        "--mcp-only",
+        "--http-url",
+        "http://localhost:4747"
+      ]
+    }
+  }
+}

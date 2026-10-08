@@ -24,6 +24,10 @@ Consult these guides before working on related tasks:
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
 
+## Visual review
+
+`npm run review` starts Agentation's annotation server (localhost:4747) and the dev server on port 4331 of all interfaces, so the Mac opens it over Tailscale (http://jarvis:4331/). In the browser, start feedback mode in the toolbar at the bottom right, click an element or select text, and type the change. Each note keeps the page URL, the element text, the nearby text and a CSS path, but no source file for `.astro` or Markdown. The notes live in `~/.agentation/store.db` on jarvis, not in the repo. Read them with the `agentation` MCP server (`.mcp.json`, `--mcp-only` so it reuses the running annotation server) or `curl localhost:4747/sessions`. A small integration in `astro.config.mjs` adds `src/dev/review.ts` to pages on the dev server only, so the built site ships no React and no toolbar. The dev server forwards `/agentation` to port 4747 and sets a localhost origin, because the annotation server rejects other origins.
+
 ## Tests
 
 `npm test` runs the unit tests, builds the site, then checks `dist/`. Set `GITHUB_TOKEN` (for example `GITHUB_TOKEN=$(gh auth token)`) to include the contribution graph test.
