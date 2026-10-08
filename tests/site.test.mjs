@@ -431,6 +431,10 @@ test("no emoji, no em dash, no filler words, no invented product names on any pa
   }
 });
 
+test("NDA apps: no link underline under the blurred name in the track record", () => {
+  assert.match(cssText(), /\.record__main a:has\(\.nda\)\{text-decoration:none\}/);
+});
+
 test("NDA apps: placeholder name blurred, with an NDA label, on the list and the page", () => {
   const home = page("");
   assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
