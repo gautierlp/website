@@ -9,7 +9,7 @@ when: "février 2023 à juin 2025"
 logo: "/assets/images/image34.png"
 result: "30 jours"
 resultLabel: "pour lancer une plateforme de logement, puis 2 ans de paiements de loyers"
-proof: "2 ans de paiements de loyers"
+proof: "Plateforme de logement, plus de 8 000 mises en relation"
 stats: [{"value": "30 jours", "label": "de mon premier jour au lancement"}, {"value": "3 000+", "label": "jeunes dans la base de données"}, {"value": "8 152", "label": "mises en relation dans la base en juin 2025"}]
 featured: true
 nda: false

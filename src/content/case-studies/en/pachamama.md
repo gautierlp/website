@@ -8,7 +8,7 @@ client: "Pachamama"
 when: "November 2024 to February 2026"
 result: "Took over building"
 resultLabel: "a recruitment platform with 5,000+ candidates"
-proof: "5,000+ candidates"
+proof: "Recruitment app, 5,000+ candidates"
 stats: [{"value": "57", "label": "tickets shipped in 15 months"}, {"value": "5,000+", "label": "candidates in the search I rebuilt"}]
 featured: false
 # Second in the Track record, after Evaboot: 15 months of work.

@@ -1,5 +1,5 @@
 ---
-// Six reviews in a loose pile, after the Dribbble shot "Testimonial Card Hover Interaction" by Aathif
+// Six reviews in a loose pile (none until six reviews have a `pile` place), after the Dribbble shot "Testimonial Card Hover Interaction" by Aathif
 // Thajudeen. Hover or focus brings a card to the front. On touch or narrow screens the pile is a row.
 import type { Lang } from "../i18n/ui.ts";
 import { localePath, t } from "../i18n/utils.ts";
@@ -11,7 +11,7 @@ const tr = t(lang);
 const all = await getTestimonials();
 const pile = all.filter((r) => r.data.pile).sort((a, b) => (a.data.pile ?? 0) - (b.data.pile ?? 0));
 ---
-{pile.length > 0 && (
+{pile.length >= 6 && (
   <section class="reviews" aria-labelledby="reviews-title">
     <h2 id="reviews-title">{tr("reviews.title")}</h2>
     <ol class="pile" data-pile>

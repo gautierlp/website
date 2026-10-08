@@ -48,13 +48,17 @@ test("homepage: each record row has a logo or a blank tile, a short proof only w
   assert.equal(rows.length, LISTED.length);
   for (const row of rows) assert.match(row, /class="record__icon/);
   assert.match(record, /Disko Leads<\/a>[\s\S]*?€0 to €3k MRR[\s\S]*?2024/);
-  assert.match(record, /Evaboot<\/a>[\s\S]*?Lead developer of a \$2M ARR SaaS[\s\S]*?2023–26/);
+  assert.match(record, /Evaboot<\/a>[\s\S]*?Builder of a \$2M ARR SaaS[\s\S]*?2023–26/);
+  assert.match(record, /Pachamama<\/a>[\s\S]*?Recruitment app, 5,000\+ candidates/);
+  assert.match(record, /Camarage<\/a>[\s\S]*?Housing platform, 8,000\+ matchings/);
+  assert.ok(!record.includes("Lead developer") && !record.includes("rent payments"));
   assert.match(rows.find((r) => r.includes("Folderly</a>")), /<span class="record__years">2023<\/span>/);
-  assert.match(record, /BETC<\/a>[\s\S]*?2023<\/span>/);
+  assert.match(record, /BETC<\/a>[\s\S]*?2020–23<\/span>/);
   assert.match(record, /Clean Car<\/a>\s*<\/span>\s*<span class="record__years">2023<\/span>/);
   for (const old of ["to build a booking app", "features and fixes shipped", "17 days"]) assert.ok(!record.includes(old), old);
   const fr = page("fr");
   assert.ok(fr.includes("De 0 à 3 k€ de MRR"));
+  assert.ok(fr.includes("App de recrutement, plus de 5 000 candidats") && fr.includes("Plateforme de logement, plus de 8 000 mises en relation") && fr.includes("Builder d&#39;un SaaS à 2 M$ d&#39;ARR"));
 });
 
 test("homepage: no client revenue sold as a result", () => {
@@ -430,8 +434,11 @@ test("NDA apps: placeholder name blurred, with an NDA label, on the list and the
   const home = page("");
   assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
   for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) {
-    assert.match(page(`case-studies/${slug}`), /<p class="cs__label"><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed, name changed<\/span>/, slug);
-    assert.match(page(`fr/case-studies/${slug}`), /<span class="nda-label">NDA signé, nom modifié<\/span>/, `fr/${slug}`);
+    assert.match(page(`case-studies/${slug}`), /<p class="cs__label"><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span>/, slug);
+    assert.match(page(`fr/case-studies/${slug}`), /<span class="nda-label">NDA signé<\/span>/, `fr/${slug}`);
+  }
+  for (const p of PAGES) {
+    assert.ok(!page(p).includes("name changed") && !page(p).includes("nom modifié"), p);
   }
 });
 
@@ -519,37 +526,22 @@ test("reviews: no fake, off-topic or Bubble-centred review on the site", () => {
   }
 });
 
-const PILE = ["JB Jézéquel", "Nirundthan Parameswaran", "Johary Randria", "Pierre Hilbert", "Bastien Paul"];
-const pileOf = (html) => html.slice(html.indexOf('<ol class="pile"'), html.indexOf("</ol>", html.indexOf('<ol class="pile"')));
-
-test("homepage: five reviews in a pile after the selected work, in order, with a link to all five", () => {
-  for (const [path, heading, link] of [["", "What clients say", '<a class="pile__all" href="/reviews/">Read all 5 reviews</a>'], ["fr", "Ce que disent les clients", '<a class="pile__all" href="/fr/reviews/">Lire les 5 avis</a>']]) {
+test("homepage: no review pile while fewer than six reviews are on it", () => {
+  for (const path of ["", "fr"]) {
     const html = page(path);
-    assert.ok(html.includes(`<h2 id="reviews-title">${heading}</h2>`), path);
-    assert.ok(html.indexOf("work-title") < html.indexOf('<ol class="pile"'), `${path}: after the selected work`);
-    assert.ok(html.indexOf('<ol class="pile"') < html.indexOf('class="record"'), `${path}: before the track record`);
-    const pile = pileOf(html);
-    assert.deepEqual([...pile.matchAll(/<span class="review__name">([^<]+)<\/span>/g)].map((m) => m[1]), PILE, path);
-    assert.deepEqual([...pile.matchAll(/data-place="(\d)"/g)].map((m) => m[1]), ["1", "2", "3", "4", "5"], path);
-    assert.equal((pile.match(/tabindex="0"/g) ?? []).length, 5, `${path}: each card takes keyboard focus`);
-    assert.match(pile, /data-place="1" data-tone="ink"/);
-    assert.ok(html.includes(link), path);
-    assert.ok(!pile.includes("CMO") && !pile.includes("promotional"), `${path}: reviews off the pile stay off the homepage`);
+    assert.ok(!html.includes('<ol class="pile"') && !html.includes('id="reviews-title"'), path);
     assert.ok(!html.includes('<blockquote class="quote">'), `${path}: the single quote is gone`);
   }
 });
 
-test("homepage: a French review shows its translation and a label in English, the original in French", () => {
-  const en = pileOf(page(""));
+test("reviews page: a French review shows its translation and a label in English, the original in French", () => {
+  const en = page("reviews");
   assert.ok(en.includes("double hat of PO and no-code developer"));
   assert.ok(!en.includes("double casque"));
-  assert.equal((en.match(/<p class="review-card__note">Translated from French<\/p>/g) ?? []).length, 2);
-  const fr = pileOf(page("fr"));
+  const fr = page("fr/reviews");
   assert.ok(fr.includes("Cette double casque de PO et de dev nocode"));
-  assert.ok(!fr.includes("review-card__note"));
   assert.ok(fr.includes("He helped scale our app to $200k MRR"), "an English review stays in English");
-  assert.match(en, /<p class="review-card__result">From 0 to €3k MRR<\/p>/);
-  for (const p of ["", "case-studies/disko-leads", "fr/case-studies/disko-leads"]) assert.doesNotMatch(page(p), /\$3k|3k \$|3 000 \$|\$3,000/, p);
+  for (const p of ["", "reviews", "case-studies/disko-leads", "fr/case-studies/disko-leads"]) assert.doesNotMatch(page(p), /\$3k|3k \$|3 000 \$|\$3,000/, p);
 });
 
 test("reviews page: every review in full, newest first", () => {

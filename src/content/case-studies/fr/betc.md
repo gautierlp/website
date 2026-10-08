@@ -5,7 +5,7 @@ title: "Une application de prêt de matériel pour l'équipe IT de BETC, constru
 summary: "Après trois ans comme Product Owner dans l'équipe IT de BETC, je suis revenu en freelance et j'ai construit leur application de stock et de prêt de matériel en deux semaines."
 intro: "Après trois ans comme Product Owner dans l'équipe IT de BETC, je suis revenu en freelance et j'ai construit leur application de stock et de prêt de matériel en deux semaines."
 client: "BETC"
-when: "janvier à février 2023"
+when: "2020 à février 2023"
 logo: "/assets/images/image16.png"
 result: "2 semaines"
 resultLabel: "pour construire une application de prêt de matériel pour l'équipe IT de BETC"
