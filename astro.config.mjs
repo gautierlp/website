@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import { codeInspectorPlugin } from "code-inspector-plugin";
 import rehypeCaseStudy from "./src/lib/rehype-case-study.mjs";
 
 // The Agentation toolbar, on dev server pages only: the built site gets nothing.
@@ -26,6 +27,9 @@ export default defineConfig({
   // Agentation's annotation server accepts only localhost origins, so the dev
   // server forwards /agentation to it and the browser stays on one origin.
   vite: {
+    // On the dev server only, stamp each element with data-insp-path="file:line:col"
+    // so review notes carry the source location. No hotkeys: it only marks the HTML.
+    plugins: [codeInspectorPlugin({ bundler: "vite", hotKeys: false, hideConsole: true })],
     server: {
       proxy: {
         "/agentation": {

@@ -692,6 +692,6 @@ test("case study: Clean Car links to both app stores", () => {
 });
 
 test("the review toolbar stays on the dev server: no page or asset ships Agentation or React", () => {
-  for (const p of PAGES) assert.doesNotMatch(page(p), /agentation|react/i, p);
+  for (const p of PAGES) assert.doesNotMatch(page(p), /agentation|react|data-insp-path/i, p);
   for (const f of readdirSync(join(DIST, "_astro"))) assert.doesNotMatch(readFileSync(join(DIST, "_astro", f), "utf8"), /agentation|react-dom/i, f);
 });

@@ -7,4 +7,10 @@ import { Agentation } from "agentation";
 
 const host = document.createElement("div");
 document.body.append(host);
-createRoot(host).render(createElement(Agentation, { endpoint: `${location.origin}/agentation` }));
+createRoot(host).render(
+  createElement(Agentation, {
+    endpoint: `${location.origin}/agentation`,
+    // data-insp-path is the source file and line, stamped by code-inspector.
+    identifyingAttributes: ["data-insp-path"],
+  }),
+);
