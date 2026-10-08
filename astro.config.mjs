@@ -1,17 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import { codeInspectorPlugin } from "code-inspector-plugin";
+import agentation from "astro-agentation";
 import rehypeCaseStudy from "./src/lib/rehype-case-study.mjs";
-
-// The Agentation toolbar, on dev server pages only: the built site gets nothing.
-const agentationReview = {
-  name: "agentation-review",
-  hooks: {
-    "astro:config:setup": ({ command, injectScript }) => {
-      if (command === "dev") injectScript("page", `import "/src/dev/review.ts";`);
-    },
-  },
-};
 
 export default defineConfig({
   site: "https://lepoher.co",
@@ -23,22 +13,6 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
   markdown: { rehypePlugins: [rehypeCaseStudy] },
-  integrations: [agentationReview],
-  // Agentation's annotation server accepts only localhost origins, so the dev
-  // server forwards /agentation to it and the browser stays on one origin.
-  vite: {
-    // On the dev server only, stamp each element with data-insp-path="file:line:col"
-    // so review notes carry the source location. No hotkeys: it only marks the HTML.
-    plugins: [codeInspectorPlugin({ bundler: "vite", hotKeys: false, hideConsole: true })],
-    server: {
-      proxy: {
-        "/agentation": {
-          target: "http://localhost:4747",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/agentation/, ""),
-          configure: (proxy) => proxy.on("proxyReq", (req) => req.setHeader("origin", "http://localhost:4747")),
-        },
-      },
-    },
-  },
+  // Review notes on the dev server only: see "Visual review" in AGENTS.md.
+  integrations: [agentation()],
 });
