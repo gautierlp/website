@@ -27,9 +27,8 @@ Construire et livrer ces interfaces sur la nouvelle stack, avec des agents de co
 ## Actions | Un serveur MCP, un CLI et un agent.
 
 - J'ai construit un serveur MCP qui expose le produit aux clients IA : 36 outils, couvrant lectures, écritures, tâches asynchrones et extractions.
-- J'ai construit un CLI de 40 commandes, et je l'ai livré quatre fois en une semaine (août 2026) via un pipeline de release, chaque release vérifiée de bout en bout sur une vraie machine.
+- J'ai construit un CLI de 40 commandes, et je l'ai livré via un pipeline de release (août 2026), chaque release vérifiée de bout en bout sur une vraie machine.
 - J'ai construit un agent LLM sur la source de données du produit, avec des réponses en streaming et une gestion des limites de débit.
-- J'ai testé toute la surface contre la production avec une vraie clé : 35 outils MCP sur 36 sont passés. Le dernier n'a pas été testé, uniquement à cause de son coût en crédits.
 - J'ai ouvert et fusionné des pull requests sur le dépôt du cœur en cours de route, chacune relue.
 
 ## Résultats | Le serveur MCP et le CLI sont en production.

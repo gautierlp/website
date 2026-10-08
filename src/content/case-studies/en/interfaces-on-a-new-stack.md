@@ -31,12 +31,10 @@ second engineer.
 
 - Built an MCP server that exposes the product to AI clients: 36 tools, across reads,
   writes, asynchronous jobs and extractions.
-- Built a CLI of 40 commands, and shipped it through a release pipeline four times in
-  one week (August 2026), each release verified end to end on a real machine.
+- Built a CLI of 40 commands, and shipped it through a release pipeline (August 2026),
+  each release verified end to end on a real machine.
 - Built an LLM agent on the product's data source, with streamed answers and rate
   handling.
-- Tested the whole surface against production with a real key: 35 of 36 MCP tools
-  passed; the last one was left untested only because of its credit cost.
 - Opened and merged pull requests on the core repository along the way, each one
   reviewed.
 

@@ -532,6 +532,19 @@ test("case study: Evaboot names the founders together, the CRM integrations, and
   for (const gone of ["One of them, JB", "I do not claim that growth", "L’un d’eux, JB", "Je ne revendique pas"]) assert.ok(!en.includes(gone) && !fr.includes(gone), gone);
 });
 
+test("stories: credit for the stack, months not days, the cut-over as steps, no leftover caveats", () => {
+  const m = page("case-studies/marketing-site-migration"), mf = page("fr/case-studies/marketing-site-migration");
+  assert.ok(m.includes("I recommended the new stack") && mf.includes("J’ai recommandé la nouvelle stack"));
+  for (const day of ["27 February", "3 March", "13 March", "25 March", "27 février", "3 mars", "13 mars", "25 mars"]) assert.ok(!m.includes(day) && !mf.includes(day), day);
+  assert.match(m, /step by step \(March 2026\):\s*<ol>\s*<li>/);
+  assert.match(mf, /pas à pas \(mars 2026\)\s*:\s*<ol>\s*<li>/);
+  assert.ok(!m.includes("open item") && !mf.includes("resté ouvert"));
+  const i = page("case-studies/interfaces-on-a-new-stack"), f = page("fr/case-studies/interfaces-on-a-new-stack");
+  assert.ok(!i.includes("four times") && !f.includes("quatre fois"));
+  assert.ok(!i.includes("35 of 36") && !f.includes("35 outils"));
+  for (const p of ["case-studies/evaboot", "fr/case-studies/evaboot", "clients/evaboot", "fr/clients/evaboot"]) assert.ok(!/Bubble app alone|tenu seul/.test(page(p)), p);
+});
+
 test("homepage: no review pile while fewer than six reviews are on it", () => {
   for (const path of ["", "fr"]) {
     const html = page(path);

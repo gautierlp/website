@@ -210,6 +210,7 @@ figcaption { font-size: 0.875rem; margin-top: 0.4rem; }
 .prose ul { list-style: disc; padding-left: 1.25rem; }
 .prose ol { padding-left: 1.25rem; }
 .prose li + li { margin-top: 0.35rem; }
+.prose li > ol { margin-top: 0.35rem; list-style: decimal; }
 .prose img, .prose video { width: 100%; }
 /* The Contra import opens with a reviewer photo alone in a paragraph: show it small. */
 .prose > h2:first-child + p > img:only-child { width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover; }
