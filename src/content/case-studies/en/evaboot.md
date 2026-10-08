@@ -22,9 +22,9 @@ quote: {"text": "Gautier expertly used Bubble.io to support our projects, delive
 review: "Drafted on 2026-09-30: the heading sentences. Check them, then delete this line."
 ---
 
-## Situation | The founder still built the app himself.
+## Situation | The founders still built the app themselves.
 
-Evaboot is a B2B SaaS for lead extraction, built on Bubble. The two founders grew it to $1M ARR with no other staff. One of them, JB, still built the app himself, and the app carried technical debt and bugs that kept coming back.
+Evaboot is a B2B SaaS for lead extraction, built on Bubble. The two founders grew it to $1M ARR with no other staff. They still built the app themselves, and the app carried technical debt and bugs that kept coming back.
 
 <video controls muted playsinline src="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.mp4" poster="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.webp"></video>
 
@@ -41,7 +41,7 @@ Take the Bubble app off the founder's hands. Own it, clean it up, and ship what 
 - Rewrote the privacy rules so each user reads only the data they are allowed to see, and kept API tokens and routes on the server.
 - Shipped what the founders and the customers asked for: an admin dashboard, Stripe control from the app, pay on download, an export preview, team management, a new credit model with expiry, email enrichment, custom email alerts, Intercom, a free trial and a referral system.
 - Added limits that protect users' LinkedIn accounts during exports and stop abuse of the free plan.
-- Connected Stripe, Brevo, Segment, Google Tag Manager and Google Sheets.
+- Connected Stripe, Brevo, Segment, Google Tag Manager, Google Sheets and Churnkey. Built the HubSpot, Clay and Apollo integrations, and webhooks that send exports to Zapier, Make, n8n or any endpoint. Moved the heavy workflows to n8n.
 - Worked with the founder through a daily check-in and a weekly priority meeting, with each task tracked in Notion.
 
 ![Evaboot admin screen](/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp)
@@ -56,4 +56,4 @@ From 2026 the work moved to the exit from Bubble, then to the MCP server and the
 
 - About 500 features and fixes shipped to production between June 2023 and February 2026 (count from the product board, rounded).
 - The founder handed day-to-day development over and went back to the business.
-- Evaboot went from $1M to $2M ARR over those years. I do not claim that growth. It is the size of the product I ran.
+- Evaboot went from $1M to $2M ARR over those years.

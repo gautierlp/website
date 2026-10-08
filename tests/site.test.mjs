@@ -521,6 +521,13 @@ test("reviews: no fake, off-topic or Bubble-centred review on the site", () => {
   }
 });
 
+test("case study: Evaboot names the founders together, the CRM integrations, and no growth disclaimer", () => {
+  const en = page("case-studies/evaboot"), fr = page("fr/case-studies/evaboot");
+  assert.ok(en.includes("They still built the app themselves") && fr.includes("Ils construisaient encore l’app eux-mêmes"));
+  assert.ok(en.includes("HubSpot, Clay and Apollo") && fr.includes("HubSpot, Clay et Apollo"));
+  for (const gone of ["One of them, JB", "I do not claim that growth", "L’un d’eux, JB", "Je ne revendique pas"]) assert.ok(!en.includes(gone) && !fr.includes(gone), gone);
+});
+
 test("homepage: no review pile while fewer than six reviews are on it", () => {
   for (const path of ["", "fr"]) {
     const html = page(path);

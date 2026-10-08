@@ -22,9 +22,9 @@ quote: {"text": "Gautier expertly used Bubble.io to support our projects, delive
 review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne."
 ---
 
-## Situation | Le fondateur construisait encore l'app lui-même.
+## Situation | Les fondateurs construisaient encore l'app eux-mêmes.
 
-Evaboot est un SaaS B2B d'extraction de leads, construit sur Bubble. Les deux fondateurs l'ont fait grandir jusqu'à 1 M$ d'ARR sans autre salarié. L'un d'eux, JB, construisait encore l'app lui-même, et l'app portait de la dette technique et des bugs qui revenaient sans cesse.
+Evaboot est un SaaS B2B d'extraction de leads, construit sur Bubble. Les deux fondateurs l'ont fait grandir jusqu'à 1 M$ d'ARR sans autre salarié. Ils construisaient encore l'app eux-mêmes, et l'app portait de la dette technique et des bugs qui revenaient sans cesse.
 
 <video controls muted playsinline src="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.mp4" poster="/assets/projects/evaboot/sn8ss9apbt73zhkoqkop.webp"></video>
 
@@ -41,7 +41,7 @@ Reprendre l'app Bubble des mains du fondateur. La prendre en charge, la nettoyer
 - J'ai réécrit les règles de confidentialité pour que chaque utilisateur ne lise que les données qu'il a le droit de voir, et gardé les tokens d'API et les routes côté serveur.
 - J'ai livré ce que les fondateurs et les clients demandaient : un tableau de bord admin, le contrôle de Stripe depuis l'app, le paiement au téléchargement, un aperçu d'export, la gestion d'équipe, un nouveau modèle de crédits avec expiration, l'enrichissement d'emails, des alertes email personnalisées, Intercom, un essai gratuit et un système de parrainage.
 - J'ai ajouté des limites qui protègent les comptes LinkedIn des utilisateurs pendant les exports et empêchent l'abus du plan gratuit.
-- J'ai connecté Stripe, Brevo, Segment, Google Tag Manager et Google Sheets.
+- J'ai connecté Stripe, Brevo, Segment, Google Tag Manager, Google Sheets et Churnkey. J'ai construit les intégrations HubSpot, Clay et Apollo, et des webhooks qui envoient les exports vers Zapier, Make, n8n ou tout autre endpoint. J'ai déplacé les workflows lourds vers n8n.
 - J'ai travaillé avec le fondateur via un point quotidien et une réunion hebdomadaire de priorités, chaque tâche suivie dans Notion.
 
 ![Écran d'administration d'Evaboot](/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp)
@@ -56,4 +56,4 @@ Reprendre l'app Bubble des mains du fondateur. La prendre en charge, la nettoyer
 
 - Environ 500 fonctionnalités et correctifs livrés en production entre juin 2023 et février 2026 (décompte issu du board produit, arrondi).
 - Le fondateur a passé le développement au quotidien et est retourné au business.
-- Evaboot est passé de 1 M$ à 2 M$ d'ARR sur ces années. Je ne revendique pas cette croissance. C'est la taille du produit que j'ai tenu.
+- Evaboot est passé de 1 M$ à 2 M$ d'ARR sur ces années.
