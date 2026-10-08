@@ -430,8 +430,17 @@ test("NDA apps: placeholder name blurred, with an NDA label, on the list and the
   const home = page("");
   assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
   for (const slug of ["parts-marketplace", "dealership-onboarding", "battery-recycling"]) {
-    assert.match(page(`case-studies/${slug}`), /<p class="cs__label"><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed<\/span>/, slug);
+    assert.match(page(`case-studies/${slug}`), /<p class="cs__label"><span class="nda">[^<]+<\/span> <span class="nda-label">NDA signed, name changed<\/span>/, slug);
+    assert.match(page(`fr/case-studies/${slug}`), /<span class="nda-label">NDA signé, nom modifié<\/span>/, `fr/${slug}`);
   }
+});
+
+test("no Google Analytics, no cookie: the privacy page names Cloudflare Web Analytics", () => {
+  for (const p of PAGES) assert.doesNotMatch(page(p), /googletagmanager|gtag\(/, p);
+  assert.match(page("privacy"), /Cloudflare Web Analytics/);
+  assert.match(page("privacy"), /no cookies/);
+  assert.match(page("fr/privacy"), /aucun cookie/);
+  for (const p of ["privacy", "fr/privacy"]) assert.doesNotMatch(page(p), /Google Analytics/, p);
 });
 
 test("Camarage: the launch and the payments, only claims the sources support", () => {
@@ -662,7 +671,7 @@ test("privacy page: in both languages, names what the site collects, and every p
   for (const [path, heading] of [["privacy", "Privacy"], ["fr/privacy", "Confidentialité"]]) {
     const html = page(path);
     assert.match(html, new RegExp(`<h1>${heading}`), path);
-    for (const fact of ["Google Analytics", "book.lepoher.co", "Google Calendar", "gautier@lepoher.co"]) assert.ok(html.includes(fact), `${path}: ${fact}`);
+    for (const fact of ["Cloudflare Web Analytics", "book.lepoher.co", "Google Calendar", "gautier@lepoher.co"]) assert.ok(html.includes(fact), `${path}: ${fact}`);
   }
   for (const p of PAGES) assert.ok(links(page(p)).includes(p.startsWith("fr") ? "/fr/privacy/" : "/privacy/"), p);
 });
