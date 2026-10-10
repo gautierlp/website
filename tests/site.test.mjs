@@ -333,10 +333,12 @@ test("homepage: the hero alone carries the call and the email, there is no closi
 });
 
 test("booking links open the Cal.com popup and fall back to the booking page", () => {
-  for (const html of [page(""), page("fr")]) {
+  // Cal.com cannot translate custom booking questions, so each language has its own event type.
+  for (const [path, slug] of [["", "30min-en"], ["fr", "30min"]]) {
+    const html = page(path);
     const booking = [...html.matchAll(/<a [^>]*data-booking[^>]*>/g)].map((m) => m[0]);
     assert.equal(booking.length, 1, "the hero pill");
-    for (const a of booking) assert.match(a, /href="https:\/\/book\.lepoher\.co\/gautier\/30min"/);
+    for (const a of booking) assert.ok(a.includes(`href="https://book.lepoher.co/gautier/${slug}"`), `${path || "en"}: ${a}`);
     assert.ok(!html.includes("calendly.com"));
     assert.ok(html.includes("https://book.lepoher.co/embed/embed.js"), "embed loader");
   }

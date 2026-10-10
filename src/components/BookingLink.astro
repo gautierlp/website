@@ -2,16 +2,18 @@
 // A link to the self-hosted Cal.com booking page (on jarvis) that opens as a popup over the site.
 // The popup only takes over once embed.js has loaded: if the script is blocked or the server is
 // down, the click follows the href to the booking page in a new tab.
-interface Props { class?: string }
-const { class: className } = Astro.props;
+// Each language has its own Cal.com event type, because Cal.com cannot translate custom booking questions.
+import type { Lang } from "../i18n/ui.ts";
+interface Props { class?: string; lang: Lang }
+const { class: className, lang } = Astro.props;
+const slug = lang === "fr" ? "30min" : "30min-en";
 ---
-<a class={className} href="https://book.lepoher.co/gautier/30min" target="_blank" rel="noopener" data-booking><slot /></a>
+<a class={className} href={`https://book.lepoher.co/gautier/${slug}`} target="_blank" rel="noopener" data-booking><slot /></a>
 
 <script>
   const ORIGIN = "https://book.lepoher.co";
   const EMBED_JS = "https://book.lepoher.co/embed/embed.js";
   const NAMESPACE = "30min";
-  const CAL_LINK = "gautier/30min";
 
   // Cal.com's loader snippet, unchanged: it queues calls on window.Cal until embed.js arrives.
   // prettier-ignore
@@ -27,9 +29,10 @@ const { class: className } = Astro.props;
   // Not data-cal-link: Cal.com's own click handler opens the popup without cancelling the link,
   // so the visitor would get the popup and a new tab.
   document.addEventListener("click", (e) => {
-    const link = (e.target as Element).closest?.("a[data-booking]");
+    const link = (e.target as Element).closest?.("a[data-booking]") as HTMLAnchorElement | null;
     if (!link || !ready || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
-    Cal.ns[NAMESPACE]("modal", { calLink: CAL_LINK, config: { layout: "month_view" } });
+    // The href carries the event type of the page language: "gautier/30min" or "gautier/30min-en".
+    Cal.ns[NAMESPACE]("modal", { calLink: new URL(link.href).pathname.slice(1), config: { layout: "month_view" } });
   });
 </script>
