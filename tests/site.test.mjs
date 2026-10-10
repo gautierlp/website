@@ -28,6 +28,10 @@ test("homepage: headline in plain text, no code font", () => {
   assert.ok(!html.includes("ship()"));
 });
 
+test("homepage: the title names the role in both languages", () => {
+  for (const p of ["", "fr"]) assert.match(page(p), /<title>Gautier Le Poher \| Technical Product Manager<\/title>/, p);
+});
+
 test("homepage: the three featured projects", () => {
   const html = page("");
   for (const name of ["Evaboot", "Disko Leads", "Folderly"]) assert.ok(html.includes(name), name);
