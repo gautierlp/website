@@ -2,14 +2,14 @@
 kind: "app"
 name: "BETC"
 title: "An equipment loan app for BETC's IT team, built in 2 weeks"
-summary: "After three years as Product Owner in BETC's IT team, I came back as a freelancer and built their stock and equipment loan app in two weeks."
-intro: "After three years as Product Owner in BETC's IT team, I came back as a freelancer and built their stock and equipment loan app in two weeks."
+summary: "After almost three years as Product Owner in BETC's IT team, I came back as a freelancer and built their stock and equipment loan app in two weeks."
+intro: "After almost three years as Product Owner in BETC's IT team, I came back as a freelancer and built their stock and equipment loan app in two weeks."
 client: "BETC"
 when: "2020 to February 2023"
 logo: "/assets/images/image16.png"
 result: "2 weeks"
 resultLabel: "to build an equipment loan app for BETC's IT team"
-stats: [{"value": "2 weeks", "label": "from 23 January to 3 February 2023"}, {"value": "3 years", "label": "as Product Owner in the same IT team before, March 2020 to December 2022"}]
+stats: [{"value": "2 weeks", "label": "from 23 January to 3 February 2023"}, {"value": "33 months", "label": "as Product Owner in the same IT team before, March 2020 to December 2022"}]
 featured: false
 nda: false
 order: 10
