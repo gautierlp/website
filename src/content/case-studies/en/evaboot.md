@@ -34,15 +34,15 @@ Take the Bubble app off the founder's hands. Own it, clean it up, and ship what 
 
 ## Actions | I cleaned the app and shipped what customers asked for.
 
-- Reworked the database. I removed redundant fields, moved data between fields and tables with the service running, and checked every table with integrity scripts.
-- Moved the app from several pages to a single page, and loaded only the data each screen needs, with lazy loading and custom endpoints. Bubble bills on usage, so this cut the bill as well as the load time.
-- Replaced plugins with native Bubble functions, set a naming convention, and built reusable elements, so another developer could take the app over.
-- Added error handling on the API calls, and a log table that records user actions and errors.
-- Rewrote the privacy rules so each user reads only the data they are allowed to see, and kept API tokens and routes on the server.
-- Shipped what the founders and the customers asked for: an admin dashboard, Stripe control from the app, pay on download, an export preview, team management, a new credit model with expiry, email enrichment, custom email alerts, Intercom, a free trial and a referral system.
-- Added limits that protect users' LinkedIn accounts during exports and stop abuse of the free plan.
-- Connected Stripe, Brevo, Segment, Google Tag Manager, Google Sheets and Churnkey. Built the HubSpot, Clay and Apollo integrations, and webhooks that send exports to Zapier, Make, n8n or any endpoint. Moved the heavy workflows to n8n.
-- Worked with the founder through a daily check-in and a weekly priority meeting, with each task tracked in Notion.
+- **A clean database.** Reworked the database. I removed redundant fields, moved data between fields and tables with the service running, and checked every table with integrity scripts.
+- **A faster, cheaper app.** Moved the app from several pages to a single page, and loaded only the data each screen needs, with lazy loading and custom endpoints. Bubble bills on usage, so this cut the bill as well as the load time.
+- **An app another developer can take over.** Replaced plugins with native Bubble functions, set a naming convention, and built reusable elements, so another developer could take the app over.
+- **Errors on record.** Added error handling on the API calls, and a log table that records user actions and errors.
+- **Data locked down.** Rewrote the privacy rules so each user reads only the data they are allowed to see, and kept API tokens and routes on the server.
+- **What customers asked for.** Shipped what the founders and the customers asked for: an admin dashboard, Stripe control from the app, pay on download, an export preview, team management, a new credit model with expiry, email enrichment, custom email alerts, Intercom, a free trial and a referral system.
+- **Limits against abuse.** Added limits that protect users' LinkedIn accounts during exports and stop abuse of the free plan.
+- **The integrations.** Connected Stripe, Brevo, Segment, Google Tag Manager, Google Sheets and Churnkey. Built the HubSpot, Clay and Apollo integrations, and webhooks that send exports to Zapier, Make, n8n or any endpoint. Moved the heavy workflows to n8n.
+- **A steady rhythm with the founder.** Worked with the founder through a daily check-in and a weekly priority meeting, with each task tracked in Notion.
 
 ![Evaboot admin screen](/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp)
 

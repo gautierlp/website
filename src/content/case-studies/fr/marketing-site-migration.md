@@ -26,14 +26,14 @@ J'ai recommandé la nouvelle stack : Astro pour le front et Sanity comme CMS he
 
 ## Actions | Contenu migré, redirections posées, puis bascule en trois phases.
 
-- J'ai audité le site WordPress et défini la stack (février 2026).
-- J'ai exporté et préparé le contenu, et construit le schéma Sanity en un jour (mars 2026).
-- J'ai migré les pages statiques et le blog, avec un audit de la structure des URL et des redirections.
-- J'ai reconstruit la navigation, les pages auteur et les traductions dans neuf langues.
-- J'ai basculé le dataset de production (mars 2026), puis supprimé l'export WordPress et les scripts de migration une fois la migration vérifiée.
-- J'ai corrigé les Core Web Vitals après le lancement : un problème d'INP à 247 ms, un impact de 94 ms de temps de blocage dû à un script tiers, les deux supprimés par un chargement différé (avril 2026).
-- J'ai retiré une dépendance à reCAPTCHA derrière un feature flag, déployé sur Cloudflare.
-- J'ai planifié et mené la bascule en trois phases, rédigées pour le fondateur pas à pas (mars 2026) :
+- **Un audit d'abord.** J'ai audité le site WordPress et défini la stack (février 2026).
+- **Le modèle de contenu.** J'ai exporté et préparé le contenu, et construit le schéma Sanity en un jour (mars 2026).
+- **Pages et redirections.** J'ai migré les pages statiques et le blog, avec un audit de la structure des URL et des redirections.
+- **Neuf langues.** J'ai reconstruit la navigation, les pages auteur et les traductions dans neuf langues.
+- **Plus de WordPress.** J'ai basculé le dataset de production (mars 2026), puis supprimé l'export WordPress et les scripts de migration une fois la migration vérifiée.
+- **Un site plus rapide.** J'ai corrigé les Core Web Vitals après le lancement : un problème d'INP à 247 ms, un impact de 94 ms de temps de blocage dû à un script tiers, les deux supprimés par un chargement différé (avril 2026).
+- **Une dépendance en moins.** J'ai retiré une dépendance à reCAPTCHA derrière un feature flag, déployé sur Cloudflare.
+- **Une bascule en trois phases.** J'ai planifié et mené la bascule en trois phases, rédigées pour le fondateur pas à pas (mars 2026) :
   1. J'ai déplacé le DNS vers Cloudflare, sans interruption de service et sans changement visible pour les visiteurs.
   2. J'ai basculé le domaine vers le nouveau déploiement.
   3. J'ai vérifié le résultat : les redirections 301 sur les anciennes URL, le sitemap soumis à la Search Console, et les erreurs d'exploration surveillées chaque jour pendant 48 heures, puis chaque semaine pendant quatre à six semaines.

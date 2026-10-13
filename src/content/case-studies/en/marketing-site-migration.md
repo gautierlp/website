@@ -29,16 +29,16 @@ without a developer.
 
 ## Actions | Content moved, redirects set, then a three-phase cut-over.
 
-- Audited the WordPress site and defined the stack (February 2026).
-- Exported and prepared the content, built the Sanity schema in one day (March 2026).
-- Migrated the static pages and the blog, with a URL structure audit and redirects.
-- Rebuilt the navigation, the author pages, and the translations across nine languages.
-- Switched the production dataset (March 2026) and removed the WordPress export and the
+- **An audit first.** Audited the WordPress site and defined the stack (February 2026).
+- **The content model.** Exported and prepared the content, built the Sanity schema in one day (March 2026).
+- **Pages and redirects.** Migrated the static pages and the blog, with a URL structure audit and redirects.
+- **Nine languages.** Rebuilt the navigation, the author pages, and the translations across nine languages.
+- **No WordPress left.** Switched the production dataset (March 2026) and removed the WordPress export and the
   migration scripts once the move was verified.
-- Fixed Core Web Vitals after launch: an INP issue at 247 ms, a 94 ms blocking-time hit
+- **A faster site.** Fixed Core Web Vitals after launch: an INP issue at 247 ms, a 94 ms blocking-time hit
   from a third-party script, both removed by deferred loading (April 2026).
-- Removed a reCAPTCHA dependency behind a feature flag, deployed on Cloudflare.
-- Planned and ran the cut-over in three phases, written up for the founder step by step (March 2026):
+- **One dependency less.** Removed a reCAPTCHA dependency behind a feature flag, deployed on Cloudflare.
+- **A cut-over in three phases.** Planned and ran the cut-over in three phases, written up for the founder step by step (March 2026):
   1. Moved the DNS to Cloudflare, with no downtime and no visible change for visitors.
   2. Switched the domain to the new deployment.
   3. Checked the result: 301 redirects on the old URLs, the sitemap submitted to Search Console, and crawl errors watched daily for 48 hours, then weekly for four to six weeks.

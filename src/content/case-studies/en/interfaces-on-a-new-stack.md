@@ -29,13 +29,13 @@ second engineer.
 
 ## Actions | An MCP server, a CLI and an agent.
 
-- Built an MCP server that exposes the product to AI clients: 36 tools, across reads,
+- **An MCP server.** Built an MCP server that exposes the product to AI clients: 36 tools, across reads,
   writes, asynchronous jobs and extractions.
-- Built a CLI of 40 commands, and shipped it through a release pipeline (August 2026),
+- **A CLI.** Built a CLI of 40 commands, and shipped it through a release pipeline (August 2026),
   each release verified end to end on a real machine.
-- Built an LLM agent on the product's data source, with streamed answers and rate
+- **An LLM agent.** Built an LLM agent on the product's data source, with streamed answers and rate
   handling.
-- Opened and merged pull requests on the core repository along the way, each one
+- **Pull requests on the core.** Opened and merged pull requests on the core repository along the way, each one
   reviewed.
 
 ## Results | The MCP server and the CLI are in production.

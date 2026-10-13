@@ -34,15 +34,15 @@ Reprendre l'app Bubble des mains du fondateur. La prendre en charge, la nettoyer
 
 ## Actions | J'ai nettoyé l'app et livré ce que demandaient les clients.
 
-- J'ai retravaillé la base de données. J'ai supprimé les champs redondants, déplacé des données entre champs et tables sans arrêter le service, et vérifié chaque table avec des scripts d'intégrité.
-- J'ai fait passer l'app de plusieurs pages à une seule page, et je ne charge que les données dont chaque écran a besoin, avec du lazy loading et des endpoints personnalisés. Bubble facture à l'usage, donc cela a réduit la facture autant que le temps de chargement.
-- J'ai remplacé des plugins par des fonctions natives de Bubble, fixé une convention de nommage et construit des éléments réutilisables, pour qu'un autre développeur puisse reprendre l'app.
-- J'ai ajouté une gestion d'erreurs sur les appels d'API, et une table de logs qui enregistre les actions des utilisateurs et les erreurs.
-- J'ai réécrit les règles de confidentialité pour que chaque utilisateur ne lise que les données qu'il a le droit de voir, et gardé les tokens d'API et les routes côté serveur.
-- J'ai livré ce que les fondateurs et les clients demandaient : un tableau de bord admin, le contrôle de Stripe depuis l'app, le paiement au téléchargement, un aperçu d'export, la gestion d'équipe, un nouveau modèle de crédits avec expiration, l'enrichissement d'emails, des alertes email personnalisées, Intercom, un essai gratuit et un système de parrainage.
-- J'ai ajouté des limites qui protègent les comptes LinkedIn des utilisateurs pendant les exports et empêchent l'abus du plan gratuit.
-- J'ai connecté Stripe, Brevo, Segment, Google Tag Manager, Google Sheets et Churnkey. J'ai construit les intégrations HubSpot, Clay et Apollo, et des webhooks qui envoient les exports vers Zapier, Make, n8n ou tout autre endpoint. J'ai déplacé les workflows lourds vers n8n.
-- J'ai travaillé avec le fondateur via un point quotidien et une réunion hebdomadaire de priorités, chaque tâche suivie dans Notion.
+- **Une base de données propre.** J'ai retravaillé la base de données. J'ai supprimé les champs redondants, déplacé des données entre champs et tables sans arrêter le service, et vérifié chaque table avec des scripts d'intégrité.
+- **Une app plus rapide et moins chère.** J'ai fait passer l'app de plusieurs pages à une seule page, et je ne charge que les données dont chaque écran a besoin, avec du lazy loading et des endpoints personnalisés. Bubble facture à l'usage, donc cela a réduit la facture autant que le temps de chargement.
+- **Une app qu'un autre développeur peut reprendre.** J'ai remplacé des plugins par des fonctions natives de Bubble, fixé une convention de nommage et construit des éléments réutilisables, pour qu'un autre développeur puisse reprendre l'app.
+- **Des erreurs tracées.** J'ai ajouté une gestion d'erreurs sur les appels d'API, et une table de logs qui enregistre les actions des utilisateurs et les erreurs.
+- **Des données protégées.** J'ai réécrit les règles de confidentialité pour que chaque utilisateur ne lise que les données qu'il a le droit de voir, et gardé les tokens d'API et les routes côté serveur.
+- **Ce que les clients demandaient.** J'ai livré ce que les fondateurs et les clients demandaient : un tableau de bord admin, le contrôle de Stripe depuis l'app, le paiement au téléchargement, un aperçu d'export, la gestion d'équipe, un nouveau modèle de crédits avec expiration, l'enrichissement d'emails, des alertes email personnalisées, Intercom, un essai gratuit et un système de parrainage.
+- **Des limites contre les abus.** J'ai ajouté des limites qui protègent les comptes LinkedIn des utilisateurs pendant les exports et empêchent l'abus du plan gratuit.
+- **Les intégrations.** J'ai connecté Stripe, Brevo, Segment, Google Tag Manager, Google Sheets et Churnkey. J'ai construit les intégrations HubSpot, Clay et Apollo, et des webhooks qui envoient les exports vers Zapier, Make, n8n ou tout autre endpoint. J'ai déplacé les workflows lourds vers n8n.
+- **Un rythme régulier avec le fondateur.** J'ai travaillé avec le fondateur via un point quotidien et une réunion hebdomadaire de priorités, chaque tâche suivie dans Notion.
 
 ![Écran d'administration d'Evaboot](/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp)
 
