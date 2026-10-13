@@ -6,6 +6,7 @@ summary: "I took over building Pachamama's recruitment platform on Bubble and sh
 intro: "I took over building Pachamama's recruitment platform on Bubble and shipped 57 tickets in 15 months."
 client: "Pachamama"
 when: "November 2024 to February 2026"
+logo: "/assets/images/pachamama.png"
 result: "Took over building"
 resultLabel: "a recruitment platform with 5,000+ candidates"
 proof: "Recruitment app, 5,000+ candidates"

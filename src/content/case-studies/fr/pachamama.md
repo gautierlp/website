@@ -6,6 +6,7 @@ summary: "J'ai repris le développement de la plateforme de recrutement de Pacha
 intro: "J'ai repris le développement de la plateforme de recrutement de Pachamama sur Bubble et livré 57 tickets en 15 mois."
 client: "Pachamama"
 when: "novembre 2024 à février 2026"
+logo: "/assets/images/pachamama.png"
 result: "Reprise du développement"
 resultLabel: "d'une plateforme de recrutement avec plus de 5 000 candidats"
 proof: "App de recrutement, plus de 5 000 candidats"
