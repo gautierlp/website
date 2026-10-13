@@ -6,7 +6,7 @@ summary: "I helped Camarage finish its move from a coded site to Bubble and laun
 intro: "I helped Camarage finish its move from a coded site to Bubble and launched the platform in 30 days, then built and ran its Stripe rent payments until 2025."
 client: "Camarage"
 when: "February 2023 to June 2025"
-logo: "/assets/images/image34.png"
+logo: "/assets/images/camarage.png"
 result: "30 days"
 resultLabel: "to launch a housing platform, then 2 years of its rent payments"
 proof: "Housing platform, 8,000+ matchings"

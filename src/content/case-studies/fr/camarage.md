@@ -6,7 +6,7 @@ summary: "J'ai aidé Camarage à finir de passer d'un site codé à Bubble, et j
 intro: "J'ai aidé Camarage à finir de passer d'un site codé à Bubble, et j'ai lancé la plateforme en 30 jours, puis j'ai construit et fait tourner ses paiements de loyers sur Stripe jusqu'en 2025."
 client: "Camarage"
 when: "février 2023 à juin 2025"
-logo: "/assets/images/image34.png"
+logo: "/assets/images/camarage.png"
 result: "30 jours"
 resultLabel: "pour lancer une plateforme de logement, puis 2 ans de paiements de loyers"
 proof: "Plateforme de logement, plus de 8 000 mises en relation"
