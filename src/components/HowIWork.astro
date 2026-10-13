@@ -1,0 +1,24 @@
+---
+// Two short lists under the hero: what the buyer gets in the first month, and what Gautier does not do.
+// Both come from the positioning note: "What the buyer gets in the first month" and "What I do not claim".
+import type { Lang } from "../i18n/ui.ts";
+import { t } from "../i18n/utils.ts";
+interface Props { lang: Lang }
+const tr = t(Astro.props.lang);
+---
+<section class="block" aria-labelledby="how-title">
+  <h2 id="how-title">{tr("how.title")}</h2>
+  <ul>
+    <li>{tr("how.1")}</li>
+    <li>{tr("how.2")}</li>
+    <li>{tr("how.3")}</li>
+  </ul>
+</section>
+<section class="block" aria-labelledby="not-title">
+  <h2 id="not-title">{tr("not.title")}</h2>
+  <ul>
+    <li>{tr("not.1")}</li>
+    <li>{tr("not.2")}</li>
+    <li>{tr("not.3")}</li>
+  </ul>
+</section>

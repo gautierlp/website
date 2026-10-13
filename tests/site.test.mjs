@@ -263,7 +263,8 @@ test("the old Carrd page is gone", () => {
 test("homepage hero: greeting, role in contrast, booking button and email", () => {
   const en = page("");
   assert.match(en, /<span class="hero__line">Hi, I&#39;m Gautier, a <\/span>/);
-  assert.match(en, /<span class="hero__line"><span class="hero__role">Technical Product Manager<\/span>\.<\/span>/, "the role on its own line");
+  assert.match(en, /<span class="hero__line"><span class="hero__role">Technical Product Manager<\/span> in Paris\.<\/span>/, "the role and the city on their own line");
+  assert.match(page("fr"), /<span class="hero__role">Technical Product Manager<\/span> basé à Paris\.<\/span>/);
   assert.match(page("fr"), /<span class="hero__line">Bonjour, je suis Gautier, <\/span>/);
   assert.ok(!en.includes('class="mark '));
   assert.ok(!en.includes("Available for day-rate work on your product."));
@@ -280,13 +281,22 @@ test("homepage hero: greeting, role in contrast, booking button and email", () =
 test("homepage hero: proof first, then the problem, then the offer, in both languages", () => {
   const en = page("");
   const hero = en.slice(en.indexOf('class="block hero"'), en.indexOf('class="hero__actions"'));
-  const proof = hero.indexOf('From 2023 to 2026 I ran <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>&#39;s app with over 200,000 users');
-  const problem = hero.indexOf("You have a product that nobody owns end to end, or operations that still run on spreadsheets.");
-  const offer = hero.indexOf("I take ownership of your product to create");
+  // The reassurance sits in the h1 itself (site review, item 9).
+  const h1 = hero.slice(hero.indexOf("<h1"), hero.indexOf("</h1>"));
+  assert.ok(h1.includes("Three years on Evaboot, a B2B SaaS with over 200,000 users."));
+  const proof = hero.indexOf('At <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>, annual recurring revenue grew from $1M to $2M in those years.');
+  const problem = hero.indexOf("You run a small B2B SaaS, or operations or IT in a larger company.");
+  const offer = hero.indexOf("You get one person who owns your product");
   assert.ok(proof > 0 && problem > proof && offer > problem, "proof, then problem, then offer");
-  assert.ok(hero.includes("annual recurring revenue that grew from $1M to $2M."));
   assert.ok(hero.includes("internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS."));
-  assert.ok(hero.includes("I take ownership of your product to create what your users need. From their feedback and your data, I build it and ship it to production. One person accountable, alone or with your team."));
+  // What the problem costs, not only its signs (item 5), and the two-hire comparison (item 7).
+  assert.ok(hero.includes("Each month of delay is revenue you collect later."));
+  assert.ok(hero.includes("You do not need two hires, a product manager and a developer."));
+  // At least two "you" for each "I" (item 6).
+  const words = hero.replace(/<[^>]+>/g, " ").replace(/&#39;/g, "'");
+  const you = (words.match(/\b(you|your)\b/gi) ?? []).length;
+  const me = (words.match(/\b(I|I'm|me|my)\b/g) ?? []).length;
+  assert.ok(you >= 2 * me, `${you} you for ${me} I`);
   // The count links to the list of apps it counts, in both languages.
   assert.ok(hero.includes('<a class="hero__ref" href="#track-record">a dozen other apps</a>'));
   assert.match(en, /<section class="block" id="track-record">\s*<h2>Track record<\/h2>/);
@@ -295,14 +305,28 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   for (const gone of ["500", "MCP", "CLI", "no-code", "write the code", "agency", "over the years"]) assert.ok(!hero.includes(gone), `hero still says "${gone}"`);
   const fr = page("fr");
   const heroFr = fr.slice(fr.indexOf('class="block hero"'), fr.indexOf('class="hero__actions"'));
+  const h1Fr = heroFr.slice(heroFr.indexOf("<h1"), heroFr.indexOf("</h1>"));
+  assert.ok(h1Fr.includes("Trois ans sur Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs."));
   assert.ok(heroFr.includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
-  assert.ok(heroFr.includes("plus de 200\u00a0000 utilisateurs"));
-  assert.ok(heroFr.includes("Votre produit n&#39;a pas de responsable clairement identifié"));
-  assert.ok(heroFr.includes("Un seul interlocuteur, en autonomie ou intégré à votre équipe."));
+  assert.ok(heroFr.includes("Vous dirigez un petit SaaS B2B"));
+  assert.ok(heroFr.includes("Pas besoin de recruter deux personnes, un product manager et un développeur."));
   assert.ok(heroFr.includes('<a class="hero__ref" href="#track-record">une dizaine d&#39;autres projets</a>'));
   assert.match(fr, /<section class="block" id="track-record">/);
   assert.ok(heroFr.includes("<strong>Je pilote des agents IA au quotidien.</strong>"), "active verb: the agents are the tool, not the actor");
   for (const gone of ["500", "MCP", "CLI", "no-code"]) assert.ok(!heroFr.includes(gone), `French hero still says "${gone}"`);
+});
+
+test("homepage: how I work in the first month, and what I do not do, in both languages", () => {
+  const en = page("");
+  const how = en.indexOf('id="how-title"');
+  const not = en.indexOf('id="not-title"');
+  const work = en.indexOf('class="block" id="track-record"');
+  assert.ok(how > 0 && not > how && work > not, "after the hero, before the track record");
+  for (const line of ["Your backlog ordered by what each item is worth, not by who asked loudest.", "Code in production, not a specification for somebody else.", "One person accountable for the outcome."]) assert.ok(en.includes(line), line);
+  for (const line of ["I do not train models", "RAG"]) assert.ok(en.includes(line), line);
+  const fr = page("fr");
+  assert.ok(fr.includes('id="how-title"') && fr.includes('id="not-title"'));
+  assert.ok(fr.includes("Je n&#39;entraîne pas de modèles"));
 });
 
 test("homepage: side projects in a row that scrolls sideways, in both languages", () => {
