@@ -1,6 +1,7 @@
 ---
 who: "Nirundthan Parameswaran"
-role: "Lead developer, BETC"
+role: "Lead dev chez BETC"
+roleTranslation: "Lead developer, BETC"
 lang: "fr"
 source: "malt"
 date: 2023-03-23

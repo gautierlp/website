@@ -37,14 +37,21 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   return all.sort((a, b) => b.data.date.getTime() - a.data.date.getTime() || (a.data.pile ?? 9) - (b.data.pile ?? 9));
 }
 
-/** The text a page shows: the English translation of a French review on an English page, else the original. */
+/** The text a page shows: the translation when the page is in the other language than the review, else the original. */
 export function reviewText(t: Testimonial, lang: Lang, short: boolean): { text: string; translated: boolean } {
   const d = t.data;
-  if (lang === "en" && d.lang === "fr") {
+  if (lang !== d.lang) {
     const text = short ? d.excerptTranslation ?? d.translation : d.translation;
     if (text) return { text, translated: true };
   }
   return { text: short ? d.excerpt ?? d.text : d.text, translated: false };
+}
+
+/** The role and the result label in the page's language, when a translation exists. */
+export function reviewLabels(t: Testimonial, lang: Lang): { role?: string; result?: string } {
+  const d = t.data;
+  const other = lang !== d.lang;
+  return { role: (other && d.roleTranslation) || d.role, result: (other && d.resultTranslation) || d.result };
 }
 
 /** "Nirundthan Parameswaran" -> "NP" */

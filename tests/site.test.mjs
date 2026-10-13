@@ -565,7 +565,7 @@ test("reviews page: a French review shows its translation and a label in English
   assert.ok(!en.includes("double casque"));
   const fr = page("fr/reviews");
   assert.ok(fr.includes("Cette double casque de PO et de dev nocode"));
-  assert.ok(fr.includes("He helped scale our app to $200k MRR"), "an English review stays in English");
+  assert.ok(!fr.includes("He helped scale our app to $200k MRR"), "an English review shows its French translation");
   for (const p of ["", "reviews", "case-studies/disko-leads", "fr/case-studies/disko-leads"]) assert.doesNotMatch(page(p), /\$3k|3k \$|3 000 \$|\$3,000/, p);
 });
 
@@ -580,6 +580,16 @@ test("reviews page: every review in full, newest first", () => {
   assert.ok(page("reviews").includes("Azure Graph"));
   assert.ok(page("reviews").includes("Translated from French"));
   assert.ok(page("fr/reviews").includes("faire des appels api sur Azure Graph"));
+});
+
+test("reviews page in French: English reviews, roles and labels in French, marked as translated", () => {
+  const fr = page("fr/reviews");
+  assert.ok(fr.includes("Traduit de l&#39;anglais") || fr.includes("Traduit de l'anglais"));
+  assert.ok(!fr.includes("Traduit du français"));
+  for (const en of ["Co-founder, Evaboot", "Co-founder &amp; CEO", "Founder, Disko Leads", "Lead developer, BETC", "Manager, Schroders", "game changer", "exceptional experience", "Chrome extension, a dashboard"]) {
+    assert.ok(!fr.includes(en), `no English left: ${en}`);
+  }
+  assert.ok(page("reviews").includes("Co-founder, Evaboot"), "the English page keeps the English role");
 });
 
 test("pile CSS: cards move only without reduced motion", () => {

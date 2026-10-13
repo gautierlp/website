@@ -66,7 +66,7 @@ const fr: Partial<Record<keyof typeof en, string>> = {
   "section.selectedWork": "Projets phares",
   "reviews.title": "Ce que disent les clients",
   "reviews.all": "Lire les {n} avis",
-  "reviews.translated": "Traduit du français",
+  "reviews.translated": "Traduit de l'anglais",
   "reviews.pageTitle": "Avis clients",
   "reviews.pageIntro": "Tous les avis laissés par les clients sur Malt et Contra, en entier.",
   "section.useCases": "Cas d'usage",

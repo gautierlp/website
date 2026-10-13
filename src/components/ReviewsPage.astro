@@ -3,7 +3,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import type { Lang } from "../i18n/ui.ts";
 import { t } from "../i18n/utils.ts";
-import { getTestimonials, reviewText } from "../lib/content.ts";
+import { getTestimonials, reviewLabels, reviewText } from "../lib/content.ts";
 import ReviewWho from "./ReviewWho.astro";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -23,7 +23,7 @@ const SOURCE = { contra: "Contra", malt: "Malt" } as const;
         <article class="review" data-tone={r.data.tone}>
           <blockquote class="review__text"><p>&ldquo;{text}&rdquo;</p></blockquote>
           <p class="review__meta">
-            <ReviewWho who={r.data.who} role={r.data.role} photo={r.data.photo} />
+            <ReviewWho who={r.data.who} role={reviewLabels(r, lang).role} photo={r.data.photo} />
             <span class="review__source">{SOURCE[r.data.source]}, {r.data.date.getUTCFullYear()}</span>
           </p>
           {translated && <p class="review-card__note">{tr("reviews.translated")}</p>}

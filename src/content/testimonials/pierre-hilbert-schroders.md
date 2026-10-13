@@ -1,6 +1,7 @@
 ---
 who: "Pierre Hilbert"
-role: "Manager, Schroders"
+role: "Manager chez Schroders"
+roleTranslation: "Manager, Schroders"
 lang: "fr"
 source: "malt"
 date: 2023-01-10

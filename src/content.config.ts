@@ -58,6 +58,8 @@ const testimonials = defineCollection({
   schema: z.object({
     who: z.string().optional(),
     role: z.string().optional(),
+    // The role and the result label on the pages in the other language than the review's. The site has two.
+    roleTranslation: z.string().optional(),
     lang: z.enum(["en", "fr"]),
     source: z.enum(["contra", "malt"]),
     date: z.coerce.date(),
@@ -67,6 +69,7 @@ const testimonials = defineCollection({
     excerptTranslation: z.string().optional(),
     pile: z.number().int().min(1).max(6).optional(),
     result: z.string().optional(),
+    resultTranslation: z.string().optional(),
     photo: z.string().optional(),
     tone: z.enum(["ink"]).optional(),
   }),
