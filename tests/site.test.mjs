@@ -281,17 +281,17 @@ test("homepage hero: greeting, role in contrast, booking button and email", () =
 test("homepage hero: proof first, then the problem, then the offer, in both languages", () => {
   const en = page("");
   const hero = en.slice(en.indexOf('class="block hero"'), en.indexOf('class="hero__actions"'));
-  // The reassurance sits in the h1 itself (site review, item 9).
+  // Gautier's review of 2026-10-13: the Evaboot line leaves the h1 and opens the proof.
   const h1 = hero.slice(hero.indexOf("<h1"), hero.indexOf("</h1>"));
-  assert.ok(h1.includes("Three years on Evaboot, a B2B SaaS with over 200,000 users."));
-  const proof = hero.indexOf('At <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>, annual recurring revenue grew from $1M to $2M in those years.');
-  const problem = hero.indexOf("You run a small B2B SaaS, or operations or IT in a larger company.");
+  assert.ok(!h1.includes("Evaboot"));
+  const proof = hero.indexOf('I&#39;ve spent the last 3 years at <a class="hero__ref" href="/clients/evaboot/">Evaboot</a>, a B2B SaaS with over 200,000 users. Annual recurring revenue grew from $1M to $2M in those years.');
+  const problem = hero.indexOf("You run a B2B SaaS, operations, or IT.");
   const offer = hero.indexOf("You get one person who owns your product");
   assert.ok(proof > 0 && problem > proof && offer > problem, "proof, then problem, then offer");
   assert.ok(hero.includes("internal tools for operations and recruitment teams, marketplaces, and other B2B SaaS."));
   // What the problem costs, not only its signs (item 5), and the two-hire comparison (item 7).
-  assert.ok(hero.includes("Each month of delay is revenue you collect later."));
-  assert.ok(hero.includes("You do not need two hires, a product manager and a developer."));
+  assert.ok(hero.includes("Each month of delay is revenue you are not collecting."));
+  assert.ok(!hero.includes("two hires"));
   // At least two "you" for each "I" (item 6).
   const words = hero.replace(/<[^>]+>/g, " ").replace(/&#39;/g, "'");
   const you = (words.match(/\b(you|your)\b/gi) ?? []).length;
@@ -306,10 +306,10 @@ test("homepage hero: proof first, then the problem, then the offer, in both lang
   const fr = page("fr");
   const heroFr = fr.slice(fr.indexOf('class="block hero"'), fr.indexOf('class="hero__actions"'));
   const h1Fr = heroFr.slice(heroFr.indexOf("<h1"), heroFr.indexOf("</h1>"));
-  assert.ok(h1Fr.includes("Trois ans sur Evaboot, un SaaS B2B de plus de 200\u00a0000 utilisateurs."));
-  assert.ok(heroFr.includes('<a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>'));
-  assert.ok(heroFr.includes("Vous dirigez un petit SaaS B2B"));
-  assert.ok(heroFr.includes("Pas besoin de recruter deux personnes, un product manager et un développeur."));
+  assert.ok(!h1Fr.includes("Evaboot"));
+  assert.ok(heroFr.includes('J&#39;ai passé les 3 dernières années chez <a class="hero__ref" href="/fr/clients/evaboot/">Evaboot</a>, un SaaS B2B de plus de 200\u00a0000 utilisateurs.'));
+  assert.ok(heroFr.includes("Vous dirigez un SaaS B2B, des opérations ou une équipe IT."));
+  assert.ok(!heroFr.includes("deux personnes"));
   assert.ok(heroFr.includes('<a class="hero__ref" href="#track-record">une dizaine d&#39;autres projets</a>'));
   assert.match(fr, /<section class="block" id="track-record">/);
   assert.ok(heroFr.includes("<strong>Je pilote des agents IA au quotidien.</strong>"), "active verb: the agents are the tool, not the actor");

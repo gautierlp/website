@@ -27,7 +27,6 @@ parts.push({ text: rest });
     <span class="hero__line">{tr("hero.hi")}</span>
     <span class="hero__line"><span class="hero__role">{tr("hero.role")}</span>{tr("hero.where")}.</span>
     <span class="hero__line">{tr("hero.line1")}</span>
-    <span class="hero__line">{tr("hero.line2")}</span>
   </h1>
   <p>{parts.map((p) => (p.href ? <a class="hero__ref" href={p.href}>{p.text}</a> : p.text))}</p>
   <p>{tr("hero.problem")}</p>
