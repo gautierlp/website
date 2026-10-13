@@ -11,6 +11,7 @@ stats: [{"value": "13 working days", "label": "to build the first version from t
 featured: false
 nda: false
 when: "December 2024"
+logo: "/assets/images/domeet.png"
 order: 12
 status: "live"
 review: "Drafted on 2026-09-30: the heading sentences and the Task section. Check them, then delete this line."

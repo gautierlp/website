@@ -11,6 +11,7 @@ stats: [{"value": "13 jours ouvrés", "label": "pour construire la première ver
 featured: false
 nda: false
 when: "décembre 2024"
+logo: "/assets/images/domeet.png"
 order: 12
 status: "live"
 review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne."
