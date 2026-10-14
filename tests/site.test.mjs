@@ -420,8 +420,8 @@ test("use cases: written for the buyer, with the result number in the title", ()
     assert.match(html.match(/<h1>(.*?)<\/h1>/)[1], /\d/, `${slug} title has a number`);
   }
   const exit = page("case-studies/no-code-exit");
-  assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000 users/);
-  assert.match(exit, /about 200,000 users at the time of the migration/);
+  assert.match(exit.match(/<h1>(.*?)<\/h1>/)[1], /200,000\+ users/);
+  assert.match(exit, /more than 200,000 users at the time of the migration/);
 });
 
 test("no-code exit: the course's case study shape, in plain words", () => {

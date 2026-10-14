@@ -1,24 +1,23 @@
 ---
 kind: "use-case"
 name: "La sortie du no-code"
-title: "200 000 utilisateurs sortis de Bubble en deux mois, sans interruption de service"
+title: "Plus de 200 000 utilisateurs sortis de Bubble en deux mois, sans interruption de service"
 summary: "Un SaaS B2B quitte Bubble pour Django. J'ai cartographié toute l'app pour la reconstruire et migré les données pendant que le produit continuait à se vendre."
 intro: "Un SaaS B2B quitte Bubble pour Django. J'ai cartographié toute l'app pour la reconstruire et migré les données pendant que le produit continuait à se vendre."
 client: "SaaS B2B, extraction de leads"
 clientPage: "evaboot"
-result: "200k"
+result: "200k+"
 resultLabel: "utilisateurs migrés, sans interruption de service"
-stats: [{"value": "200k", "label": "utilisateurs migrés, sans interruption de service"}, {"value": "2 mois", "label": "de la cartographie de l'app à la bascule"}]
+stats: [{"value": "200k+", "label": "utilisateurs migrés, sans interruption de service"}, {"value": "2 mois", "label": "de la cartographie de l'app à la bascule"}]
 cover: {"src": "/assets/projects/evaboot/wcnvcxceeguy7ibzeaos.webp", "alt": "L'écran d'export d'Evaboot"}
 when: "avril à mai 2026"
 order: 1
 status: "live"
-review: "Traduit de l'anglais le 2026-10-06. Relire, puis supprimer cette ligne."
 ---
 
 ## Situation | Bubble freinait la roadmap.
 
-Le produit tournait sur Bubble, avec environ 200 000 utilisateurs au moment de la migration. La roadmap demandait plus que ce que Bubble permettait : des intégrations plus poussées avec HubSpot, Salesforce et d'autres CRM, des releases plus rapides, des tests A/B et des agents IA autonomes. Il y avait aussi peu de développeurs à recruter qui connaissent Bubble, et le coût de Bubble devenait trop élevé à mesure que le produit grandissait.
+Le produit tournait sur Bubble, avec plus de 200 000 utilisateurs au moment de la migration. La roadmap demandait plus que ce que Bubble permettait : des intégrations plus poussées avec HubSpot, Salesforce et d'autres CRM, des releases plus rapides, des tests A/B et des agents IA autonomes. Il y avait aussi peu de développeurs à recruter qui connaissent Bubble, et le coût de Bubble devenait trop élevé à mesure que le produit grandissait.
 
 Les fondateurs ont décidé de reconstruire le cœur sur Django et AWS. Le risque, c'étaient les données : des années de comptes, d'exports, de crédits et de facturation, qui devaient arriver intactes pendant que les clients continuaient à payer.
 
@@ -30,7 +29,7 @@ Avant que le nouveau cœur existe, donner à l'ingénieur backend une carte comp
 
 - **Une carte complète de l'app.** Chaque page, workflow, table et champ, documenté avec l'aide d'un agent d'analyse de Bubble.
 - **Le périmètre tranché d'abord.** En avril 2026, l'ingénieur et moi avons passé en revue les questions ouvertes : quoi garder, quoi abandonner, quoi fusionner. Les champs qu'aucun utilisateur n'avait jamais remplis ont été abandonnés.
-- **Un chargement complet.** Tout l'export Bubble est entré dans la nouvelle base le 1er mai 2026, toutes les tables, à pleine volumétrie.
+- **Un chargement complet.** Tout l'export Bubble est entré dans la nouvelle base en une fois, toutes les tables, à pleine volumétrie.
 - **Une synchro en continu.** Chaque enregistrement modifié sur Bubble après le chargement a suivi vers la nouvelle base, pour que les deux systèmes restent identiques jusqu'à la bascule.
 - **Une bascule planifiée avec l'équipe.** L'ingénieur, les fondateurs et moi avons arrêté ensemble les étapes de la bascule.
 
