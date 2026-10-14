@@ -465,6 +465,15 @@ test("NDA apps: no link underline under the blurred name in the track record", (
   assert.match(cssText(), /\.record__main a:has\(\.nda\)\{text-decoration:none\}/);
 });
 
+test("NDA apps: one redaction tile in the track record, the same for all three", () => {
+  const home = page("");
+  const record = home.slice(home.indexOf('id="track-record"'), home.indexOf("</section>", home.indexOf('id="track-record"')));
+  const rows = record.split("<li").slice(1).filter((r) => r.includes('class="nda"'));
+  assert.equal(rows.length, 3);
+  for (const row of rows) assert.match(row, /<span class="record__icon record__icon--nda" aria-hidden="true"><\/span>/);
+  assert.match(cssText(), /\.record__icon--nda\{[^}]*linear-gradient/);
+});
+
 test("NDA apps: placeholder name blurred, with an NDA label, on the list and the page", () => {
   const home = page("");
   assert.equal((home.match(/class="nda"/g) ?? []).length, 3);
