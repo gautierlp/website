@@ -560,8 +560,17 @@ test("reviews: no fake, off-topic or Bubble-centred review on the site", () => {
     const html = page(p);
     for (const gone of ["Clara Ananou", "Xano", "promotional videos", "vidéos promotionnelles", "implement an API on our website", "Gautier showed his expertise", "a démontré son expertise", "Gautier’s work with Bubble"]) assert.ok(!html.includes(gone), `${p}: ${gone}`);
     const quotes = [...html.matchAll(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/g)].map((m) => m[1]).join("\n");
-    assert.ok(!/Bubble/.test(quotes), `${p}: no review names Bubble`);
+    // A review may name Bubble only as the platform Gautier took a client off (JB, Malt, 2026).
+    const exits = quotes.replace(/sortir de Bubble|leave Bubble/g, "");
+    assert.ok(!/Bubble/.test(exits), `${p}: no review names Bubble, except as the platform left`);
   }
+});
+
+test("reviews: JB's Malt review of 2026, the full text on the reviews pages", () => {
+  const en = page("reviews"), fr = page("fr/reviews");
+  assert.ok(fr.includes("200 000 utilisateurs") && fr.includes("notre serveur MCP et notre CLI"));
+  assert.ok(en.includes("200,000 users") && en.includes("our MCP server and our CLI"));
+  for (const html of [en, fr]) assert.ok(!html.includes("$200k MRR") && !html.includes("200k $ de MRR"), "the 2024 Contra review is gone");
 });
 
 test("case study: Evaboot names the founders together, the CRM integrations, and no growth disclaimer", () => {
